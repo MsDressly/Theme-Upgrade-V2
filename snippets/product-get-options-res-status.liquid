@@ -1,0 +1,52 @@
+{%- assign disabled_value = true -%}
+{%- assign active_value = false -%}
+{%- if settings.product_hide_options_without_availability_variants -%}
+    {%- assign hidden_value = false -%}
+{%- else -%}
+    {%- assign hidden_value = true -%}
+{% endif %}
+{%- for variant in product.variants -%}
+    {%- if variant.available != true and settings.product_hide_options_without_availability_variants -%}
+        {%- continue -%}
+    {%- endif -%}
+    {%- if option_index0 == 0 and value == variant.option1 -%}
+        {%- assign disabled_value = false -%}
+        {%- if settings.product_hide_options_without_availability_variants -%}
+            {%- break -%}
+        {%- elsif variant.available -%}
+            {%- assign hidden_value = false -%}
+            {%- break -%}
+        {% endif %}
+    {%- elsif option_index0 == 1 and current_variant.option1 == variant.option1 and value == variant.option2 -%}
+        {%- assign disabled_value = false -%}
+        {%- if settings.product_hide_options_without_availability_variants -%}
+            {%- break -%}
+        {%- elsif variant.available -%}
+            {%- assign hidden_value = false -%}
+            {%- break -%}
+        {% endif %}
+    {%- elsif option_index0 == 2 and current_variant.option1 == variant.option1 and current_variant.option2 == variant.option2 and value == variant.option3 -%}
+        {%- assign disabled_value = false -%}
+        {%- if settings.product_hide_options_without_availability_variants -%}
+            {%- break -%}
+        {%- elsif variant.available -%}
+            {%- assign hidden_value = false -%}
+            {%- break -%}
+        {% endif %}
+    {%- endif -%}
+{%- endfor -%}
+{%- unless disabled_value == true -%}
+    {%- if product.options contains option.name -%}
+        {%- if option_index0 == 0 and current_variant.option1 == value -%}
+            {%- assign active_value = true -%}
+        {%- elsif option_index0 == 1 and current_variant.option2 == value -%}
+            {%- assign active_value = true -%}
+        {%- elsif option_index0 == 2 and current_variant.option3 == value -%}
+            {%- assign active_value = true -%}
+        {%- endif -%}
+        {%- if active_value -%}
+            {%- assign label_value = value | replace: '<', '&lt;' | replace: '>', '&gt;' -%}
+        {%- endif -%}
+    {%- endif -%}
+{%- endunless -%}
+{% capture trigger_attr %}{% if trigger %} data-js-trigger="{{ trigger }}-{% render 'product-get-options-strip-symbols' with value: option.name %}-{% render 'product-get-options-strip-symbols' with value: value %}"{% elsif trigger_id %} data-js-trigger-id="{{ trigger_id }}-{% render 'product-get-options-strip-symbols' with value: option.name %}-{% render 'product-get-options-strip-symbols' with value: value %}"{% endif %}{% endcapture %}

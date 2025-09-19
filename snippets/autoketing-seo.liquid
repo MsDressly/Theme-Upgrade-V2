@@ -1,0 +1,78 @@
+{%- capture autoketing_seo_snippets -%}
+  {% comment %}Body Liquid{% endcomment %}
+  <!-- Added by AUTOKETING SEO APP -->
+  {%- assign autoketing_seo = shop.metafields.autoketing_seo -%}
+  {%- liquid
+    assign ak_space_mod = " "
+    assign ak_site_verifications = autoketing_seo.ak_site_verifications
+    assign ak_redirect_404 = autoketing_seo.ak_redirect_404
+  -%}
+  {% comment %}Meta Tag{% endcomment %}
+  {%- if autoketing_seo.status_seo.status_meta_tag == true -%}
+    {%- capture autoketing_seo_meta -%}
+      {% include 'autoketing-seo-meta' %}
+    {%- endcapture -%}
+    {%- unless autoketing_seo_meta contains 'Liquid error' -%}
+      {{ autoketing_seo_meta }}
+    {%- endunless -%}
+  {%- endif -%}
+  {% comment %}Meta Tag{% endcomment %}
+  {% comment %}Site Verifications{% endcomment %}
+  {% if ak_site_verifications.site_verification_status == true %}
+    {% if ak_site_verifications.site_verification_google %}
+      {{ ak_site_verifications.site_verification_google }}
+    {% endif %}
+    {% if ak_site_verifications.site_verification_bing %}
+      {{ ak_site_verifications.site_verification_bing }}
+    {% endif %}
+    {% if ak_site_verifications.site_verification_pinterest %}
+      {{ ak_site_verifications.site_verification_pinterest }}
+    {% endif %}
+    {% if ak_site_verifications.site_verification_yandex %}
+      {{ ak_site_verifications.site_verification_yandex }}
+    {% endif %}
+    {% if ak_site_verifications.site_verification_baidu %}
+      {{ ak_site_verifications.site_verification_baidu }}
+    {% endif %}
+    {% if ak_site_verifications.site_verification_norton %}
+      {{ ak_site_verifications.site_verification_norton }}
+    {% endif %}
+    {% if ak_site_verifications.site_verification_alexa %}
+      {{ ak_site_verifications.site_verification_alexa }}
+    {% endif %}
+  {% endif %}
+  {% comment %}Site Verifications{% endcomment %}
+  {% comment %}Redirect 404{% endcomment %}
+  {% if request.page_type == '404' and ak_redirect_404.redirect_404_status == true %}
+    <script>let redirect_404_path = "/{{ ak_redirect_404.redirect_404_path }}";
+        let redirect_404_status_path = 0;
+        let redirect_404_error_path = redirect_404_path;
+        let xhrCheck = new XMLHttpRequest();
+        xhrCheck.open("GET", redirect_404_path, false);
+        xhrCheck.onload = function () {
+            redirect_404_status_path = xhrCheck.status;
+        };
+        xhrCheck.send();
+        if (redirect_404_status_path !== 200) redirect_404_path = "/";
+        let xhrReport = new XMLHttpRequest();
+        xhrReport.open("POST", "{{ ak_redirect_404.redirect_404_server_report }}", false);
+        xhrReport.send(JSON.stringify({
+            shop_domain: "{{ shop.permanent_domain }}",
+            redirect_404_path,
+            redirect_404_status_path,
+            redirect_404_error_path, ...window.location
+        }));
+        let meta = document.createElement("meta");
+        meta.setAttribute("http-equiv", "refresh");
+        meta.setAttribute("content", "0;URL=" + redirect_404_path);
+        document.head.appendChild(meta);</script>
+  {% endif %}
+  {% comment %}Redirect 404{% endcomment %}
+  <!-- /Added by AUTOKETING SEO APP -->
+  {% comment %}Body Liquid{% endcomment %}
+{%- endcapture -%}
+{% comment %}Check Liquid error{% endcomment %}
+{%- unless autoketing_seo_snippets contains 'Liquid error' -%}
+  {{ autoketing_seo_snippets }}
+{%- endunless -%}
+{% comment %}Check Liquid error{% endcomment %}

@@ -1,0 +1,9 @@
+{%- if icons_html -%}
+    {% capture links_path %}{% if vertical_menu == true %}vertical-{% endif %}{{ link.title }}{% endcapture %}
+    {%- assign links_path = links_path | handleize | prepend: '|||' | append: '|||' -%}
+    {%- if icons_html contains links_path -%}
+        {%- assign content_split_1 = icons_html | split: links_path -%}
+        {%- assign content_split_2 = content_split_1[1] | split: '|||' -%}
+        {{ content_split_2[0] }}
+    {%- endif -%}
+{%- endif -%}

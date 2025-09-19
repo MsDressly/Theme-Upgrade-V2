@@ -1,0 +1,228 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "show_title": true,
+        "show_content": false
+      }
+    },
+    "1628281969787c84fe": {
+      "type": "lookbook",
+      "blocks": {
+        "1542384287656": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/1937547927_2_3_1.jpg"
+          }
+        },
+        "1542384329087": {
+          "type": "product",
+          "settings": {
+            "product": "copy-of-floppy-hat",
+            "title": "",
+            "price": "",
+            "compare_at_price": "",
+            "horizontal_position": 60,
+            "vertical_position": 42
+          }
+        },
+        "1542384456250": {
+          "type": "product",
+          "settings": {
+            "product": "copy-of-cotton-off-the-shoulder-tee",
+            "title": "",
+            "price": "",
+            "compare_at_price": "",
+            "horizontal_position": 28,
+            "vertical_position": 80
+          }
+        },
+        "1542384593282": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/2605987800_1_1_1.jpg"
+          }
+        },
+        "1542385389127": {
+          "type": "product",
+          "settings": {
+            "product": "meizu-usb-type-c-metal-data-cable",
+            "title": "",
+            "price": "",
+            "compare_at_price": "",
+            "horizontal_position": 57,
+            "vertical_position": 23
+          }
+        },
+        "1542385469823": {
+          "type": "product",
+          "settings": {
+            "product": "copy-of-cotton-off-the-shoulder-tee",
+            "title": "",
+            "price": "",
+            "compare_at_price": "",
+            "horizontal_position": 64,
+            "vertical_position": 91
+          }
+        },
+        "1542385530191": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/0047628527_1_1_1.jpg"
+          }
+        },
+        "1542385552624": {
+          "type": "product",
+          "settings": {
+            "product": "copy-of-flared-trousers",
+            "title": "",
+            "price": "",
+            "compare_at_price": "",
+            "horizontal_position": 48,
+            "vertical_position": 42
+          }
+        },
+        "1542385639752": {
+          "type": "product",
+          "settings": {
+            "product": "beats-pro",
+            "title": "",
+            "price": "",
+            "compare_at_price": "",
+            "horizontal_position": 66,
+            "vertical_position": 66
+          }
+        }
+      },
+      "block_order": [
+        "1542384287656",
+        "1542384329087",
+        "1542384456250",
+        "1542384593282",
+        "1542385389127",
+        "1542385469823",
+        "1542385530191",
+        "1542385552624",
+        "1542385639752"
+      ],
+      "settings": {
+        "show_title": true,
+        "layout": "1",
+        "grid": "3",
+        "grid_responsive": "",
+        "image_size": 500
+      }
+    },
+    "16282823945b98b6fe": {
+      "type": "lookbook",
+      "blocks": {
+        "1542385876463": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/0051019141_2_3_1_8223d91e-cd86-42d2-b066-6740d13c97da.jpg"
+          }
+        },
+        "1542385895396": {
+          "type": "product",
+          "settings": {
+            "product": "copy-of-drawstring-sweater",
+            "title": "",
+            "price": "",
+            "compare_at_price": "",
+            "horizontal_position": 54,
+            "vertical_position": 47
+          }
+        },
+        "1542385994777": {
+          "type": "product",
+          "settings": {
+            "product": "skinny-mid-rise-trousers",
+            "title": "",
+            "price": "",
+            "compare_at_price": "",
+            "horizontal_position": 34,
+            "vertical_position": 71
+          }
+        },
+        "1542386125065": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/1938617800_2_3_1.jpg"
+          }
+        },
+        "1542386146183": {
+          "type": "product",
+          "settings": {
+            "product": "copy-of-mini-tweed-backpack",
+            "title": "",
+            "price": "",
+            "compare_at_price": "",
+            "horizontal_position": 55,
+            "vertical_position": 53
+          }
+        },
+        "1542386237758": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/0047628627_2_3_1.jpg"
+          }
+        },
+        "1542386264335": {
+          "type": "product",
+          "settings": {
+            "product": "beats-pro",
+            "title": "",
+            "price": "",
+            "compare_at_price": "",
+            "horizontal_position": 40,
+            "vertical_position": 65
+          }
+        }
+      },
+      "block_order": [
+        "1542385876463",
+        "1542385895396",
+        "1542385994777",
+        "1542386125065",
+        "1542386146183",
+        "1542386237758",
+        "1542386264335"
+      ],
+      "settings": {
+        "show_title": true,
+        "layout": "1",
+        "grid": "3",
+        "grid_responsive": "",
+        "image_size": 500
+      }
+    },
+    "162828280213fc5607": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 30,
+        "margin_bottom": 0,
+        "margin_top_mobile": 0,
+        "margin_bottom_mobile": 0,
+        "container": "boxed",
+        "show_separator": false,
+        "title": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1628281969787c84fe",
+    "16282823945b98b6fe",
+    "162828280213fc5607"
+  ]
+}

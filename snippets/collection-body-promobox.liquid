@@ -1,0 +1,15 @@
+{%- if paginate_current_page == 1 -%}
+    {%- for block in section.blocks -%}
+        {%- case block.type -%}
+        {%- when 'promobox' -%}
+        {%- if block.settings.for_collection == collection.handle -%}
+            {% capture block_id %}collection-body-block-id-{{ section.id }}-{{ forloop.index }}{% endcapture %}
+            <div class="{{ grid_classes }}" data-collection-promobox{% if block.settings.visible == 'desktop' %} data-d-none data-d-md-block{% elsif block.settings.visible == 'mobile' %} data-d-md-none{% endif %}>
+                <div class="{{ block_id }} mb-30" data-js-product>
+                    {% render 'promobox' with block: block block_id: block_id promobox_curtain_opacity: promobox_curtain_opacity promobox_height_preset_1: promobox_height_preset_1 promobox_height_preset_2: promobox_height_preset_2 promobox_height_preset_3: promobox_height_preset_3 promobox_ultra_height_preset_1: promobox_ultra_height_preset_1 %}
+                </div>
+            </div>
+        {%- endif -%}
+        {%- endcase -%}
+    {%- endfor -%}
+{%- endif -%}

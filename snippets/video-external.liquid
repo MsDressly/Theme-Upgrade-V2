@@ -1,0 +1,11 @@
+{%- assign host = host | default: media.host | default: media.type | default: 'youtube' -%}
+<div class="embed-responsive{% if height == 'fullscreen' %} lazyload-fullscreen invisible{% elsif height == 'fullscreen_header' %} lazyload-fullscreen-header invisible{% elsif height_custom != true %} embed-responsive-16by9{% endif %}">
+    {%- if height_custom == true -%}
+        <div class="embed-responsive__height-spacer"></div>
+    {%- endif -%}
+    {%- if host == 'youtube' -%}
+        <iframe {% if lazyload %}data-{% endif %}src="https://www.youtube.com/embed/{{ video_url }}?rel=0&amp;controls={% if controls %}1{% else %}0{% endif %}&amp;showinfo=0{% if autoplay %}&amp;autoplay=1&amp;loop=1&amp;mute=1{% endif %}{% if enablejsapi %}&enablejsapi=1{% endif %}" allow="autoplay; encrypted-media" allowfullscreen class="embed-responsive-item" loading="eager"></iframe>
+    {%- elsif host == 'vimeo' -%}
+        <iframe {% if lazyload %}data-{% endif %}src="https://player.vimeo.com/video/{{ video_url }}?color=ffffff&amp;title=0&amp;byline=0{% if autoplay %}&amp;autoplay=1&amp;loop=1&amp;mute=1{% endif %}" allow="autoplay; encrypted-media" allowfullscreen class="embed-responsive-item" loading="eager"></iframe>
+    {%- endif -%}
+</div>

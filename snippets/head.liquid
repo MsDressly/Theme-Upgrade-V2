@@ -1,0 +1,110 @@
+{%- comment -%}
+This file has been modified by the Yoast SEO for Shopify app.
+You can learn more about this (and learn how to cleanly revert these changes) at https://yoa.st/removing-theme-changes.
+{%- endcomment -%}
+<meta charset="utf-8">
+{% include 'global-variables' %}
+<script>
+    if(!window.performance.mark) {
+        window.performance.mark = a => a;
+    }
+    window.performance.mark('theme:DOM:load');
+    {%- if request.design_mode -%}
+        window.isDesignMode = true;
+    {%- endif -%}
+    window.theme = {};window.page = { default: {} };
+</script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="{{ settings.color_theme }}">
+{%- assign get_canonical_url = canonical_url -%}
+{%- if template.name == 'collection' -%}
+    {%- assign collectionURLEnd = 'collections/' | append: collection.handle -%}
+    {%- assign canonical_url_split = get_canonical_url | split: collectionURLEnd -%}
+    {%- assign get_canonical_url = canonical_url_split[0] | append: collectionURLEnd -%}
+{%- endif -%}
+{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<link rel="canonical" href="{{ get_canonical_url }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+{%- assign page_title_downcase = page.title | downcase -%}
+{%- if template == 'page' and page_title_downcase contains 'include' -%}
+    {%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta name="robots" content="noindex">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+{%- endif -%}
+{%- if settings.favicon != blank -%}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+{%- endif -%}
+{%- if template contains 'gift_card' -%}
+    {%- assign formatted_initial_value = gift_card.initial_value | money_without_trailing_zeros: gift_card.currency -%}
+    {%- assign formatted_initial_value_stripped = formatted_initial_value | strip_html -%}
+    {%- comment -%}Auto-disabled. Yoast plugin is taking care of SEO output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<title>{{ 'gift_cards.issued.title' | t: value: formatted_initial_value_stripped, shop: shop.name }}</title>
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+    {%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta name="description" content="{{ 'gift_cards.issued.subtext' | t }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+{%- else -%}
+    {%- comment -%}Auto-disabled. Yoast plugin is taking care of SEO output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<title>
+        {{ page_title }}
+        {%- if current_tags -%}
+            {% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}
+        {%- endif -%}
+        {%- if current_page != 1 -%}
+            &ndash; {{ 'general.meta.page' | t: page: current_page }}
+        {%- endif -%}
+        {%- unless page_title contains shop.name -%}
+            &ndash; {{ shop.name }}
+        {%- endunless -%}
+    </title>
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+    {%- if page_description -%}
+        {%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta name="description" content="{{ page_description | escape }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+    {%- endif -%}
+{%- endif -%}
+{% render 'head-get-social-meta-tags' %}
+<link rel="preconnect" href="https://cdn.shopify.com" crossorigin="">
+{% render 'layout-get-version' %}
+{%- assign skin_css_files = 'home-16,home-18,skin-1,skin-2,skin-3,skin-4,skin-5,skin-6,skin-7,skin-8,skin-9,skin-10,skin-11,skin-12,skin-13,skin-14,skin-15,skin-16,skin-17,skin-18' | split: ',' -%}
+{% include 'js-assets-loader' %}
+{% include 'css-start' %}
+{{ get_content_for_header | replace: 'name="shopify-digital-wallet"', 'property="shopify-digital-wallet"' | replace: shopify_review_js_url, shopify_review_js_url_replace | replace: "window.addEventListener('load', asyncLoad, false);", "window.addEventListener('theme.assetsLoader::loaded:scripts:theme', asyncLoad, false);" | replace: "window.attachEvent('onload', asyncLoad);", "window.attachEvent('theme.assetsLoader::loaded:scripts:theme', asyncLoad);" }}
+{% include 'js-start' %}
+{%- if settings.app_language == 'weglot' -%}
+    {% capture weglot_includes %}
+        {% include 'weglot_hreftags' %}
+        {% include 'weglot_switcher' %}
+    {% endcapture %}
+    {%- unless weglot_includes contains "Liquid error" -%}
+        {{ weglot_includes }}
+    {%- endunless -%}
+{%- endif -%}
+
+{%- if settings.reviews_type == 'loox' -%}
+    {{ shop.metafields.loox["global_html_head"] }}
+{%- endif -%}
+
+{%- assign shopify_review_js_url = '\/\/productreviews.shopifycdn.com\/assets\/v4\/spr.js?shop=' | append: shop.permanent_domain -%}
+{%- if template.name == 'product' -%}
+    {%- assign shopify_review_js_url_replace = '\/\/productreviews.shopifycdn.com\/assets\/v4\/spr.js' -%}
+{%- else -%}
+    {%- assign shopify_review_js_url_replace = '' -%}
+{%- endif -%}
+
+{% render 'layout-get-shella' %}

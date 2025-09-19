@@ -1,0 +1,1641 @@
+<!-- snippets/promobox.liquid -->
+{%- assign format_pjpg = format_pjpg | default: block.settings.format_pjpg | default: settings.promobox_format_pjpg -%}
+{%- assign promobox_image_border_radius = promobox_image_border_radius | default: settings.promobox_image_border_radius -%}
+{%- assign type = type | default: block.settings.type -%}
+{%- assign height = height | default: block.settings.height | default: 'auto' -%}
+{%- assign min_height = min_height | default: block.settings.min_height -%}
+{%- assign content_position = content_position | default: block.settings.content_position -%}
+{%- assign content_align = content_align | default: block.settings.content_align -%}
+{%- assign add_container = add_container | default: block.settings.add_container -%}
+{%- assign content_width = content_width | default: block.settings.content_width -%}
+{%- assign text_width = text_width | default: block.settings.text_width -%}
+{%- assign image = image | default: block.settings.image -%}
+{%- assign image_size = image_size | default: block.settings.image_size -%}
+{%- assign image_mobile = image_mobile | default: block.settings.image_mobile -%}
+{%- assign image_mobile_size = image_mobile_size | default: block.settings.image_mobile_size -%}
+{%- assign image_position_x = image_position_x | default: block.settings.image_position_x -%}
+{%- assign color_image_mask = color_image_mask | default: block.settings.color_image_mask -%}
+{%- assign image_mask_opacity = image_mask_opacity | default: block.settings.image_mask_opacity -%}
+{%- assign url = url | default: block.settings.url -%}
+{%- assign text_line_1 = text_line_1 | default: block.settings.text_line_1 -%}
+{%- assign text_line_2 = text_line_2 | default: block.settings.text_line_2 -%}
+{%- assign text_line_3 = text_line_3 | default: block.settings.text_line_3 -%}
+{%- assign style = style | default: block.settings.style -%}
+{%- assign button_1 = button_1 | default: block.settings.button_1 -%}
+{%- assign button_1_url = button_1_url | default: block.settings.button_1_url | default: url | default: '/' -%}
+{%- assign color_button_type_1 = color_button_type_1 | default: block.settings.color_button_type_1 -%}
+{%- assign button_2 = button_2 | default: block.settings.button_2 -%}
+{%- assign button_2_url = button_2_url | default: block.settings.button_2_url | default: url | default: '/' -%}
+{%- assign color_button_type_2 = color_button_type_2 | default: block.settings.color_button_type_2 -%}
+{%- assign list_1 = list_1 | default: block.settings.list_1 -%}
+{%- assign custom_html = custom_html | default: block.settings.custom_html -%}
+{%- assign video_lazyload = video_lazyload | default: false -%}
+{%- assign video_mp4_url = video_mp4_url | default: block.settings.video_mp4_url -%}
+{%- assign video_external_url = video_external_url | default: block.settings.video_external_url -%}
+{%- assign video_controls = video_controls | default: block.settings.video_controls -%}
+{%- assign video_autoplay = video_autoplay | default: block.settings.video_autoplay -%}
+{%- assign color_bg = color_bg | default: block.settings.color_bg -%}
+{%- assign parallax = parallax | default: block.settings.parallax -%}
+{%- assign animation_from = animation_from | default: block.settings.animation_from | default: 'none' -%}
+{%- assign animation_to = animation_to | default: block.settings.animation_to | default: 'none' -%}
+{%- assign animation_opacity = animation_opacity | default: block.settings.animation_opacity -%}
+{%- assign animation_text = animation_text | default: block.settings.animation_text -%}
+{% capture type_n_style_n_class %}{% if block.settings.customization_class != blank %}{{ block.settings.customization_class }} {% endif %}promobox--{{ type }} promobox--style-{{ style }}{% endcapture %}
+{%- if height contains 'fullscreen' -%}
+    {%- assign promobox_height = height -%}
+{%- elsif height contains 'preset_' -%}
+    {%- case height -%}
+        {%- when 'preset_1' -%}
+            {%- assign responsive_height = promobox_height_preset_1 -%}
+            {%- assign ultra_responsive_height = promobox_ultra_height_preset_1 -%}
+        {%- when 'preset_2' -%}
+            {%- assign responsive_height = promobox_height_preset_2 -%}
+            {%- assign ultra_responsive_height = promobox_ultra_height_preset_1 -%}
+        {%- when 'preset_3' -%}
+            {%- assign responsive_height = promobox_height_preset_3 -%}
+            {%- assign ultra_responsive_height = promobox_ultra_height_preset_3 -%}
+    {%- endcase -%}
+{%- elsif height != 'auto' -%}
+    {%- assign responsive_height = height | append: '%' -%}
+{%- endif -%}
+{%- if parallax and parallax != 'disable' -%}
+    {%- assign parallax_enable = true -%}
+{%- endif -%}
+{%- if parallax_enable and responsive_height == blank -%}
+    {%- assign responsive_height = 1.0 | divided_by: image.aspect_ratio | times: 60 | append: '%' -%}
+{%- endif -%}
+{%- capture res_image_size -%}{{ image_size | default: image_size }}x{%- endcapture -%}
+{%- if image_mobile != blank -%}
+    {%- capture res_image_mobile_size -%}{{ image_mobile_size | default: image_mobile_size }}x{%- endcapture -%}
+    {%- assign desktop_n_mobile_image = true -%}
+{%- endif -%}
+{% capture link_begin_tag %}{% if url %}a href="{{ url }}"{% else %}div{% endif %}{% endcapture %}
+{% capture link_end_tag %}{% if url %}a{% else %}div{% endif %}{% endcapture %}
+{%- if format_pjpg -%}
+    {%- assign image_format = 'pjpg' -%}
+{%- else -%}
+    {%- assign image_format = null -%}
+{%- endif -%}
+
+{%- if get_only_content != true and image != blank -%}
+    {%- if responsive_height != blank or min_height > 0 -%}
+        {%- if image_position_x != blank and image_position_x != '50' -%}
+            {% capture styles_image_size_html %}
+                <style>
+                    @media (max-width: 1024px) {
+                        .{{ block_id }} .rimage__img--cover {
+                            object-position: {{ 100 | minus: image_position_x }}% 50%;
+                        }
+                    }
+                </style>
+            {% endcapture %}
+            {%- if request.design_mode -%}
+                {{ styles_image_size_html }}
+            {%- else -%}
+                <template class="js-loader-inline-style" data-key="{{ styles_image_size_html | hmac_sha1: 'secret_key' }}">{{ styles_image_size_html }}</template>
+            {%- endif -%}
+        {%- endif -%}
+    {%- endif -%}
+{%- endif -%}
+
+{%- if button_1 != blank -%}
+    {% capture button_1_html %}
+        <a href="{{ button_1_url }}" class="promobox__btn-1 btn btn--{{ color_button_type_1 | replace: '-transparent', ' btn--transparent' }}">{{ button_1 }}</a>
+    {% endcapture %}
+{%- endif -%}
+{%- if button_2 != blank -%}
+    {% capture button_2_html %}
+        <a href="{{ button_2_url }}" class="promobox__btn-2 btn btn--{{ color_button_type_2 | replace: '-transparent', ' btn--transparent' }}">{{ button_2 }}</a>
+    {% endcapture %}
+{%- endif -%}
+
+{% capture res_bg %}
+    {%- if video_mp4_url != blank -%}
+        {%- if responsive_height != blank or min_height > 0 -%}
+            {% render 'rvideo' with video: video_mp4_url poster: image poster_size: res_image_size responsive_height: responsive_height min_height: min_height autoplay: video_autoplay controls: video_controls lazyload: video_lazyload %}
+        {%- else -%}
+            <video src="{{ video_mp4_url }}" muted playsinline{% if video_controls %} controls{% endif %}{% if video_autoplay %} autoplay loop{% endif %}{% if image != blank %} {% if video_lazyload %}data-{% endif %}poster="{{ image | img_url: image_size }}"{% endif %} preload="auto" loading="eager" class="w-100"></video>
+        {%- endif -%}
+    {%- elsif video_external_url != blank -%}
+        {% render 'video-external' video_url: video_external_url.id autoplay: video_autoplay controls: video_controls lazyload: video_lazyload media: video_external_url %}
+    {%- else -%}
+        {%- assign promobox_bg_is = 'image' -%}
+        {%- if parallax_enable and responsive_height -%}
+            {% render 'rimage' with image: image size: res_image_size format: image_format responsive_height: responsive_height ultra_responsive_height: ultra_responsive_height min_height: min_height is_parallax: true parallax_type: parallax only_desktop: desktop_n_mobile_image height: height %}
+            {%- if image_mobile != blank -%}
+                {% render 'rimage' with image: image_mobile size: res_image_mobile_size format: image_format responsive_height: responsive_height ultra_responsive_height: ultra_responsive_height min_height: min_height is_parallax: true parallax_type: parallax only_mobile: desktop_n_mobile_image height: height %}
+            {%- endif -%}
+        {%- else -%}
+            <div class="image-animation {% if animation_from != 'none' or animation_to != 'none' %}image-animation--from-{{ animation_from }} image-animation--to-{{ animation_to }}{% endif %}{% if animation_opacity == 'static_n_hover' or animation_opacity == 'static' %} image-animation--from-opacity{% endif %}{% if animation_opacity == 'static_n_hover' or animation_opacity == 'hover' %} image-animation--to-opacity{% endif %}">
+                {%- if animation_from != 'none' or animation_to != 'none' -%}
+                    {%- assign scale_perspective = 1.1 -%}
+                {%- endif -%}
+                {% render 'rimage' with image: image size: res_image_size format: image_format scale_perspective: scale_perspective responsive_height: responsive_height ultra_responsive_height: ultra_responsive_height min_height: min_height only_desktop: desktop_n_mobile_image height: height %}
+                {%- if image_mobile != blank -%}
+                    {% render 'rimage' with image: image_mobile size: res_image_mobile_size format: image_format scale_perspective: scale_perspective responsive_height: responsive_height ultra_responsive_height: ultra_responsive_height min_height: min_height only_mobile: desktop_n_mobile_image height: height %}
+                {%- endif -%}
+            </div>
+        {%- endif -%}
+    {%- endif -%}
+{% endcapture %}
+
+{%- if color_image_mask != blank and color_image_mask != 'rgba(0,0,0,0)' -%}
+    {% capture res_bg %}
+    <div class="position-relative">
+        {{ res_bg }}
+        <div class="absolute-stretch pointer-events-none" style="background-color: {{ color_image_mask }}; opacity: {{ image_mask_opacity }};"></div>
+    </div>
+    {% endcapture %}
+{%- endif -%}
+
+{%- if promobox_image_border_radius != blank and promobox_image_border_radius > 0 -%}
+    {% capture res_bg %}
+    <div class="overflow-hidden" style="border-radius: {{ promobox_image_border_radius }}px;-webkit-transform: translateZ(0);-webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);">
+        {{ res_bg }}
+    </div>
+    {% endcapture %}
+{%- endif -%}
+
+{%- if promobox_bg_is == 'image' and parallax_enable and parallax != 'fixed' and responsive_height -%}
+    {% capture res_bg %}
+    <parallax-element class="parallax d-block" data-direction="{{ parallax }}">
+        {{ res_bg }}
+    </parallax-element>
+    <script>
+        theme.AssetsLoader.require('scripts', 'parallax');
+    </script>
+    {% endcapture %}
+{%- endif -%}
+
+{% unless type contains 'clean' %}
+    {% capture style_base_html %}
+        <style>
+            :root {
+                {% if block.settings.style == '1' %}
+                    --promobox-style-1-text-1-c: var(--theme3);
+                    --promobox-style-1-text-2-c: var(--theme);
+                    --promobox-style-1-text-3-c: var(--theme);
+                    --promobox-style-1-text-bg: var(--theme2);
+                    --promobox-style-1-curtain-bg: var(--theme2);
+                {% elsif block.settings.style == '2' %}
+                    --promobox-style-2-text-1-c: var(--theme);
+                    --promobox-style-2-text-2-c: var(--theme);
+                    --promobox-style-2-text-3-c: var(--theme3);
+                    --promobox-style-2-text-bg: var(--theme2);
+                    --promobox-style-2-curtain-bg: var(--theme2);
+                {% elsif block.settings.style == '3' %}
+                    --promobox-style-3-text-1-c: var(--theme);
+                    --promobox-style-3-text-2-c: var(--theme3);
+                    --promobox-style-3-text-3-c: var(--theme);
+                    --promobox-style-3-text-bg: var(--theme2);
+                    --promobox-style-3-curtain-bg: var(--theme2);
+                {% elsif block.settings.style == '4' %}
+                    --promobox-style-4-text-1-c: var(--theme);
+                    --promobox-style-4-text-2-c: var(--theme);
+                    --promobox-style-4-text-3-c: var(--theme);
+                    --promobox-style-4-text-bg: var(--theme2);
+                    --promobox-style-4-curtain-bg: var(--theme2);
+                {% elsif block.settings.style == '5' %}
+                    --promobox-style-5-text-1-c: var(--theme2);
+                    --promobox-style-5-text-2-c: var(--theme2);
+                    --promobox-style-5-text-3-c: var(--theme2);
+                    --promobox-style-5-text-bg: var(--theme);
+                    --promobox-style-5-curtain-bg: var(--theme);
+                {% elsif block.settings.style == '6' %}
+                    --promobox-style-6-text-1-c: var(--theme2);
+                    --promobox-style-6-text-2-c: var(--theme2);
+                    --promobox-style-6-text-3-c: var(--theme3);
+                    --promobox-style-6-text-bg: var(--theme);
+                    --promobox-style-6-curtain-bg: var(--theme);
+                {% elsif block.settings.style == '7' %}
+                    --promobox-style-7-text-1-c: var(--theme2);
+                    --promobox-style-7-text-2-c: var(--theme);
+                    --promobox-style-7-text-3-c: var(--theme);
+                    --promobox-style-7-text-bg: var(--theme4);
+                    --promobox-style-7-curtain-bg: var(--theme4);
+                {% elsif block.settings.style == '8' %}
+                    --promobox-style-8-text-1-c: var(--theme-primary);
+                    --promobox-style-8-text-2-c: var(--theme);
+                    --promobox-style-8-text-3-c: var(--theme3);
+                    --promobox-style-8-text-bg: var(--theme2);
+                    --promobox-style-8-curtain-bg: var(--theme2);
+                {% endif %}
+
+                {%- if settings.layout_settings_file == 'skin-1' -%}
+                    --promobox-style-4-text-2-c: var(--theme-primary);
+                {%- elsif settings.layout_settings_file == 'skin-2' -%}
+                    --promobox-style-2-text-1-c: var(--theme-primary);
+                    --promobox-style-3-text-1-c: var(--theme-primary);
+                {%- elsif settings.layout_settings_file == 'skin-4' -%}
+                    --promobox-style-7-text-1-c: var(--theme-primary);
+                    --promobox-style-7-text-3-c: var(--theme3);
+                    --promobox-style-7-text-bg: var(--theme2);
+                    --promobox-style-7-curtain-bg: var(--theme2);
+                {%- elsif settings.layout_settings_file == 'skin-5' -%}
+                    --promobox-style-2-text-2-c: #1278a5;
+                    --promobox-style-5-text-bg: #0e4364;
+                    --promobox-style-6-text-bg: #0e4364;
+                {%- elsif settings.layout_settings_file == 'skin-6' -%}
+                    --promobox-style-4-text-2-c: var(--theme3);
+                    --promobox-style-4-text-3-c: var(--theme3);
+                {%- elsif settings.layout_settings_file == 'skin-9' -%}
+                    --promobox-style-2-text-2-c: var(--theme-primary);
+                    --promobox-style-3-text-1-c: var(--theme-primary);
+                {%- elsif settings.layout_settings_file == 'skin-11' -%}
+                    --promobox-style-2-text-2-c: var(--theme3);
+                    --promobox-style-3-text-2-c: var(--theme-primary);
+                    --promobox-style-5-text-bg: var(--theme8);
+                    --promobox-style-8-text-2-c: var(--theme8);
+                {%- elsif settings.layout_settings_file == 'skin-14' -%}
+                    --promobox-style-3-text-1-c: var(--theme-primary);
+                {%- elsif settings.layout_settings_file == 'skin-15' -%}
+                    --promobox-style-4-text-1-c: var(--theme-primary);
+                {%- elsif settings.layout_settings_file == 'skin-17' -%}
+                    --promobox-style-4-text-bg: #FFD2B1;
+                {%- elsif settings.layout_settings_file == 'skin-18' -%}
+                    --promobox-style-1-curtain-bg: #C5DFE7;
+                    --promobox-style-2-curtain-bg: #C5DFE7;
+                    --promobox-style-3-curtain-bg: #C5DFE7;
+                    --promobox-style-4-curtain-bg: #C5DFE7;
+                    --promobox-style-5-curtain-bg: #C5DFE7;
+                {% endif %}
+            }
+
+            {%- assign transparent_value = 'rgba(0,0,0,0)' -%}
+            {%- if block.settings.color_text_1 and block.settings.color_text_1 != '' and block.settings.color_text_1 != transparent_value -%}
+                .{{ block_id }} .promobox--style-{{ block.settings.style }} .promobox__text-1 {
+                    color: {{ block.settings.color_text_1 }};
+                }
+            {%- else -%}
+                .promobox--style-{{ block.settings.style }} .promobox__text-1 {
+                    color: var(--promobox-style-{{ block.settings.style }}-text-1-c);
+                }
+            {%- endif -%}
+            {%- if block.settings.color_text_2 and block.settings.color_text_2 != '' and block.settings.color_text_2 != transparent_value -%}
+                .{{ block_id }} .promobox--style-{{ block.settings.style }} .promobox__text-2 {
+                    color: {{ block.settings.color_text_2 }};
+                }
+            {%- else -%}
+                .promobox--style-{{ block.settings.style }} .promobox__text-2 {
+                    color: var(--promobox-style-{{ block.settings.style }}-text-2-c);
+                }
+            {%- endif -%}
+            {%- if block.settings.color_text_3 and block.settings.color_text_3 != '' and block.settings.color_text_3 != transparent_value -%}
+                .{{ block_id }} .promobox--style-{{ block.settings.style }} .promobox__text-3 {
+                    color: {{ block.settings.color_text_3 }};
+                }
+            {%- else -%}
+                .promobox--style-{{ block.settings.style }} .promobox__text-3 {
+                    color: var(--promobox-style-{{ block.settings.style }}-text-3-c);
+                }
+            {%- endif -%}
+            {%- if block.settings.color_text_bg and block.settings.color_text_bg != '' and block.settings.color_text_bg != transparent_value -%}
+                .{{ block_id }} .promobox--style-{{ block.settings.style }} .promobox__bg,
+                .{{ block_id }} .promobox--style-{{ block.settings.style }} .promobox__plate .promobox__content::before {
+                    background-color: {{ block.settings.color_text_bg }};
+                }
+            {%- else -%}
+                .promobox--style-{{ block.settings.style }} .promobox__bg,
+                .promobox--style-{{ block.settings.style }} .promobox__plate .promobox__content::before {
+                    background-color: var(--promobox-style-{{ block.settings.style }}-text-bg);
+                }
+            {%- endif -%}
+            {%- if block.settings.color_curtain_bg and block.settings.color_curtain_bg != '' and block.settings.color_curtain_bg != transparent_value -%}
+                .{{ block_id }} .promobox--style-{{ block.settings.style }} .promobox__curtain_bg {
+                    background-color: {{ block.settings.color_curtain_bg }};
+                }
+            {%- else -%}
+                .promobox--style-{{ block.settings.style }} .promobox__curtain_bg {
+                    background-color: var(--promobox-style-{{ block.settings.style }}-curtain-bg);
+                }
+            {%- endif -%}
+        </style>
+    {% endcapture %}
+    {%- if style_base_html -%}
+        {%- if request.design_mode -%}
+            {{ style_base_html }}
+        {%- else -%}
+            <template class="js-loader-inline-style" data-key="{{ style_base_html | hmac_sha1: 'secret_key' }}">{{ style_base_html }}</template>
+        {%- endif -%}
+    {%- endif -%}
+    <script>
+        theme.AssetsLoader.loadInlineStyles();
+    </script>
+{% endunless %}
+
+{%- if type contains 'clean' -%}
+    <div class="promobox promobox--{{ type }}{% if animation_from != 'none' or animation_to != 'none' %} image-animation-trigger{% endif %} position-relative">
+        <{{ link_begin_tag }} class="d-block">
+            {{ res_bg }}
+            {%- if type == 'clean-bordered' -%}
+                <div class="promobox__border absolute-stretch"></div>
+            {%- elsif type == 'clean-hover-bordered' -%}
+                <div class="promobox__border promobox__border--only-hover absolute-stretch"></div>
+            {%- endif -%}
+        </{{ link_end_tag }}>
+    </div>
+{%- elsif type contains 'text' -%}
+    {%- case type -%}
+        {% when 'text' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h5">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-2 h3{% if text_line_1 != blank %} mt-5{% endif %}{% if url != blank %} text-underline-hover{% endif %}">{{ text_line_2 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_3 != blank -%}
+                            <p class="promobox__text-3 fs-lg{% if text_line_1 != blank or text_line_2 != blank %} mt-15{% endif %}">{{ text_line_3 }}</p>
+                        {%- endif -%}
+                        {%- if list_1 != blank -%}
+                            {{ pages[list_1].content | replace: '<ul', '<ul class="promobox__list-1 list-lg mt-15"' }}
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-25">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+        {% when 'text-2' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h4">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+        {% when 'text-3' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h3">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-2 fs-lg{% if text_line_1 != blank %} mt-10{% endif %}">{{ text_line_2 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if list_1 != blank -%}
+                            {{ pages[list_1].content | replace: '<ul', '<ul class="promobox__list-1 list-lg mt-15"' }}
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-35">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+        {% when 'text-4' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h5">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-2 h2 h1-sm{% if text_line_1 != blank %} mt-15{% endif %}">{{ text_line_2 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_3 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-3 fs-lg{% if text_line_1 != blank or text_line_2 != blank %} mt-20{% endif %}">{{ text_line_3 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if list_1 != blank -%}
+                            {{ pages[list_1].content | replace: '<ul', '<ul class="promobox__list-1 list-lg mt-15"' }}
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-30">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+        {% when 'text-5' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h3">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-2 fs-lg{% if text_line_1 != blank %} mt-20{% endif %}">{{ text_line_2 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_3 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-3 fs-lg{% if text_line_1 != blank or text_line_2 != blank %} mt-15{% endif %}{% if url != blank %} text-underline-hover{% endif %}">{{ text_line_3 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if list_1 != blank -%}
+                            {{ pages[list_1].content | replace: '<ul', '<ul class="promobox__list-1 list-lg mt-15"' }}
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-30">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+        {% when 'text-6' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h2 h1-sm">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-2 h4{% if text_line_1 != blank %} mt-10{% endif %}">{{ text_line_2 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-30">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+        {% when 'text-7' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h3">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-2 fs-lg{% if text_line_1 != blank %} mt-25{% endif %}">{{ text_line_2 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_3 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-3 fs-lg{% if text_line_1 != blank or text_line_2 != blank %} mt-25{% endif %}">{{ text_line_3 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if list_1 != blank -%}
+                            {{ pages[list_1].content | replace: '<ul', '<ul class="promobox__list-1 list-lg mt-25"' }}
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-30">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+        {% when 'text-8' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h4">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-2 h3 h2-sm{% if text_line_1 != blank %} mt-25{% endif %}">{{ text_line_2 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_3 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-3 fs-lg{% if text_line_1 != blank or text_line_2 != blank %} mt-25{% endif %}">{{ text_line_3 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if list_1 != blank -%}
+                            {{ pages[list_1].content | replace: '<ul', '<ul class="promobox__list-1 list-lg mt-25"' }}
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-30">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+        {% when 'text-9' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h5">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-2 h2 h1-sm{% if text_line_1 != blank %} mt-10{% endif %}">{{ text_line_2 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_3 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-3 fs-lg{% if text_line_1 != blank or text_line_2 != blank %} mt-15{% endif %}">{{ text_line_3 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if list_1 != blank -%}
+                            {{ pages[list_1].content | replace: '<ul', '<ul class="promobox__list-1 list-lg mt-15"' }}
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-25">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+        {% when 'text-10' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h5">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-2 h3 h2-sm{% if text_line_1 != blank %} mt-10{% endif %}">{{ text_line_2 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_3 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-3 fs-lg{% if text_line_1 != blank or text_line_2 != blank %} mt-15{% endif %}">{{ text_line_3 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if list_1 != blank -%}
+                            {{ pages[list_1].content | replace: '<ul', '<ul class="promobox__list-1 list-lg mt-15"' }}
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-25">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+        {%- endcase -%}
+    {%- case content_align -%}
+        {%- when 'left' %}{% assign content_align_class = 'text-left' %}
+        {%- when 'center' %}{% assign content_align_class = 'text-center' %}
+        {%- when 'right' %}{% assign content_align_class = 'text-right' %}
+    {%- endcase -%}
+    {%- case content_position -%}
+        {%- when 'top_left' %}{% assign content_position_class = 'align-items-lg-start justify-content-lg-start' %}
+        {%- when 'top_center' %}{% assign content_position_class = 'align-items-lg-start justify-content-lg-center' %}
+        {%- when 'top_right' %}{% assign content_position_class = 'align-items-lg-start justify-content-lg-end' %}
+        {%- when 'center_left' %}{% assign content_position_class = 'align-items-lg-center justify-content-lg-start' %}
+        {%- when 'center' %}{% assign content_position_class = 'align-items-lg-center justify-content-lg-center' %}
+        {%- when 'center_right' %}{% assign content_position_class = 'align-items-lg-center justify-content-lg-end' %}
+        {%- when 'bottom_left' %}{% assign content_position_class = 'align-items-lg-end justify-content-lg-start' %}
+        {%- when 'bottom_center' %}{% assign content_position_class = 'align-items-lg-end justify-content-lg-center' %}
+        {%- when 'bottom_right' %}{% assign content_position_class = 'align-items-lg-end justify-content-lg-end' %}
+        {%- when 'stretch_left' %}{% assign content_position_class = 'align-items-lg-stretch justify-content-lg-start' %}
+        {%- when 'stretch_center' %}{% assign content_position_class = 'align-items-lg-stretch justify-content-lg-center' %}
+        {%- when 'stretch_right' %}{% assign content_position_class = 'align-items-lg-stretch justify-content-lg-end' %}
+    {%- endcase -%}
+    <div class="promobox {{ type_n_style_n_class }} d-lg-flex {{ content_position_class }} h-100{% unless content_position contains 'center_' or content_position == 'center' %} h-100-inner{% endunless %} {{ content_align_class }}">
+        <div class="promobox__content{% unless content_position contains 'center_' or content_position == 'center' %} h-100{% endunless %} mx-auto h-100-inner w-100"{% if content_width != blank and content_width < 100 %} style="max-width: {{ content_width }}%;"{% endif %}>
+            {{ content }}
+        </div>
+    </div>
+{%- elsif type contains 'type-1' -%}
+    {%- case type -%}
+        {% when 'type-1' %}
+            {% capture content %}
+                <div class="p-15 p-lg-30">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            <p class="promobox__text-1">{{ text_line_1 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            <p class="promobox__text-2 h2 h1-sm{% if text_line_1 != blank %} mt-20{% endif %}">{{ text_line_2 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_3 != blank -%}
+                            <p class="promobox__text-3 h4{% if text_line_1 != blank or text_line_2 != blank %} mt-15{% endif %}">{{ text_line_3 }}</p>
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-25">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+        {% when 'type-1-2' %}
+            {% capture content %}
+                <div class="p-15 p-lg-30">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            <p class="promobox__text-1">{{ text_line_1 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            <p class="promobox__text-2 h2 h1-sm{% if text_line_1 != blank %} mt-20{% endif %}">{{ text_line_2 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_3 != blank -%}
+                            <p class="promobox__text-3 h4{% if text_line_1 != blank or text_line_2 != blank %} mt-15{% endif %}">{{ text_line_3 }}</p>
+                        {%- endif -%}
+                        {%- if button_1 != blank or button_2 != blank -%}
+                            <div class="promobox__btns mt-25">
+                                <div class="row no-gutters">
+                                    <div class="col-12 col-lg-6 mb-10 mb-lg-0 pr-lg-5">
+                                        {%- if button_1 != blank -%}
+                                            {{ button_1_html }}
+                                        {%- endif -%}
+                                    </div>
+                                    <div class="col-12 col-lg-6 pl-lg-5">
+                                        {%- if button_2 != blank -%}
+                                            {{ button_2_html }}
+                                        {%- endif -%}
+                                    </div>
+                                </div>
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+        {% when 'type-1-3' %}
+            {% capture content %}
+                <div class="p-15 p-lg-30">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            <p class="promobox__text-1 h5">{{ text_line_1 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            <p class="promobox__text-2 h3 h2-sm{% if text_line_1 != blank %} mt-10{% endif %}">{{ text_line_2 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_3 != blank -%}
+                            <p class="promobox__text-3 h6{% if text_line_1 != blank or text_line_2 != blank %} mt-10{% endif %}">{{ text_line_3 }}</p>
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-20">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+        {% when 'type-1-4' %}
+            {% capture content %}
+                <div class="p-15 p-lg-30">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            <p class="promobox__text-1 h2 h1-sm">{{ text_line_1 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            <p class="promobox__text-2 h4{% if text_line_1 != blank %} mt-15 mt-sm-20{% endif %}">{{ text_line_2 }}</p>
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-25 mt-sm-30">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+        {% when 'type-1-5' %}
+            {% capture content %}
+                <div class="p-15 p-lg-30">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            <p class="promobox__text-1 h5">{{ text_line_1 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            <p class="promobox__text-2 h2 h1-sm{% if text_line_1 != blank %} mt-15{% endif %}">{{ text_line_2 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_3 != blank -%}
+                            <p class="promobox__text-3{% if text_line_1 != blank or text_line_2 != blank %} mt-10{% endif %}">{{ text_line_3 }}</p>
+                        {%- endif -%}
+                        {%- if button_1 != blank or button_2 != blank -%}
+                            <div class="promobox__btns mt-30">
+                                <div class="row no-gutters">
+                                    <div class="col-12 col-lg-6 mb-10 mb-lg-0 pr-lg-5">
+                                        {%- if button_1 != blank -%}
+                                            {{ button_1_html }}
+                                        {%- endif -%}
+                                    </div>
+                                    <div class="col-12 col-lg-6 pl-lg-5">
+                                        {%- if button_2 != blank -%}
+                                            {{ button_2_html }}
+                                        {%- endif -%}
+                                    </div>
+                                </div>
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+        {% when 'type-1-6' %}
+            {% capture content %}
+                <div class="p-15 p-lg-30">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            <p class="promobox__text-1 h5">{{ text_line_1 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            <p class="promobox__text-2 h2 h1-sm{% if text_line_1 != blank %} mt-15{% endif %}">{{ text_line_2 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_3 != blank -%}
+                            <p class="promobox__text-3{% if text_line_1 != blank or text_line_2 != blank %} mt-10{% endif %}">{{ text_line_3 }}</p>
+                        {%- endif -%}
+                        {%- if button_1 != blank or button_2 != blank -%}
+                            <div class="promobox__btns mt-30">
+                                <div class="row">
+                                    <div class="col-12">
+                                        {%- if button_1 != blank -%}
+                                            {{ button_1_html }}
+                                        {%- endif -%}
+                                    </div>
+                                    <div class="col-12 mt-10">
+                                        {%- if button_2 != blank -%}
+                                            {{ button_2_html }}
+                                        {%- endif -%}
+                                    </div>
+                                </div>
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+        {% when 'type-1-7' %}
+            {% capture content %}
+                <div class="p-15 p-lg-30">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            <p class="promobox__text-1 h5">{{ text_line_1 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            <p class="promobox__text-2 h2 h1-sm{% if text_line_1 != blank %} mt-10{% endif %}">{{ text_line_2 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_3 != blank -%}
+                            <p class="promobox__text-3 fs-lg{% if text_line_1 != blank or text_line_2 != blank %} mt-10{% endif %}">{{ text_line_3 }}</p>
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-25">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+        {% when 'type-1-8' %}
+            {% capture content %}
+                <div class="p-15 p-lg-30">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            <p class="promobox__text-1 h5">{{ text_line_1 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            <p class="promobox__text-2 h3{% if text_line_1 != blank %} mt-5{% endif %}{% if url != blank %} text-underline-hover{% endif %}">{{ text_line_2 }}</p>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+        {% when 'type-1-9' %}
+            {% capture content %}
+                <div class="p-15 p-lg-30">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            <p class="promobox__text-1 h5">{{ text_line_1 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            <p class="promobox__text-2 h2 h1-sm{% if text_line_1 != blank %} mt-10{% endif %}">{{ text_line_2 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_3 != blank -%}
+                            <p class="promobox__text-3 fs-lg{% if text_line_1 != blank or text_line_2 != blank %} mt-10{% endif %}">{{ text_line_3 }}</p>
+                        {%- endif -%}
+                        {%- if button_1 != blank or button_2 != blank -%}
+                            <div class="promobox__btns mt-25">
+                                <div class="row no-gutters">
+                                    <div class="col-12 col-lg-6 mb-10 mb-lg-0 pr-lg-5">
+                                        {%- if button_1 != blank -%}
+                                            {{ button_1_html }}
+                                        {%- endif -%}
+                                    </div>
+                                    <div class="col-12 col-lg-6 pl-lg-5">
+                                        {%- if button_2 != blank -%}
+                                            {{ button_2_html }}
+                                        {%- endif -%}
+                                    </div>
+                                </div>
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+        {% when 'type-1-10' %}
+            {% capture content %}
+                <div class="p-15 p-lg-30">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            <p class="promobox__text-1">{{ text_line_1 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            <p class="promobox__text-2 h2 h1-sm{% if text_line_1 != blank %} mt-15{% endif %}">{{ text_line_2 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_3 != blank -%}
+                            <p class="promobox__text-3 h4{% if text_line_1 != blank or text_line_2 != blank %} mt-15 mt-sm-25{% endif %}">{{ text_line_3 }}</p>
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-35">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+        {% when 'type-1-11' %}
+            {% capture content %}
+                <div class="p-15 p-lg-30">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            <p class="promobox__text-1 h2 h1-sm">{{ text_line_1 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            <p class="promobox__text-2 fs-lg{% if text_line_1 != blank %} mt-15 mt-sm-25{% endif %}">{{ text_line_2 }}</p>
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-25 mt-sm-30">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+        {% when 'type-1-12' %}
+            {% capture content %}
+                <div class="p-15 p-lg-30">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            <p class="promobox__text-1 h4">{{ text_line_1 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            <p class="promobox__text-2 h2 h1-sm{% if text_line_1 != blank %} mt-20{% endif %}">{{ text_line_2 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_3 != blank -%}
+                            <p class="promobox__text-3 fs-lg{% if text_line_1 != blank or text_line_2 != blank %} mt-20{% endif %}">{{ text_line_3 }}</p>
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-30">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+        {% when 'type-1-13' %}
+            {% capture content %}
+                <div class="p-15 p-lg-30">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            <p class="promobox__text-1">{{ text_line_1 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            <p class="promobox__text-2 h2 h1-sm{% if text_line_1 != blank %} mt-15{% endif %}">{{ text_line_2 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_3 != blank -%}
+                            <p class="promobox__text-3 h4{% if text_line_1 != blank or text_line_2 != blank %} mt-15 mt-sm-25{% endif %}">{{ text_line_3 }}</p>
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-40">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+        {% when 'type-1-14' %}
+            {% capture content %}
+                <div class="p-15 p-lg-30">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            <p class="promobox__text-1">{{ text_line_1 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            <p class="promobox__text-2 h2 h1-sm{% if text_line_1 != blank %} mt-15{% endif %}">{{ text_line_2 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_3 != blank -%}
+                            <p class="promobox__text-3 h4{% if text_line_1 != blank or text_line_2 != blank %} mt-15 mt-sm-25{% endif %}">{{ text_line_3 }}</p>
+                        {%- endif -%}
+                        {%- if button_1 != blank or button_2 != blank -%}
+                            <div class="promobox__btns mt-35">
+                                <div class="row no-gutters">
+                                    <div class="col-12 col-lg-6 mb-10 mb-lg-0 pr-lg-10">
+                                        {%- if button_1 != blank -%}
+                                            {{ button_1_html }}
+                                        {%- endif -%}
+                                    </div>
+                                    <div class="col-12 col-lg-6 pl-lg-10">
+                                        {%- if button_2 != blank -%}
+                                            {{ button_2_html }}
+                                        {%- endif -%}
+                                    </div>
+                                </div>
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+        {% when 'type-1-15' %}
+            {% capture content %}
+                <div class="p-15 p-lg-30">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            <p class="promobox__text-1 h5">{{ text_line_1 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            <p class="promobox__text-2 h3 h2-sm{% if text_line_1 != blank %} mt-20{% endif %}">{{ text_line_2 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_3 != blank -%}
+                            <p class="promobox__text-3 h4{% if text_line_1 != blank or text_line_2 != blank %} mt-35{% endif %}">{{ text_line_3 }}</p>
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-40">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+        {% when 'type-1-16' %}
+            {% capture content %}
+                <div class="p-15 p-lg-30">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            <p class="promobox__text-1 h6">{{ text_line_1 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            <p class="promobox__text-2 h3 h2-sm{% if text_line_1 != blank %} mt-20{% endif %}">{{ text_line_2 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_3 != blank -%}
+                            <p class="promobox__text-3 fs-lg{% if text_line_1 != blank or text_line_2 != blank %} mt-25{% endif %}">{{ text_line_3 }}</p>
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-35">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+        {% when 'type-1-17' %}
+            {% capture content %}
+                <div class="p-15 p-lg-30">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            <p class="promobox__text-1 h6">{{ text_line_1 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            <p class="promobox__text-2 h2{% if text_line_1 != blank %} mt-20{% endif %}">{{ text_line_2 }}</p>
+                        {%- endif -%}
+                        {%- if text_line_3 != blank -%}
+                            <p class="promobox__text-3 h2 h1-sm{% if text_line_1 != blank or text_line_2 != blank %} mt-35{% endif %} text-underline">{{ text_line_3 }}</p>
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-35">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+        {% when 'type-1-background' %}
+            {% capture content %}
+                <div class="promobox__text-wrap position-relative w-100 mw-100{% if content_width == 100 %} mx-auto{% endif %}">
+                    <div class="promobox__bg absolute-stretch"></div>
+                    <div class="position-relative px-10 py-50">
+                        {%- if custom_html != blank -%}
+                            {{ pages[custom_html].content }}
+                        {%- else -%}
+                            {%- if text_line_1 != blank -%}
+                                <p class="promobox__text-1 h5">{{ text_line_1 }}</p>
+                            {%- endif -%}
+                            {%- if text_line_2 != blank -%}
+                                <p class="promobox__text-2 h2 h1-sm{% if text_line_1 != blank %} mt-10{% endif %}">{{ text_line_2 }}</p>
+                            {%- endif -%}
+                            {%- if text_line_3 != blank -%}
+                                <p class="promobox__text-3 fs-lg{% if text_line_1 != blank or text_line_2 != blank %} mt-10{% endif %}">{{ text_line_3 }}</p>
+                            {%- endif -%}
+                            {%- if button_1 != blank -%}
+                                <div class="mt-25">
+                                    {{ button_1_html }}
+                                </div>
+                            {%- endif -%}
+                        {%- endif -%}
+                    </div>
+                </div>
+            {% endcapture %}
+        {% when 'type-1-background-2' %}
+            {% capture content %}
+                <div class="promobox__text-wrap position-relative w-100 mw-100{% if content_width == 100 %} mx-auto{% endif %}">
+                    <div class="promobox__bg absolute-stretch"></div>
+                    <div class="position-relative px-10 py-45">
+                        {%- if custom_html != blank -%}
+                            {{ pages[custom_html].content }}
+                        {%- else -%}
+                            {%- if text_line_1 != blank -%}
+                                <p class="promobox__text-1">{{ text_line_1 }}</p>
+                            {%- endif -%}
+                            {%- if text_line_2 != blank -%}
+                                <p class="promobox__text-2 h2 h1-sm{% if text_line_1 != blank %} mt-15{% endif %}">{{ text_line_2 }}</p>
+                            {%- endif -%}
+                            {%- if text_line_3 != blank -%}
+                                <p class="promobox__text-3 h4{% if text_line_1 != blank or text_line_2 != blank %} mt-15{% endif %}">{{ text_line_3 }}</p>
+                            {%- endif -%}
+                            {%- if button_1 != blank -%}
+                                <div class="mt-25">
+                                    {{ button_1_html }}
+                                </div>
+                            {%- endif -%}
+                        {%- endif -%}
+                    </div>
+                </div>
+            {% endcapture %}
+        {% when 'type-1-background-3' %}
+            {% capture content %}
+                <div class="promobox__text-wrap position-relative w-100 mw-100{% if content_width == 100 %} mx-auto{% endif %}">
+                    <div class="promobox__bg absolute-stretch"></div>
+                    <div class="position-relative px-10 py-40">
+                        {%- if custom_html != blank -%}
+                            {{ pages[custom_html].content }}
+                        {%- else -%}
+                            {%- if text_line_1 != blank -%}
+                                <p class="promobox__text-1">{{ text_line_1 }}</p>
+                            {%- endif -%}
+                            {%- if text_line_2 != blank -%}
+                                <p class="promobox__text-2 h2 h1-sm{% if text_line_1 != blank %} mt-15{% endif %}">{{ text_line_2 }}</p>
+                            {%- endif -%}
+                            {%- if text_line_3 != blank -%}
+                                <p class="promobox__text-3 h4{% if text_line_1 != blank or text_line_2 != blank %} mt-15 mt-sm-25{% endif %}">{{ text_line_3 }}</p>
+                            {%- endif -%}
+                            {%- if button_1 != blank -%}
+                                <div class="mt-35">
+                                    {{ button_1_html }}
+                                </div>
+                            {%- endif -%}
+                        {%- endif -%}
+                    </div>
+                </div>
+            {% endcapture %}
+        {% when 'type-1-background-4' %}
+            {% capture content %}
+                <div class="promobox__text-wrap position-relative w-100 mw-100{% if content_width == 100 %} mx-auto{% endif %}">
+                    <div class="promobox__bg absolute-stretch"></div>
+                    <div class="position-relative px-10 py-40">
+                        {%- if custom_html != blank -%}
+                            {{ pages[custom_html].content }}
+                        {%- else -%}
+                            {%- if text_line_1 != blank -%}
+                                <p class="promobox__text-1 h5">{{ text_line_1 }}</p>
+                            {%- endif -%}
+                            {%- if text_line_2 != blank -%}
+                                <p class="promobox__text-2 h3 h2-sm{% if text_line_1 != blank %} mt-10{% endif %}">{{ text_line_2 }}</p>
+                            {%- endif -%}
+                            {%- if text_line_3 != blank -%}
+                                <p class="promobox__text-3{% if text_line_1 != blank or text_line_2 != blank %} mt-10{% endif %}">{{ text_line_3 }}</p>
+                            {%- endif -%}
+                            {%- if button_1 != blank -%}
+                                <div class="mt-25">
+                                    {{ button_1_html }}
+                                </div>
+                            {%- endif -%}
+                        {%- endif -%}
+                    </div>
+                </div>
+            {% endcapture %}
+        {% when 'type-1-curtain' %}
+            {% capture content %}
+                <div class="p-10">
+                    {%- if text_line_1 != blank -%}
+                        <p class="promobox__text-1 h3">{{ text_line_1 }}</p>
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+            {% capture curtain %}
+                <div class="promobox__curtain_bg absolute-stretch"></div>
+                <div class="position-relative p-15 p-lg-30">
+                    {%- if text_line_1 != blank -%}
+                        <p class="promobox__text-1 h3">{{ text_line_1 }}</p>
+                    {%- endif -%}
+                    {%- if text_line_2 != blank -%}
+                        <p class="promobox__text-2 fs-lg{% if text_line_1 != blank %} mt-20{% endif %}">{{ text_line_2 }}</p>
+                    {%- endif -%}
+                    {%- if button_1 != blank -%}
+                        <div class="mt-25">
+                            {{ button_1_html }}
+                        </div>
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+            {%- assign enable_curtain = true -%}
+            {%- assign enable_curtain_effect = true -%}
+        {% when 'type-1-curtain-2' %}
+            {% capture content %}
+                <div class="p-10">
+                    {%- if text_line_1 != blank -%}
+                        <p class="promobox__text-1 h2 h1-sm">{{ text_line_1 }}</p>
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+            {% capture curtain %}
+                <div class="promobox__curtain_bg absolute-stretch"></div>
+                <div class="position-relative p-15 p-lg-30">
+                    {%- if text_line_1 != blank -%}
+                        <p class="promobox__text-1 h2 h1-sm">{{ text_line_1 }}</p>
+                    {%- endif -%}
+                    {%- if text_line_2 != blank -%}
+                        <p class="promobox__text-2 fs-lg h4{% if text_line_1 != blank %} mt-3{% endif %}">{{ text_line_2 }}</p>
+                    {%- endif -%}
+                    {%- if button_1 != blank -%}
+                        <div class="mt-20">
+                            {{ button_1_html }}
+                        </div>
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+            {%- assign enable_curtain = true -%}
+            {%- assign enable_curtain_effect = true -%}
+        {% when 'type-1-curtain-3' %}
+            {% capture content %}
+                <div class="p-10">
+                    {%- if text_line_1 != blank -%}
+                        <p class="promobox__text-1 h3">{{ text_line_1 }}</p>
+                    {%- endif -%}
+                </div>
+                {% endcapture %}
+                {% capture curtain %}
+                <div class="promobox__curtain_bg absolute-stretch"></div>
+                <div class="position-relative p-15 p-lg-30">
+                    {%- if text_line_1 != blank -%}
+                        <p class="promobox__text-1 h3">{{ text_line_1 }}</p>
+                    {%- endif -%}
+                    {%- if text_line_2 != blank -%}
+                        <p class="promobox__text-2 fs-lg{% if text_line_1 != blank %} mt-20{% endif %}">{{ text_line_2 }}</p>
+                    {%- endif -%}
+                    {%- if button_1 != blank -%}
+                        <div class="mt-20">
+                            {{ button_1_html }}
+                        </div>
+                    {%- endif -%}
+                </div>
+            {% endcapture %}
+            {%- assign enable_curtain = true -%}
+            {%- assign enable_curtain_effect = true -%}
+    {%- endcase -%}
+    {%- case content_align -%}
+        {%- when 'left' %}{% assign content_align_class = 'text-left' %}
+        {%- when 'center' %}{% assign content_align_class = 'text-center' %}
+        {%- when 'right' %}{% assign content_align_class = 'text-right' %}
+    {%- endcase -%}
+    {%- if get_only_content -%}
+        <div class="promobox {{ type_n_style_n_class }} {{ content_align_class }}{% if content_width != blank and content_width > 0 and content_width < 100 %} w-100{% endif %}"{% if content_width != blank and content_width > 0 and content_width < 100 %} style="max-width: {{ content_width }}%;"{% endif %}>
+            {{ content }}
+        </div>
+    {%- else -%}
+        {%- case content_position -%}
+            {%- when 'top_left' %}{% assign content_position_class = 'align-items-lg-start justify-content-lg-start' %}
+            {%- when 'top_center' %}{% assign content_position_class = 'align-items-lg-start justify-content-lg-center' %}
+            {%- when 'top_right' %}{% assign content_position_class = 'align-items-lg-start justify-content-lg-end' %}
+            {%- when 'center_left' %}{% assign content_position_class = 'align-items-lg-center justify-content-lg-start' %}
+            {%- when 'center' %}{% assign content_position_class = 'align-items-lg-center justify-content-lg-center' %}
+            {%- when 'center_right' %}{% assign content_position_class = 'align-items-lg-center justify-content-lg-end' %}
+            {%- when 'bottom_left' %}{% assign content_position_class = 'align-items-lg-end justify-content-lg-start' %}
+            {%- when 'bottom_center' %}{% assign content_position_class = 'align-items-lg-end justify-content-lg-center' %}
+            {%- when 'bottom_right' %}{% assign content_position_class = 'align-items-lg-end justify-content-lg-end' %}
+            {%- when 'stretch_left' %}{% assign content_position_class = 'align-items-lg-stretch justify-content-lg-start' %}
+            {%- when 'stretch_center' %}{% assign content_position_class = 'align-items-lg-stretch justify-content-lg-center' %}
+            {%- when 'stretch_right' %}{% assign content_position_class = 'align-items-lg-stretch justify-content-lg-end' %}
+        {%- endcase -%}
+        <div class="promobox {{ type_n_style_n_class }}{% if enable_curtain %} promobox--curtain{% endif %}{% if is_slider %} promobox--is-slider{% endif %}{% if animation_from != 'none' or animation_to != 'none' %} image-animation-trigger{% endif %} position-relative {{ content_align_class }} overflow-hidden text-underline-parent">
+            <{{ link_begin_tag }} class="d-block">
+                {{ res_bg }}
+            </{{ link_end_tag }}>
+            <div class="promobox__content{% if add_container %} container{% endif %}{% if enable_curtain %}{% if enable_curtain_effect %} promobox__content--hover-scale{% endif %}{% endif %}{% if animation_text and animation_text != 'none' %} promobox__content--animation-{{ animation_text }}{% endif %} absolute-stretch d-flex flex-center {{ content_position_class }} w-100 mx-auto pointer-events-none">
+                <div class="promobox__content_inner position-absolute d-flex flex-center{% if content_width != blank and content_width > 0 and content_width < 100 %} w-100{% endif %}"{% if content_width != blank and content_width > 0 and content_width < 100 %} style="max-width: {{ content_width }}%;"{% endif %}>
+                    <div{% if text_width == 1000 %} class="w-100"{% elsif text_width != blank and text_width > 0 %} class="mw-100" style="width: {{ text_width }}px;"{% endif %}>
+                        {{ content }}
+                    </div>
+                </div>
+            </div>
+            {%- if enable_curtain -%}
+                <div class="promobox__curtain absolute-stretch d-flex flex-center pointer-events-none">
+                    {{ curtain }}
+                </div>
+            {%- endif -%}
+        </div>
+    {%- endif -%}
+{%- elsif type contains 'type-2' -%}
+    {%- case type -%}
+        {% when 'type-2' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column mt-15">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h4 h3-sm">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-2{% if text_line_1 != blank %} mt-5{% endif %}{% if url != blank %} text-underline-hover{% endif %}">{{ text_line_2 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-15">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+            {%- assign underline_parent = true -%}
+        {% when 'type-2-2' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column mt-15">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h6{% if url != blank %} text-underline-hover{% endif %}">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-2{% if text_line_1 != blank %} mt-5{% endif %}">{{ text_line_2 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-15">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+            {%- assign underline_parent = true -%}
+        {% when 'type-2-3' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column mt-15">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h5">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-2{% if text_line_1 != blank %} mt-4{% endif %}{% if url != blank %} text-underline-hover{% endif %}">{{ text_line_2 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-15">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+            {%- assign underline_parent = true -%}
+        {% when 'type-2-4' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column mt-20">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h4 h3-sm">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-2 fs-lg{% if text_line_1 != blank %} mt-5{% endif %}">{{ text_line_2 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-15">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+        {% when 'type-2-5' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column mt-15">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h4{% if url != blank %} text-underline-hover{% endif %}">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-2{% if text_line_1 != blank %} mt-5{% endif %}">{{ text_line_2 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-15">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+            {%- assign underline_parent = true -%}
+        {% when 'type-2-6' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column mt-15 mt-sm-25">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h4 h3-sm">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-2 h6{% if text_line_1 != blank %} mt-8 mt-sm-15{% endif %}{% if url != blank %} text-underline text-underline-hover-disable{% endif %}">{{ text_line_2 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-25">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+            {%- assign underline_parent = true -%}
+        {% when 'type-2-7' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column mt-25">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h4 h3-sm">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            <p class="promobox__text-2 fs-lg{% if text_line_1 != blank %} mt-10{% endif %}">{{ text_line_2 }}</p>
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-20">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+        {% when 'type-2-8' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column mt-15">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h4 h3-sm">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-2 fs-lg{% if text_line_1 != blank %} mt-5{% endif %}">{{ text_line_2 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-15">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+        {% when 'type-2-9' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column mt-15">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h5{% if url != blank %} text-underline-hover{% endif %}">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-2">{{ text_line_2 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-15">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+            {%- assign underline_parent = true -%}
+        {% when 'type-2-10' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column mt-35">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h3 h2-sm">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-2 h4{% if text_line_1 != blank %} mt-10{% endif %}">{{ text_line_2 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-35">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+        {% when 'type-2-11' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column mt-45">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h3 h2-sm">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-2 h4{% if text_line_1 != blank %} mt-10{% endif %}">{{ text_line_2 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-40">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+        {% when 'type-2-12' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column mt-15">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h5{% if url != blank %} text-underline-hover{% endif %}">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-2 fs-lg mt-2">{{ text_line_2 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-15">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+            {%- assign underline_parent = true -%}
+        {% when 'type-2-13' %}
+            {%- capture content -%}
+                <div class="d-flex flex-column mt-15">
+                    {%- if custom_html != blank -%}
+                        {{ pages[custom_html].content }}
+                    {%- else -%}
+                        {%- if text_line_1 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-1 h4">{{ text_line_1 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if text_line_2 != blank -%}
+                            {% if url != blank %}<a href="{{ url }}">{% endif %}<p class="promobox__text-2{% if text_line_1 != blank %} mt-5{% endif %}">{{ text_line_2 }}</p>{% if url != blank %}</a>{% endif %}
+                        {%- endif -%}
+                        {%- if button_1 != blank -%}
+                            <div class="mt-15">
+                                {{ button_1_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            {%- endcapture -%}
+    {%- endcase -%}
+    {%- case content_align -%}
+        {%- when 'left' %}{% assign content_align_class = 'text-left' %}
+        {%- when 'center' %}{% assign content_align_class = 'text-center' %}
+        {%- when 'right' %}{% assign content_align_class = 'text-right' %}
+    {%- endcase -%}
+    <div class="promobox {{ type_n_style_n_class }} {{ content_align_class }}{% if underline_parent %} text-underline-parent{% endif %}">
+        <{{ link_begin_tag }} class="d-block">
+            {{ res_bg }}
+        </{{ link_end_tag }}>
+        {{ content }}
+    </div>
+{%- elsif type contains 'type-3' -%}
+    {%- case type -%}
+        {% when 'type-3' %}
+            {% capture content %}
+                {%- if custom_html != blank -%}
+                    {{ pages[custom_html].content }}
+                {%- else -%}
+                    {%- if text_line_1 != blank -%}
+                        <p class="promobox__text-1 h5">{{ text_line_1 }}</p>
+                    {%- endif -%}
+                    {%- if text_line_2 != blank -%}
+                        <p class="promobox__text-2">{{ text_line_2 }}</p>
+                    {%- endif -%}
+                {%- endif -%}
+            {% endcapture %}
+    {%- endcase -%}
+    <div class="promobox {{ type_n_style_n_class }} position-relative text-center">
+        <{{ link_begin_tag }} class="d-block">
+            {{ res_bg }}
+        </{{ link_end_tag }}>
+        <div class="promobox__plate position-absolute d-flex flex-center pointer-events-none">
+            <div class="promobox__content px-10 py-7">
+                <div class="position-relative">
+                    {{ content }}
+                </div>
+            </div>
+        </div>
+    </div>
+{%- elsif type contains 'type-4' -%}
+    {%- case type -%}
+        {% when 'type-4' %}
+            {% capture content %}
+                {%- if text_line_1 != blank -%}
+                    <{{ link_begin_tag }} class="pointer-events-all">
+                        <p class="promobox__text-1 h5 position-relative">{{ text_line_1 }}</p>
+                    </{{ link_end_tag }}>
+                {%- endif -%}
+                {%- if list_1 != blank -%}
+                    {{ pages[list_1].content | replace: '<ul', '<ul class="promobox__list list-unstyled mt-5 overflow-hidden pointer-events-all"' }}
+                {%- endif -%}
+            {% endcapture %}
+    {%- endcase -%}
+    <div class="promobox {{ type_n_style_n_class }}{% if animation_from != 'none' or animation_to != 'none' %} image-animation-trigger{% endif %} position-relative text-center">
+        <{{ link_begin_tag }} class="d-block">
+            {{ res_bg }}
+        </{{ link_end_tag }}>
+        <div class="promobox__plate promobox__plate--hovered position-absolute d-flex flex-column flex-center px-10 py-7 pointer-events-none">
+            <div class="promobox__content absolute-stretch d-flex flex-center">
+                {%- if text_line_1 != blank -%}
+                    <{{ link_begin_tag }} class="pointer-events-all">
+                        <p class="promobox__text-1 h5 position-relative">{{ text_line_1 }}</p>
+                    </{{ link_end_tag }}>
+                {%- endif -%}
+            </div>
+        </div>
+        <div class="promobox__content-scale position-absolute d-none d-lg-flex flex-column flex-center px-15 py-7 pointer-events-none">
+            {{ content }}
+        </div>
+    </div>
+{%- elsif type == 'list-collections-1' -%}
+    <div class="promobox promobox--type-{{ type }} promobox--style-{{ style }} text-center">
+        <{{ link_begin_tag }} class="d-block">
+            {{ res_bg }}
+        </{{ link_end_tag }}>
+        <div class="d-flex flex-column mt-15">
+            {%- if text_line_1 != blank -%}
+                <a href="{{ url }}">
+                    <p class="promobox__text-1 h5 text-uppercase">{{ text_line_1 }}</p>
+                </a>
+            {%- endif -%}
+            {%- if text_line_2 != blank -%}
+                <a href="{{ url }}">
+                    <p class="promobox__text-2{% if text_line_1 != blank %} mt-5{% endif %} text-underline-hover">{{ text_line_2 }}</p>
+                </a>
+            {%- endif -%}
+            {%- if button_1 != blank -%}
+                <div class="mt-15">
+                    <a href="{{ url }}" class="promobox__btn-1 btn btn--default">{{ button_1 }}</a>
+                </div>
+            {%- endif -%}
+        </div>
+    </div>
+{%- elsif type == 'list-collections-2' -%}
+    <div class="promobox promobox--type-{{ type }} promobox--style-{{ style }} position-relative text-center">
+        <{{ link_begin_tag }} class="d-block">
+            {{ res_bg }}
+        </{{ link_end_tag }}>
+        <div class="promobox__plate position-absolute d-flex flex-center pointer-events-none">
+            <div class="promobox__content px-10 py-7">
+                <div class="position-relative">
+                    {%- if text_line_1 != blank -%}
+                        <p class="promobox__text-1 h5 text-uppercase">{{ text_line_1 }}</p>
+                    {%- endif -%}
+                    {%- if text_line_2 != blank -%}
+                        <p class="promobox__text-2">{{ text_line_2 }}</p>
+                    {%- endif -%}
+                </div>
+            </div>
+        </div>
+    </div>
+{%- endif -%}

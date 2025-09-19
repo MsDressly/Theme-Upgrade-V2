@@ -1,0 +1,383 @@
+<!-- snippets/product-page-get-info.liquid -->
+{%- if template_layout == '5' -%}
+    {%- assign centered = true -%}
+{%- endif -%}
+{%- unless is_quick_view -%}
+    {%- assign change_history = true -%}
+{%- endunless -%}
+{% capture variants_select_html %}
+    <div class="product-page-info__variants mb-15 d-none">
+        {% include 'product-get-variants' with product: product current_variant: current_variant show_custom_options: settings.product_show_custom_options, product_form_id: product_form_id %}
+    </div>
+{% endcapture %}
+<div class="product-page-info{% if centered %} product-page-info--max-width mx-auto{% endif %}">
+    {%- if settings.product_info_show_label_hot or settings.product_info_show_label_new or settings.product_info_show_label_sale or settings.product_info_show_label_in_stock or settings.product_info_show_label_pre_order or settings.product_info_show_label_out_stock -%}
+        <div class="product-page-info__labels d-flex justify-content-center{% unless centered %} justify-content-md-start{% endunless %}">
+            {%- if settings.product_info_show_label_hot -%}
+                {% include 'product-get-label-hot' %}
+            {%- endif -%}
+            {%- if settings.product_info_show_label_new -%}
+                {% include 'product-get-label-new' %}
+            {%- endif -%}
+            {%- if settings.product_info_show_label_sale -%}
+                {% include 'product-get-label-sale' %}
+            {%- endif -%}
+            {%- if settings.product_info_show_label_in_stock -%}
+                {% include 'product-get-label-in-stock' %}
+            {%- endif -%}
+            {%- if settings.product_info_show_label_pre_order -%}
+                {% include 'product-get-label-pre-order' %}
+            {%- endif -%}
+            {%- if settings.product_info_show_label_out_stock -%}
+                {% include 'product-get-label-out-stock' %}
+            {%- endif -%}
+        </div>
+    {%- endif -%}
+    {%- for block in section.blocks -%}
+        {%- case block.type -%}
+            {% when '@app' %}
+                <div class="product-page-info__app mb-20">
+                    {% render block %}
+                </div>
+            {%- when 'collections' -%}
+            {%- if product.collections.size > 0 -%}
+                <div class="product-page-info__collections mb-3 text-center{% unless centered %} text-md-left{% endunless %}" {{ block.shopify_attributes }}>
+                    {% render 'product-get-collections' with product: product %}
+                </div>
+            {%- endif -%}
+            {%- when 'title' -%}
+            <div class="product-page-info__title mb-15 text-center{% unless centered %} text-md-left{% endunless %}" {{ block.shopify_attributes }}>
+                {%- if is_quick_view -%}
+                    <a href="{{ url }}">{{ title }}</a>
+                {%- else -%}
+                    <h1 class="m-0">{{ title }}</h1>
+                {%- endif -%}
+            </div>
+            {%- when 'reviews' -%}
+            {%- if settings.reviews_type != 'disable' -%}
+                <div class="product-page-info__reviews{% if centered %} product-page-info__reviews--center{% endif %} text-center{% unless centered %} text-md-left{% endunless %}" {{ block.shopify_attributes }}>
+                    {%- if settings.reviews_type == 'default' -%}
+                        <div>
+                            {% render 'product-get-review' with product: product type: 2 centered: centered hide_counter: settings.product_info_hide_reviews_counter hide_mobile_counter: false %}
+                        </div>
+                    {%- elsif settings.reviews_type == 'growave' and settings.app_growave_enable == true -%}
+                        {% capture the_snippet_review_avg %}{% render 'ssw-widget-avg-rate-profile' %}{% endcapture %}
+                        {%- unless the_snippet_review_avg contains 'Liquid error' or product.metafields.ssw['review'].avg == 0 -%}
+                            <div class="mb-5">
+                                {{ the_snippet_review_avg }}
+                            </div>
+                        {%- endunless -%}
+                    
+                    {%- elsif settings.reviews_type == 'loox' and product.metafields.loox.num_reviews -%}
+                        <div class="mb-20">
+                            <a href="#looxReviews">
+                                <div class="loox-rating" data-id="{{ product.id }}" data-rating="{{ product.metafields.loox.avg_rating }}" data-raters="{{ product.metafields.loox.num_reviews }}"></div>
+                            </a>
+                        </div>
+                    
+                    {%- endif -%}
+                </div>
+            {%- endif -%}
+            {%- when 'details' -%}
+            {%- if settings.product_info_show_sku or settings.product_info_show_barcode or settings.product_info_show_availability or settings.product_info_show_type or settings.product_info_show_vendor -%}
+                <div class="product-page-info__details mb-25 text-center{% unless centered %} text-md-left{% endunless %}" {{ block.shopify_attributes }}>
+                    {%- if settings.product_info_show_sku -%}
+                        <div class="product-page-info__sku{% if sku == blank %} d-none-important{% endif %} mb-5">
+                            <p class="m-0" data-js-product-sku>{{ 'products.product.sku' | t }}: <span>{{ sku }}</span></p>
+                        </div>
+                    {%- endif -%}
+                    {%- if settings.product_info_show_barcode -%}
+                        <div class="product-page-info__barcode{% if barcode == blank %} d-none-important{% endif %} mb-5">
+                            <p class="m-0" data-js-product-barcode>{{ 'products.product.barcode' | t }}: <span>{{ barcode }}</span></p>
+                        </div>
+                    {%- endif -%}
+                    {%- if settings.product_info_show_availability -%}
+                        <div class="product-page-info__availability mb-5">
+                            {%- if quantity == 1 -%}
+                                {%- capture item -%}{{ 'layout.cart.items_count.one' | t }}{%- endcapture -%}
+                            {%- else -%}
+                                {%- capture item -%}{{ 'layout.cart.items_count.other' | t }}{%- endcapture -%}
+                            {%- endif -%}
+                            <p class="m-0" data-js-product-availability data-availability="{% if available %}true{% else %}false{% endif %}">{{ 'products.product.availability' | t }}: <span>{% if available %}{% if quantity > 0 %}{{ 'products.product.availability_value_in_stock' | t: count: quantity, item: item }}{% else %}{{ 'products.product.availability_value_in_stock_without_counter' | t }}{% endif %}{% else %}{{ 'products.product.availability_value_out_stock' | t }}{% endif %}</span></p>
+                        </div>
+                    {%- endif -%}
+                    {%- if settings.product_info_show_type -%}
+                        <div class="product-page-info__type{% if type == blank %} d-none-important{% endif %} mb-5">
+                            <p class="m-0" data-js-product-type>{{ 'products.product.type' | t }}: <span><a href="{{ type | link_to_type | split: 'href="' | last | split: '"' | first }}">{{ type }}</a></span></p>
+                        </div>
+                    {%- endif -%}
+                    {%- if settings.product_info_show_vendor -%}
+                        <div class="product-page-info__vendor{% if vendor == blank %} d-none-important{% endif %} mb-5">
+                            <p class="m-0" data-js-product-vendor>{{ 'products.product.vendor' | t }}: <span><a href="{{ vendor | link_to_vendor | split: 'href="' | last | split: '"' | first }}">{{ vendor }}</a></span></p>
+                        </div>
+                    {%- endif -%}
+                </div>
+            {%- endif -%}
+            {%- when 'price' -%}
+            <div class="product-page-info__price text-center{% unless centered %} text-md-left{% endunless %} mb-25" {{ block.shopify_attributes }}>
+                {% include 'product-get-price' %}
+            </div>
+            {%- if settings.product_info_show_sale_details -%}
+                <p class="product-page-info__price-sale-details mt-5 mt-md-10 text-center{% unless centered %} text-md-left{% endunless %}{% unless compare_at_price > price %} d-none-important{% endunless %}" data-js-product-price-sale-details>
+                    {%- if compare_at_price > price -%}
+                        {%- assign price_save = compare_at_price | minus: price -%}
+                        {%- assign price_save_money = price_save | money -%}
+                        {%- assign price_save_procent = price | times: 100 | divided_by: compare_at_price | minus: 100 | times: -1 -%}
+                        {{ 'products.product.price_sale_details_html' | t: price: price_save_money, procent: price_save_procent }}
+                    {%- endif -%}
+                </p>
+            {%- endif -%}
+            {%- if settings.product_info_show_taxes -%}
+                {%- if shop.taxes_included or shop.shipping_policy.body != blank -%}
+                    <div class="product-page-info__policies mt-10 mb-20 text-center{% unless centered %} text-md-left{% endunless %}">
+                        {%- if shop.taxes_included -%}
+                            {{ 'products.product.include_taxes' | t }}
+                        {% endif %}
+                        {% if shop.shipping_policy.body != blank %}
+                            {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                        {%- endif -%}
+                    </div>
+                {%- endif -%}
+            {%- endif -%}
+            <div {{ block.shopify_attributes }}>
+                {%- if settings.product_info_payment_terms -%}
+                    {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
+                    {%- form 'product', 
+                        product, 
+                        id: product_form_installment_id,
+                        class: 'installment m-0',
+                        data-js-product-form: ''
+                    -%}
+                        <input type="hidden" name="variant_id" value="{{ current_variant.id }}" data-js-product-variant-input>
+                        {% capture payment_terms_html %}{{ form | payment_terms }}{% endcapture %}
+                        {%- if payment_terms_html.size > 0 -%}
+                            <div class="product-page-info__payment-terms mt-10 mb-25 text-center{% unless centered %} text-md-left{% endunless %}">
+                                {{ payment_terms_html }}
+                            </div>
+                        {%- endif -%}
+                    {%- endform -%}
+                {%- endif -%}
+            </div>
+            
+            {%- if settings.app_klarna_enable -%}
+                {%- assign klarna_app_blocks = section.blocks | where: 'type', 'klarna_app' -%}
+                {%- for block in klarna_app_blocks -%}
+                    <div class="{{ block.settings.class_name }}"></div>
+                {%- endfor -%}
+            {%- endif -%}
+            
+            {%- when 'icon_with_text' -%}
+            <div class="product-page-info__icon-with-text product-page-info__icon-with-text--style-{{ block.settings.style }} my-30" {{ block.shopify_attributes }}>
+                {%- for i in (0..6) -%}
+                    {%- assign icon_svg_property = 'icon_svg_' | append: forloop.index -%}
+                    {%- assign icon_image_property = 'icon_image_' | append: forloop.index -%}
+                    {%- assign icon = blank -%}
+                    {%- if block.settings[icon_image_property] != blank -%}
+                        {% capture img_size %}{% if block.settings.style == 'inline' %}24x{% else %}40x{% endif %}{% endcapture %}
+                        {% capture icon %}
+                            <img srcset="{{ block.settings[icon_image_property] | img_url: img_size }} 1x, {{ block.settings[icon_image_property] | img_url: img_size, scale: 2 }} 2x"
+                                src="{{ block.settings[icon_image_property] | img_url: img_size }}"
+                                loading="lazy"
+                                alt="{{ block.settings[icon_image_property].alt | default: shop.name | escape }}"
+                                style="object-position: {{ block.settings[icon_image_property].presentation.focal_point }};"
+                            >
+                        {% endcapture %}
+                    {%- elsif block.settings[icon_svg_property] != blank -%}
+                        {% capture icon_svg_snippet %}icon-{{ block.settings[icon_svg_property] }}{% endcapture %}
+                        {% capture icon %}
+                            {% include icon_svg_snippet %}
+                        {% endcapture %}
+                        {%- if icon contains 'Liquid error' -%}
+                            {%- assign icon = blank -%}
+                        {%- endif -%}
+                    {%- endif -%}
+                    {%- assign text_property = 'text_' | append: forloop.index -%}
+                    {%- if icon != blank or block.settings[text_property] != blank -%}
+                        <div>
+                        {%- if icon != blank -%}
+                            <i>{{ icon }}</i>
+                        {%- endif -%}
+                        {%- if block.settings[text_property] != blank -%}
+                            <div class="rte">{{ block.settings[text_property] }}</div>
+                        {%- endif -%}
+                        </div>
+                    {%- endif -%}
+                {%- endfor -%}
+            </div>
+            {%- when 'description' -%}
+            {%- if metafields.description.content != blank or description != blank or block.settings.content != blank -%}
+                <div class="product-page-info__description mb-30 text-center{% unless centered %} text-md-left{% endunless %} overflow-hidden" {{ block.shopify_attributes }}>
+                    {%- if block.settings.title != blank -%}
+                        <div class="product-page-info__description-title mb-15">{{ block.settings.title }}</div>
+                    {%- endif -%}
+                    <div class="rte">
+                        {{ block.settings.content | default: metafields.description.content | default: description }}
+                    </div>
+                </div>
+            {%- endif -%}
+            {%- when 'text' -%}
+            {%- if block.settings.content != blank -%}
+                <div class="product-page-info__text mt-10 mb-20 text-center{% unless centered %} text-md-left{% endunless %}" {{ block.shopify_attributes }}>
+                    {{ block.settings.content }}
+                </div>
+            {%- endif -%}
+            {%- when 'countdown' -%}
+            {%- if countdown_date -%}
+                <div class="product-page-info__countdown mb-15" {{ block.shopify_attributes }}>
+                    {% capture countdown_title %}{{ 'products.product.countdown.title' | t }}{% endcapture %}
+                    {% render 'product-get-countdown' with countdown_date: countdown_date, countdown_type: 2, countdown_title: countdown_title, centered: centered %}
+                </div>
+            {%- endif -%}
+            {%- when 'stock_countdown' -%}
+            <div class="product-page-info__stock-countdown" {{ block.shopify_attributes }}>
+                <div class="stock-countdown{% unless quantity > 0 and quantity <= settings.product_stock_countdown_min %} d-none-important{% endunless %} mb-30" data-js-product-stock-countdown data-min="{{ settings.product_stock_countdown_min }}">
+                    {% capture quantity_html %}<span class="stock-countdown__counter">{{ quantity }}</span>{% endcapture %}
+                    <p class="stock-countdown__title h5 ls-0 mb-5 text-center{% unless centered %} text-md-left{% endunless %}" data-js-product-stock-countdown-title>{{ 'products.product.stock_countdown_html' | t: quantity: quantity_html }}</p>
+                    {%- if settings.product_info_show_stock_countdown_range -%}
+                        <div class="stock-countdown__range">
+                            {%- assign countdown_range_quotient = settings.product_stock_countdown_min | times: 1.0 | divided_by: 100 -%}
+                            {%- assign countdown_range_procent = quantity | divided_by: countdown_range_quotient -%}
+                            <div class="stock-countdown__progress" data-js-product-stock-countdown-progress{% if countdown_range_procent > 0 %} style="width: {{ countdown_range_procent }}%;"{% endif %}></div>
+                        </div>
+                    {%- endif -%}
+                </div>
+            </div>
+            {%- when 'delivery_countdown' -%}
+            <div class="product-page-info__delivery-countdown mb-20" {{ block.shopify_attributes }}>
+                <delivery-countdown class="delivery-countdown d-block px-8 py-3 text-center{% unless centered %} text-md-left{% endunless %}" data-reset-time="{{ settings.product_delivery_countdown_reset_time }}" data-delivery-time="{{ settings.product_delivery_countdown_delivery_time }}" data-delivery-format="{{ settings.product_delivery_countdown_delivery_format }}" data-delivery-excludes="{{ settings.product_delivery_countdown_delivery_excludes }}">
+                    {% capture delivery_countdown_counter_html %}<span class="delivery-countdown__counter" data-js-delivery-countdown-counter>0 {{ 'products.product.delivery_countdown.hours' | t | downcase }} 0 {{ 'products.product.delivery_countdown.minutes' | t | downcase }}</span>{% endcapture %}
+                    {% capture delivery_countdown_delivery_html %}<span class="text-underline" data-js-delivery-countdown-delivery>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/{{ "now" | date: "%m" }}/{{ "now" | date: "%Y" }}</span>{% endcapture %}
+                    <i class="mr-4">{% render 'icon-theme-116' %}</i> {{ 'products.product.delivery_countdown_html' | t: counter: delivery_countdown_counter_html, delivery: delivery_countdown_delivery_html }}
+                </delivery-countdown>
+            </div>
+            
+            {%- when 'visitors' -%}
+            <div class="product-page-info__visitors mb-30" {{ block.shopify_attributes }}>
+                <visitors-counter class="visitors d-block ls-0 text-center{% unless centered %} text-md-left{% endunless %}" data-min="{{ settings.product_visitors_min }}" data-max="{{ settings.product_visitors_max }}" data-stroke="{{ settings.product_visitors_stroke }}" data-interval-min="{{ settings.product_visitors_interval_min }}" data-interval-max="{{ settings.product_visitors_interval_max }}">
+                    {%- assign visitors_random_diff = settings.product_visitors_max | minus: settings.product_visitors_min -%}
+                    {%- assign visitors_random = "now" | date: "%N" | modulo: visitors_random_diff | plus: settings.product_visitors_min -%}
+                    {% capture visitors_counter_html %}<span class="visitors__counter d-inline-block px-8" data-js-counter>{{ visitors_random }}</span>{% endcapture %}
+                    {{ 'products.product.visitors_html' | t: counter: visitors_counter_html }}
+                </visitors-counter>
+            </div>
+            
+            {%- when 'border' -%}
+            <div class="product-page-info__border border-top border--dashed my-25" {{ block.shopify_attributes }}></div>
+            {%- when 'options' -%}
+            {%- if settings.product_show_custom_options -%}
+                {%- unless product.has_only_default_variant -%}
+                    <div class="product-page-info__options mb-15" {{ block.shopify_attributes }}>
+                        {%- unless is_quick_view -%}
+                            {%- assign trigger_id = 'footbar' -%}
+                        {%- endunless -%}
+                        {% include 'product-get-options' with options_type: 2 centered: centered options_show_title: true change_history: change_history %}
+                    </div>
+                {%- endunless -%}
+                {{ variants_select_html }}
+            {%- else -%}
+                {{ variants_select_html | remove: 'd-none' }}
+            {%- endif -%}
+            {%- assign variants_select_html = blank -%}
+            {%- when 'popups' -%}
+            {%- assign show_size_guide = settings.product_info_show_size_guide -%}
+            {%- assign show_delivery_return = settings.product_info_show_delivery_return -%}
+            {%- assign show_message = settings.product_info_show_message -%}
+            {%- if product.metafields.sizeguide.html == 'hide' -%}
+                {%- assign show_size_guide = false -%}
+            {%- endif -%}
+            {%- if show_size_guide or show_delivery_return or show_message -%}
+                <div class="product-page-info__details-buttons mb-30 mb-md-15 overflow-hidden" {{ block.shopify_attributes }}>
+                    <div class="row justify-content-center{% unless centered %} justify-content-md-start{% endunless %}">
+                        {%- if show_size_guide -%}
+                            <div class="col-auto">
+                                <div class="btn-link h6 d-flex align-items-center mb-10 js-popup-button" data-js-popup-button="size-guide">{% if product_popup_buttons_show_icon %}<i class="mr-8">{% include 'icon-theme-091' %}</i> {% endif %}{{ 'products.product.size_guide' | t }}</div>
+                            </div>
+                        {%- endif -%}
+                        {%- if show_delivery_return -%}
+                            <div class="col-auto">
+                                <div class="btn-link h6 d-flex align-items-center mb-10 js-popup-button" data-js-popup-button="delivery-return">{% if product_popup_buttons_show_icon %}<i class="mr-7">{% include 'icon-theme-135' %}</i> {% endif %}{{ 'products.product.delivery_return' | t }}</div>
+                            </div>
+                        {%- endif -%}
+                        {%- if show_message -%}
+                            <div class="col-auto">
+                                <div class="btn-link h6 d-flex align-items-center mb-10 js-popup-button" data-js-popup-button="message">{% if product_popup_buttons_show_icon %}<i class="mr-6">{% include 'icon-theme-133' %}</i> {% endif %}{{ 'products.product.message' | t }}</div>
+                            </div>
+                        {%- endif -%}
+                    </div>
+                </div>
+            {%- endif -%}
+            {%- when 'notes' -%}
+            <div class="product-page-info__notes product-page-info__field mb-20{% if centered %} product-page-info__section--max-width mx-md-auto{% endif %}" {{ block.shopify_attributes }}>
+                <label for="notes">{{ 'products.product.notes_label' | t }}</label>
+                <textarea id="notes" form="{{ product_form_id }}" name="properties[{{ 'products.product.notes_label' | t }}]" placeholder="{{ 'products.product.notes_placeholder' | t }}" class="mb-0"></textarea>
+            </div>
+            {%- when 'buttons_quantity' -%}
+            {% capture cart_icon_name %}{{ settings.cart_icon | default: 'icon-theme-109' }}{% endcapture %}
+            {%- if settings.product_info_button_layout != '3' and settings.product_info_show_quantity-%}
+                <div class="product-page-info__quantity product-page-info__field mb-20{% if centered %} product-page-info__section--max-width mx-md-auto{% endif %}" {{ block.shopify_attributes }}>
+                    {%- unless is_quick_view -%}
+                        {%- assign quantity_connect = 'footbar' -%}
+                    {%- endunless -%}
+                    {% render 'product-get-quantity' with quantity_show_title: true quantity_connect: quantity_connect, product_form_id: product_form_id %}
+                </div>
+            {%- endif -%}
+            {%- assign has_selling_plan = false -%}
+            {% capture selling_plan_html %}
+                {% for variant in product.variants %}
+                    <optgroup label="{{ variant.title }}">
+                        {% for allocation in variant.selling_plan_allocations %}
+                            {%- assign has_selling_plan = true -%}
+                            <option value="{{ allocation.selling_plan.id }}">
+                                {{ allocation.selling_plan.name }}
+                            </option>
+                        {% endfor %}
+                    </optgroup>
+                {% endfor %}
+            {% endcapture %}
+            <select name="selling_plan"{% unless settings.product_info_show_selling_plan and has_selling_plan %} class="d-none"{% endunless %}>{{ selling_plan_html }}</select>
+            {% include 'product-page-get-buttons' with product_form_id: product_form_id %}
+            {%- when 'free_shipping' -%}
+            {%- if settings.cart_show_free_shipping -%}
+                <div class="product-page-info__free-shipping mb-40" {{ block.shopify_attributes }}>
+                    {% render 'free-shipping' with mobile_centered: true centered: centered %}
+                </div>
+            {%- endif -%}
+            {%- when 'pickup_availability' -%}
+            {% include 'product-page-get-pickup-available' %}
+            {%- when 'complementary_products' -%}
+            {%- assign global_product_form_id = product_form_id -%}
+            <div class="product-page-info__complementary-products product-page-info__field" {{ block.shopify_attributes }}>
+                {% include 'product-page-get-complementary-products' %}
+            </div>
+            {%- assign product_form_id = global_product_form_id -%}
+            {%- when 'payments' -%}
+            <div class="product-page-info__payments product-page-info__field d-flex flex-column align-items-start{% if centered %} align-items-md-center{% endif %} mb-15" {{ block.shopify_attributes }}>
+                <label class="mb-6">{{ 'products.product.payments' | t }}:</label>
+                {% include 'payments' with payments_sequence: settings.payment_sequence_product %}
+            </div>
+            {%- when 'social_share_buttons' -%}
+            <div class="product-page-info__share product-page-info__field mb-30" {{ block.shopify_attributes }}>
+                <label class="mb-6">{{ 'products.product.share' | t }}</label>
+                {% render 'social-share' share_type: settings.product_info_social_share_buttons_type share_title: title share_permalink: url share_image: product.featured_media %}
+            </div>
+            {%- when 'custom_liquid' -%}
+            <div class="product-page-info__custom-liquid" {{ block.shopify_attributes }}>
+                {{ block.settings.custom_liquid }}
+            </div>
+        {%- endcase -%}
+    {%- endfor -%}
+    {%- if is_quick_view -%}
+        {%- if settings.product_quick_view_show_full_details -%}
+            <div class="product-page-info__full-details d-flex justify-content-center{% unless centered %} justify-content-md-start{% endunless %}">
+                <a href="{{ url }}" class="btn-link h6 mb-10">{{ 'products.product.button_full_details' | t }}</a>
+            </div>
+        {%- endif -%}
+    {%- endif -%}
+    {%- if variants_select_html != blank -%}
+        {{ variants_select_html }}
+    {%- endif -%}
+</div>
+
+
+{%- assign product_form_id = 'product-form-' | append: section.id -%}
+

@@ -1,0 +1,13 @@
+<div class="popup-wishlist py-25 px-20" data-popup-content>
+    <div class="popup-wishlist__head d-flex align-items-center">
+        <h5 class="m-0">{{ 'general.popups.wishlist.title' | t }} <span data-js-popup-wishlist-count></span></h5>
+        <i class="popup-wishlist__close ml-auto cursor-pointer" data-js-popup-close>{% render 'icon-theme-164' %}</i>
+    </div>
+    <div class="popup-wishlist__content d-none-important">
+        <div class="popup-wishlist__items mt-15 border-bottom"></div>
+        <div class="popup-wishlist__buttons mt-5">
+            <a href="/wishlist" class="btn btn--full mt-20 js-popup-button" data-js-popup-button="wishlist-full">{{ 'general.popups.wishlist.button_to_wishlist' | t }}</a>
+        </div>
+    </div>
+    <div class="popup-wishlist__empty mt-15 d-none-important">{{ 'general.popups.wishlist.empty' | t }}</div>
+</div>

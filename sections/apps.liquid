@@ -1,0 +1,104 @@
+<div data-section-id="{{ section.id }}" data-section-type="spacer"{% render 'layout-get-container-class' %}>
+  {%- if section.settings.margin_top_mobile != 0 -%}
+    {%- assign margin_top_mobile = section.settings.margin_top_mobile -%}
+  {%- else -%}
+      {%- assign margin_top_mobile = section.settings.margin_top -%}
+  {%- endif -%}
+  {%- if section.settings.margin_bottom_mobile != 0 -%}
+      {%- assign margin_bottom_mobile = section.settings.margin_bottom_mobile -%}
+  {%- else -%}
+      {%- assign margin_bottom_mobile = section.settings.margin_bottom -%}
+  {%- endif -%}
+  {% capture section_margins %}pt-{{ margin_top_mobile }} pt-md-{{ section.settings.margin_top }} pb-{{ margin_bottom_mobile }} pb-md-{{ section.settings.margin_bottom }}{% endcapture %}
+  {%- if section.settings.show_separator -%}
+    <div class="border-top"></div>
+  {%- endif -%}
+  <div class="{{ section_margins }}">
+    {%- for block in section.blocks -%}
+        {% render block %}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Apps",
+    "settings": [
+      {
+        "type": "select",
+        "id": "container",
+        "label": "Content width",
+        "default": "fullwidth",
+        "options": [
+            {
+                "value": "fullwidth",
+                "label": "Fullwidth"
+            },
+            {
+                "value": "boxed",
+                "label": "Boxed"
+            }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "margin_top",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "label": "Margin top",
+        "default": 60
+      },
+      {
+        "type": "range",
+        "id": "margin_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "label": "Margin bottom",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "margin_top_mobile",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "label": "Mobile margin top",
+        "info": "0 - get the desktop value",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "margin_bottom_mobile",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "label": "Mobile margin bottom",
+        "info": "0 - get the desktop value",
+        "default": 0
+      },
+      {
+        "type": "checkbox",
+        "id": "show_separator",
+        "label": "Show separator",
+        "default": false
+      }
+    ],
+    "blocks": [
+      {
+        "type": "@app"
+      }
+    ],
+    "presets": [
+      {
+          "name": "Apps",
+          "category": "7) Apps"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,74 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "16930252074e6a7509": {
+      "type": "apps",
+      "settings": {
+        "container": "fullwidth",
+        "margin_top": 60,
+        "margin_bottom": 0,
+        "margin_top_mobile": 0,
+        "margin_bottom_mobile": 0,
+        "show_separator": false
+      }
+    },
+    "main": {
+      "type": "main-cart",
+      "settings": {}
+    },
+    "4a84821f-1e08-4f6e-b386-e0cc8863d9e4": {
+      "type": "sorting-collections",
+      "blocks": {
+        "d06fc9f4-c614-496a-9839-458a424881d6": {
+          "type": "collection",
+          "settings": {
+            "title": "You may also like:",
+            "collection": "picked-for-you"
+          }
+        }
+      },
+      "block_order": [
+        "d06fc9f4-c614-496a-9839-458a424881d6"
+      ],
+      "settings": {
+        "size_of_columns": "4",
+        "max_count": 8,
+        "show_btn_more_products": false
+      }
+    },
+    "175287588030cbcf21": {
+      "type": "apps",
+      "blocks": {
+        "redeemly_rewarded_credits_cart_fwdMH8": {
+          "type": "shopify://apps/redeemly/blocks/rewarded_credits_cart/fe55f451-e553-4131-a946-354ff46f9d85",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "redeemly_rewarded_credits_cart_fwdMH8"
+      ],
+      "settings": {
+        "container": "fullwidth",
+        "margin_top": 60,
+        "margin_bottom": 0,
+        "margin_top_mobile": 0,
+        "margin_bottom_mobile": 0,
+        "show_separator": false
+      }
+    }
+  },
+  "order": [
+    "16930252074e6a7509",
+    "main",
+    "4a84821f-1e08-4f6e-b386-e0cc8863d9e4",
+    "175287588030cbcf21"
+  ]
+}

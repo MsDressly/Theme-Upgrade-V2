@@ -1,0 +1,563 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "163360965317e45ad4": {
+      "type": "collection-page-heading",
+      "blocks": {
+        "bb89ce00-d2d7-4d1a-a044-4a710b7e4f88": {
+          "type": "promobox",
+          "settings": {
+            "for_collection": "women-accessories",
+            "url": "",
+            "image_size": 2000,
+            "image_mobile_size": 900,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "Text line #1",
+            "text_line_2": "Text line #2",
+            "text_line_3": "Text line #3",
+            "style": "1",
+            "button_1": "Button #1 text",
+            "button_1_url": "",
+            "color_button_type_1": "default",
+            "button_2": "Button #2 text",
+            "button_2_url": "",
+            "color_button_type_2": "default",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "clean",
+            "content_position": "center",
+            "content_align": "center",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "12",
+            "visible": "desktop_mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        }
+      },
+      "block_order": [
+        "bb89ce00-d2d7-4d1a-a044-4a710b7e4f88"
+      ],
+      "settings": {
+        "position": "fullwidth",
+        "default_desktop_title": "disabled",
+        "default_mobile_title": "disabled",
+        "margins_for_columns": "none",
+        "disable_column_paddings": false
+      }
+    },
+    "163354805241cf56f6": {
+      "type": "carousel-products",
+      "blocks": {
+        "4985fe23-32be-494f-a8ee-f689fe835c90": {
+          "type": "collection",
+          "settings": {
+            "title": "",
+            "collection": "picked-for-you"
+          }
+        }
+      },
+      "block_order": [
+        "4985fe23-32be-494f-a8ee-f689fe835c90"
+      ],
+      "settings": {
+        "show_title": true,
+        "container": "boxed",
+        "size_of_columns": "4",
+        "max_count": 6,
+        "autoplay": true,
+        "speed": 5,
+        "infinite": true,
+        "arrows": true,
+        "bullets": true
+      }
+    },
+    "page-heading": {
+      "type": "collection-page-heading",
+      "blocks": {
+        "1586289313748": {
+          "type": "promobox",
+          "settings": {
+            "for_collection": "womens",
+            "url": "/collections/womens",
+            "image_size": 900,
+            "image_mobile_size": 900,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "",
+            "text_line_2": "FINAL CLEARANCE",
+            "text_line_3": "Take 20% off ‘Sale Must-Haves'",
+            "style": "2",
+            "button_1": "",
+            "button_1_url": "",
+            "color_button_type_1": "default-transparent",
+            "button_2": "",
+            "button_2_url": "",
+            "color_button_type_2": "default-transparent",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "type-1-3",
+            "content_position": "center",
+            "content_align": "center",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "12",
+            "visible": "desktop_mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        },
+        "1586289329527": {
+          "type": "promobox",
+          "settings": {
+            "for_collection": "mens",
+            "url": "/collections/mens",
+            "image": "shopify://shop_images/1.jpg",
+            "image_size": 900,
+            "image_mobile_size": 900,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "NEW-SEASON ACCESSORIES",
+            "text_line_2": "Spring/Summer 2019 Collection",
+            "text_line_3": "Text line #3",
+            "style": "3",
+            "button_1": "Button #1 text",
+            "button_1_url": "",
+            "color_button_type_1": "default-transparent",
+            "button_2": "Button #2 text",
+            "button_2_url": "",
+            "color_button_type_2": "default-transparent",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "type-3",
+            "content_position": "center",
+            "content_align": "center",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "8",
+            "visible": "desktop",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        },
+        "1586289339594": {
+          "type": "promobox",
+          "settings": {
+            "for_collection": "mens",
+            "url": "/collections/mens",
+            "image": "shopify://shop_images/2.jpg",
+            "image_size": 900,
+            "image_mobile_size": 900,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "SPECIAL OFFERS",
+            "text_line_2": "Get up to 20% off",
+            "text_line_3": "Text line #3",
+            "style": "3",
+            "button_1": "Button #1 text",
+            "button_1_url": "",
+            "color_button_type_1": "default-transparent",
+            "button_2": "Button #2 text",
+            "button_2_url": "",
+            "color_button_type_2": "default-transparent",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "type-3",
+            "content_position": "center",
+            "content_align": "center",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "4",
+            "visible": "desktop",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        }
+      },
+      "block_order": [
+        "1586289313748",
+        "1586289329527",
+        "1586289339594"
+      ],
+      "settings": {
+        "position": "products_grid_width",
+        "default_desktop_title": "title",
+        "default_mobile_title": "title",
+        "margins_for_columns": "none",
+        "disable_column_paddings": false
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "blocks": {
+        "02aecce4-51e9-4ec0-ac9c-9ded1b5fa681": {
+          "type": "current_filters",
+          "settings": {
+            "title": "CURRENT FILTERS",
+            "default_state": "open",
+            "show_group": true
+          }
+        },
+        "16965e1c-70f3-4981-950d-436766d0e581": {
+          "type": "collections",
+          "settings": {
+            "title": "COLLECTION",
+            "default_state": "close",
+            "menu": "",
+            "show_collection_product_count": false
+          }
+        },
+        "48ad317a-ffbe-487b-b9b8-4db5add49b84": {
+          "type": "filters",
+          "settings": {
+            "default_state": "open",
+            "layout": "1_col",
+            "max_column_size": 8
+          }
+        },
+        "87f9351b-53df-4fb9-b8d4-39d538619b39": {
+          "type": "filter_settings",
+          "settings": {
+            "filter_name": "Color",
+            "title": "",
+            "default_state": "open",
+            "make_as_color": true,
+            "layout": "row",
+            "max_column_size": 8
+          }
+        },
+        "a76651dd-1cd6-4d78-8c4d-bc9a5854f2e8": {
+          "type": "filter_settings",
+          "settings": {
+            "filter_name": "Size",
+            "title": "",
+            "default_state": "open",
+            "make_as_color": false,
+            "layout": "2_col",
+            "max_column_size": 8
+          }
+        },
+        "1bd2be8d-e28d-4447-8afe-bbf42c113535": {
+          "type": "tags",
+          "disabled": true,
+          "settings": {
+            "title": "TAG",
+            "default_state": "open",
+            "show_checkbox": false,
+            "make_as_color": false,
+            "tags_list": "Awesome\nAnkle\nBeachwear\nCool\nProm Shoes\nSummer\nSpecial Price\nVintage",
+            "layout": "row",
+            "max_column_size": 8,
+            "for_collections": ""
+          }
+        },
+        "2180ec65-ff2f-45ac-aa0f-edb46937e54d": {
+          "type": "products",
+          "disabled": true,
+          "settings": {
+            "title": "FEATURED PRODUCTS",
+            "default_state": "fixed",
+            "collection": "featured-products",
+            "max_count": 3,
+            "product_type": "short"
+          }
+        },
+        "1d579a9a-34e3-41b6-91f6-69e755a1f034": {
+          "type": "custom_html",
+          "settings": {
+            "title": "MsDressly® at your service:",
+            "default_state": "fixed",
+            "page_content": ""
+          }
+        },
+        "b8f0b47b-2d12-47a4-853f-e5adae3a8071": {
+          "type": "promobox",
+          "settings": {
+            "title": "PROMOBOX",
+            "default_state": "without_title",
+            "url": "shopify://collections/picked-for-you",
+            "image": "shopify://shop_images/Jumpsuits_9cfa5b0f-2096-4bfd-b813-246915ec96a1.png",
+            "image_size": 900,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "NEW IN",
+            "text_line_2": "Spring/Summer 2023 Collection",
+            "text_line_3": "Text line #3",
+            "style": "1",
+            "button_1": "Button #1 text",
+            "button_1_url": "shopify://collections/picked-for-you",
+            "color_button_type_1": "default-transparent",
+            "button_2": "Button #2 text",
+            "button_2_url": "",
+            "color_button_type_2": "default-transparent",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "type-3",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none"
+          }
+        }
+      },
+      "block_order": [
+        "02aecce4-51e9-4ec0-ac9c-9ded1b5fa681",
+        "16965e1c-70f3-4981-950d-436766d0e581",
+        "48ad317a-ffbe-487b-b9b8-4db5add49b84",
+        "87f9351b-53df-4fb9-b8d4-39d538619b39",
+        "a76651dd-1cd6-4d78-8c4d-bc9a5854f2e8",
+        "1bd2be8d-e28d-4447-8afe-bbf42c113535",
+        "2180ec65-ff2f-45ac-aa0f-edb46937e54d",
+        "1d579a9a-34e3-41b6-91f6-69e755a1f034",
+        "b8f0b47b-2d12-47a4-853f-e5adae3a8071"
+      ],
+      "settings": {
+        "container": "boxed",
+        "products_per_page": 12,
+        "enable_default_filtering": true,
+        "show_selected_filters_counter": false,
+        "show_filter_product_count": false,
+        "hide_disabled_filters": true,
+        "make_availability_as_rounded": true,
+        "price_filter_type": "slider",
+        "sort_by_visibility": "hide",
+        "info_visibility": "hide",
+        "view_grid_visibility": "desktop_n_mobile",
+        "show_view_grid_1": true,
+        "show_view_grid_2": true,
+        "show_view_grid_3": true,
+        "show_view_grid_4": true,
+        "show_view_grid_6": false,
+        "show_view_grid_list": true,
+        "view_grid_list_design": "1",
+        "enable_grid_tooltip": true,
+        "default_view_grid_xl": "3",
+        "default_view_grid_lg": "3",
+        "default_view_grid_md": "3",
+        "default_view_grid_sm": "2",
+        "default_view_grid_xs": "2",
+        "current_filters_visibility": "mobile",
+        "uppercase_filter_title": true,
+        "show_filter_border": true
+      }
+    },
+    "16340972126515e6a5": {
+      "type": "home-builder",
+      "blocks": {
+        "d1fd6b61-99f0-4ba0-b23c-85867da85a12": {
+          "type": "promobox",
+          "settings": {
+            "url": "shopify://collections/accessories",
+            "image_size": 1450,
+            "image_mobile_size": 550,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "SECTIONS ON EVERY PAGE",
+            "text_line_2": "Limited Time: Online Only!",
+            "text_line_3": "",
+            "style": "3",
+            "button_1": "",
+            "button_1_url": "",
+            "color_button_type_1": "default",
+            "button_2": "",
+            "button_2_url": "",
+            "color_button_type_2": "default",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "type-2",
+            "content_position": "center",
+            "content_align": "center",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "auto",
+            "visible": "desktop_mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        },
+        "4cda846d-4341-4ef7-ba28-260ad070cad7": {
+          "type": "promobox",
+          "settings": {
+            "url": "shopify://collections/coats",
+            "image_size": 1450,
+            "image_mobile_size": 550,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "ONLINE STORE 2.0",
+            "text_line_2": "Discover the ultimate packing list",
+            "text_line_3": "",
+            "style": "3",
+            "button_1": "",
+            "button_1_url": "",
+            "color_button_type_1": "default",
+            "button_2": "",
+            "button_2_url": "",
+            "color_button_type_2": "default",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "type-2",
+            "content_position": "center",
+            "content_align": "center",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "auto",
+            "visible": "desktop_mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        }
+      },
+      "block_order": [
+        "d1fd6b61-99f0-4ba0-b23c-85867da85a12",
+        "4cda846d-4341-4ef7-ba28-260ad070cad7"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "",
+        "container": "boxed",
+        "size_of_columns": "2",
+        "size_of_columns_mobile": "1",
+        "margins_for_columns": "preset_3",
+        "align_of_columns": "top_center",
+        "disable_column_paddings": false,
+        "precedence": "",
+        "customization_class": ""
+      }
+    },
+    "163409726484d77b6d": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 30,
+        "margin_bottom": 60,
+        "margin_top_mobile": 30,
+        "margin_bottom_mobile": 0,
+        "container": "boxed",
+        "show_separator": true,
+        "title": ""
+      }
+    }
+  },
+  "order": [
+    "163360965317e45ad4",
+    "163354805241cf56f6",
+    "page-heading",
+    "product-grid",
+    "16340972126515e6a5",
+    "163409726484d77b6d"
+  ]
+}

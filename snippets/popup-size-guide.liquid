@@ -1,0 +1,12 @@
+<div class="popup-size-guide position-relative py-30 px-15" data-popup-content>
+    <i class="popup-size-guide__close position-absolute cursor-pointer" data-js-popup-close>{% render 'icon-theme-164' %}</i>
+    <div class="popup-size-guide__content mx-auto" data-popup-size-guide-content>
+        <div class="rte">
+            {%- if product.metafields.sizeguide.html and product.metafields.sizeguide.html != 'hide' -%}
+                {{ product.metafields.sizeguide.html }}
+            {%- else -%}
+                {% include 'parse-page-html-content' with default_page: 'include-popup-size-guide' page_content: settings.product_info_size_guide_page_content %}
+            {%- endif -%}
+        </div>
+    </div>
+</div>

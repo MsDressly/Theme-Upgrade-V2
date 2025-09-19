@@ -1,0 +1,30 @@
+{% include 'global-variables' %}
+{% include 'product-res-variables' %}
+{%- assign image_size = '200x' -%}
+{%- assign show_title = show_title | default: settings.product_collection_show_title -%}
+{%- assign show_price = show_price | default: settings.product_collection_show_price -%}
+<div class="product-search d-flex flex-row flex-lg-column align-items-start align-items-lg-stretch mb-10">
+    <div class="product-search__image position-relative mr-10 mr-lg-0">
+        <a href="{{ url }}" class="d-block">
+            {%- if image -%}
+                {% render 'rimage' image: image size: image_size stretch_size: settings.product_collection_image_size disable_lazyload: disable_lazyload %}
+            {%- else -%}
+                <img>
+            {%- endif -%}
+        </a>
+    </div>
+    <div class="product-search__content d-flex flex-column align-items-start mt-lg-15">
+        {%- if show_title -%}
+            <div class="product-search__title mb-3">
+                <h3 class="h6 m-0">
+                    <a href="{{ url }}">{{ title }}</a>
+                </h3>
+            </div>
+        {%- endif -%}
+        {%- if show_price -%}
+            <div class="product-search__price mb-10">
+                {% include 'product-get-price' %}
+            </div>
+        {%- endif -%}
+    </div>
+</div>

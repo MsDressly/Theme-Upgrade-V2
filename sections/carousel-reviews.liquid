@@ -1,0 +1,309 @@
+{%- if section.blocks.size > 0 -%}
+    <carousel-reviews class="d-block" data-section-id="{{ section.id }}" data-section-type="carousel-reviews">
+        {%- if section.settings.type == '1' -%}
+            <div class="carousel-reviews-container carousel-reviews--style-{{ section.settings.style }}{% if section.settings.style == '1' %} py-80{% endif %} overflow-hidden">
+                <div class="container">
+                    <div class="carousel{% if section.settings.arrows %} carousel--arrows{% endif %} carousel-reviews position-relative">
+                        {%- if section.settings.title != blank -%}
+                            <h2 class="h4 carousel__title home-section-title mb-30 text-center">{{ section.settings.title }}</h2>
+                        {%- endif -%}
+                        <div class="carousel__slider position-relative invisible js-slider-tracking"
+                             data-js-carousel
+                             data-autoplay="{{ section.settings.autoplay }}"
+                             data-speed="{{ section.settings.speed | times: 1000 }}"
+                             data-count="{{ section.settings.size_of_columns }}"
+                             data-items-length="{{ section.blocks | size }}"
+                             data-infinite="true"
+                             data-arrows="{{ section.settings.arrows }}"
+                             data-bullets="false">
+                            {%- if section.settings.arrows -%}
+                                <div class="carousel__prev-placeholder position-absolute cursor-pointer" data-js-carousel-prev></div>
+                                <div class="carousel__prev position-absolute pointer-events-none" data-js-carousel-arrow><i>{% render 'icon-theme-006' %}</i></div>
+                            {%- endif -%}
+                            <div class="carousel-reviews__reviews overflow-hidden">
+                                <div class="carousel__slick row" data-js-carousel-slick data-carousel-items>
+                                    {%- for block in section.blocks -%}
+                                        <div class="carousel__item carousel-reviews__review">
+                                            <div class="col">
+                                                <div class="carousel-reviews__item_content d-flex flex-column align-items-center align-items-lg-start text-center text-lg-left px-15 px-md-30 py-35">
+                                                    {%- if block.settings.title != blank -%}
+                                                        <h3 class="carousel-reviews__title h4 mb-0">{{ block.settings.title }}</h3>
+                                                    {%- endif -%}
+                                                    <div class="carousel-reviews__stars inline-flex justify-content-center mt-10">
+                                                        {%- for i in (0..5) limit: block.settings.stars -%}
+                                                            <i>{% render 'icon-theme-221' %}</i>
+                                                        {%- endfor -%}
+                                                    </div>
+                                                    {%- if block.settings.paragraph != blank -%}
+                                                        <p class="carousel-reviews__paragraph paragraph-lg mt-20 mb-0">{{ block.settings.paragraph }}</p>
+                                                    {%- endif -%}
+                                                    <div class="mt-auto">
+                                                        <div class="mt-25">
+                                                            {%- if block.settings.user_image != blank -%}
+                                                                <div class="carousel-reviews__item_image overflow-hidden rounded-circle mx-auto mx-lg-0">
+                                                                    {% render 'rimage' with image: block.settings.user_image size: '164x' %}
+                                                                </div>
+                                                            {%- endif -%}
+                                                            {%- if block.settings.user_text_line_1 != blank or block.settings.user_text_line_2 != blank -%}
+                                                                <div class="carousel-reviews__item_user mt-10">
+                                                                    {%- if block.settings.user_text_line_1 != blank -%}
+                                                                        <p class="carousel-reviews__item_user_text_line_1 fs-lg mb-0"><span class="mr-3">—</span>{{ block.settings.user_text_line_1 }}</p>
+                                                                    {%- endif -%}
+                                                                    {%- if block.settings.user_text_line_2 != blank -%}
+                                                                        <p class="carousel-reviews__item_user_text_line_2 mb-0">{{ block.settings.user_text_line_2 }}</p>
+                                                                    {%- endif -%}
+                                                                </div>
+                                                            {%- endif -%}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {%- endfor -%}
+                                </div>
+                            </div>
+                            {%- if section.settings.arrows -%}
+                                <div class="carousel__next-placeholder position-absolute cursor-pointer" data-js-carousel-next></div>
+                                <div class="carousel__next position-absolute pointer-events-none" data-js-carousel-arrow><i>{% render 'icon-theme-007' %}</i></div>
+                            {%- endif -%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {%- elsif section.settings.type == '2' -%}
+            <div class="carousel-reviews-container carousel-reviews--style-{{ section.settings.style }}{% if section.settings.style == '1' %} py-80{% endif %} overflow-hidden">
+                <div class="container">
+                    <div class="carousel{% if section.settings.arrows %} carousel--arrows{% endif %} carousel-reviews position-relative">
+                        {%- if section.settings.title != blank -%}
+                            <h2 class="h4 carousel__title home-section-title mb-30 text-center">{{ section.settings.title }}</h2>
+                        {%- endif -%}
+                        <div class="carousel__slider position-relative invisible js-slider-tracking"
+                             data-js-carousel
+                             data-autoplay="{{ section.settings.autoplay }}"
+                             data-speed="{{ section.settings.speed | times: 1000 }}"
+                             data-count="{{ section.settings.size_of_columns }}"
+                             data-infinite="true"
+                             data-arrows="{{ section.settings.arrows }}"
+                             data-bullets="false">
+                            {%- if section.settings.arrows -%}
+                                <div class="carousel__prev d-none d-lg-block position-absolute cursor-pointer" data-js-carousel-prev><i>{% render 'icon-theme-006' %}</i></div>
+                            {%- endif -%}
+                            <div class="carousel-reviews__reviews overflow-hidden">
+                                <div class="carousel__slick row" data-js-carousel-slick data-carousel-items>
+                                    {%- for block in section.blocks -%}
+                                        <div class="carousel__item carousel-reviews__review">
+                                            <div class="col">
+                                                <div class="carousel-reviews__item_content d-flex text-center px-15 px-md-30 py-55">
+                                                    <div class="carousel-reviews__item_container d-flex flex-column align-items-center mx-auto">
+                                                        {%- if block.settings.title != blank -%}
+                                                            <h3 class="h4 mb-0">{{ block.settings.title }}</h3>
+                                                        {%- endif -%}
+                                                        <div class="carousel-reviews__stars inline-flex justify-content-center{% if block.settings.title != blank %} mt-10{% endif %}">
+                                                            {%- for i in (0..5) limit: block.settings.stars -%}
+                                                                <i>{% render 'icon-theme-221' %}</i>
+                                                            {%- endfor -%}
+                                                        </div>
+                                                        {%- if block.settings.paragraph != blank -%}
+                                                            <p class="carousel-reviews__paragraph paragraph-lg mt-20 mb-0">{{ block.settings.paragraph }}</p>
+                                                        {%- endif -%}
+                                                        <div class="mt-auto">
+                                                            <div class="mt-25">
+                                                                {%- if block.settings.user_image != blank -%}
+                                                                    <div class="carousel-reviews__item_image overflow-hidden rounded-circle mx-auto">
+                                                                        {% render 'rimage' with image: block.settings.user_image size: '164x' %}
+                                                                    </div>
+                                                                {%- endif -%}
+                                                                {%- if block.settings.user_text_line_1 != blank or block.settings.user_text_line_2 != blank -%}
+                                                                    <div class="carousel-reviews__item_user mt-10">
+                                                                        {%- if block.settings.user_text_line_1 != blank -%}
+                                                                            <p class="carousel-reviews__item_user_text_line_1 h5 mb-0"><span class="mr-3">—</span>{{ block.settings.user_text_line_1 }}</p>
+                                                                        {%- endif -%}
+                                                                        {%- if block.settings.user_text_line_2 != blank -%}
+                                                                            <p class="carousel-reviews__item_user_text_line_2 mt-10 mb-0">{{ block.settings.user_text_line_2 }}</p>
+                                                                        {%- endif -%}
+                                                                    </div>
+                                                                {%- endif -%}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {%- endfor -%}
+                                </div>
+                            </div>
+                            {%- if section.settings.arrows -%}
+                                <div class="carousel__next d-none d-lg-block position-absolute cursor-pointer" data-js-carousel-next><i>{% render 'icon-theme-007' %}</i></div>
+                            {%- endif -%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {%- endif -%}
+    </carousel-reviews>
+    <script>
+        theme.AssetsLoader.require('scripts', 'carousel_reviews');
+    </script>
+{%- else -%}
+    {% render 'no-blocks' %}
+{%- endif -%}
+
+{% schema %}{
+    "name": "t:sections.review_carousel.name",
+    "settings": [
+        {
+            "type": "textarea",
+            "id": "title",
+            "label": "t:sections.review_carousel.settings.title.label"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.review_carousel.settings.header__1.content"
+        },
+        {
+            "type": "select",
+            "id": "type",
+            "label": "t:sections.review_carousel.settings.type.label",
+            "default": "1",
+            "options": [
+                {
+                    "value": "1",
+                    "label": "t:sections.review_carousel.settings.type.option__1.label"
+                },
+                {
+                    "value": "2",
+                    "label": "t:sections.review_carousel.settings.type.option__2.label"
+                }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "style",
+            "label": "t:sections.review_carousel.settings.style.label",
+            "default": "1",
+            "options": [
+                {
+                    "value": "1",
+                    "label": "t:sections.review_carousel.settings.style.option__1.label"
+                },
+                {
+                    "value": "2",
+                    "label": "t:sections.review_carousel.settings.style.option__2.label"
+                },
+                {
+                    "value": "3",
+                    "label": "t:sections.review_carousel.settings.style.option__3.label"
+                }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "size_of_columns",
+            "label": "t:sections.review_carousel.settings.size_of_columns.label",
+            "default": "3",
+            "options": [
+                {
+                    "value": "1",
+                    "label": "t:sections.review_carousel.settings.size_of_columns.option__1.label"
+                },
+                {
+                    "value": "2",
+                    "label": "t:sections.review_carousel.settings.size_of_columns.option__2.label"
+                },
+                {
+                    "value": "3",
+                    "label": "t:sections.review_carousel.settings.size_of_columns.option__3.label"
+                },
+                {
+                    "value": "4",
+                    "label": "t:sections.review_carousel.settings.size_of_columns.option__4.label"
+                }
+            ]
+        },
+        {
+            "type": "checkbox",
+            "id": "autoplay",
+            "label": "t:sections.review_carousel.settings.autoplay.label",
+            "default": true
+        },
+        {
+            "type": "range",
+            "id": "speed",
+            "min": 2,
+            "max": 10,
+            "step": 1,
+            "label": "t:sections.review_carousel.settings.speed.label",
+            "default": 5
+        },
+        {
+            "type": "checkbox",
+            "id": "arrows",
+            "label": "t:sections.review_carousel.settings.arrows.label",
+            "default": true
+        }
+    ],
+    "blocks": [
+        {
+            "type": "slide",
+            "name": "t:sections.review_carousel.blocks.slide.name",
+            "settings": [
+                {
+                    "type": "textarea",
+                    "id": "title",
+                    "label": "t:sections.review_carousel.blocks.slide.settings.title.label",
+                    "default": "TITLE"
+                },
+                {
+                    "type": "range",
+                    "id": "stars",
+                    "min": 1,
+                    "max": 5,
+                    "step": 1,
+                    "label": "t:sections.review_carousel.blocks.slide.settings.stars.label",
+                    "default": 5
+                },
+                {
+                    "type": "textarea",
+                    "id": "paragraph",
+                    "label": "t:sections.review_carousel.blocks.slide.settings.paragraph.label",
+                    "default": "Paragraph"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "user_image",
+                    "label": "t:sections.review_carousel.blocks.slide.settings.user_image.label"
+                },
+                {
+                    "type": "textarea",
+                    "id": "user_text_line_1",
+                    "label": "t:sections.review_carousel.blocks.slide.settings.user_text_line_1.label",
+                    "default": "User"
+                },
+                {
+                    "type": "textarea",
+                    "id": "user_text_line_2",
+                    "label": "t:sections.review_carousel.blocks.slide.settings.user_text_line_2.label",
+                    "default": "Text"
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.review_carousel.blocks.slide.settings.header__1.content"
+                },
+                {
+                    "type": "paragraph",
+                    "content": "t:sections.review_carousel.blocks.slide.settings.paragraph__1.content"
+                },
+                {
+                    "type": "paragraph",
+                    "content": "t:sections.review_carousel.blocks.slide.settings.paragraph__2.content"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Review carousel",
+            "category": "2) Carousels"
+        }
+    ]
+}{% endschema %}

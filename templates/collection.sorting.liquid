@@ -1,0 +1,22 @@
+{% layout none %}
+{% include 'global-variables' %}
+{%- assign pageUrl = content_for_header | split:'"pageurl":"' | last | split:'"' | first | replace:'\/','/' | prepend: 'https://' | remove: canonical_url | url_decode | replace:'\u0026', '&#38;' | replace:'%20', ' ' -%}
+{%- if pageUrl contains '?' -%}
+    {%- assign params = pageUrl | remove: '?' | split: '&#38;' -%}
+    {%- for param in params -%}
+        {%- assign prop_n_value = param | split: '=' -%}
+        {%- if prop_n_value[0] == 'count_limit' -%}
+            {%- assign count_limit = prop_n_value[1] -%}
+        {%- elsif prop_n_value[0] == 'grid_classes' -%}
+            {%- assign grid_classes = prop_n_value[1] -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endif -%}
+{%- unless count_limit -%}
+    {%- assign count_limit = 8 -%}
+{%- endunless -%}
+{%- for product in collections[collection.handle].products limit: count_limit -%}
+    <div class="{{ grid_classes }}">
+        {% include 'product-collection' with url_without_collection: true product_margin_bottom: offset_collection_page_product_margin_bottom_d %}
+    </div>
+{%- endfor -%}

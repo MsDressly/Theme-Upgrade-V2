@@ -1,0 +1,53 @@
+{%- if section.settings.menu != blank -%}
+    <nav class="menu {% if is_main_menu %}menu--main{% else %}menu--secondary{% endif %} js-menu js-position" data-js-position-name="menu">
+        <div class="menu__panel{% if header_menu_list_on_a_par %} menu__panel--on-a-par{% endif %} menu__list menu__level-01 d-flex flex-column flex-lg-row flex-lg-wrap{% if centered %} justify-content-lg-center{% endif %}">
+            <div class="menu__curtain d-none position-lg-absolute"></div>
+            {%- assign menu = linklists[section.settings.menu] -%}
+            {%- assign megamenu_index = 0 -%}
+            {%- for link in menu.links -%}
+                {%- capture childrens -%}
+                    {%- assign megamenu = null -%}
+                    {%- assign longer_menu = null -%}
+                    {%- if menu_html -%}
+                        {%- assign links_path = link.handle | prepend: '|||' | append: '|||' -%}
+                        {%- if menu_html contains links_path -%}
+                            {%- assign content_split_1 = menu_html | split: links_path -%}
+                            {%- assign content_split_2 = content_split_1[1] | split: '|||' -%}
+                            {%- assign longer_menu = linklists[content_split_2[0]] -%}
+                        {%- endif -%}
+                    {%- endif -%}
+                    {%- if items_with_megamenu contains link.handle -%}
+                        {%- for block in section.blocks offset: megamenu_index -%}
+                            {%- if block.type =='megamenu' -%}
+                                {%- assign for_item_handle = block.settings.for_item | handle -%}
+                                {%- if for_item_handle == link.handle -%}
+                                    {%- assign megamenu = block.settings -%}
+                                    {%- assign megamenu_index = forloop.index | plus: megamenu_index -%}
+                                    {%- if longer_menu -%}
+                                        {% include 'header-get-menu-megamenu' with output_link: longer_menu %}
+                                    {%- else -%}
+                                        {% include 'header-get-menu-megamenu' with output_link: link %}
+                                    {%- endif -%}
+                                    {%- break -%}
+                                {%- endif -%}
+                            {%- endif -%}
+                        {%- endfor -%}
+                    {%- endif -%}
+                    {%- if megamenu == null -%}
+                        {%- if longer_menu -%}
+                            {% render 'header-get-menu-dropdown' with output_link: longer_menu label_html: label_html preview_image_html: preview_image_html preview_link_substitution: preview_link_substitution %}
+                        {%- else -%}
+                            {% render 'header-get-menu-dropdown' with output_link: link label_html: label_html preview_image_html: preview_image_html preview_link_substitution: preview_link_substitution %}
+                        {%- endif -%}
+                    {%- endif -%}
+                {% endcapture %}
+                <div class="menu__item {% if link.levels > 0 or longer_menu %}menu__item--has-children{% if megamenu == null %} position-lg-relative{% endif %}{% endif %}">
+                    <a href="{% render 'header-get-menu-link-substitution' with preview_link_substitution: preview_link_substitution default_link: link.url link: link %}" class="d-flex align-items-center{% if section.settings.show_menu_hover_underline %} text-underline-hover{% endif %}">{% include 'header-get-menu-icons' with link: link %}<span>{{ link.title }}</span>{% render 'header-get-menu-labels' with label_html: label_html link: link %}{% if link.levels > 0 or megamenu != null or longer_menu.levels > 0 %} {% if section.settings.show_menu_arrows %}<i class="menu__item_arrow d-none d-lg-flex position-lg-relative mr-0">{% render 'icon-theme-229' %}</i>{% endif %}{% if link.levels > 0 or longer_menu.levels > 0 %}<i class="menu__item_arrow d-lg-none ml-auto">{% render 'icon-theme-231' %}</i>{% endif %}{% endif %}</a>
+                    {%- if link.levels > 0 or megamenu != null or longer_menu.levels > 0 -%}
+                        {{ childrens }}
+                    {%- endif -%}
+                </div>
+            {%- endfor -%}
+        </div>
+    </nav>
+{%- endif -%}

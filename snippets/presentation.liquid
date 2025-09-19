@@ -1,0 +1,46 @@
+<div class="fixed-sidebar__section my-15">
+    <div class="presentation position-relative pointer-events-all js-presentation d-none">
+        <div class="presentation__btn d-flex flex-center position-absolute top-0 right-100 cursor-pointer" data-js-presentation-close>
+            <i>{% render 'icon-theme-301' %}</i>
+            <i>{% render 'icon-theme-164' %}</i>
+        </div>
+        <div class="presentation__content p-20">
+            <div class="presentation__section pb-20 border-bottom">
+                <label class="input-boolean d-flex flex-wrap align-items-center m-0 cursor-pointer">
+                    <input type="checkbox" class="d-none" {% if settings.layout_container == 'boxed' %} checked="checked"{% endif %} data-js-action="container">
+                    <span class="position-relative d-flex order-1 ml-auto border">
+                        <span class="position-absolute d-block border"></span>
+                    </span>
+                    <span class="presentation__paragraph m-0 cursor-pointer">Boxed</span>
+                </label>
+                <label class="input-boolean d-flex flex-wrap align-items-center m-0 mt-10 cursor-pointer">
+                    <input id="presentation-rtl" type="checkbox" class="d-none" {% if settings.layout_enable_rtl %} checked="checked"{% endif %} data-js-action="rtl">
+                    <span class="position-relative d-flex order-1 ml-auto border">
+                        <span class="position-absolute d-block border"></span>
+                    </span>
+                    <span class="presentation__paragraph m-0 cursor-pointer">RTL</span>
+                </label>
+                <label class="input-boolean d-flex flex-wrap align-items-center m-0 mt-10 cursor-pointer">
+                    <input id="presentation-animation" type="checkbox" class="d-none" checked="checked" data-js-action="animation" data-invert="true">
+                    <span class="position-relative d-flex order-1 ml-auto border">
+                        <span class="position-absolute d-block border"></span>
+                    </span>
+                    <span class="presentation__paragraph m-0 cursor-pointer">Animation</span>
+                </label>
+            </div>
+            <div class="presentation__section py-20 border-bottom">
+                <a href="https://mpithemes.gitbook.io/shella-shopify-theme/" target="_blank">Documentation</a>
+            </div>
+            <div class="presentation__section pt-20">
+                <a href="http://bit.ly/2DOThWb" target="_blank">BUY NOW!</a>
+            </div>
+        </div>
+    </div>
+    <script>theme.AssetsLoader.onLoadTag('styles', 'presentation')</script>
+    <link rel="preload" href="{{ 'presentation.s.min.css' | asset_url }}" as="style" onload="window.theme.AssetsLoader.onLoadStyleLinkPreload(this, 'presentation')">
+    <script>
+        theme.AssetsLoader.onUserAction(function() {
+            theme.AssetsLoader.require('scripts', 'presentation');
+        });
+    </script>
+</div>

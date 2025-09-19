@@ -1,0 +1,25 @@
+{% capture popups_style_base_html %}
+    {{ popups_style_base_html }}
+    {%- assign popup_contact_confirmation_btn_type = 'default' -%}
+    {% render 'css-style-button' with class: '.popup-contact-confirmation__btn' type: popup_contact_confirmation_btn_type %}
+{% endcapture %}
+<div class="popup-contact-confirmation position-relative py-30 px-15" data-popup-content>
+    <i class="popup-contact-confirmation__close position-absolute cursor-pointer" data-js-popup-close>{% render 'icon-theme-164' %}</i>
+    <div class="popup-contact-confirmation__content d-flex flex-column mx-auto text-center">
+        <p class="mb-10"><i class="popup-contact-confirmation__title-icon">{% render 'icon-theme-153' %}</i></p>
+        <div data-popup-confirmation-success>
+            <div class="popup-contact-confirmation__message popup-contact-confirmation__message--success px-15 py-10">
+                <p class="mb-0">{{ 'general.popups.contact_confirmation.post_success' | t }}</p>
+            </div>
+            <div class="popup-contact-confirmation__btn btn mt-25 mx-auto" data-js-popup-close>{{ 'general.popups.contact_confirmation.button_success' | t }}</div>
+        </div>
+        <div class="d-none" data-popup-confirmation-error>
+            <div class="popup-contact-confirmation__message popup-contact-confirmation__message--error px-15 py-10 text-left" data-popup-confirmation-error-message></div>
+        </div>
+    </div>
+</div>
+<script>
+    theme.AssetsLoader.onUserAction(function() {
+        theme.AssetsLoader.require('scripts', 'popup_send_confirmation');
+    });
+</script>

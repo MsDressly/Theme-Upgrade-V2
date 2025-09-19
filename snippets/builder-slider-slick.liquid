@@ -1,0 +1,32 @@
+{%- assign slider_height = block.settings.height -%}
+{%- assign slider_min_height = block.settings.min_height -%}
+{%- assign video_lazyload = false -%}
+{%- assign slider_index = 0 -%}
+<div class="slider position-relative">
+    {%- if block.settings.arrows -%}
+        <div class="slider__prev d-none d-lg-block position-absolute cursor-pointer" data-js-slider-prev><i>{% render 'icon-theme-006' %}</i></div>
+    {%- endif -%}
+    <div class="slider__slick js-slider-tracking"
+         data-js-slider-slick
+         data-arrows="{{ block.settings.arrows }}"
+         data-bullets="{{ block.settings.bullets }}"
+         data-speed="{{ block.settings.speed }}">
+        {%- for block in section.blocks offset: forloop.index -%}
+            {%- if block.type != 'slick_slide' -%}
+                {%- break -%}
+            {%- endif -%}
+            {%- if slider_index > 0 -%}
+                {%- assign video_lazyload = true -%}
+            {%- endif -%}
+            {% capture inner_block_id %}{{ block_id }}-{{ forloop.index }}{% endcapture %}
+            <{% if block.settings.link != blank %}a href="{{ block.settings.link }}" data-target="_blank"{% else %}div{% endif %} class="slider__slide {{ inner_block_id }}"
+                {% if block.settings.delay > 0 %}data-delay="{{ block.settings.delay | times: 1000 }}"{% endif %}>
+                {% render 'promobox' with block: block block_id: inner_block_id video_lazyload: video_lazyload promobox_curtain_opacity: promobox_curtain_opacity promobox_height_preset_1: promobox_height_preset_1 promobox_height_preset_2: promobox_height_preset_2 promobox_height_preset_3: promobox_height_preset_3 promobox_ultra_height_preset_1: promobox_ultra_height_preset_1 promobox_ultra_height_preset_3: promobox_ultra_height_preset_3 height: slider_height min_height: slider_min_height is_slider: true %}
+            </{% if block.settings.link != blank %}a{% else %}div{% endif %}>
+            {%- assign slider_index = slider_index | plus: 1 -%}
+        {%- endfor -%}
+    </div>
+    {%- if block.settings.arrows -%}
+        <div class="slider__next d-none d-lg-block position-absolute cursor-pointer" data-js-slider-next><i>{% render 'icon-theme-007' %}</i></div>
+    {%- endif -%}
+</div>

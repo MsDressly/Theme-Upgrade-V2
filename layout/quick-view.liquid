@@ -1,0 +1,33 @@
+{% comment %}
+{{content_for_header}}
+{% endcomment %}
+{% capture content %}
+    <div class="quick-view">
+        <div class="container">
+            {{ content_for_layout }}
+        </div>
+        {%- if product.metafields.sizeguide.html and product.metafields.sizeguide.html != 'hide' -%}
+            <div class="rte d-none" data-product-size-guide-content>{{ product.metafields.sizeguide.html }}</div>
+        {%- endif -%}
+    </div>
+{% endcapture %}
+{%- if request.design_mode -%}
+    <!doctype html>
+    <!--[if IE 9]> <html class="ie9 no-js supports-no-cookies" lang="{{ shop.locale }}"{% if settings.layout_enable_rtl %} dir="rtl"{% endif %}> <![endif]-->
+    <!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js supports-no-cookies" lang="{{ shop.locale }}"{% if settings.layout_enable_rtl %} dir="rtl"{% endif %}> <!--<![endif]-->
+    <head>
+    {% capture get_content_for_header %}{{ content_for_header }}{% endcapture %}
+    {% include 'head' %}
+    </head>
+    <body{% render 'layout-get-body-attributes' %}>
+    {% include 'layout-get-includes-start' %}
+    {%- if settings.product_show_custom_options and settings.product_enable_variants_section -%}
+    {% section 'product-variants' %}
+    {%- endif -%}
+    {% include 'popups' with quick_view_content: content %}
+    </body>
+    </html>
+{%- else -%}
+    {{ content }}
+{%- endif -%}
+

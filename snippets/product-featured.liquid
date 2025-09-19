@@ -1,0 +1,133 @@
+{% include 'global-variables' %}
+{%- if settings.product_format_pjpg -%}
+    {%- assign image_format = 'pjpg' -%}
+{%- else -%}
+    {%- assign image_format = null -%}
+{%- endif -%}
+{% include 'product-res-variables' %}
+{%- assign image_size = '300x' -%}
+{%- assign show_label_in_stock = show_label_in_stock | default: false -%}
+{%- assign show_label_pre_order = show_label_pre_order | default: false -%}
+{%- assign show_label_out_stock = show_label_out_stock | default: false -%}
+{%- assign show_label_sale = show_label_sale | default: settings.product_collection_show_label_sale -%}
+{%- assign show_label_new = show_label_new | default: settings.product_collection_show_label_new -%}
+{%- assign show_label_hot = show_label_hot | default: settings.product_collection_show_label_hot -%}
+{%- assign show_title = show_title | default: settings.product_collection_show_title -%}
+{%- assign show_price = show_price | default: settings.product_collection_show_price -%}
+{%- assign show_reviews = show_reviews | default: settings.product_collection_show_reviews -%}
+{%- assign hide_reviews_counter = hide_reviews_counter | default: settings.product_collection_hide_reviews_counter -%}
+{%- assign show_button = show_button | default: false -%}
+{%- assign enable_quick_view = enable_quick_view | default: settings.product_collection_show_button_quick_view -%}
+{%- assign add_to_cart = add_to_cart | default: settings.product_info_complementary_products_add_to_cart -%}
+{%- assign show_type_collections_vendor = show_type_collections_vendor | default: true -%}
+{%- assign img_hover_url = hover_image | img_url: '1x1', format: image_format | replace: '_1x1.', '_{width}x.' -%}
+{%- if settings.reviews_type == 'disable' -%}
+    {%- assign show_reviews = false -%}
+{%- endif -%}
+{%- assign this_product_form_id = 'featured-quick-add-' | append: section.id | append: product.id -%}
+<product-item class="product-featured d-flex flex-row align-items-start mb-20"{% include 'product-get-attributes' with product_form_id: this_product_form_id %}>
+    <div class="product-featured__image mr-20 js-product-images-hovered-end{% if settings.product_replace_images_hover %} js-product-images-hover{% endif %}"{% if settings.product_replace_images_hover and hover_image != blank %} data-js-product-image-hover="{{ img_hover_url }}" data-js-product-image-hover-id="{{ hover_image.id }}"{% endif %}>
+        <a href="{{ url }}" class="d-block">
+            {% render 'rimage' with image: image size: image_size stretch_size: settings.product_collection_image_size alt: title %}
+        </a>
+    </div>
+    <div class="product-featured__content d-flex flex-column align-items-start">
+        {%- if show_label_in_stock or show_label_pre_order or show_label_out_stock or show_label_sale or show_label_new or show_label_hot -%}
+            {% assign has_labels = null %}
+            {%- capture labels -%}
+                {%- if show_label_hot -%}
+                    {% include 'product-get-label-hot' %}
+                {%- endif -%}
+                {%- if show_label_new -%}
+                    {% include 'product-get-label-new' %}
+                {%- endif -%}
+                {%- if show_label_sale -%}
+                    {% include 'product-get-label-sale' %}
+                {%- endif -%}
+                {%- if show_label_in_stock -%}
+                    {% include 'product-get-label-in-stock' %}
+                {%- endif -%}
+                {%- if show_label_pre_order -%}
+                    {% include 'product-get-label-pre-order' %}
+                {%- endif -%}
+                {%- if show_label_out_stock -%}
+                    {% include 'product-get-label-out-stock' %}
+                {%- endif -%}
+            {%- endcapture -%}
+            {%- if has_labels -%}
+                <div class="product-featured__labels d-flex flex-column align-items-start mb-10">
+                    {{ labels }}
+                </div>
+            {%- endif -%}
+        {%- endif -%}
+        {%- if show_type_collections_vendor -%}
+            {%- case settings.product_collection_more_info_type -%}
+                {% when 'type' %}
+                    {%- if product.type != blank -%}
+                        <div class="product-collection__more-info mb-3">
+                            <a href="{{ product.type | link_to_type | split: 'href="' | last | split: '"' | first }}">{{ product.type }}</a>
+                        </div>
+                    {%- endif -%}
+                {% when 'collections' %}
+                    {%- if product.collections.size > 0 -%}
+                        <div class="product-collection__more-info mb-3">
+                            {% render 'product-get-collections' with product: product %}
+                        </div>
+                    {%- endif -%}
+                {% when 'vendor' %}
+                    {%- if product.vendor.size > 0 -%}
+                        <div class="product-collection__more-info mb-3">
+                            {%- for vendor in product.vendor -%}
+                                <a href="{{ vendor | link_to_vendor | split: 'href="' | last | split: '"' | first }}">{{ vendor }}{% if forloop.last != true %},{% endif %}</a>{% if forloop.last != true %} {% endif %}
+                            {%- endfor -%}
+                        </div>
+                    {%- endif -%}
+            {%- endcase -%}
+        {%- endif -%}
+        {%- if show_title -%}
+            <div class="product-featured__title mb-3">
+                <h3 class="h6 m-0">
+                    <a href="{{ url }}">{{ title }}</a>
+                </h3>
+            </div>
+        {%- endif -%}
+        {%- if show_price -%}
+            <div class="product-featured__price mb-10">
+                {% include 'product-get-price' with add_js_attribute: false %}
+            </div>
+        {%- endif -%}
+        {%- if show_button -%}
+            {%- if enable_quick_view and add_to_cart != true -%}
+                <div class="product-featured__quick-view mb-10" data-js-product data-product-handle="{{ product.handle }}">
+                <button type="button" class="btn btn--status js-popup-button" data-js-popup-button="quick-view">
+                    <span class="d-flex flex-center text-nowrap">{{ 'products.product.quick_buy' | t }}</span>
+                </button>
+                </div>
+            {%- else -%}
+                <div class="d-none">
+                    {% include 'product-get-variants' with product: product current_variant: current_variant show_custom_options: true, product_variant_auto_select_enable: true, product_form_id: this_product_form_id %}
+                </div>
+                {% include 'product-get-button-cart' with product_form_id: this_product_form_id %}
+            {%- endif -%}
+        {%- endif -%}
+        {%- if show_reviews -%}
+            <div class="product-featured__reviews">
+                {%- if settings.reviews_type == 'default' -%}
+                    {% render 'product-get-review' with product: product hide_counter: hide_reviews_counter %}
+                {%- elsif settings.reviews_type == 'growave' and settings.app_growave_enable == true -%}
+                    {% capture the_snippet_review_avg %}{% render 'ssw-widget-avg-rate-listing', product: product %}{% endcapture %}
+                    {%- unless the_snippet_review_avg contains 'Liquid error' or product.metafields.ssw['review'].avg == 0 -%}
+                        {{ the_snippet_review_avg }}
+                    {%- endunless -%}
+                
+                {%- elsif settings.reviews_type == 'loox' and product.metafields.loox.num_reviews -%}
+                    <div class="mt-7">
+                        <div class="loox-rating" data-id="{{ product.id }}" data-rating="{{ product.metafields.loox.avg_rating }}" data-raters="{{ product.metafields.loox.num_reviews }}"></div>
+                    </div>
+                
+                {%- endif -%}
+            </div>
+        {%- endif -%}
+    </div>
+</product-item>
+{% include 'product-res-variables-clear' %}

@@ -1,0 +1,88 @@
+.home-section-title a[href^="https://"], .home-section-title a[href^="https://"]:visited, .home-section-title a[href^="https://"]:active, .home-section-title a[href^="https://"]:link {
+  color: var(--theme-primary) !important;
+}
+
+.product-collection__content {
+  margin-top: 20px !important;
+}
+
+.product-collection__title {
+  margin-bottom: 10px !important;
+}
+
+.product-collection__price {
+  margin-bottom: 13px !important;
+}
+
+.product-collection__options {
+  margin-bottom: 10px !important;
+}
+
+.product-collection__quantity {
+  margin-bottom: 5px !important;
+}
+
+.product-options--type-page .product-options__value--large-text:not(.active) {
+  background-color: transparent;
+  border-color: #E6E6E6 !important;
+}
+
+.carousel-reviews--style-1 .carousel-reviews__title {
+  color: var(--theme-primary);
+}
+.carousel-reviews--style-1 .carousel-reviews__paragraph {
+  color: var(--theme);
+  font-weight: bold !important;
+}
+.carousel-reviews--style-1 .carousel-reviews__item_user_text_line_1 {
+  color: #EC6930 !important;
+}
+
+.footer--style-1 .footer__section-content--custom-content .icon {
+  fill: #EC6930;
+}
+.footer--style-1 .footer__section-content--custom-content p:last-of-type a, .footer--style-1 .footer__section-content--custom-content p:last-of-type a:visited, .footer--style-1 .footer__section-content--custom-content p:last-of-type a:active, .footer--style-1 .footer__section-content--custom-content p:last-of-type a:link {
+  color: var(--theme-primary);
+}
+.footer--style-1 .footer__section-content--custom-content p:last-of-type .icon {
+  fill: var(--theme-primary);
+}
+
+.builder--modification-1 {
+  background-color: #EC6930;
+}
+.builder--modification-1 .btn:hover {
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: #EC6930;
+}
+
+.builder--modification-2 {
+  background-color: #259758;
+}
+.builder--modification-2 .btn:hover {
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: #259758;
+}
+
+.promobox--modification-1 .promobox__text-1 {
+  color: #EC6930;
+}
+
+@media (max-width: 540px) {
+  .promobox--modification-2 .promobox__content {
+    align-items: flex-start !important;
+  }
+}
+@media (max-width: 540px) {
+  .promobox--modification-2 .promobox__content > * {
+    padding-top: 120px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .promobox--modification-3 .promobox__content {
+    max-width: 100% !important;
+  }
+}

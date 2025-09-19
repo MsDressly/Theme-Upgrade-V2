@@ -1,0 +1,254 @@
+{%- comment -%}
+This file has been modified by the Yoast SEO for Shopify app.
+You can learn more about this (and learn how to cleanly revert these changes) at https://yoa.st/removing-theme-changes.
+{%- endcomment -%}
+<!doctype html>
+<html class="no-js supports-no-cookies" lang="{{ shop.locale }}"{% if shop.locale == 'ar' or shop.locale == 'he' or settings.layout_enable_rtl %} dir="rtl"{% endif %}>
+
+<head>{% render 'yoast-seo' %}
+  <!-- DNS prefetch for external domains -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//www.googletagmanager.com">
+  <link rel="dns-prefetch" href="//www.google-analytics.com">
+  
+  <!-- Preconnect to external domains -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+  
+  
+
+  <!-- Preload critical resources with high priority -->
+  <link rel="preload" href="{{ 'theme-d.s.min.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="{{ 'theme.s.min.js' | asset_url }}" as="script">
+  
+  <!-- Optimized Critical inline CSS for above-the-fold content -->
+  <style>
+    :root{--base-family:"Basic Commercial",sans-serif;--theme:#17344A;--theme2:#ffffff;--theme-body:var(--theme2);--theme-c:#5D7180;--theme-primary:#5a31f4;--header-m-bg:var(--theme2)}
+    body{font-family:var(--base-family);margin:0;background-color:var(--theme-body);color:var(--theme-c);font-display:swap}
+    .header{z-index:3;will-change:transform}
+    .header__content{background-color:var(--header-m-bg)}
+    .btn{display:inline-flex;justify-content:center;align-items:center;border-radius:14px!important;border:1px solid;min-height:50px;cursor:pointer}
+    .container{width:100%;padding:0 10px;margin:0 auto}
+    @media(min-width:1025px){.container{max-width:1200px;padding:0 15px}}
+    .d-none{display:none!important}
+    .preloader{position:absolute;width:100%;height:100%;top:0;left:0;opacity:0;z-index:1;display:flex;justify-content:center;align-items:center;transform:translateZ(0)}
+    /* Prevent layout shift */
+    img{max-width:100%;height:auto}
+    .loading{opacity:0;transition:opacity 0.3s ease}
+    .loaded{opacity:1}
+  </style>
+
+  {%- comment -%} DISABLED - SEOAnt app no longer in use
+  <!-- SEOAnt Speed Up Script - Defer to avoid render blocking -->
+  {%- if shop.metafields.seoantAppSiteSpeedUpV2.switch == 1 -%}
+    <script>
+      window.addEventListener('DOMContentLoaded', function() {
+        var script = document.createElement('script');
+        script.innerHTML = '{% include "SEOAnt-SpeedUp" %}';
+        document.head.appendChild(script);
+      });
+    </script>
+  {%- endif -%}
+  {%- endcomment -%}
+
+  {% include 'autoketing-seo' %}
+
+  <!-- Standard Shopify head content -->
+  {{ content_for_header }}
+  {% include 'head' %}
+  {%- comment -%} DISABLED - Feed Army app no longer in use
+  {% include 'feedarmy322' %}
+  {%- endcomment -%}
+
+  {% comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+  {%- assign yoast_seo_settings = shop.metafields.yoast_seo.settings.value | default: shop.metafields.yoast_seo.settings -%}
+  {%- if disabled_by_yoast_seo or yoast_seo_settings.integrations.webmasterVerification.google == blank or yoast_seo_settings.integrations.webmasterVerification.google == null -%}
+    <meta name="google-site-verification" content="NeMJo4pLZqU6IJyez5HR1fHuZ08pEqb-_awCFv8PNvI" />
+  {%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+  {%- endif -%}
+
+  <script>
+    // Non-critical redirect script - defer execution
+    window.addEventListener('DOMContentLoaded', function() {
+      var currentUrl = window.location.href;
+      if (currentUrl.includes('redit')) {
+        var newUrl = currentUrl.replace(/-redit-\d+/, '');
+        window.location.href = newUrl;
+      }
+    });
+  </script>
+
+  <!-- Defer non-critical CSS -->
+  <noscript><link rel="stylesheet" href="{{ 'theme-d.s.min.css' | asset_url }}"></noscript>
+
+  {% include 'autoketing-end-head-seo' %}
+
+  {%- if template contains 'product' -%}
+    {%- include 'json-ld-product' -%}
+  {%- endif -%}
+</head>
+
+<body{% render 'layout-get-body-attributes' %} class="loading">
+  <!-- Performance marker -->
+  <script>window.performance && window.performance.mark && window.performance.mark('theme:body:start');</script>
+  
+  {% include 'layout-get-includes-start' %}
+  {%- if settings.product_show_custom_options and settings.product_enable_variants_section -%}
+    {% section 'product-variants' %}
+  {%- endif -%}
+  {% sections 'header-group' %}
+  <main id="MainContent">
+    {%- if request.page_type == 'page' or request.page_type == 'product' or request.page_type == 'cart' or request.page_type == 'list-collections' or request.page_type == 'article' or request.page_type == 'blog' -%}
+      {% include 'breadcrumbs' %}
+    {%- elsif request.page_type == 'collection' -%}
+      <div id="CollectionBreadcrumbs">
+        {% include 'breadcrumbs' %}
+      </div>
+    {%- endif -%}
+    {{ content_for_layout }}
+  </main>
+  {% sections 'footer-group' %}
+  {% include 'popups' %}
+  {% include 'footbar' %}
+
+  {%- if settings.presentation_enable or template == 'product' and settings.product_info_page_show_usage_info_sidebar -%}
+    {% include 'fixed-sidebar' %}
+  {%- endif -%}
+
+  {% include 'templates' %}
+  {% include 'layout-get-includes-end' %}
+
+  <!-- Performance marker -->
+  <script>window.performance && window.performance.mark && window.performance.mark('theme:DOM:loaded');</script>
+
+  <!-- Load main JavaScript with optimized loading -->
+  <script src="{{ 'theme.s.min.js' | asset_url }}" defer></script>
+
+  <!-- Optimized third-party scripts loading -->
+  <script>
+    // Intersection Observer for lazy loading third-party scripts
+    function loadThirdPartyScripts() {
+      // Google Analytics - Load asynchronously
+      (function() {
+        var ga = document.createElement('script');
+        ga.async = true;
+        ga.src = 'https://www.googletagmanager.com/gtag/js?id=AW-398094399';
+        document.head.appendChild(ga);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-398094399');
+      })();
+      
+      // Load remaining CSS after critical rendering
+      var cssFiles = [
+        '{{ "theme-m.s.min.css" | asset_url }}'
+        // '{{ "socialshopwave-custom.s.min.css.liquid" | asset_url }}' - DISABLED: Growave no longer in use
+      ];
+      
+      cssFiles.forEach(function(url) {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = url;
+        link.media = 'print';
+        link.onload = function() { this.media = 'all'; };
+        document.head.appendChild(link);
+      });
+    }
+
+    // Load third-party scripts after user interaction or page load
+    function initializeThirdParty() {
+      loadThirdPartyScripts();
+      document.removeEventListener('scroll', initializeThirdParty);
+      document.removeEventListener('touchstart', initializeThirdParty);
+      document.removeEventListener('click', initializeThirdParty);
+    }
+
+    // Load immediately if page is already interactive, otherwise wait for user interaction
+    if (document.readyState === 'complete') {
+      setTimeout(loadThirdPartyScripts, 1000);
+    } else {
+      window.addEventListener('load', function() {
+        setTimeout(loadThirdPartyScripts, 1000);
+      });
+      // Also load on first user interaction
+      document.addEventListener('scroll', initializeThirdParty, { passive: true, once: true });
+      document.addEventListener('touchstart', initializeThirdParty, { passive: true, once: true });
+      document.addEventListener('click', initializeThirdParty, { passive: true, once: true });
+    }
+  </script>
+
+  <!-- Deferred app scripts -->
+  {%- comment -%} DISABLED - Klarna app no longer in use
+  {%- if settings.app_klarna_enable -%}
+    <script>
+      window.addEventListener('load', function() {
+        window.KlarnaThemeGlobals={};
+        {%case template.name%} 
+        {%when"product"%} 
+          window.KlarnaThemeGlobals.data_purchase_amount={{product.first_available_variant.price}};
+          window.KlarnaThemeGlobals.productVariants={{product.variants|json}};
+          window.KlarnaThemeGlobals.documentCopy=document.cloneNode(true);
+        {%when"cart"%} 
+          window.KlarnaThemeGlobals.data_purchase_amount={{cart.total_price}};
+          window.KlarnaThemeGlobals.documentCopy=document.cloneNode(true);
+        {%endcase%}
+      });
+    </script>
+  {%- endif -%}
+  {%- endcomment -%}
+
+  {%- comment -%} DISABLED - Growave/SocialShopWave app no longer in use
+  {%- if settings.app_growave_enable -%}
+    <script>
+      window.addEventListener('load', function() {
+        // Check if Growave/SocialShopWave is available before initializing
+        if (typeof sswRun === 'function') {
+          sswRun(function(){
+            var intervalId = setInterval(function() {
+              if(ssw('.ssw-stars.ssw-stars-large').length) {
+                ssw('.ssw-stars.ssw-stars-large').on('click', function() {
+                  ssw('.product-page__tabs .tabs__btn[data-tab="reviews"]').click();
+                  ssw('html, body').animate({
+                    scrollTop: ssw("#ssw-widget-recommends-html").offset().top - 200
+                  }, 100);
+                });
+                clearInterval(intervalId);
+              }
+            }, 1000);
+          });
+        }
+      });
+    </script>
+  {%- endif -%}
+  {%- endcomment -%}
+
+  {%- comment -%} DISABLED - Loox Reviews app no longer in use
+  {%- if settings.reviews_type == 'loox' -%}
+    <script>
+      window.addEventListener('load', function() {
+        // Load Loox styles asynchronously
+        var looxStyle = document.createElement('style');
+        looxStyle.textContent = '.loox-rating .loox-icon{font-size:1.22em}.loox-rating .loox-icon:not(:last-child){margin-right:5px}.loox-rating span{margin-left:2px;vertical-align:2px}';
+        document.head.appendChild(looxStyle);
+      });
+    </script>
+    {{ shop.metafields.loox["global_html_body"] }}
+  {%- endif -%}
+  {%- endcomment -%}
+
+  <!-- Remove loading class when page is ready -->
+  <script>
+    window.addEventListener('load', function() {
+      document.body.classList.remove('loading');
+      document.body.classList.add('loaded');
+      window.performance && window.performance.mark && window.performance.mark('theme:fully:loaded');
+    });
+  </script>
+
+  {%- comment -%} DISABLED - Store Credit Launcher app no longer in use
+  {% include 'store-credit-launcher' %}
+  {%- endcomment -%}
+</body>
+</html>

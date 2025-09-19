@@ -1,0 +1,11 @@
+{%- if pages contains template.name -%}
+  <link
+    rel="stylesheet"
+    href="{{ filename | asset_url }}"
+    media="print"
+    onload="this.media='all'; this.onload = null">
+{%- else -%}
+  <link
+    rel="stylesheet"
+    href="{{ filename | asset_url}}">
+{%- endif -%}

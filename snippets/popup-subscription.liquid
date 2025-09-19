@@ -1,0 +1,727 @@
+{% capture popups_style_base_html %}
+    {{ popups_style_base_html }}
+    :root {
+        {%- if settings.subscription_popup_layout == '1' -%}
+            --popup-subscription-bg: var(--theme2);
+            --popup-subscription-icon-c: var(--theme);
+            --popup-subscription-text-1-c: var(--theme);
+            --popup-subscription-text-2-c: var(--theme3);
+            --popup-subscription-text-3-c: var(--theme3);
+            --popup-subscription-text-4-c: var(--theme3);
+            --popup-subscription-dont-show-again-c: var(--theme3);
+            --popup-subscription-close-text-c: var(--theme);
+            {%- assign popup_subscription_form_btn_type = 'secondary' -%}
+            {%- assign popup_subscription_btn_type = 'clean' -%}
+        {%- elsif settings.subscription_popup_layout == '2' -%}
+            --popup-subscription-bg: var(--theme2);
+            --popup-subscription-icon-c: var(--theme);
+            --popup-subscription-text-1-c: var(--theme);
+            --popup-subscription-text-2-c: var(--theme);
+            --popup-subscription-text-3-c: var(--theme3);
+            --popup-subscription-text-4-c: var(--theme3);
+            --popup-subscription-dont-show-again-c: var(--theme3);
+            --popup-subscription-close-text-c: var(--theme-primary);
+            {%- assign popup_subscription_form_btn_type = 'secondary' -%}
+            {%- assign popup_subscription_btn_type = 'clean' -%}
+        {%- elsif settings.subscription_popup_layout == '3' -%}
+            --popup-subscription-bg: var(--theme2);
+            --popup-subscription-icon-c: var(--theme);
+            --popup-subscription-text-1-c: var(--theme);
+            --popup-subscription-text-2-c: var(--theme);
+            --popup-subscription-text-3-c: var(--theme3);
+            --popup-subscription-text-3-highlighting-c: var(--theme);
+            --popup-subscription-text-4-c: var(--theme3);
+            --popup-subscription-dont-show-again-c: var(--theme3);
+            --popup-subscription-close-text-c: var(--theme);
+            {%- assign popup_subscription_form_btn_type = 'secondary' -%}
+            {%- assign popup_subscription_btn_type = 'secondary' -%}
+        {%- elsif settings.subscription_popup_layout == '4' -%}
+            --popup-subscription-bg: var(--theme);
+            --popup-subscription-icon-c: var(--theme2);
+            --popup-subscription-text-1-c: var(--theme2);
+            --popup-subscription-text-2-c: var(--theme2);
+            --popup-subscription-text-3-c: var(--theme2);
+            --popup-subscription-text-4-c: var(--theme2);
+            --popup-subscription-dont-show-again-c: var(--theme2);
+            --popup-subscription-close-text-c: var(--theme2);
+            {%- assign popup_subscription_form_btn_type = 'secondary' -%}
+            {%- assign popup_subscription_btn_type = 'clean' -%}
+        {%- elsif settings.subscription_popup_layout == '5' -%}
+            --popup-subscription-bg: transparent;
+            --popup-subscription-icon-c: var(--theme2);
+            --popup-subscription-text-1-c: var(--theme2);
+            --popup-subscription-text-2-c: var(--theme2);
+            --popup-subscription-text-3-c: var(--theme2);
+            --popup-subscription-text-4-c: var(--theme2);
+            --popup-subscription-dont-show-again-c: var(--theme2);
+            --popup-subscription-close-text-c: var(--theme2);
+            {%- assign popup_subscription_form_btn_type = 'secondary' -%}
+            {%- assign popup_subscription_btn_type = 'clean' -%}
+        {%- endif -%}
+
+        {%- if settings.layout_settings_file == 'skin-2' -%}
+            {%- assign popup_subscription_form_btn_type = 'default' -%}
+        {%- elsif settings.layout_settings_file == 'skin-3' -%}
+            --popup-subscription-bg: var(--theme-primary);
+            --popup-subscription-icon-c: var(--theme2);
+            --popup-subscription-text-1-c: var(--theme2);
+            --popup-subscription-text-2-c: var(--theme2);
+            --popup-subscription-text-3-c: var(--theme2);
+            --popup-subscription-text-4-c: var(--theme2);
+            --popup-subscription-dont-show-again-c: var(--theme2);
+            --popup-subscription-close-text-c: var(--theme2);
+            {%- assign popup_subscription_form_btn_type = 'clean' -%}
+            {%- assign popup_subscription_btn_type = 'clean' -%}
+        {%- elsif settings.layout_settings_file == 'skin-4' -%}
+            --popup-subscription-bg: #ff6d03;
+            {%- assign popup_subscription_form_btn_type = 'default' -%}
+            {%- assign popup_subscription_btn_type = 'default' -%}
+        {%- elsif settings.layout_settings_file == 'skin-6' -%}
+            --popup-subscription-bg: var(--theme2);
+            --popup-subscription-icon-c: var(--theme);
+            --popup-subscription-text-1-c: var(--theme);
+            --popup-subscription-text-2-c: var(--theme);
+            --popup-subscription-text-3-c: var(--theme);
+            --popup-subscription-text-4-c: var(--theme);
+            --popup-subscription-dont-show-again-c: var(--theme);
+            --popup-subscription-close-text-c: var(--theme);
+            {%- assign popup_subscription_form_btn_type = 'default' -%}
+            {%- assign popup_subscription_btn_type = 'default' -%}
+        {%- elsif settings.layout_settings_file == 'skin-7' -%}
+            --popup-subscription-text-2-c: var(--theme);
+        {%- elsif settings.layout_settings_file == 'skin-9' -%}
+            --popup-subscription-bg: #16C7FF;
+            --popup-subscription-text-1-c: var(--theme-primary);
+            {%- assign popup_subscription_form_btn_type = 'invert' -%}
+            {%- assign popup_subscription_btn_type = 'invert' -%}
+        {%- elsif settings.layout_settings_file == 'skin-11' -%}
+            {%- assign popup_subscription_form_btn_type = 'default' -%}
+            {%- assign popup_subscription_btn_type = 'default' -%}
+        {%- elsif settings.layout_settings_file == 'skin-14' -%}
+            --popup-subscription-text-2-c: var(--theme-primary);
+            --popup-subscription-close-text-c: var(--theme);
+        {%- elsif settings.layout_settings_file == 'skin-18' -%}
+            --popup-subscription-bg: #C5DFE7;
+            --popup-subscription-text-3-c: var(--theme);
+            {%- assign popup_subscription_form_btn_type = 'default' -%}
+        {%- endif -%}
+    }
+
+    {%- if settings.subscription_popup_layout == '1' -%}
+        .popup-subscription__text-line-01 {
+            font-size: var(--h4-size);
+            line-height: var(--h4-line-height);
+            letter-spacing: var(--h4-letter-spacing);
+        }
+        .popup-subscription {
+            background-color: var(--popup-subscription-bg);
+        }
+        .popup-subscription__close .icon {
+            fill: var(--popup-subscription-icon-c);
+        }
+        .popup-subscription__text-line-01 {
+            color: var(--popup-subscription-text-1-c);
+        }
+        .popup-subscription__text-line-02 {
+            color: var(--popup-subscription-text-2-c);
+        }
+        .popup-subscription__text-line-03 {
+            color: var(--popup-subscription-text-3-c);
+        }
+        .popup-subscription__text-line-04 {
+            color: var(--popup-subscription-text-4-c);
+        }
+        .popup-subscription__dont-show-again {
+            color: var(--popup-subscription-dont-show-again-c);
+        }
+        .popup-subscription__close-text {
+            color: var(--popup-subscription-close-text-c);
+        }
+    {%- elsif settings.subscription_popup_layout == '2' -%}
+        .popup-subscription__text-line-01 {
+            font-size: var(--h4-size);
+            line-height: var(--h4-line-height);
+            letter-spacing: var(--h4-letter-spacing);
+        }
+        .popup-subscription__text-line-02 {
+            font-size: 50px;
+            line-height: 42px;
+            font-weight: bold;
+        }
+        .popup-subscription__text-line-03 {
+            font-size: 15px;
+            line-height: 20px;
+        }
+        .popup-subscription {
+            background-color: var(--popup-subscription-bg);
+        }
+        .popup-subscription__close .icon {
+            fill: var(--popup-subscription-icon-c);
+        }
+        .popup-subscription__text-line-01 {
+            color: var(--popup-subscription-text-1-c);
+        }
+        .popup-subscription__text-line-02 {
+            color: var(--popup-subscription-text-2-c);
+        }
+        .popup-subscription__text-line-03 {
+            color: var(--popup-subscription-text-3-c);
+        }
+        .popup-subscription__text-line-04 {
+            color: var(--popup-subscription-text-4-c);
+        }
+        .popup-subscription__dont-show-again {
+            color: var(--popup-subscription-dont-show-again-c);
+        }
+        .popup-subscription__close-text {
+            color: var(--popup-subscription-close-text-c);
+        }
+    {%- elsif settings.subscription_popup_layout == '3' -%}
+        .popup-subscription__text-line-01 {
+            font-size: var(--h4-size);
+            line-height: var(--h4-line-height);
+            letter-spacing: var(--h4-letter-spacing);
+        }
+        @media (min-width: 768px) {
+            .popup-subscription__text-line-02 {
+                font-size: 100px;
+                line-height: 82px;
+            }
+        }
+        .popup-subscription__text-line-03 {
+            font-size: 15px;
+            line-height: 20px;
+            span {
+            font-weight: bold;
+            }
+        }
+        @media (max-width: 767px) {
+            .popup-subscription__text-line-02 {
+                font-size: 50px;
+                line-height: 41px;
+            }
+        }
+        .popup-subscription {
+            background-color: var(--popup-subscription-bg);
+        }
+        .popup-subscription__close .icon {
+            fill: var(--popup-subscription-icon-c);
+        }
+        .popup-subscription__text-line-01 {
+            color: var(--popup-subscription-text-1-c);
+        }
+        .popup-subscription__text-line-02 {
+            color: var(--popup-subscription-text-2-c);
+        }
+        .popup-subscription__text-line-03 {
+            color: var(--popup-subscription-text-3-c);
+            span {
+            color: var(--popup-subscription-text-3-highlighting-c);
+            }
+        }
+        .popup-subscription__text-line-04 {
+            color: var(--popup-subscription-text-4-c);
+        }
+        .popup-subscription__dont-show-again {
+            color: var(--popup-subscription-dont-show-again-c);
+        }
+        .popup-subscription__close-text {
+            color: var(--popup-subscription-close-text-c);
+        }
+    {%- elsif settings.subscription_popup_layout == '4' -%}
+        .popup-subscription__text-line-01 {
+            font-size: 32px;
+            line-height: 42px;
+        }
+        @media (min-width: 768px) {
+            .popup-subscription__text-line-02 {
+                font-size: 110px;
+                line-height: 90px;
+            }
+        }
+        .popup-subscription__text-line-03 {
+            font-size: 17px;
+            line-height: 22px;
+        }
+        @media (max-width: 767px) {
+            .popup-subscription__text-line-02 {
+                font-size: 55px;
+                line-height: 45px;
+            }
+        }
+        .popup-subscription {
+            background-color: var(--popup-subscription-bg);
+        }
+        .popup-subscription__close .icon {
+            fill: var(--popup-subscription-icon-c);
+        }
+        .popup-subscription__text-line-01 {
+            color: var(--popup-subscription-text-1-c);
+        }
+        .popup-subscription__text-line-02 {
+            color: var(--popup-subscription-text-2-c);
+        }
+        .popup-subscription__text-line-03 {
+            color: var(--popup-subscription-text-3-c);
+        }
+        .popup-subscription__text-line-04 {
+            color: var(--popup-subscription-text-4-c);
+        }
+        .popup-subscription__dont-show-again {
+            color: var(--popup-subscription-dont-show-again-c);
+        }
+        .popup-subscription__close-text {
+            color: var(--popup-subscription-close-text-c);
+        }
+    {%- elsif settings.subscription_popup_layout == '5' -%}
+        @media (min-width: 768px) {
+            .popup-subscription__text-line-01 {
+                font-size: 62px;
+                line-height: 91px;
+            }
+            .popup-subscription__text-line-02 {
+                font-size: 110px;
+                line-height: 90px;
+            }
+        }
+        .popup-subscription__text-line-03 {
+            font-size: 17px;
+            line-height: 22px;
+        }
+        @media (max-width: 767px) {
+            .popup-subscription__text-line-01 {
+                font-size: 31px;
+                line-height: 45px;
+            }
+            .popup-subscription__text-line-02 {
+                font-size: 55px;
+                line-height: 45px;
+            }
+        }
+        .popup-subscription {
+            background-color: var(--popup-subscription-bg);
+        }
+        .popup-subscription__close .icon {
+            fill: var(--popup-subscription-icon-c);
+        }
+        .popup-subscription__text-line-01 {
+            color: var(--popup-subscription-text-1-c);
+        }
+        .popup-subscription__text-line-02 {
+            color: var(--popup-subscription-text-2-c);
+        }
+        .popup-subscription__text-line-03 {
+            color: var(--popup-subscription-text-3-c);
+        }
+        .popup-subscription__text-line-04 {
+            color: var(--popup-subscription-text-4-c);
+        }
+        .popup-subscription__dont-show-again {
+            color: var(--popup-subscription-dont-show-again-c);
+        }
+        .popup-subscription__close-text {
+            color: var(--popup-subscription-close-text-c);
+        }
+    {%- endif -%}
+    
+    {% render 'css-style-button' with class: 'form .btn' type: popup_subscription_form_btn_type %}
+    {%- if settings.subscription_popup_layout != '1' -%}
+        {% render 'css-style-button' with class: '.popup-subscription__btn.btn' type: popup_subscription_btn_type %}
+    {%- endif -%}
+{% endcapture %}
+{% capture image_size_placeholder %}_{width}x.{% endcapture %}
+{% capture popup_attrs %} data-popup-content data-js-show-once="{{ settings.subscription_popup_show_once }}" data-js-delay="{{ settings.subscription_popup_delay }}" data-js-cookies-life="{{ settings.subscription_popup_cookies_life }}"{% endcapture %}
+{% case settings.subscription_popup_layout %}
+{% when '1' %}
+<div class="popup-subscription popup-subscription--layout-01 position-relative {% if settings.subscription_popup_show_icon %}pt-25{% else %}pt-40{% endif %} pb-30 px-15"{{ popup_attrs }}>
+    <i class="popup-subscription__close position-absolute cursor-pointer" data-js-popup-close>{% render 'icon-theme-164' %}</i>
+    <div class="popup-subscription__content d-flex flex-column mx-auto text-center">
+        {%- if settings.subscription_popup_show_icon -%}
+            <p class="mb-10"><i class="popup-subscription__title-icon">{% render 'icon-theme-153' %}</i></p>
+        {%- endif -%}
+        {%- if settings.subscription_popup_text_line_01 != blank -%}
+            <p class="popup-subscription__text-line-01 mb-10">{{ settings.subscription_popup_text_line_01 }}</p>
+        {%- endif -%}
+        {%- if settings.subscription_popup_text_line_02 != blank -%}
+            <p class="popup-subscription__text-line-02 mb-25">{{ settings.subscription_popup_text_line_02 }}</p>
+        {%- endif -%}
+        {%- if settings.subscription_popup_show_form -%}
+            <div class="d-flex flex-column">
+                {%- if settings.subscription_show_confirmation_checkbox -%}
+                    <input id="Popup-Subscription-checkbox" type="checkbox" class="d-none input-checkbox-disable-trigger" name="footer_subscription">
+                    <label for="Popup-Subscription-checkbox" class="footer__subscription-checkbox subscription-checkbox input-checkbox input-checkbox--input-out position-relative d-inline-flex align-items-start mt-10 cursor-pointer">
+                        <span class="position-relative d-block mt-0 mr-10 border"><i class="d-none">{% render 'icon-theme-146' %}</i></span>
+                        <span>{{ 'general.form.subscription.checkbox_html' | t }}</span>
+                    </label>
+                    <div class="input-checkbox-disable-trigger-error subscription-checkbox-error d-none mt-10">
+                        <div class="note note--error mb-5">
+                            <ul>
+                                <li>{{ 'general.form.subscription.checkbox_error' | t }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                {%- endif -%}
+                {%- if settings.subscription_method == 'shopify' -%}
+                    {% form 'customer', id: null, class: 'subscription-form form-group--type-inline d-flex d-flex flex-column flex-lg-row mb-30' %}
+                        {% render 'form-get-check-error-popup' %}
+                        <input type="hidden" name="contact[tags]" value="newsletter">
+                        <input type="email" name="contact[email]" class="mb-10 mb-lg-0 mr-lg-10 {% if form.errors %} input--error{% endif %}" placeholder="{{ settings.subscription_popup_text_input_placeholder }}" required="required">
+                        <input type="submit" class="input-checkbox-disable-body btn" name="commit" value="{{ settings.subscription_popup_text_submit_button_text }}">
+                    {% endform %}
+                {%- elsif settings.subscription_method == 'mailchimp' -%}
+                    <form action="{{ settings.subscription_mailchimp_form_action }}" method="post" class="subscription-form form-group--type-inline d-flex d-flex flex-column flex-lg-row mb-30" target="_blank">
+                        <input type="email" name="EMAIL" id="PopupSubscribe" class="mb-10 mb-lg-0 mr-lg-10" placeholder="{{ settings.subscription_popup_text_input_placeholder }}" required="required">
+                        <input type="submit" class="input-checkbox-disable-body btn" value="{{ settings.subscription_popup_text_submit_button_text }}">
+                    </form>
+                {%- endif -%}
+            {%- endif -%}
+        </div>
+        {%- if settings.subscription_popup_show_once != 'true' and settings.subscription_popup_text_dont_show_again != blank -%}
+            <label class="popup-subscription__checkbox input-checkbox position-relative d-inline-flex align-items-center mx-auto cursor-pointer">
+                <input type="checkbox" class="d-none" name="dont_show_again" id="PopupSubscribeDontShow" data-js-popup-subscription-dont-show>
+                <span class="position-relative d-block mr-10 border"><i class="d-none">{% render 'icon-theme-146' %}</i></span>
+                <span class="popup-subscription__dont-show-again">{{ settings.subscription_popup_text_dont_show_again }}</span>
+            </label>
+        {%- endif -%}
+    </div>
+</div>
+{% when '2' %}
+<div class="popup-subscription popup-subscription--layout-02 position-relative"{{ popup_attrs }}>
+    <i class="popup-subscription__close position-absolute cursor-pointer" data-js-popup-close>{% render 'icon-theme-164' %}</i>
+    <div class="row no-gutters">
+        {%- if settings.subscription_popup_image != blank -%}
+            <div class="popup-subscription__width-col col-sm-6 d-none d-md-block">
+                <div class="popup-subscription__image">
+                    <{% if settings.subscription_popup_link != blank %}a href="{{ settings.subscription_popup_link }}"{% else %}div{% endif %} class="d-block">
+                        {%- if settings.subscription_popup_image_format_pjpg -%}
+                            {%- assign image_format = 'pjpg' -%}
+                        {%- else -%}
+                            {%- assign image_format = null -%}
+                        {%- endif -%}
+                        {% render 'rimage' with image: settings.subscription_popup_image size: settings.subscription_popup_image_width format: image_format stretch_size: 'cover' %}
+                    </{% if settings.subscription_popup_link != blank %}a{% else %}div{% endif %}>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 d-flex align-items-center">
+        {%- else -%}
+            <div class="col-12">
+        {%- endif -%}
+            <div class="popup-subscription__width-col popup-subscription__content d-flex flex-column py-40 px-30 mx-auto text-center">
+                {%- if settings.subscription_popup_text_line_01 != blank -%}
+                    <p class="popup-subscription__text-line-01 mb-25">{{ settings.subscription_popup_text_line_01 }}</p>
+                {%- endif -%}
+                {%- if settings.subscription_popup_text_line_02 != blank -%}
+                    <p class="popup-subscription__text-line-02 mb-25">{{ settings.subscription_popup_text_line_02 }}</p>
+                {%- endif -%}
+                {%- if settings.subscription_popup_text_line_03 != blank -%}
+                    <p class="popup-subscription__text-line-03 mb-25">{{ settings.subscription_popup_text_line_03 }}</p>
+                {%- endif -%}
+                {%- if settings.subscription_popup_show_form -%}
+                    <div class="d-flex flex-column">
+                        {%- if settings.subscription_show_confirmation_checkbox -%}
+                            <input id="Popup-Subscription-checkbox" type="checkbox" class="d-none input-checkbox-disable-trigger" name="footer_subscription">
+                            <label for="Popup-Subscription-checkbox" class="footer__subscription-checkbox subscription-checkbox input-checkbox input-checkbox--input-out position-relative d-inline-flex align-items-start mt-10 cursor-pointer">
+                                <span class="position-relative d-block mt-0 mr-10 border"><i class="d-none">{% render 'icon-theme-146' %}</i></span>
+                                <span>{{ 'general.form.subscription.checkbox_html' | t }}</span>
+                            </label>
+                            <div class="input-checkbox-disable-trigger-error subscription-checkbox-error d-none mt-10">
+                                <div class="note note--error mb-5">
+                                    <ul>
+                                        <li>{{ 'general.form.subscription.checkbox_error' | t }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        {%- endif -%}
+                        {%- if settings.subscription_method == 'shopify' -%}
+                            {% form 'customer', id: null, class: 'subscription-form form-group--type-column d-flex d-flex flex-column mb-30' %}
+                                {% render 'form-get-check-error-popup' %}
+                                <input type="hidden" name="contact[tags]" value="newsletter">
+                                <input type="email" name="contact[email]" class="mb-10 {% if form.errors %} input--error{% endif %}" placeholder="{{ settings.subscription_popup_text_input_placeholder }}" required="required">
+                                <input type="submit" class="input-checkbox-disable-body btn" name="commit" value="{{ settings.subscription_popup_text_submit_button_text }}">
+                            {% endform %}
+                        {%- elsif settings.subscription_method == 'mailchimp' -%}
+                            <form action="{{ settings.subscription_mailchimp_form_action }}" method="post" class="subscription-form form-group--type-column d-flex d-flex flex-column mb-30" target="_blank">
+                                <input type="email" name="EMAIL" id="PopupSubscribe" class="mb-10" placeholder="{{ settings.subscription_popup_text_input_placeholder }}" required="required">
+                                <input type="submit" class="input-checkbox-disable-body btn" value="{{ settings.subscription_popup_text_submit_button_text }}">
+                            </form>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+                {%- if settings.subscription_popup_text_button != blank -%}
+                    <a href="{{ settings.subscription_popup_link }}" class="popup-subscription__btn btn mb-40 mx-auto">{{ settings.subscription_popup_text_button }}</a>
+                {%- endif -%}
+                {%- if settings.subscription_popup_text_close != blank -%}
+                    <p class="popup-subscription__close-text text-underline cursor-pointer mb-0" data-js-popup-close>{{ settings.subscription_popup_text_close }}</p>
+                {%- endif -%}
+                {%- if settings.subscription_popup_text_line_04 != blank -%}
+                    <p class="popup-subscription__text-line-04 mt-10 mb-0 cursor-pointer" data-js-popup-subscription-close-website>{{ settings.subscription_popup_text_line_04 }}</p>
+                {%- endif -%}
+                {%- if settings.subscription_popup_show_once != 'true' and settings.subscription_popup_text_dont_show_again != blank -%}
+                    <label class="popup-subscription__checkbox input-checkbox position-relative d-inline-flex align-items-center mt-10 mx-auto cursor-pointer">
+                        <input type="checkbox" class="d-none" name="dont_show_again" id="PopupSubscribeDontShow" data-js-popup-subscription-dont-show>
+                        <span class="position-relative d-block mr-10 border"><i class="d-none">{% render 'icon-theme-146' %}</i></span>
+                        <span class="popup-subscription__dont-show-again">{{ settings.subscription_popup_text_dont_show_again }}</span>
+                    </label>
+                {%- endif -%}
+            </div>
+        </div>
+    </div>
+</div>
+{% when '3' %}
+<div class="popup-subscription popup-subscription--layout-03 position-relative"{{ popup_attrs }}>
+    <i class="popup-subscription__close position-absolute cursor-pointer" data-js-popup-close>{% render 'icon-theme-164' %}</i>
+    <div class="row no-gutters">
+        {%- if settings.subscription_popup_image != blank -%}
+            <div class="popup-subscription__width-col col-sm-6 d-none d-md-block">
+                <div class="popup-subscription__image">
+                    <{% if settings.subscription_popup_link != blank %}a href="{{ settings.subscription_popup_link }}"{% else %}div{% endif %} class="d-block">
+                        {%- if settings.subscription_popup_image_format_pjpg -%}
+                            {%- assign image_format = 'pjpg' -%}
+                        {%- else -%}
+                            {%- assign image_format = null -%}
+                        {%- endif -%}
+                        {% render 'rimage' with image: settings.subscription_popup_image size: settings.subscription_popup_image_width format: image_format stretch_size: 'cover' %}
+                        </{% if settings.subscription_popup_link != blank %}a{% else %}div{% endif %}>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 d-flex align-items-center">
+        {%- else -%}
+            <div class="col-12">
+        {%- endif -%}
+            <div class="popup-subscription__width-col popup-subscription__content d-flex flex-column py-40 px-15 mx-auto text-center">
+                {%- if settings.subscription_popup_text_line_01 != blank -%}
+                    <p class="popup-subscription__text-line-01 mb-25">{{ settings.subscription_popup_text_line_01 }}</p>
+                {%- endif -%}
+                {%- if settings.subscription_popup_text_line_02 != blank -%}
+                    <p class="popup-subscription__text-line-02 mb-25">{{ settings.subscription_popup_text_line_02 }}</p>
+                {%- endif -%}
+                {%- if settings.subscription_popup_text_line_03 != blank -%}
+                    <p class="popup-subscription__text-line-03 mb-25">{{ settings.subscription_popup_text_line_03 }}</p>
+                {%- endif -%}
+                {%- if settings.subscription_popup_show_form -%}
+                    <div class="d-flex flex-column">
+                        {%- if settings.subscription_show_confirmation_checkbox -%}
+                            <input id="Popup-Subscription-checkbox" type="checkbox" class="d-none input-checkbox-disable-trigger" name="footer_subscription">
+                            <label for="Popup-Subscription-checkbox" class="footer__subscription-checkbox subscription-checkbox input-checkbox input-checkbox--input-out position-relative d-inline-flex align-items-start mt-10 cursor-pointer">
+                                <span class="position-relative d-block mt-0 mr-10 border"><i class="d-none">{% render 'icon-theme-146' %}</i></span>
+                                <span>{{ 'general.form.subscription.checkbox_html' | t }}</span>
+                            </label>
+                            <div class="input-checkbox-disable-trigger-error subscription-checkbox-error d-none mt-10">
+                                <div class="note note--error mb-5">
+                                    <ul>
+                                        <li>{{ 'general.form.subscription.checkbox_error' | t }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        {%- endif -%}
+                        {%- if settings.subscription_method == 'shopify' -%}
+                            {% form 'customer', id: null, class: 'subscription-form form-group--type-column d-flex d-flex flex-column mb-30' %}
+                                {% render 'form-get-check-error-popup' %}
+                                <input type="hidden" name="contact[tags]" value="newsletter">
+                                <input type="email" name="contact[email]" class="mb-10 {% if form.errors %} input--error{% endif %}" placeholder="{{ settings.subscription_popup_text_input_placeholder }}" required="required">
+                                <input type="submit" class="input-checkbox-disable-body btn" name="commit" value="{{ settings.subscription_popup_text_submit_button_text }}">
+                            {% endform %}
+                        {%- elsif settings.subscription_method == 'mailchimp' -%}
+                            <form action="{{ settings.subscription_mailchimp_form_action }}" method="post" class="subscription-form form-group--type-column d-flex d-flex flex-column mb-30" target="_blank">
+                                <input type="email" name="EMAIL" id="PopupSubscribe" class="mb-10" placeholder="{{ settings.subscription_popup_text_input_placeholder }}" required="required">
+                                <input type="submit" class="input-checkbox-disable-body btn" value="{{ settings.subscription_popup_text_submit_button_text }}">
+                            </form>
+                        {%- endif -%}
+                    </div>
+                {%- endif -%}
+                {%- if settings.subscription_popup_text_button != blank -%}
+                    <a href="{{ settings.subscription_popup_link }}" class="popup-subscription__btn btn mb-40 mx-auto">{{ settings.subscription_popup_text_button }}</a>
+                {%- endif -%}
+                {%- if settings.subscription_popup_text_close != blank -%}
+                    <p class="popup-subscription__close-text text-underline cursor-pointer mb-0" data-js-popup-close>{{ settings.subscription_popup_text_close }}</p>
+                {%- endif -%}
+                {%- if settings.subscription_popup_text_line_04 != blank -%}
+                    <p class="popup-subscription__text-line-04 mt-10 mb-0 cursor-pointer" data-js-popup-subscription-close-website>{{ settings.subscription_popup_text_line_04 }}</p>
+                {%- endif -%}
+                {%- if settings.subscription_popup_show_once != 'true' and settings.subscription_popup_text_dont_show_again != blank -%}
+                    <label class="popup-subscription__checkbox input-checkbox position-relative d-inline-flex align-items-center mt-10 mx-auto cursor-pointer">
+                        <input type="checkbox" class="d-none" name="dont_show_again" id="PopupSubscribeDontShow" data-js-popup-subscription-dont-show>
+                        <span class="position-relative d-block mr-10 border"><i class="d-none">{% render 'icon-theme-146' %}</i></span>
+                        <span class="popup-subscription__dont-show-again">{{ settings.subscription_popup_text_dont_show_again }}</span>
+                    </label>
+                {%- endif -%}
+            </div>
+        </div>
+    </div>
+</div>
+{% when '4' %}
+<div class="popup-subscription popup-subscription--layout-04 position-relative"{{ popup_attrs }}>
+    <i class="popup-subscription__close position-absolute cursor-pointer" data-js-popup-close>{% render 'icon-theme-164' %}</i>
+    {%- if settings.subscription_popup_image != blank -%}
+        {%- if settings.subscription_popup_image_format_pjpg -%}
+            {%- assign image_format = 'pjpg' -%}
+        {%- else -%}
+            {%- assign image_format = null -%}
+        {%- endif -%}
+        <div class="popup-subscription__image{% if settings.subscription_popup_image_mobile != blank %} d-none d-md-block{% endif %}">
+            <{% if settings.subscription_popup_link != blank %}a href="{{ settings.subscription_popup_link }}"{% else %}div{% endif %} class="d-block">
+                {% render 'rimage' with image: settings.subscription_popup_image size: settings.subscription_popup_image_width format: image_format %}
+            </{% if settings.subscription_popup_link != blank %}a{% else %}div{% endif %}>
+        </div>
+        {%- if settings.subscription_popup_image_mobile != blank -%}
+            <div class="popup-subscription__image d-md-none">
+                <{% if settings.subscription_popup_link != blank %}a href="{{ settings.subscription_popup_link }}"{% else %}div{% endif %} class="d-block">
+                    {% render 'rimage' with image: settings.subscription_popup_image_mobile size: settings.subscription_popup_image_width format: image_format %}
+                </{% if settings.subscription_popup_link != blank %}a{% else %}div{% endif %}>
+            </div>
+        {%- endif -%}
+    {%- else -%}
+        <div class="popup-subscription__image popup-subscription__image--empty"></div>
+    {%- endif -%}
+    
+    <div class="popup-subscription__content absolute-stretch d-flex flex-column flex-center {% if settings.subscription_popup_show_icon %}pt-60 pt-md-100 pb-60{% else %}py-40{% endif %} mx-auto text-center{% if settings.subscription_popup_image != blank %} position-md-absolute pt-md-100 pb-md-20{% endif %}">
+        {%- if settings.subscription_popup_text_line_01 != blank -%}
+            <p class="popup-subscription__text-line-01 mb-5">{{ settings.subscription_popup_text_line_01 }}</p>
+        {%- endif -%}
+        {%- if settings.subscription_popup_text_line_02 != blank -%}
+            <p class="popup-subscription__text-line-02 mb-20">{{ settings.subscription_popup_text_line_02 }}</p>
+        {%- endif -%}
+        {%- if settings.subscription_popup_text_line_03 != blank -%}
+            <p class="popup-subscription__text-line-03 mb-20">{{ settings.subscription_popup_text_line_03 }}</p>
+        {%- endif -%}
+        {%- if settings.subscription_popup_show_form -%}
+            <div class="d-flex flex-column">
+                {%- if settings.subscription_show_confirmation_checkbox -%}
+                    <input id="Popup-Subscription-checkbox" type="checkbox" class="d-none input-checkbox-disable-trigger" name="footer_subscription">
+                    <label for="Popup-Subscription-checkbox" class="footer__subscription-checkbox subscription-checkbox input-checkbox input-checkbox--input-out position-relative d-inline-flex align-items-start mt-10 cursor-pointer">
+                        <span class="position-relative d-block mt-0 mr-10 border"><i class="d-none">{% render 'icon-theme-146' %}</i></span>
+                        <span>{{ 'general.form.subscription.checkbox_html' | t }}</span>
+                    </label>
+                    <div class="input-checkbox-disable-trigger-error subscription-checkbox-error d-none mt-10">
+                        <div class="note note--error mb-5">
+                            <ul>
+                                <li>{{ 'general.form.subscription.checkbox_error' | t }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                {%- endif -%}
+                {%- if settings.subscription_method == 'shopify' -%}
+                    {% form 'customer', id: null, class: 'subscription-form form-group--type-inline d-flex d-flex flex-column flex-lg-row mb-30 mb-lg-40' %}
+                        {% render 'form-get-check-error-popup' %}
+                        <input type="hidden" name="contact[tags]" value="newsletter">
+                        <input type="email" name="contact[email]" class="mb-10 mb-lg-0 mr-lg-10 {% if form.errors %} input--error{% endif %}" placeholder="{{ settings.subscription_popup_text_input_placeholder }}" required="required">
+                        <input type="submit" class="input-checkbox-disable-body btn" name="commit" value="{{ settings.subscription_popup_text_submit_button_text }}">
+                    {% endform %}
+                {%- elsif settings.subscription_method == 'mailchimp' -%}
+                    <form action="{{ settings.subscription_mailchimp_form_action }}" method="post" class="subscription-form form-group--type-inline d-flex d-flex flex-column flex-lg-row mb-30 mb-lg-40" target="_blank">
+                        <input type="email" name="EMAIL" id="PopupSubscribe" class="mb-10 mb-lg-0 mr-lg-10" placeholder="{{ settings.subscription_popup_text_input_placeholder }}" required="required">
+                        <input type="submit" class="input-checkbox-disable-body btn" value="{{ settings.subscription_popup_text_submit_button_text }}">
+                    </form>
+                {%- endif -%}
+            </div>
+        {%- endif -%}
+        {%- if settings.subscription_popup_text_button != blank -%}
+            <a href="{{ settings.subscription_popup_link }}" class="popup-subscription__btn btn mb-20 mb-md-40 mx-auto">{{ settings.subscription_popup_text_button }}</a>
+        {%- endif -%}
+        {%- if settings.subscription_popup_text_close != blank -%}
+            <p class="popup-subscription__close-text text-underline cursor-pointer mb-0" data-js-popup-close>{{ settings.subscription_popup_text_close }}</p>
+        {%- endif -%}
+        {%- if settings.subscription_popup_text_line_04 != blank -%}
+            <p class="popup-subscription__text-line-04 mt-10 mb-0 cursor-pointer" data-js-popup-subscription-close-website>{{ settings.subscription_popup_text_line_04 }}</p>
+        {%- endif -%}
+        {%- if settings.subscription_popup_show_once != 'true' and settings.subscription_popup_text_dont_show_again != blank -%}
+            <label class="popup-subscription__checkbox input-checkbox position-relative d-inline-flex align-items-center mt-10 mx-auto cursor-pointer">
+                <input type="checkbox" class="d-none" name="dont_show_again" id="PopupSubscribeDontShow" data-js-popup-subscription-dont-show>
+                <span class="position-relative d-block mr-10 border"><i class="d-none">{% render 'icon-theme-146' %}</i></span>
+                <span class="popup-subscription__dont-show-again">{{ settings.subscription_popup_text_dont_show_again }}</span>
+            </label>
+        {%- endif -%}
+    </div>
+</div>
+{% when '5' %}
+<div class="popup-subscription popup-subscription--layout-05 position-relative d-flex justify-content-center py-15 py-lg-30"{{ popup_attrs }}>
+    {%- if settings.subscription_popup_image != blank -%}
+        {% capture subscription_image_size %}{{ settings.subscription_popup_image_width }}x{% endcapture %}
+        <{% if settings.subscription_popup_link != blank %}a href="{{ settings.subscription_popup_link }}"{% else %}div{% endif %} class="popup-subscription__image lazyload absolute-stretch"
+            {%- if settings.subscription_popup_image_format_pjpg -%}
+                data-master="{{ settings.subscription_popup_image | img_url: '1x1', format: 'pjpg' | replace: '_1x1.', image_size_placeholder }}"
+                data-bg="{{ settings.subscription_popup_image | img_url: subscription_image_size, format: 'pjpg' }}"
+            {%- else -%}
+                data-master="{{ settings.subscription_popup_image | img_url: '1x1' | replace: '_1x1.', image_size_placeholder }}"
+                data-bg="{{ settings.subscription_popup_image | img_url: subscription_image_size }}"
+            {%- endif -%}
+                data-scale="3"
+        >
+        </{% if settings.subscription_popup_link != blank %}a{% else %}div{% endif %}>
+    {%- endif -%}
+    <div class="popup-subscription__content position-relative d-inline-flex flex-column flex-center h-100 pb-40 px-15 text-center">
+        <i class="popup-subscription__close position-absolute cursor-pointer" data-js-popup-close>{% render 'icon-theme-164' %}</i>
+        {%- if settings.subscription_popup_insert_image != blank -%}
+            <div class="popup-subscription__insert-image w-100 mb-40" style="max-width: {{ settings.subscription_popup_insert_image_width }}px;">
+                {%- if settings.subscription_popup_insert_image_format_pjpg -%}
+                    {%- assign image_format = 'pjpg' -%}
+                {%- else -%}
+                    {%- assign image_format = null -%}
+                {%- endif -%}
+                {% render 'rimage' with image: settings.subscription_popup_insert_image size: settings.subscription_popup_insert_image_width format: image_format %}
+            </div>
+        {%- endif -%}
+        {%- if settings.subscription_popup_text_line_01 != blank -%}
+            <p class="popup-subscription__text-line-01 mb-5">{{ settings.subscription_popup_text_line_01 }}</p>
+        {%- endif -%}
+        {%- if settings.subscription_popup_text_line_02 != blank -%}
+            <p class="popup-subscription__text-line-02 mb-20">{{ settings.subscription_popup_text_line_02 }}</p>
+        {%- endif -%}
+        {%- if settings.subscription_popup_text_line_03 != blank -%}
+            <p class="popup-subscription__text-line-03 mb-20">{{ settings.subscription_popup_text_line_03 }}</p>
+        {%- endif -%}
+        {%- if settings.subscription_popup_show_form -%}
+            <div class="d-flex flex-column">
+                {%- if settings.subscription_show_confirmation_checkbox -%}
+                    <input id="Popup-Subscription-checkbox" type="checkbox" class="d-none input-checkbox-disable-trigger" name="footer_subscription">
+                    <label for="Popup-Subscription-checkbox" class="footer__subscription-checkbox subscription-checkbox input-checkbox input-checkbox--input-out position-relative d-inline-flex align-items-start mt-10 cursor-pointer">
+                        <span class="position-relative d-block mt-0 mr-10 border"><i class="d-none">{% render 'icon-theme-146' %}</i></span>
+                        <span>{{ 'general.form.subscription.checkbox_html' | t }}</span>
+                    </label>
+                    <div class="input-checkbox-disable-trigger-error subscription-checkbox-error d-none mt-10">
+                        <div class="note note--error mb-5">
+                            <ul>
+                                <li>{{ 'general.form.subscription.checkbox_error' | t }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                {%- endif -%}
+                {%- if settings.subscription_method == 'shopify' -%}
+                    {% form 'customer', id: null, class: 'subscription-form form-group--type-inline d-flex d-flex flex-column flex-lg-row mb-30 mb-lg-40' %}
+                    {% render 'form-get-check-error-popup' %}
+                    <input type="hidden" name="contact[tags]" value="newsletter">
+                    <input type="email" name="contact[email]" class="mb-10 mb-lg-0 mr-lg-10 {% if form.errors %} input--error{% endif %}" placeholder="{{ settings.subscription_popup_text_input_placeholder }}" required="required">
+                    <input type="submit" class="input-checkbox-disable-body btn" name="commit" value="{{ settings.subscription_popup_text_submit_button_text }}">
+                    {% endform %}
+                    {%- elsif settings.subscription_method == 'mailchimp' -%}
+                    <form action="{{ settings.subscription_mailchimp_form_action }}" method="post" class="subscription-form form-group--type-inline d-flex d-flex flex-column flex-lg-row mb-30 mb-lg-40" target="_blank">
+                        <input type="email" name="EMAIL" id="PopupSubscribe" class="mb-10 mb-lg-0 mr-lg-10" placeholder="{{ settings.subscription_popup_text_input_placeholder }}" required="required">
+                        <input type="submit" class="input-checkbox-disable-body btn" value="{{ settings.subscription_popup_text_submit_button_text }}">
+                    </form>
+                {%- endif -%}
+            </div>
+        {%- endif -%}
+        {%- if settings.subscription_popup_text_button != blank -%}
+            <a href="{{ settings.subscription_popup_link }}" class="popup-subscription__btn btn mb-40 mx-auto">{{ settings.subscription_popup_text_button }}</a>
+        {%- endif -%}
+        {%- if settings.subscription_popup_text_close != blank -%}
+            <p class="popup-subscription__close-text text-underline cursor-pointer mb-0" data-js-popup-close>{{ settings.subscription_popup_text_close }}</p>
+        {%- endif -%}
+        {%- if settings.subscription_popup_text_line_04 != blank -%}
+            <p class="popup-subscription__text-line-04 mt-10 mb-0 cursor-pointer" data-js-popup-subscription-close-website>{{ settings.subscription_popup_text_line_04 }}</p>
+        {%- endif -%}
+        {%- if settings.subscription_popup_show_once != 'true' and settings.subscription_popup_text_dont_show_again != blank -%}
+            <label class="popup-subscription__checkbox input-checkbox position-relative d-inline-flex align-items-center mt-10 mx-auto cursor-pointer">
+                <input type="checkbox" class="d-none" name="dont_show_again" id="PopupSubscribeDontShow" data-js-popup-subscription-dont-show>
+                <span class="position-relative d-block mr-10 border"><i class="d-none">{% render 'icon-theme-146' %}</i></span>
+                <span class="popup-subscription__dont-show-again">{{ settings.subscription_popup_text_dont_show_again }}</span>
+            </label>
+        {%- endif -%}
+    </div>
+</div>
+{% endcase %}
+<script>
+    theme.AssetsLoader.onUserAction(function() {
+        theme.AssetsLoader.require('scripts', 'popup_subscription');
+    });
+</script>

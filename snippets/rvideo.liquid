@@ -1,0 +1,17 @@
+{%- assign poster = poster | default: video.poster | default: null -%}
+<div class="rvideo{% if height == 'fullscreen' %} lazyload-fullscreen invisible{% elsif height == 'fullscreen_header' %} lazyload-fullscreen-header invisible{% endif %}" style="{% unless responsive_height != blank or height_custom == true %}padding-top: {% if aspect_ratio %}{{ 1 | divided_by: aspect_ratio | times: 100 }}{% else %}56.25{% endif %}%;{% endunless %}{% if min_height != blank %} min-height: {{ min_height }}px;{% endif %}">
+    {%- if height_custom == true -%}
+        <div class="rvideo__height-spacer"></div>
+    {%- elsif responsive_height != blank -%}
+        {%- assign responsive_height_arr = responsive_height | split: ',' -%}
+        <div class="d-sm-none" style="padding-top: {{ responsive_height_arr[4] }};"></div>
+        <div class="d-none d-sm-block d-md-none" style="padding-top: {{ responsive_height_arr[3] }};"></div>
+        <div class="d-none d-md-block d-lg-none" style="padding-top: {{ responsive_height_arr[2] }};"></div>
+        <div class="d-none d-lg-block d-xl-none" style="padding-top: {{ responsive_height_arr[1] }};"></div>
+        <div class="d-none d-xl-block" style="padding-top: {{ responsive_height_arr[0] }};"></div>
+    {%- endif -%}
+    <video class="rvideo__video" preload="none" muted playsinline{% if autoplay != true or controls %} controls{% endif %}{% if autoplay %} autoplay loop{% endif %}{% if poster != blank %} {% if lazyload %}data-{% endif %}poster="{{ poster | img_url: poster_size }}"{% endif %}>
+        <source {% if lazyload %}src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=" data-{% endif %}src="{{ video.url | default: video }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>

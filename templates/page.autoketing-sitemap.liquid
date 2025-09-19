@@ -1,0 +1,39 @@
+<div class="page-width page-width--narrow">
+  <h1 class="page-title">HTML sitemap</h1>
+  {% assign ak_autoketing_sitemap = shop.metafields.autoketing_seo.ak_autoketing_sitemap %}
+  {% if ak_autoketing_sitemap.sitemap_status == true %}
+    {% assign sitemap_limit_show = ak_autoketing_sitemap.sitemap_limit_show %}
+    {% assign sitemap_options = ak_autoketing_sitemap.sitemap_options %}
+    {% assign sitemap_blogs = ak_autoketing_sitemap.sitemap_blogs %}
+    {% assign sitemap_additional_link = ak_autoketing_sitemap.sitemap_additional_link %}
+    {% assign sitemap_additional_link_size = sitemap_additional_link | size %}
+    <div class="row">
+      <div class="col-md-6">
+        <ul>
+          <li>{{ pages["autoketing-sitemap"].title | link_to: pages["autoketing-sitemap"].url }}</li>
+          {%- for option in sitemap_options -%}
+            {% if option == "Collections" %}
+              <li>{{ pages["autoketing-sitemap-collections"].title | link_to: pages["autoketing-sitemap-collections"].url }}</li>
+            {% endif %}
+            {% if option == "Products" %}
+              <li>{{ pages["autoketing-sitemap-products"].title | link_to: pages["autoketing-sitemap-products"].url }}</li>
+            {% endif %}
+            {% if option == "Blog Posts" %}
+              {% assign blog_posts_url = pages["autoketing-sitemap-articles"].url | append: "?page=1&blog=0" %}
+              <li>{{ pages["autoketing-sitemap-articles"].title | link_to: blog_posts_url }}</li>
+            {% endif %}
+            {% if option == "Blogs" %}
+              <li>{{ pages["autoketing-sitemap-blogs"].title | link_to: pages["autoketing-sitemap-blogs"].url }}</li>
+            {% endif %}
+            {% if option == "Pages" %}
+              <li>{{ pages["autoketing-sitemap-pages"].title | link_to: pages["autoketing-sitemap-pages"].url }}</li>
+            {% endif %}
+          {%- endfor -%}
+          {% if sitemap_additional_link_size > 0 %}
+            <li>{{ pages["autoketing-sitemap-additional-links"].title | link_to: pages["autoketing-sitemap-additional-links"].url }}</li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  {% endif %}
+</div>

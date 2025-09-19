@@ -1,0 +1,64 @@
+{%- if section.settings.vertical_menu != blank -%}
+    <div class="menu-vertical-btn d-lg-flex align-items-lg-center w-100 px-lg-7 cursor-lg-pointer{% if template contains 'index' and section.settings.fixed_vertical_menu %} menu-vertical-btn--open menu-vertical-btn--fixed{% endif %} js-menu-vertical-btn-toggle">
+        <i class="menu-vertical-btn__icon-open mr-lg-5">{% render 'icon-theme-191' %}</i>
+        <i class="menu-vertical-btn__icon-close mr-lg-5">{% render 'icon-theme-164' %}</i>
+        <span>{{ 'layout.header.vertical_menu_button' | t }}</span>
+    </div>
+    <nav class="menu menu--main menu--vertical{% if template contains 'index' and section.settings.fixed_vertical_menu %} menu--open menu--fixed{% endif %} position-lg-absolute w-100 py-25 py-lg-0 px-lg-20 top-lg-100 left-lg-0 js-vertical-menu js-position"{% if template contains 'index' and section.settings.fixed_vertical_menu %} data-js-menu-vertical-fixed{% endif %} data-js-position-name="vertical-menu">
+        <div class="menu__panel menu__list menu__level-01 d-flex flex-column pt-lg-8 pb-10">
+            <div class="menu__curtain d-none position-lg-absolute"></div>
+            {%- assign menu = linklists[section.settings.vertical_menu] -%}
+            {%- assign megamenu_index = 0 -%}
+            {%- for link in menu.links -%}
+                {%- capture childrens -%}
+                    {%- assign megamenu = null -%}
+                    {%- assign longer_menu = null -%}
+                    {%- for block in selected_blocks_menu -%}
+                        {%- assign for_item_handle = block.settings.for_item | handle -%}
+                        {%- if for_item_handle == link.handle and block.settings.menu != blank -%}
+                            {%- assign longer_menu = linklists[block.settings.menu] -%}
+                            {%- break -%}
+                        {%- endif -%}
+                    {%- endfor -%}
+                    {%- if items_with_megamenu contains link.handle -%}
+                        {%- for block in section.blocks offset: megamenu_index -%}
+                            {%- if block.type =='megamenu' -%}
+                                {%- assign for_item_handle = block.settings.for_item | handle -%}
+                                {%- if for_item_handle == link.handle -%}
+                                    {%- assign megamenu = block.settings -%}
+                                    {%- assign megamenu_index = forloop.index | plus: megamenu_index -%}
+                                    {%- if longer_menu -%}
+                                        {% include 'header-get-menu-megamenu' with output_link: longer_menu vertical_menu: true %}
+                                    {%- else -%}
+                                        {% include 'header-get-menu-megamenu' with output_link: link vertical_menu: true %}
+                                    {%- endif -%}
+                                    {%- break -%}
+                                {%- endif -%}
+                            {%- endif -%}
+                        {%- endfor -%}
+                    {%- endif -%}
+                    {%- if megamenu == null -%}
+                        {%- if longer_menu -%}
+                            {% render 'header-get-menu-dropdown' with output_link: longer_menu label_html: label_html preview_image_html: preview_image_html preview_link_substitution: preview_link_substitution %}
+                        {%- else -%}
+                            {% render 'header-get-menu-dropdown' with output_link: link label_html: label_html preview_image_html: preview_image_html preview_link_substitution: preview_link_substitution %}
+                        {%- endif -%}
+                    {%- endif -%}
+                {% endcapture %}
+                {%- if header_vertical_menu_items_limit != 0 and forloop.index > header_vertical_menu_items_limit -%}
+                    {%- assign is_hidden_items = true -%}
+                {%- endif -%}
+                <div class="menu__item{% if link.levels > 0 %} menu__item--has-children{% if megamenu == null %} position-lg-relative{% endif %}{% endif %}" data-js-menu-vertical-item{% if is_hidden_items %}="hidden"{% endif %}>
+                    <a href="{% render 'header-get-menu-link-substitution' with preview_link_substitution: preview_link_substitution default_link: link.url link: link %}" class="d-flex align-items-center position-lg-relative{% if forloop.index0 > 0 %} border-top{% endif %}">{% include 'header-get-menu-icons' with link: link vertical_menu: true %}<span>{{ link.title }}</span>{% render 'header-get-menu-labels' with label_html: label_html link: link %}{% if link.levels > 0 or megamenu != null or longer_menu.levels > 0 %} <i class="menu__item_arrow ml-auto">{% render 'icon-theme-231' %}</i>{% endif %}</a>
+                    {%- if link.levels > 0 or megamenu != null or longer_menu.levels > 0 -%}
+                        {{ childrens }}
+                    {%- endif -%}
+                </div>
+            {%- endfor -%}
+            <div class="menu__see-all d-none d-lg-block{% if is_hidden_items %} menu__see-all--visible{% endif %} pt-5 mt-auto cursor-lg-pointer" data-js-menu-vertical-see-all>
+                <span class="d-lg-flex align-items-lg-center">{{ 'layout.header.vertical_menu_see_all_show' | t }}<i>{% render 'icon-theme-229' %}</i></span>
+                <span class="d-lg-flex align-items-lg-center">{{ 'layout.header.vertical_menu_see_all_hide' | t }}<i>{% render 'icon-theme-230' %}</i></span>
+            </div>
+        </div>
+    </nav>
+{%- endif -%}

@@ -1,0 +1,93 @@
+.product-options__value--text {
+  border-color: var(--theme) !important;
+  color: var(--theme);
+}
+.product-options__value--text.active {
+  border-color: var(--theme-primary) !important;
+  background-color: var(--theme-primary);
+  color: var(--theme2);
+}
+
+@media (max-width: 540px) {
+  .home-section-title,
+  .carousel-articles__title {
+    font-size: 24px;
+    line-height: 32px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .promobox--modification-1 {
+    text-align: center !important;
+  }
+}
+@media (max-width: 1024px) {
+  .promobox--modification-1 .promobox__content {
+    align-items: flex-start !important;
+  }
+}
+@media (max-width: 1024px) {
+  .promobox--modification-1 .promobox__content > * {
+    padding-top: 30px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+@media (max-width: 540px) {
+  .promobox--modification-1 .promobox__text-2 {
+    font-size: 36px;
+    line-height: 44px;
+  }
+}
+@media (max-width: 1024px) {
+  .promobox--modification-1 .promobox__btns {
+    max-width: 202px;
+  }
+}
+@media (max-width: 1024px) {
+  .promobox--modification-1 .promobox__btns .row > *:not(:last-child) {
+    margin-bottom: 20px !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .promobox--modification-2 .btn {
+    min-height: 56px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1259px) {
+  .builder--modification-1 .btn {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
+
+.builder---modification-2 {
+  background-color: var(--theme4);
+}
+@media (min-width: 1025px) {
+  .builder---modification-2 {
+    padding-top: 135px;
+    padding-bottom: 140px;
+  }
+}
+@media (max-width: 1024px) {
+  .builder---modification-2 {
+    padding-top: 80px;
+    padding-bottom: 85px;
+  }
+}
+@media (min-width: 1025px) {
+  .builder---modification-2 .promobox {
+    max-width: 770px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.popup-cart__buttons .btn,
+.cart__sidebar .btn {
+  padding-left: 16px;
+  padding-right: 16px;
+}

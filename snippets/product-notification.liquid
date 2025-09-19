@@ -1,0 +1,36 @@
+{% include 'global-variables' %}
+{% include 'product-res-variables' %}
+{%- assign image_size = '120x' -%}
+{%- assign show_title = show_title | default: settings.product_collection_show_title -%}
+{%- assign show_quick_view = show_quick_view | default: settings.product_collection_show_button_quick_view -%}
+<div class="product-notification d-flex position-relative" data-js-product data-product-handle="{{ product.handle }}">
+    <div class="product-notification__button-close position-absolute top-0 right-0 cursor-pointer" data-js-action="close"><i>{% render 'icon-theme-164' %}</i></div>
+    <div class="product-notification__image d-flex align-items-center mr-20 mr-sm-10">
+        <a href="{{ url }}" class="d-block w-100" target="_blank">
+            {%- if settings.product_format_pjpg -%}
+                {%- assign image_format = 'pjpg' -%}
+            {%- else -%}
+                {%- assign image_format = null -%}
+            {%- endif -%}
+            {% render 'rimage' with image: image size: image_size format: image_format stretch_size: 'cover' scale: '2' %}
+        </a>
+    </div>
+    <div class="product-notification__content d-flex flex-column justify-content-center align-items-start pr-20">
+        <span>{{ notification_text_01 }}</span>
+        {%- if show_title -%}
+            <div class="product-notification__title mb-3">
+                <h3 class="h5 m-0">
+                    <a href="{{ url }}" target="_blank">{{ title }}</a>
+                </h3>
+            </div>
+        {%- endif -%}
+        <span class="font-italic">{{ notification_text_02 }}</span>
+    </div>
+    {%- if show_quick_view -%}
+        <div class="product-notification__button-quick-view position-absolute bottom-0 right-0" data-js-action>
+            {% render 'product-get-button-quick-view' with product_enable_tooltips: product_enable_tooltips %}
+        </div>
+    {%- endif -%}
+</div>
+{%- assign notification_text_01 = null -%}
+{%- assign notification_text_02 = null -%}

@@ -1,0 +1,20 @@
+<div class="notification position-relative js-notification">
+    <div class="notification__inner px-sm-10 px-lg-15 mb-sm-10 mb-lg-15 animate visible" data-js-show-once="true" data-js-delay="0" data-js-cookies-life="1" data-js-notification-inner>
+        <div class="notification-cookies position-relative p-20 text-center text-sm-left pointer-events-all">
+            <div class="notification-cookies__bg position-absolute absolute-stretch"></div>
+            <div class="position-relative">
+                <p class="mb-0">
+                    At the moment, a new version of the 5.0.0 theme is presented on this demo. This version has not yet gone on sale, and is under development. You can purchase the latest version of the theme here <a href="http://bit.ly/2DOThWb">http://bit.ly/2DOThWb</a>
+                </p>
+                <div class="d-flex align-items-center justify-content-center justify-content-sm-end mt-15">
+                    <div class="notification-cookies__button-close btn-link py-10 py-sm-0 d-flex align-items-center" data-js-action="close">{{ 'general.notifications.cookies.button_close' | t }}<i>{% render 'icon-theme-146' %}</i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    theme.AssetsLoader.onUserAction(function() {
+        theme.AssetsLoader.require('scripts', 'notifications');
+    });
+</script>

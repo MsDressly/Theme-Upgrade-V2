@@ -1,0 +1,8 @@
+<aside class="fixed-sidebar d-flex flex-column align-items-end position-fixed right-0 pointer-events-none">
+    {%- if template == 'product' and settings.product_info_page_show_usage_info_sidebar -%}
+        {% section 'product-fixed-sizebar' %}
+    {%- endif -%}
+    {%- if settings.presentation_enable -%}
+        {% render 'presentation' %}
+    {%- endif -%}
+</aside>

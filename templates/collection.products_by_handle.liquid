@@ -1,0 +1,33 @@
+{% layout none %}
+
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign params = contentForQuerystring
+    | split: '"pageurl":"'
+    | last
+    | split: '"'
+    | first
+    | split: '.myshopify.com'
+    | last
+    | replace: '\/', '/'
+    | replace: '%20', ' '
+    | replace: '\u0026', '&'
+    | split: 'params='
+    | last
+    | split: '&'
+    | first
+    | replace: '%2B', '+'
+    | replace: '%3D', '=' 
+    | split: '+'
+-%}
+
+{%- assign is_first = true -%}
+[
+{%- for param in params -%}
+    {%- assign handle = param | url_decode -%}
+    {%- assign product = all_products[handle] -%}
+    {%- if product != blank -%}
+        {% unless is_first %},{% endunless %}{{ product | json }}
+        {%- assign is_first = false -%}
+    {%- endif -%}
+{%- endfor -%}
+]

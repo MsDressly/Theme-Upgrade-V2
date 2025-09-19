@@ -1,0 +1,65 @@
+{% capture popups_style_base_html %}
+    {{ popups_style_base_html }}
+    :root {
+        --popup-subscription-confirmation-bg: var(--theme2);
+        --popup-subscription-confirmation-icon-close-c: var(--theme);
+        --popup-subscription-confirmation-success-bg: var(--theme7);
+        --popup-subscription-confirmation-success-c: var(--theme2);
+        --popup-subscription-confirmation-error-bg: var(--theme8);
+        --popup-subscription-confirmation-error-c: var(--theme2);
+        {%- assign popup_subscription_confirmation_btn_type = 'default' -%}
+    }
+
+    {% render 'css-style-button' with class: '.popup-subscription-confirmation__btn' type: popup_subscription_confirmation_btn_type %}
+{% endcapture %}
+<div class="popup-subscription-confirmation position-relative py-30 px-15" data-popup-content>
+    <i class="popup-subscription-confirmation__close position-absolute cursor-pointer" data-js-popup-close>{% render 'icon-theme-164' %}</i>
+    <div class="popup-subscription-confirmation__content d-flex flex-column mx-auto text-center">
+        <p class="mb-10"><i class="popup-subscription-confirmation__title-icon">{% render 'icon-theme-153' %}</i></p>
+        <div data-popup-confirmation-success>
+            <div class="popup-subscription-confirmation__message popup-subscription-confirmation__message--success px-15 py-10">
+                <p class="mb-0">{{ settings.subscription_confirmation_popup_success_message }}</p>
+            </div>
+            <div class="popup-subscription-confirmation__btn btn mt-25 mx-auto" data-js-popup-close>{{ settings.subscription_confirmation_popup_success_button }}</div>
+        </div>
+        <div class="d-none" data-popup-confirmation-error>
+            <div class="popup-subscription-confirmation__message popup-subscription-confirmation__message--error px-15 py-10 text-left" data-popup-confirmation-error-message></div>
+            <div class="mt-30">
+                <div class="d-flex flex-column">
+                    {%- if settings.subscription_show_confirmation_checkbox -%}
+                        <input id="Popup-Subscription-Confirmation-checkbox" type="checkbox" class="d-none input-checkbox-disable-trigger" name="footer_subscription">
+                        <label for="Popup-Subscription-Confirmation-checkbox" class="footer__subscription-checkbox subscription-checkbox input-checkbox input-checkbox--input-out position-relative d-inline-flex align-items-start mt-10 cursor-pointer">
+                            <span class="position-relative d-block mt-0 mr-10 border"><i class="d-none">{% render 'icon-theme-146' %}</i></span>
+                            <span>{{ 'general.form.subscription.checkbox_html' | t }}</span>
+                        </label>
+                        <div class="input-checkbox-disable-trigger-error subscription-checkbox-error d-none mt-10">
+                            <div class="note note--error mb-5">
+                                <ul>
+                                    <li>{{ 'general.form.subscription.checkbox_error' | t }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    {%- endif -%}
+                    {%- if settings.subscription_method == 'shopify' -%}
+                        {% form 'customer', id: null, class: 'subscription-form form-group--type-inline d-flex d-flex flex-column flex-lg-row' %}
+                            {% render 'form-get-check-error-popup' %}
+                            <input type="hidden" name="contact[tags]" value="newsletter">
+                            <input type="email" name="contact[email]" class="mb-10 mb-lg-0 mr-lg-10 {% if form.errors %} input--error{% endif %}" placeholder="{{ settings.subscription_popup_text_input_placeholder }}" required="required">
+                            <input type="submit" class="input-checkbox-disable-body btn btn--secondary" name="commit" value="{{ settings.subscription_popup_text_submit_button_text }}">
+                        {% endform %}
+                    {%- elsif settings.subscription_method == 'mailchimp' -%}
+                        <form action="{{ settings.subscription_mailchimp_form_action }}" method="post" class="subscription-form form-group--type-inline d-flex d-flex flex-column flex-lg-row" target="_blank">
+                            <input type="email" name="EMAIL" id="PopupSubscribe" class="mb-10 mb-lg-0 mr-lg-10" placeholder="{{ settings.subscription_popup_text_input_placeholder }}" required="required">
+                            <input type="submit" class="input-checkbox-disable-body btn" value="{{ settings.subscription_popup_text_submit_button_text }}">
+                        </form>
+                    {%- endif -%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    theme.AssetsLoader.onUserAction(function() {
+        theme.AssetsLoader.require('scripts', 'popup_send_confirmation');
+    });
+</script>

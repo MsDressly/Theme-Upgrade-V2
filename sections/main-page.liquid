@@ -1,0 +1,39 @@
+{% include 'global-variables' %}
+<div class="page">
+  <div class="container pt-30{% if offset_pages_margin_top_d > 0 %} pt-lg-{{ offset_pages_margin_top_d }}{% endif %}">
+    {%- if section.settings.show_title -%}
+      <h1 class="page__title text-center">
+        {%- if settings.language_enable and page.title contains '|' -%}
+            <span class="lang1">{{ page.title | split: '|' | first }}</span>
+            <span class="lang2">{{ page.title | split: '|' | last }}</span>
+        {%- else -%}
+            {{ page.title }}
+        {%- endif -%}
+      </h1>
+    {%- endif -%}
+    {%- if section.settings.show_content -%}
+      <div class="rte mb-50{% if offset_pages_margin_bottom_d > 0 %} mb-lg-{{ offset_pages_margin_bottom_d }}{% endif %}">
+        {% include 'parse-for-icons' content: page.content %}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+
+{% schema %}{
+    "name": "t:sections.page.name",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "show_title",
+            "label": "t:sections.page.settings.show_title.label",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "show_content",
+            "label": "t:sections.page.settings.show_content.label",
+            "default": true
+        }
+    ]
+}{% endschema %}

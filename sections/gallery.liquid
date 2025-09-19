@@ -1,0 +1,155 @@
+<gallery-section data-section-id="{{ section.id }}" data-section-type="main-page-gallery"{% render 'layout-get-container-class' with boxed_without_paddings: true custom_class: 'd-block' %}>
+    <div class="gallery align-items-start overflow-hidden">
+        {%- if section.blocks.size > 0 -%}
+            {%- assign blocks_size = 0 -%}
+            <div class="gallery__content row{% if section.settings.masonry_enable %} masonry invisible{% endif %}">
+                {%- for block in section.blocks -%}
+                    {%- assign page_name_handle = block.settings.page_name | handleize -%}
+                    {%- if page_name_handle == blank or page_name_handle == page.handle -%}
+                        <div class="col-sm-{{ block.settings.grid }} px-5 mb-10">
+                            <div class="gallery__item position-relative cursor-pointer" data-index="{{ forloop.index0 }}">
+                                {% capture image_size %}{{ block.settings.image_size }}x{% endcapture %}
+                                {% render 'rimage' with image: block.settings.image size: image_size format: 'pjpg' image_class: 'w-100' %}
+                                <div class="gallery__item-layer absolute-stretch d-flex flex-center">
+                                    <div class="gallery__item-bg absolute-stretch"></div>
+                                    <div class="gallery__item-text position-relative text-center">
+                                        {%- if block.settings.text_line_01 != blank -%}
+                                            <h3 class="h6 mb-0 font-italic">{{ block.settings.text_line_01 }}</h3>
+                                        {%- endif -%}
+                                        {%- if block.settings.text_line_02 != blank -%}
+                                            <h4 class="mb-0{% if block.settings.text_line_01 != blank %} mt-15{% endif %}">{{ block.settings.text_line_02 }}</h4>
+                                        {%- endif -%}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {%- assign blocks_size = blocks_size | plus: 1 -%}
+                    {%- endif -%}
+                {%- endfor -%}
+            </div>
+            <div class="gallery__fotorama fotorama d-flex justify-content-center invisible position-absolute" data-nav="thumbs" data-thumbheight="100" data-thumbwidth="137" data-allowfullscreen="true" data-keyboard="true"{% if settings.layout_enable_rtl %} data-direction="rtl"{% endif %}>
+                {%- for block in section.blocks -%}
+                    {%- assign page_name_handle = block.settings.page_name | handleize -%}
+                    {%- if page_name_handle == blank or page_name_handle == page.handle -%}
+                        <div class="d-flex flex-column flex-center h-100" data-thumb="{{ block.settings.image | img_url: 'medium', format: 'pjpg' }}">
+                            <div class="gallery__item-text w-100 pb-35 text-center">
+                                {%- if block.settings.text_line_01 != blank -%}
+                                    <h3 class="h6 mb-0 font-italic">{{ block.settings.text_line_01 }}</h3>
+                                {%- endif -%}
+                                {%- if block.settings.text_line_02 != blank -%}
+                                    <h4 class="mb-0{% if block.settings.text_line_01 != blank %} mt-10{% endif %}">{{ block.settings.text_line_02 }}</h4>
+                                {%- endif -%}
+                            </div>
+                            <img src="{{ block.settings.image | img_url: '1000x', format: 'pjpg' }}">
+                        </div>
+                    {%- endif -%}
+                {%- endfor -%}
+            </div>
+            {%- unless blocks_size > 0 -%}
+                <div class="col text-center">
+                    {% include 'no-blocks' %}
+                </div>
+            {%- endunless -%}
+        {%- else -%}
+            <div class="col text-center">
+                {% include 'no-blocks' %}
+            </div>
+        {%- endif -%}
+    </div>
+</gallery-section>
+
+<script>
+    {%- if section.settings.masonry_enable -%}
+        theme.AssetsLoader.require('scripts', 'masonry');
+    {%- endif -%}
+    theme.AssetsLoader.onUserAction(function() {
+        theme.AssetsLoader.require('styles', 'plugin_fotorama');
+        theme.AssetsLoader.require('scripts', 'gallery');
+    });
+</script>
+
+{% schema %}
+{
+    "name": "Gallery",
+    "settings": [
+        {
+            "type": "select",
+            "id": "container",
+            "label": "Content width",
+            "default": "fullwidth",
+            "options": [
+                {
+                    "value": "fullwidth",
+                    "label": "Fullwidth"
+                },
+                {
+                    "value": "boxed",
+                    "label": "Boxed"
+                }
+            ]
+        },
+        {
+            "type": "checkbox",
+            "id": "masonry_enable",
+            "label": "Enable masonry",
+            "default": true
+        }
+    ],
+    "blocks": [
+        {
+            "type": "item",
+            "name": "Item",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "page_name",
+                    "label": "Page name"
+                },
+                {
+                    "type": "range",
+                    "id": "grid",
+                    "min": 1,
+                    "max": 12,
+                    "step": 1,
+                    "unit": "/12",
+                    "label": "Size",
+                    "default": 4
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "range",
+                    "id": "image_size",
+                    "min": 200,
+                    "max": 1000,
+                    "step": 50,
+                    "unit": "px",
+                    "default": 500,
+                    "label": "Image size"
+                },
+                {
+                    "type": "text",
+                    "id": "text_line_01",
+                    "label": "Text line #1",
+                    "default": "TEXT LINE #1"
+                },
+                {
+                    "type": "text",
+                    "id": "text_line_02",
+                    "label": "Text line #2",
+                    "default": "Text line #2"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Gallery",
+            "category": "3) Static content"
+        }
+    ]
+}
+{% endschema %}

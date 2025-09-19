@@ -1,0 +1,82 @@
+{% include 'global-variables' %}
+{% include 'product-cart-res-variables' %}
+{%- assign image_size = '100x' -%}
+<div class="product-cart mb-20" data-js-product data-product-variant-id="{{ id }}" data-product-cart-line="{{ forloop.index }}">
+    <div class="d-flex flex-row align-items-center">
+        <div class="product-cart__image mr-15">
+            {% render 'product-get-images' with url: url image: image image_size: image_size title: title disable_lazyload: disable_lazyload %}
+        </div>
+        <div class="product-cart__content d-flex flex-column align-items-start">
+            <div class="product-cart__title">
+                <h3 class="h6 m-0">
+                    <a href="{{ url }}">{{ title }}</a>
+                </h3>
+            </div>
+            {% capture default_variant_title %}{{ 'products.product.default_variant_title' | t }}{% endcapture %}
+            <div class="product-cart__variant mt-3{% if variant_title == 'Default Title' %} d-none{% endif %}">{{ variant_title | replace: 'Default Title', default_variant_title }}</div>
+
+            {%- for property in item.properties -%}
+                {%- assign property_first_char = property.first | slice: 0 -%}
+                {%- if property.last != blank and property_first_char != '_' -%}
+                  <div class="product-option">
+                    <dt>{{ property.first }}:
+                    </dt>
+                    <dd>
+                      {%- if property.last contains '/uploads/' -%}
+                        <a
+                          href="{{ property.last }}"
+                          class="link"
+                          target="_blank">
+                          {{ property.last | split: '/' | last }}
+                        </a>
+                      {%- else -%}
+                        {{ property.last }}
+                      {%- endif -%}
+                    </dd>
+                  </div>
+                {%- endif -%}
+            {%- endfor -%}
+
+            {%- if item.selling_plan_allocation != nil -%}
+                <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</p>
+            {%- endif -%}
+
+            <ul
+                class="product-cart__discounts list-unstyled mt-5"
+                role="list">
+                {%- for discount in item.discounts -%}
+                    <li class="d-flex align-items-center">
+                    <i class="mr-5">{%- render 'icon-theme-137' -%}</i>
+                    {{ discount.title }}
+                    </li>
+                {%- endfor -%}
+            </ul>
+        </div>
+        <div class="product-cart__sidebar ml-auto mb-auto mb-lg-0 d-flex flex-column align-items-end">
+            <div class="product-cart__price d-none d-lg-block">
+                <span class="product-cart__quantity">{{ quantity }}</span> <span>{{ 'layout.cart.quantity_and_price_separator' | t }}</span> <span class="product-cart__price-value">{% include 'product-get-price' %}</span>
+            </div>
+            {%- if settings.cart_popup_show_quantity_input -%}
+                <div class="product-cart__sidebar-quantity input-quantity input-quantity--type-05 d-none d-lg-flex js-product-quantity mt-10">
+                    <div class="d-flex flex-center border cursor-pointer" data-control="-"><i>{% render 'icon-theme-189' %}</i></div>
+                    <input type="number" class="product-cart__input-quantity mx-10 mb-0 text-center js-input-quantity-cart" name="updates[]" value="{{ quantity }}" min="0">
+                    <div class="d-flex flex-center border cursor-pointer" data-control="+"><i>{% render 'icon-theme-188' %}</i></div>
+                </div>
+            {%- endif -%}
+            <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="product-cart__remove btn-link js-product-button-remove-from-cart mt-10 d-none d-lg-block">{{ 'products.product.remove' | t }}</a>
+            <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="product-cart__remove btn-link js-product-button-remove-from-cart d-lg-none">{% render 'icon-theme-165'  %}</a>
+        </div>
+    </div>
+    <div class="product-cart__mobile-footer mt-20 align-items-center d-flex d-lg-none">
+        {%- if settings.cart_popup_show_quantity_input -%}
+            <div class="input-quantity input-quantity--type-05 d-flex js-product-quantity">
+                <div class="d-flex flex-center border cursor-pointer" data-control="-"><i>{% render 'icon-theme-189' %}</i></div>
+                <input type="number" class="product-cart__input-quantity mx-10 mb-0 text-center js-input-quantity-cart" name="updates[]" value="{{ quantity }}" min="0">
+                <div class="d-flex flex-center border cursor-pointer" data-control="+"><i>{% render 'icon-theme-188' %}</i></div>
+            </div>
+        {%- endif -%}
+        <div class="product-cart__price ml-auto">
+            <span class="product-cart__quantity">{{ quantity }}</span> <span>{{ 'layout.cart.quantity_and_price_separator' | t }}</span> <span class="product-cart__price-value">{% include 'product-get-price' %}</span>
+        </div>
+    </div>
+</div>

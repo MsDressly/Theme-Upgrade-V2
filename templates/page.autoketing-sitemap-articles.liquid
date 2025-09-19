@@ -1,0 +1,84 @@
+<div class="page-width page-width--narrow">
+  <h1 class="page-title">HTML sitemap</h1>
+  {% assign ak_autoketing_sitemap = shop.metafields.autoketing_seo.ak_autoketing_sitemap %}
+  {% if ak_autoketing_sitemap.sitemap_status == true %}
+    {% assign sitemap_limit_show = ak_autoketing_sitemap.sitemap_limit_show %}
+    {% assign sitemap_options = ak_autoketing_sitemap.sitemap_options %}
+    {% assign sitemap_blogs = ak_autoketing_sitemap.sitemap_blogs %}
+    {% assign sitemap_additional_link = ak_autoketing_sitemap.sitemap_additional_link %}
+    {% assign sitemap_additional_link_size = sitemap_additional_link | size %}
+    <div class="row">
+      <div class="col-md-6">
+        <ul>
+          <li>{{ pages["autoketing-sitemap"].title | link_to: pages["autoketing-sitemap"].url }}</li>
+          {%- for option in sitemap_options -%}
+            {% if option == "Collections" %}
+              <li>{{ pages["autoketing-sitemap-collections"].title | link_to: pages["autoketing-sitemap-collections"].url }}</li>
+            {% endif %}
+            {% if option == "Products" %}
+              <li>{{ pages["autoketing-sitemap-products"].title | link_to: pages["autoketing-sitemap-products"].url }}</li>
+            {% endif %}
+            {% if option == "Blog Posts" %}
+              {% assign blog_posts_url = pages["autoketing-sitemap-articles"].url | append: "?page=1&blog=0" %}
+              <li>{{ pages["autoketing-sitemap-articles"].title | link_to: blog_posts_url }}</li>
+            {% endif %}
+            {% if option == "Blogs" %}
+              <li>{{ pages["autoketing-sitemap-blogs"].title | link_to: pages["autoketing-sitemap-blogs"].url }}</li>
+            {% endif %}
+            {% if option == "Pages" %}
+              <li>{{ pages["autoketing-sitemap-pages"].title | link_to: pages["autoketing-sitemap-pages"].url }}</li>
+            {% endif %}
+          {%- endfor -%}
+          {% if sitemap_additional_link_size > 0 %}
+            <li>{{ pages["autoketing-sitemap-additional-links"].title | link_to: pages["autoketing-sitemap-additional-links"].url }}</li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      {% if sitemap_options contains "Blog Posts" %}
+        {% assign param_blog = 0 %}
+        {% assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: '.myshopify.com' | last | replace: '\/', '/' | replace: '%20', ' ' | replace: '\u0026', '&' %}
+        {% for i in (1..1) %}
+          {% unless page_url contains "?" %}{% break %}{% endunless %}
+          {% assign query_string = page_url | split: '?' | last %}
+          {% assign qry_parts = query_string | split: '&' %}
+          {% for part in qry_parts %}
+            {% assign key_and_value = part | split: '=' %}
+            {% if key_and_value.size > 1 %}
+              {% if key_and_value[0] == 'blog' %}
+                {% assign param_blog = key_and_value[1] | abs %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+        {% assign blog_handle = sitemap_blogs[param_blog] %}
+        {% assign blog_handle_size = blog_handle | size %}
+        {% if blog_handle_size == 0 %}
+          {% assign blog_handle = "news" %}
+        {% endif %}
+        <div class="col-md-6">
+          <h2>{{ blogs[blog_handle].title }}</h2>
+          <ul>
+            {%- paginate blogs[blog_handle].articles by sitemap_limit_show -%}
+              {%- for article in blogs[blog_handle].articles -%}
+                <li>
+                  {{ article.title | link_to: article.url }}
+                </li>
+              {%- endfor -%}
+              {{ paginate | default_pagination: next: '>', previous: '<' }}
+            {%- endpaginate -%}
+          </ul>
+          <h2>Blogs</h2>
+          <ul>
+            {% for tag_blog in sitemap_blogs %}
+              {% assign blog_posts_url = pages["autoketing-sitemap-articles"].url | append: "?page=1&blog=" | append: forloop.index0 %}
+              <li>{{ blogs[tag_blog].title | link_to: blog_posts_url }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>

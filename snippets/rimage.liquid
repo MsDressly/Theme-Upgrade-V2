@@ -1,0 +1,83 @@
+{%- if disable_lazyload != blank -%}
+    {%- assign disable_lazyload = disable_lazyload | default: false -%}
+{%- else -%}
+    {%- if settings.layout_images_lazyload == false -%}
+        {%- assign disable_lazyload = true -%}
+    {%- endif -%}
+{%- endif -%}
+{%- if height_procent -%}
+    {%- assign aspect_ratio = height_procent | divided_by: 100.0 -%}
+    {%- assign aspect_ratio = 1 | divided_by: aspect_ratio -%}
+{%- endif -%}
+{%- assign aspect_ratio = aspect_ratio | default: image.aspect_ratio | default: 1 -%}
+{%- if image == blank and custom_src == blank -%}
+    {%- comment -%}
+    {% capture custom_src %}{{ image | img_url: '1920x', format: 'pjpg' }}{% endcapture %}
+    {%- endcomment -%}
+    {%- assign custom_src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKoAAACqCAYAAAA9dtSCAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAHGSURBVHgB7dIBDQAgEAAhtX/aL6A1vA0ysGfmLvjcWRAgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopIgKgmikiAqCaKSICoJopLwAHKVBSkNThHfAAAAAElFTkSuQmCC' -%}
+{%- else -%}
+    {%- if format -%}
+        {%- assign img_url = image | img_url: '1x1', format: format | replace: '_1x1.', '_{width}x.' -%}
+    {%- elsif image contains '.jpg' or image.src contains '.jpg' -%}
+        {%- assign img_url = image | img_url: '1x1', format: 'pjpg' | replace: '_1x1.', '_{width}x.' -%}
+    {%- else -%}
+        {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+    {% endif -%}
+{%- endif -%}
+{%- if responsive_height != blank or height_custom == true or min_height != blank -%}
+    {%- if stretch_size == blank -%}
+        {%- assign stretch_size = stretch_size | default: 'cover' -%}
+    {%- endif -%}
+{%- endif -%}
+{%- if height contains 'fullscreen' -%}
+    {%- assign responsive_height = null -%}
+{%- endif -%}
+{%- assign size_numeric = size | abs -%}
+{%- if size_numeric > 3800 -%}
+    {%- assign size = 'master' -%}
+{%- endif -%}
+<div class="rimage{% if parallax_type == 'fixed' %} rimage--parallax-fixed lazyload{% endif %}{% if height == 'fullscreen' %} lazyload-fullscreen invisible{% elsif height == 'fullscreen_header' %} lazyload-fullscreen-header invisible{% endif %}{% if only_desktop %} d-none d-sm-block{% elsif only_mobile %} d-sm-none{% endif %}"
+    style="{% unless responsive_height != blank or height_custom == true %}padding-top:{{ 1 | divided_by: aspect_ratio | times: 100 }}%;{% endunless %}{% if width %} width: {{ width }}px;{% endif %}{% if min_height != blank %} min-height: {{ min_height }}px;{% endif %}"{% if parallax_type == 'fixed' %} data-master="{{ img_url }}" data-bg="{{ image | img_url: size, format: format }}"{% endif %}>
+    {%- if height_custom == true -%}
+        <div class="rimage__height-spacer"></div>
+    {%- elsif responsive_height != blank -%}
+        {%- assign responsive_height_arr = responsive_height | split: ',' -%}
+        <div class="d-sm-none" style="padding-top: {{ responsive_height_arr[4] | default: responsive_height_arr[0] }};"></div>
+        <div class="d-none d-sm-block d-md-none" style="padding-top: {{ responsive_height_arr[3] | default: responsive_height_arr[0] }};"></div>
+        <div class="d-none d-md-block d-lg-none" style="padding-top: {{ responsive_height_arr[2] | default: responsive_height_arr[0] }};"></div>
+        <div class="d-none d-lg-block d-xl-none" style="padding-top: {{ responsive_height_arr[1] | default: responsive_height_arr[0] }};"></div>
+        <div class="d-none d-xl-block{% if ultra_responsive_height != blank %} d-ultra-none{% endif %}" style="padding-top: {{ responsive_height_arr[0] }};"></div>
+        {%- if ultra_responsive_height != blank -%}
+            <div class="d-none d-ultra-block" style="padding-top: {{ ultra_responsive_height }};"></div>
+        {%- endif -%}
+    {%- endif -%}
+    {%- unless parallax_type == 'fixed' -%}
+        <img{% unless custom_src or disable_lazyload %} onload="theme.LazyImage.inlineCheck(this)"{% endunless %} class="rimage__img{% if stretch_size %} rimage__img--{{ stretch_size }}{% endif %}{% unless disable_lazyload %} lazyload{% if hold_lazyload %} lazyload--hold{% endif %}{% endunless %}{% if image_class %} {{ image_class }}{% endif %}{% if donothide %} donothide{% endif %}" loading="eager"
+        {%- unless custom_src %}
+            data-master="{{ img_url }}"
+            data-aspect-ratio="{{ aspect_ratio }}"
+            {% if image.aspect_ratio %}
+                data-aspect-ratio-original="{{ image.aspect_ratio }}"
+            {% endif %}
+            {% if stretch_size %}
+                data-stretch-size="{{ stretch_size }}"
+            {% endif %}
+        {% endunless %}
+        {% if custom_src %}
+            {% unless disable_lazyload %}src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=" data-{% else %}src="{{ custom_src }}" {% endunless %}srcset="{{ custom_src }}"
+        {% elsif format %}
+            {% unless disable_lazyload %}src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=" data-{% else %}src="{{ image | img_url: size, format: format }}" {% endunless %}srcset="{{ image | img_url: size, format: format }} 1x, {{ image.src | img_url: size, scale: 2, format: format }} 2x, {{ image.src | img_url: size, scale: 3, format: format }} 3x"
+        {% elsif image contains '.jpg' or image.src contains '.jpg' %}
+            {% unless disable_lazyload %}src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=" data-{% else %}src="{{ image | img_url: size, format: 'pjpg' }}" {% endunless %}srcset="{{ image | img_url: size, format: 'pjpg' }} 1x, {{ image.src | img_url: size, scale: 2, format: 'pjpg' }} 2x, {{ image.src | img_url: size, scale: 3, format: 'pjpg' }} 3x"
+        {% else %}
+            {% unless disable_lazyload %}src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=" data-{% else %}src="{{ image | img_url: size }}" {% endunless %}srcset="{{ image | img_url: size }} 1x, {{ image.src | img_url: size, scale: 2 }} 2x, {{ image.src | img_url: size, scale: 3 }} 3x"
+        {% endif %}
+        {% if image != blank and image.presentation != blank %}style="object-position: {{ image.presentation.focal_point }};"{% endif %}
+        {% if scale %}data-scale="{{ scale }}"{% endif %}
+        {% if scale_perspective %}data-scale-perspective="{{ scale_perspective }}"{% endif %}
+        {% if is_parallax %}data-parallax-image{% endif %}
+        {% if attr %}{{ attr }}{% endif %}
+        {% if image != blank %}alt="{{ image.alt | default: alt | escape }}"{% endif %}
+        >
+    {%- endunless -%}
+</div>

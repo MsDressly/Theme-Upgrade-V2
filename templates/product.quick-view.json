@@ -1,0 +1,103 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "layout": "quick-view",
+  "sections": {
+    "main": {
+      "type": "main-quick-view",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "reviews": {
+          "type": "reviews",
+          "settings": {}
+        },
+        "details": {
+          "type": "details",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "21b8de50-c01e-4fc5-853c-32d9fd35ee46": {
+          "type": "countdown",
+          "settings": {}
+        },
+        "stock_countdown": {
+          "type": "stock_countdown",
+          "settings": {}
+        },
+        "visitors": {
+          "type": "visitors",
+          "settings": {}
+        },
+        "border": {
+          "type": "border",
+          "settings": {}
+        },
+        "options": {
+          "type": "options",
+          "settings": {}
+        },
+        "popups": {
+          "type": "popups",
+          "settings": {}
+        },
+        "notes": {
+          "type": "notes",
+          "settings": {}
+        },
+        "buttons_quantity": {
+          "type": "buttons_quantity",
+          "settings": {}
+        },
+        "pickup_availability": {
+          "type": "pickup_availability",
+          "settings": {}
+        },
+        "payments": {
+          "type": "payments",
+          "settings": {}
+        },
+        "social_share_buttons": {
+          "type": "social_share_buttons",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "title",
+        "reviews",
+        "details",
+        "price",
+        "21b8de50-c01e-4fc5-853c-32d9fd35ee46",
+        "stock_countdown",
+        "visitors",
+        "border",
+        "options",
+        "popups",
+        "notes",
+        "buttons_quantity",
+        "pickup_availability",
+        "payments",
+        "social_share_buttons"
+      ],
+      "settings": {
+        "gallery_size": "6",
+        "enable_sticky_sidebar": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

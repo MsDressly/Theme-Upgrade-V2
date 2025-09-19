@@ -1,0 +1,129 @@
+{%- if section.blocks.size > 0 -%}
+    {% include 'global-variables' %}
+    {%- assign get_sorting_collections_async_ajax_loading = sorting_collections_async_ajax_loading -%}
+    {%- if get_sorting_collections_async_ajax_loading == true -%}
+        {%- if request.design_mode -%}
+            {%- assign is_design_mode = true -%}
+            {%- assign get_sorting_collections_async_ajax_loading = false -%}
+        {%- endif -%}
+    {%- endif -%}
+    {%- assign get_sorting_collections_async_ajax_loading = false -%}
+    <sorting-collections data-section-id="{{ section.id }}" data-section-type="sorting-collections" class="d-block">
+        <div class="container">
+            <div class="sorting-collections"{% if get_sorting_collections_async_ajax_loading %} data-sorting-collections-ajax{% endif %}>
+                <div class="sorting-collections__head home-section-title home-section-title--multiple row justify-content-center mb-25"{% if section.blocks.size > 1 %} data-sorting-collections-control{% endif %}>
+                    {%- for block in section.blocks -%}
+                        {%- if collections[block.settings.collection] != blank -%}
+                            <h2 class="h4 col-auto mb-10 text-center">
+                                <a href="{{ collections[block.settings.collection].url }}"{% if section.blocks.size > 1 %}{% if forloop.index == 1 %} class="active"{% endif %}{% endif %} data-collection="{{ collections[block.settings.collection].handle }}">{% if block.settings.title != blank %}{{ block.settings.title }}{% else %}{{ collections[block.settings.collection].title }}{% endif %}</a>
+                            </h2>
+                            {%- if forloop.index0 == 0 -%}
+                                {%- assign first_collection = collections[block.settings.collection] -%}
+                            {%- endif -%}
+                        {%- elsif forloop.index0 == 0 -%}
+                            {% render 'no-blocks' with message: 'homepage.onboarding.no_content_message.sorting_collections' %}
+                        {%- endif -%}
+                    {%- endfor -%}
+                </div>
+                {% capture grid %}col-6 col-sm-6 col-md-4 col-lg-{{ 12 | divided_by: section.settings.size_of_columns }}{% endcapture %}
+                {%- for block in section.blocks limit: 1 -%}
+                    <div class="sorting-collections__products row" data-sorting-collections-items data-limit="{{ section.settings.max_count }}" data-grid="{{ grid }}"{% if is_design_mode %} data-is-design-mode{% endif %}>
+                        {% unless get_sorting_collections_async_ajax_loading %}
+                            {%- if block.settings.collection != blank -%}
+                                {%- assign products = collections[block.settings.collection].products -%}
+                                {%- for product in products limit: section.settings.max_count -%}
+                                    <div class="{{ grid }}">
+                                        {%- assign disable_lazyload = sorting_collections_image_lazyload_disable -%}
+                                        {% include 'product-collection' with url_without_collection: true product_margin_bottom: offset_collection_page_product_margin_bottom_d %}
+                                    </div>
+                                {%- endfor -%}
+                            {%- endif -%}
+                        {% endunless %}
+                    </div>
+                {%- endfor -%}
+                {%- if section.settings.show_btn_more_products -%}
+                    <div class="sorting-collections__more-products d-flex justify-content-center mt-30">
+                        <a href="{{ first_collection.url | default: '/collections/all' }}" class="btn btn--secondary btn--size-middle-large{% if get_sorting_collections_async_ajax_loading %} invisible{% endif %}" data-sorting-collections-more>{{ 'homepage.sorting_collections.button_more_products' | t: collection: first_collection.title }}</a>
+                    </div>
+                {%- endif -%}
+            </div>
+        </div>
+    </sorting-collections>
+    <script>
+        theme.AssetsLoader.require('scripts', 'sorting_collections');
+    </script>
+{%- else -%}
+    {% render 'no-blocks' %}
+{%- endif -%}
+
+{% schema %}
+{
+    "name": "Collections",
+    "settings": [
+{
+"type": "select",
+"id": "size_of_columns",
+"label": "Size of the columns",
+"default": "4",
+"options": [
+{
+"value": "2",
+"label": "2 items in the row"
+},
+{
+"value": "3",
+"label": "3 items in the row"
+},
+{
+"value": "4",
+"label": "4 items in the row"
+},
+{
+"value": "6",
+"label": "6 items in the row"
+}
+]
+},
+        {
+            "type": "range",
+            "id": "max_count",
+            "min": 1,
+            "max": 24,
+            "step": 1,
+            "unit": "pds",
+            "label": "Max count",
+            "default": 8
+        },
+{
+"type": "checkbox",
+"id": "show_btn_more_products",
+"label": "Show button 'See all products'",
+"default": false
+}
+    ],
+    "blocks": [
+        {
+            "type": "collection",
+            "name": "Collection",
+            "settings": [
+                {
+                    "type": "textarea",
+                    "id": "title",
+                    "label": "Title"
+                },
+                {
+                    "type": "collection",
+                    "id": "collection",
+                    "label": "Collection"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Collections",
+            "category": "4) Collections"
+        }
+    ]
+}
+{% endschema %}

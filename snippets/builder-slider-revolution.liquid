@@ -1,0 +1,163 @@
+{% capture slide_image_size %}x{{ block.settings.image_height }}{% endcapture %}
+{%- case block.settings.height -%}
+    {%- when 'preset_1' -%}
+        {%- assign grid_width = home_builder_slider_revolution_grid_width_preset_1 -%}
+        {%- assign grid_height = home_builder_slider_revolution_grid_height_preset_1 -%}
+    {%- when 'fullscreen' -%}
+        {%- assign slider_layout = 'fullscreen' -%}
+    {%- when 'fullscreen_header' -%}
+        {%- assign slider_layout = 'fullscreen' -%}
+        {%- assign full_screen_offset_container = '.header' -%}
+    {%- when 'preset_2' -%}
+        {%- assign grid_width = home_builder_slider_revolution_grid_width_preset_2 -%}
+        {%- assign grid_height = home_builder_slider_revolution_grid_height_preset_2 -%}
+    {%- when 'preset_3' -%}
+        {%- assign grid_width = home_builder_slider_revolution_grid_width_preset_3 -%}
+        {%- assign grid_height = home_builder_slider_revolution_grid_height_preset_3 -%}
+{%- endcase -%}
+{%- assign image_parallax = block.settings.image_parallax -%}
+{%- assign content_parallax = block.settings.content_parallax -%}
+<div class="rev_slider_wrapper">
+    <div class="rev_slider slider-revolution"
+         data-version="5.4.5"
+         style="display:none"
+         data-arrows="{{ block.settings.arrows }}"
+         data-bullets="{{ block.settings.bullets }}"
+         data-delay="{{ block.settings.delay }}"
+         data-gridwidth="{{ grid_width }}"
+         data-gridheight="{{ grid_height }}"
+         data-slider-layout="{{ slider_layout | default: 'auto' }}"
+         {% if full_screen_offset_container %}data-full-screen-offset-container="{{ full_screen_offset_container }}"{% endif %}
+         {% if block.settings.min_height and block.settings.min_height > 0 %}data-minheight="{{ block.settings.min_height }}"{% endif %}
+    >
+        <ul>
+            {%- for block in section.blocks offset: forloop.index -%}
+                {%- if block.type != 'revolution_slide' -%}
+                    {%- break -%}
+                {%- endif -%}
+                {% capture inner_block_id %}{{ block_id }}-{{ forloop.index }}{% endcapture %}
+                <li data-transition="{{ block.settings.slide_animation | remove: '<li data-transition="' | remove: '">' | downcase }}"
+                    {% if block.settings.delay > 0 %}data-delay="{{ block.settings.delay | times: 1000 }}"{% endif %}
+                    {% if block.settings.url != blank %}data-link="{{ block.settings.url }}" data-target="_blank"{% endif %} class="{{ inner_block_id }}">
+                    {%- if block.settings.video_mp4_url != blank or block.settings.video_external_url != blank -%}
+                        {%- if block.settings.video_mp4_url != blank -%}
+                            {%- assign audio = block.settings.video_mp4_url -%}
+                            {%- assign video_data = 'data-videomp4="' | append: block.settings.video_mp4_url | append: '"' -%}
+                        {%- elsif block.settings.video_external_url != blank -%}
+                            {%- if block.settings.video_external_url.type == 'youtube' -%}
+                                {% assign video_data = 'data-ytid="' | append: block.settings.video_external_url.id | append: '"' %}
+                                {% assign video_attr = 'data-videoattributes="version=3&enablejsapi=1&html5=1&hd=1&wmode=opaque&showinfo=0&rel=0&origin=http://' | append: shop.domain | append: ';"' %}
+                                {% assign img_src = 'https://img.youtube.com/vi/' | append: block.settings.video_external_url.id | append: '/maxresdefault.jpg' %}
+                                <img src="{{ img_src }}"
+                                     alt="Ocean"
+                                     class="rev-slidebg"
+                                     data-bgposition="{{ block.settings.image_position_x }}% 50%"
+                                     data-bgfit="cover"
+                                     data-bgrepeat="no-repeat">
+                            {%- elsif block.settings.video_external_url.type == 'vimeo' -%}
+                                {%- assign video_data = 'data-vimeoid="' | append: block.settings.video_external_url.id | append: '"' -%}
+                                {%- assign video_attr = 'data-videoattributes="background=1&hd=1&wmode=opaque&showinfo=0&rel=0"' -%}
+                            {%- endif -%}
+                        {%- endif -%}
+                        <div class="tp-caption tp-videolayer"
+                             {{ block.settings.html_animation }}
+                             data-type="video"
+                             data-videowidth="100%"
+                             data-videoheight="100%"
+                             data-bgposition="{{ block.settings.image_position_x }}% 50%"
+                             data-bgfit="cover"
+                             data-volume="100"
+                             data-autoplay="on"
+                             data-videocontrols="none"
+                             data-forcerewind="on"
+                             data-nextslideatend="true"
+                             data-videoloop="loop"
+                             data-allowfullscreenvideo="true"
+                             data-videopreload="none"
+                             data-x="center"
+                             data-y="center"
+                             data-hoffset="0"
+                             data-voffset="0"
+                             data-basealign="slide"
+                                {{ video_data }}
+                                {{ video_attr }}
+                        ></div>
+                    {%- else -%}
+                        <img src="{{ block.settings.image | img_url: slide_image_size, format: 'pjpg' }}"
+                             srcset="{{ block.settings.image | img_url: slide_image_size, format: 'pjpg' }} 1x, {{ block.settings.image | img_url: slide_image_size, format: 'pjpg', scale: 2 }} 2x"
+                             alt="{{ block.settings.image.alt }}"
+                             class="rev-slidebg"
+                             data-bgposition="{{ block.settings.image_position_x }}% 50%"
+                             data-bgfit="cover"
+                             data-bgrepeat="no-repeat"
+                             data-bgparallax="{{ image_parallax }}">
+                        {%- if first_image == blank -%}
+                            {%- assign first_image = block.settings.image -%}
+                        {%- endif -%}
+                    {%- endif -%}
+                    {%- if block.settings.type contains 'type-1' -%}
+                        {%- case block.settings.content_position -%}
+                            {%- when 'top_left' %}
+                                {%- assign content_align_x = 'justify-content-lg-start' -%}
+                                {%- assign data_y = 'top' -%}
+                            {%- when 'top_center' %}
+                                {%- assign content_align_x = 'justify-content-lg-center' -%}
+                                {%- assign data_y = 'top' -%}
+                            {%- when 'top_right' %}
+                                {%- assign content_align_x = 'justify-content-lg-end' -%}
+                                {%- assign data_y = 'top' -%}
+                            {%- when 'center_left' %}
+                                {%- assign content_align_x = 'justify-content-lg-start' -%}
+                                {%- assign data_y = 'center' -%}
+                            {%- when 'center' %}
+                                {%- assign content_align_x = 'justify-content-lg-center' -%}
+                                {%- assign data_y = 'center' -%}
+                            {%- when 'center_right' %}
+                                {%- assign content_align_x = 'justify-content-lg-end' -%}
+                                {%- assign data_y = 'center' -%}
+                            {%- when 'bottom_left' %}
+                                {%- assign content_align_x = 'justify-content-lg-start' -%}
+                                {%- assign data_y = 'bottom' -%}
+                            {%- when 'bottom_center' %}
+                                {%- assign content_align_x = 'justify-content-lg-center' -%}
+                                {%- assign data_y = 'bottom' -%}
+                            {%- when 'bottom_right' %}
+                                {%- assign content_align_x = 'justify-content-lg-end' -%}
+                                {%- assign data_y = 'bottom' -%}
+                        {%- endcase -%}
+                        <div class="tp-caption rs-parallaxlevel-{{ content_parallax }} text-wrap"
+                             {{ block.settings.html_animation }}
+                             data-x="center"
+                             data-y="{{ data_y }}"
+                             data-hoffset="0"
+                             data-voffset="0"
+                             data-width="100%"
+                             data-height="{{ block.settings.grid_height }}"
+                        >
+                            <div class="d-flex flex-center {{ content_align_x }}">
+                                {% render 'promobox' with block: block get_only_content: true %}
+                            </div>
+                        </div>
+                    {%- endif -%}
+                </li>
+            {%- endfor -%}
+        </ul>
+    </div>
+    {%- if block.settings.preload_spacer -%}
+        <div class="slider-revolution__spacer d-none d-lg-block">
+            {%- if block.settings.gridheight != blank or block.settings.min_height != blank -%}
+                <div class="responsive-block position-relative"{% if block.settings.min_height != blank %} style="min-height: {{ block.settings.min_height }}px;"{% endif %}>
+                    {%- if block.settings.gridheight != blank -%}
+                        {%- assign responsive_height_arr = block.settings.gridheight | split: ',' -%}
+                        <div class="d-sm-none" style="padding-top: {{ responsive_height_arr[4] }}px;"></div>
+                        <div class="d-none d-sm-block d-md-none" style="padding-top: {{ responsive_height_arr[3] }}px;"></div>
+                        <div class="d-none d-md-block d-lg-none" style="padding-top: {{ responsive_height_arr[2] }}px;"></div>
+                        <div class="d-none d-lg-block d-xl-none" style="padding-top: {{ responsive_height_arr[1] }}px;"></div>
+                        <div class="d-none d-xl-block" style="padding-top: {{ responsive_height_arr[0] }}px;"></div>
+                    {%- endif -%}
+                    <div class="responsive-block__bg absolute-stretch" style="background-image: url('{{ first_image | img_url: 'x550', format: 'pjpg' }}');"></div>
+                </div>
+            {%- endif -%}
+        </div>
+    {%- endif -%}
+</div>

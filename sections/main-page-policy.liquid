@@ -1,0 +1,62 @@
+{% include 'global-variables' %}
+<div class="page">
+  <div class="container container--sm px-0 {% if offset_pages_margin_top_d > 0 %} mt-lg-{{ offset_pages_margin_top_d }}{% endif %} pb-60{% if offset_pages_margin_bottom_d > 0 %} mb-lg-{{ offset_pages_margin_bottom_d }}{% endif %}">
+    <h1 class="page__title mt-30 text-center">
+        {%- if settings.language_enable and page.title contains '|' -%}
+            <span class="lang1">{{ page.title | split: '|' | first }}</span>
+            <span class="lang2">{{ page.title | split: '|' | last }}</span>
+        {%- else -%}
+            {{ page.title }}
+        {%- endif -%}
+    </h1>
+    <div class="rte mb-50{% if offset_pages_margin_bottom_d > 0 %} mb-lg-{{ offset_pages_margin_bottom_d }}{% endif %}">
+        {%- assign page_title_downcase = page.title | downcase -%}
+        {%- if section.settings.page_type == 'privacy_policy' -%}
+            {{ shop.privacy_policy | replace: '<h1>', '<h2 class="h5 text-uppercase">' | replace: '</h1>', '</h2>' | replace: '<h2>', '<h2 class="h5 text-uppercase">' | replace: '<ul>', '<ul class="mb-20">' | replace: '<table>', '<table class="mb-20">'}}
+        {%- elsif section.settings.page_type == 'refund_policy' -%}
+            {{ shop.refund_policy }}
+        {%- elsif section.settings.page_type == 'shipping_policy' -%}
+            {{ shop.shipping_policy }}
+        {%- elsif section.settings.page_type == 'terms_of_service' -%}
+            {{ shop.terms_of_service }}
+        {%- elsif section.settings.page_type == 'page_content' -%}
+            {% include 'parse-for-icons' content: page.content %}
+        {%- endif -%}
+    </div>
+  </div>
+</div>
+
+
+{% schema %}{
+    "name": "t:sections.policy_page.name",
+    "settings": [
+        {
+            "type": "select",
+            "id": "page_type",
+            "label": "t:sections.policy_page.settings.page_type.label",
+            "default": "privacy_policy",
+            "options": [
+                {
+                    "value": "privacy_policy",
+                    "label": "t:sections.policy_page.settings.page_type.option__1.label"
+                },
+                {
+                    "value": "refund_policy",
+                    "label": "t:sections.policy_page.settings.page_type.option__2.label"
+                },
+                {
+                    "value": "shipping_policy",
+                    "label": "t:sections.policy_page.settings.page_type.option__3.label"
+                },
+                {
+                    "value": "terms_of_service",
+                    "label": "t:sections.policy_page.settings.page_type.option__4.label"
+                },
+                {
+                    "value": "page_content",
+                    "label": "t:sections.policy_page.settings.page_type.option__5.label"
+                }
+            ]
+        }
+    ]
+}{% endschema %}

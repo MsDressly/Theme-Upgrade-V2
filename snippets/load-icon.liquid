@@ -1,0 +1,14 @@
+{%- if name != blank -%}
+    {% assign snippet_name = "icon-" | append: name %}
+    {% capture icon_html %}
+        {% include snippet_name %}
+    {% endcapture %}
+    {%- unless icon_html contains "Liquid error" -%}
+        {%- if attr != blank -%}
+            {%- assign tag_attr = '<svg ' | append: attr -%}
+            {%- assign icon_html = icon_html | replace: '<svg', tag_attr -%}
+        {%- endif -%}
+        {{ icon_html }}
+    {%- endunless -%}
+{%- endif -%}
+{%- assign attr = null -%}

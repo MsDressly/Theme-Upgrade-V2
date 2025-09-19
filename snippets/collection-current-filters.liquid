@@ -1,0 +1,76 @@
+{%- assign has_current_filters = false -%}
+{%- assign type = type | default: '1' -%}
+{%- assign active_filter_groups_size = 0 -%}
+{%- if type == '1' and block.settings.show_group -%}
+    {%- for filter in main_object.filters -%}
+        {%- if type == '1' and block.settings.show_group and filter.type == 'list' and filter.active_values.size > 0 -%}
+            {%- assign active_filter_groups_size = active_filter_groups_size | plus: 1 -%}
+        {%- endif -%}
+        {%- if type == '1' and block.settings.show_group and filter.type == 'price_range' and filter.min_value.value != nil or filter.max_value.value != nil -%}
+            {%- assign active_filter_groups_size = active_filter_groups_size | plus: 1 -%}
+        {%- endif -%}
+    {%- endfor -%}
+    {%- if current_tags.size > 0 -%}
+        {%- assign active_filter_groups_size = active_filter_groups_size | plus: 1 -%}
+    {%- endif -%}
+{%- endif -%}
+<div class="collection-current-filters collection-current-filters--type-{{ type }} d-flex flex-wrap">
+    {%- for filter in main_object.filters -%}
+        {%- if filter.type == 'list' and active_filter_groups_size > 1 and filter.active_values.size > 0 -%}
+            <div class="w-100"></div>
+            <label class="mb-10 mr-10">{{ filter.label }}</label>
+        {%- endif -%}
+        {%- if filter.type == 'price_range' and active_filter_groups_size > 1 and filter.min_value.value != nil or filter.max_value.value != nil -%}
+            <div class="w-100"></div>
+            <label class="mb-10 mr-10">{{ filter.label }}</label>
+        {%- endif -%}
+        {%- for value in filter.active_values -%}
+            <facet-remove class="collection-current-filters__item mb-10 mr-10">
+                <a href="{{ value.url_to_remove }}" class="d-flex flex-center px-10 cursor-pointer">
+                    {{ value.label | escape }}
+                    <i class="ml-3">{% render 'icon-theme-190' %}</i>
+                </a>
+            </facet-remove>
+            {%- assign has_current_filters = true -%}
+        {%- endfor -%}
+        {%- if filter.type == 'price_range' -%}
+            {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+                <facet-remove class="collection-current-filters__item mb-10 mr-10">
+                    <a href="{{ filter.url_to_remove }}" class="d-flex flex-center px-10 cursor-pointer">
+                        {%- if filter.min_value.value -%}{{ filter.min_value.value | money }}{%- else -%}{{ 0 | money }}{%- endif -%}<span>&#160;—&#160;</span>{%- if filter.max_value.value -%}{{ filter.max_value.value | money }}{%- else -%}{{ filter.range_max | money }}{%- endif -%}
+                        <i class="ml-3">{% render 'icon-theme-190' %}</i>
+                    </a>
+                </facet-remove>
+                {%- assign has_current_filters = true -%}
+            {%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+    {%- if current_tags.size > 0 -%}
+        {%- if active_filter_groups_size > 1 -%}
+            <div class="w-100"></div>
+            <label class="mb-10 mr-10">{{ 'collection_template.current_filters_tag_group' | t }}</label>
+        {%- endif -%}
+        {%- for tag in current_tags -%}
+            {%- assign to_tag_url = tag | link_to_remove_tag: tag | split: 'href="' | last | split: '"' | first -%}
+            <facet-remove class="collection-current-filters__item mb-10 mr-10">
+                <a href="{{ to_tag_url }}" class="d-flex flex-center px-10 cursor-pointer js-use-full-href">
+                    {{ tag | escape }}
+                    <i class="ml-3">{% render 'icon-theme-190' %}</i>
+                </a>
+            </facet-remove>
+            {%- assign has_current_filters = true -%}
+        {%- endfor -%}
+    {%- endif -%}
+    <div class="collection-current-filters__clear {% if type == '1' %}w-100 my-10{% else %}order-0 mb-10 mr-20{% endif %}{% unless has_current_filters %} d-none{% endunless %}">
+        <facet-remove>
+            <a href="{{ main_object.url }}?sort_by={{ sort_by }}" class="underlined-link d-inline-flex flex-center cursor-pointer {% if current_tags %} js-use-full-href{% endif %}">
+                <i class="mr-8">{% render 'icon-theme-165' %}</i>
+                <span class="btn-link mt-2">{{ 'collection_template.clear_all' | t }}</span>
+            </a>
+        </facet-remove>
+    </div>
+</div>
+{%- assign hide_section = true -%}
+{%- if has_current_filters -%}
+    {%- assign hide_section = false -%}
+{%- endif -%}

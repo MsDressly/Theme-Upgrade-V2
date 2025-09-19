@@ -1,0 +1,15 @@
+.promobox--modification-1 .promobox__text-1 {
+  color: #1278a5;
+}
+@media (min-width: 1025px) {
+  .promobox--modification-1 .promobox__text-1:hover {
+    color: var(--theme);
+  }
+}
+
+@media (max-width: 540px) {
+  .promobox--modification-2 .promobox__text-2 {
+    font-size: 44px;
+    line-height: 48px;
+  }
+}

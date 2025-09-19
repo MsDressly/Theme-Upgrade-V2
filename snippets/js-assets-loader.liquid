@@ -1,0 +1,1084 @@
+{%- if settings.product_info_layout == '3' or settings.product_info_layout == '4' or settings.product_info_enable_sticky_gallery -%}
+    {%- assign enable_sticky_gallery = true -%}
+{%- endif -%}
+<script>
+    (function() {
+        window.log = console.log;
+
+        document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+
+        
+        {%- if shop.permanent_domain contains 'shella-' -%}
+            theme.isThemeDemo = true;
+        {%- endif -%}
+        
+        
+        const ua = window.navigator.userAgent.toLowerCase();
+
+        window.html = document.getElementsByTagName('html')[0];
+        window.ie = (/trident/gi).test(ua) || (/msie/gi).test(ua);
+        window.edge = document.documentMode || /edge/.test(ua);
+        window.ios = navigator.userAgent.match(/like Mac OS X/i);
+        window.safari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        window.moz = typeof InstallTrigger !== 'undefined';
+        window.touch = 'ontouchstart' in window || navigator.msMaxTouchPoints;
+
+        const html = window.html;
+
+        if(ios) {
+            html.classList.add('is-ios');
+        } else if(safari) {
+            html.classList.add('is-safari');
+        } else if(ie) {
+            html.classList.add('is-ie');
+        } else if(moz) {
+            html.classList.add('is-moz');
+        } else if(edge) {
+            html.classList.add('is-edge');
+        }
+
+        {%- if settings.cart_free_shipping_value != blank and settings.cart_free_shipping_value contains '|' -%}
+            {%- assign cart_free_shipping_value_split = settings.cart_free_shipping_value | split: '|' -%}
+            {%- if shop.enabled_currencies.size > 1 -%}
+                {%- for currency in shop.enabled_currencies -%}
+                    {%- if currency == cart.currency -%}
+                        {%- assign cart_free_shipping_value = cart_free_shipping_value_split[forloop.index0] -%}
+                        {%- break -%}
+                    {%- endif -%}
+                {%- endfor -%}
+            {%- else -%}
+                {%- assign cart_free_shipping_value = cart_free_shipping_value_split[0] -%}
+            {%- endif -%}
+        {%- else -%}
+            {%- assign cart_free_shipping_value = settings.cart_free_shipping_value -%}
+        {%- endif -%}
+
+        const breakpoint_main = 1025;
+        const breakpoint_main_md = 768;
+
+        theme.loadedCartData = {{ cart | json }};
+
+        window.theme = Object.assign(window.theme, {
+            breakpoints: {
+                values: {
+                    xs: 0,
+                    sm: 541,
+                    md: breakpoint_main_md,
+                    lg: breakpoint_main,
+                    xl: 1260
+                },
+                main_md: breakpoint_main_md,
+                main: breakpoint_main
+            },
+            strings: {
+                general: {
+                    popups: {
+                        cart: {
+                            item_added: {{ 'general.popups.cart.item_added' | t | json }},
+                            limit_is_exceeded: {{ 'general.popups.cart.limit_is_exceeded' | t | json }}
+                        },
+                        wishlist: {
+                            count: {{ 'general.popups.wishlist.count' | t | json }}
+                        },
+                        compare: {
+                            count: {{ 'general.popups.compare.count' | t | json }}
+                        },
+                        confirm_transfer_data: {
+                            info: {{ 'general.popups.confirm_transfer_data.info' | t | json }},
+                            wishlist_title: {{ 'general.popups.confirm_transfer_data.wishlist_title' | t | json }},
+                            compare_title: {{ 'general.popups.confirm_transfer_data.compare_title' | t | json }},
+                            name_single: {{ 'general.popups.confirm_transfer_data.name_single' | t | json }},
+                            name_plural: {{ 'general.popups.confirm_transfer_data.name_plural' | t | json }}
+                        },
+                        search: {
+                            empty_html: {{ 'general.popups.search.empty_html' | t | json }}
+                        }
+                    },
+                    search: {
+                        no_results_html: {{ 'general.search.no_results_html' | t | json }}
+                    },
+                    form: {
+                        default: {
+                            error: {{ 'general.form.default.error' | t | json }}
+                        }
+                    }
+                },
+                layout: {
+                    cart: {
+                        items_count: {
+                            one: {{ 'layout.cart.items_count.one' | t | json }},
+                            other: {{ 'layout.cart.items_count.other' | t | json }}
+                        }
+                    }
+                },
+                homepage: {
+                    sorting_collections: {
+                        button_more_products: {{ 'homepage.sorting_collections.button_more_products' | t | json }}
+                    }
+                },
+                addToCart: {{ 'products.product.add_to_cart' | t | json }},
+                soldOut: {{ 'products.product.sold_out' | t | json }},
+                unavailable: {{ 'products.product.unavailable' | t | json }},
+                price_sale_separator: {{ 'products.product.price_sale_separator' | t | json }},
+                unit_price: {{ 'products.product.unit_price_label' | t | json }},
+                unit_price_separator: {{ 'general.accessibility.unit_price_separator' | t | json }},
+                availability_value_in_stock: {{ 'products.product.availability_value_in_stock' | t | json }},
+                availability_value_out_stock: {{ 'products.product.availability_value_out_stock' | t | json }},
+                stock_countdown: {
+                    title: {{ 'products.product.stock_countdown_html' | t | json }}
+                },
+                countdown: {
+                    years: {{ 'products.product.countdown.years' | t | json }},
+                    months: {{ 'products.product.countdown.months' | t | json }},
+                    weeks: {{ 'products.product.countdown.weeks' | t | json }},
+                    days: {{ 'products.product.countdown.days' | t | json }},
+                    hours: {{ 'products.product.countdown.hours' | t | json }},
+                    minutes: {{ 'products.product.countdown.minutes' | t | json }},
+                    seconds: {{ 'products.product.countdown.seconds' | t | json }}
+                },
+                delivery_countdown: {
+                    hours: {{ 'products.product.delivery_countdown.hours' | t | json }},
+                    minutes: {{ 'products.product.delivery_countdown.minutes' | t | json }},
+                    days_of_week: {
+                        sunday: {{ 'products.product.delivery_countdown.days_of_week.sunday' | t | json }},
+                        monday: {{ 'products.product.delivery_countdown.days_of_week.monday' | t | json }},
+                        tuesday: {{ 'products.product.delivery_countdown.days_of_week.tuesday' | t | json }},
+                        wednesday: {{ 'products.product.delivery_countdown.days_of_week.wednesday' | t | json }},
+                        thursday: {{ 'products.product.delivery_countdown.days_of_week.thursday' | t | json }},
+                        friday: {{ 'products.product.delivery_countdown.days_of_week.friday' | t | json }},
+                        saturday: {{ 'products.product.delivery_countdown.days_of_week.saturday' | t | json }}
+                    }
+                },
+                header: {
+                    cart_count_desktop: {{ 'layout.header.cart_count' | t | json }}
+                },
+                label: {
+                    sale: {{ 'products.product.label.sale' | t | json }}
+                },
+                cart: {
+                    general: {
+                        shipping_calculator_data_info: {{ 'cart.general.shipping_calculator_data_info' | t | json }},
+                        free_shipping_html: {{ 'cart.general.free_shipping_html' | t | json }},
+                        free_shipping_complete: {{ 'cart.general.free_shipping_complete' | t | json }}
+                    }
+                },
+                {% if template == 'cart' %}
+                shippingCalcSubmitButton: {{ 'cart.general.shipping_calculator_submit_button_label' | t | json }},
+                shippingCalcSubmitButtonDisabled: {{ 'cart.general.shipping_calculator_submit_button_label_disabled' | t | json }},
+                {% if customer %}shippingCalcCustomerIsLoggedIn: true,{% endif %}
+                shippingCalcMoneyFormat: {{ shop.money_with_currency_format | json }},
+                shipping_calculator_success_text: {{ 'cart.general.shipping_calculator_success_text' | t | json }},
+                shipping_calculator_do_not_ship_text: {{ 'cart.general.shipping_calculator_do_not_ship_text' | t | json }}
+                {% endif %}
+            },
+            shopCurrency: {{ shop.currency | json }},
+            moneyFormat: {{ shop.money_format | json }},
+            
+            priceShowSaleSeparator: {{ settings.price_show_sale_separator | json }},
+            cart_free_shipping_value: {{ cart_free_shipping_value | json }},
+            permanent_domain: {{ shop.permanent_domain | json }},
+            domain: {{ shop.domain | json }},
+            host: {{ request.host | json }},
+            tooltips_enable: {{ settings.tooltips_enable | json }},
+            lists_app: {
+                url: '{{ shop.metafields.ollistsapp.appurl }}',
+                iid: '{{ shop.metafields.ollistsapp.iid }}'
+            },
+            {%- if customer %}
+            customer: true,
+            customer_id: {{ customer.id | json }},
+            {%- else %}
+            customer: false,
+            {%- endif %}
+            
+            {%- if settings.purchase_code != blank -%}
+            purchase_code: {{ settings.purchase_code | json }},
+            {%- endif -%}
+            
+            
+            product: {
+                hide_options_without_availability_variants: {{ settings.product_hide_options_without_availability_variants | json }},
+                variant_auto_select: {{ settings.product_variant_auto_select | json }},    
+                show_pickup_available: {{ settings.product_info_show_unavailable_pickup_available | json }},
+                gallery_zoom_scale_coef: {{ settings.product_info_zoom_scale_coef | json }},
+                enable_sticky_gallery: {{ enable_sticky_gallery | default: false | json }},
+                page_layout: {{ settings.product_info_layout | json }}
+            },
+            {%- if template.name == 'collection' or template.name == 'search' -%}
+            collection: {
+                enable_ajax: {{ settings.collection_enable_ajax | json }}
+            },
+            {%- endif -%}
+            routes: {
+                root_url: "{{ routes.root_url }}{% if routes.root_url != '/' %}/{% endif %}",
+                collections_url: {{ routes.collections_url | json }},
+                cart_url: {{ routes.cart_url | json }},
+                predictive_search_url: '{{ routes.predictive_search_url }}'
+            },
+            animations: {
+                css: {
+                    duration: {{ animation_css_duration | json }}
+                },
+                tooltip: {
+                    type: {{ settings.tooltips_animation_type | json }},
+                    inertia: {{ animation_tooltips_inertia }},
+                    show_duration: {{ animation_tooltips_show_duration | json }},
+                    hide_duration: {{ animation_tooltips_hide_duration | json }}
+                },
+                sticky_header: {
+                    duration: {{ animation_header_sticky_fade_duration | json }},
+                    opacity: {{ settings.header_animation_sticky_opacity | json }}
+                },
+                header_tape: {
+                    duration: {{ settings.header_tape_animation_duration | json }}
+                },
+                menu: {
+                    duration: {{ animation_menu_desktop_duration | json }}
+                },
+                dropdown: {
+                    duration: {{ animation_dropdown_duration | json }}
+                },
+                accordion: {
+                    duration: {{ animation_accordion_duration | json }}
+                },
+                footbar_product: {
+                    duration: {{ animation_footbar_product_duration | json }}
+                },
+                tabs: {
+                    duration: {{ animation_tabs_duration | json }},
+                    scroll_duration: {{ animation_tabs_scroll_duration | json }}
+                },
+                pagination: {
+                    scroll_duration: {{ animation_pagination_scroll_duration | json }}
+                },
+                backtotop: {
+                    scroll_duration: {{ animation_backtotop_scroll_duration | json }}
+                }
+            }
+        });
+
+        {% if settings.show_multiple_currencies %}
+            window.initCurrencyData = function() {
+                Currency.format = '{{ settings.currency_format | default: 'money_with_currency_format' }}';
+                Currency.shopCurrency = '{{ shop.currency }}';
+                Currency.defaultCurrency = '{{ settings.default_currency | default: shop.currency }}';
+                Currency.moneyFormats.IQD = {
+                    money_format: "{% raw %}{{amount}}{% endraw %}",
+                    money_with_currency_format: "{% raw %}{{amount}}{% endraw %} IQD"
+                };
+                Currency.moneyFormats[Currency.shopCurrency].money_with_currency_format = {{ shop.money_with_currency_format | strip_html | json }};
+                Currency.moneyFormats[Currency.shopCurrency].money_format = {{ shop.money_format | strip_html | json }};
+            };                 
+        {% endif %}
+
+        window.theme.debounce = function(fn, wait) {
+            let t;
+            return (...args) => {
+                clearTimeout(t);
+                t = setTimeout(() => fn.apply(this, args), wait);
+            };
+        };
+
+        class WindowAnaliz {
+            constructor() {
+                theme.current = {};
+                theme.current.scrollW = 0;
+                theme.rtl = html.getAttribute('dir') === 'rtl' ? true : false;
+                
+                this.checkWindow();
+                this.checkBreakpoint();
+                window.addEventListener('load', () => {
+                    theme.isLoaded = true;
+                });
+                window.addEventListener('resize', () => {
+                    this.checkWindow();
+                });
+                window.addEventListener('resize', theme.debounce(() => {
+                    this.checkBreakpoint();
+                }, 100));
+                window.addEventListener('theme.changed.device', () => {
+                    window.location.reload();
+                });
+                window.addEventListener('theme.assetsLoader::wasUserAction', () => {
+                    window.addEventListener('resize', () => {
+                        this.triggerResizeEvents();
+                    });
+                    window.addEventListener('theme.changed.breakpoint', () => {
+                        this.scrollPaddingStyle();
+                    });
+                });
+            }
+
+            triggerResizeEvents() {
+                window.dispatchEvent(new Event('theme.resize'));
+                if(window.jQueryTheme) {
+                    (function($){
+                        $window.trigger('theme.resize');
+                    })(jQueryTheme);
+                }   
+            }
+
+            initScrollPaddingStyle() {
+                this.scrollExampleElement = document.querySelector('.scroll-offset-example');
+                this.scrollPaddingStyle();
+            }
+
+            scrollPaddingStyle() {
+                if(!this.scrollExampleElement) return;
+                
+                let scrollOffsetStyleElement = document.querySelector('style.scroll-offset-style');
+                
+                theme.current.scrollW = this.scrollExampleElement.offsetWidth - this.scrollExampleElement.clientWidth;
+
+                if(theme.current.scrollW > 0) {
+                    if(!scrollOffsetStyleElement) {
+                        const scrollOffsetStyleHTML = `body.overflow-hidden.offset-scroll{padding-right: ${theme.current.scrollW}px !important;}.fixed-elem.offset-scroll-padding{padding-right: ${theme.current.scrollW }px !important;}.fixed-elem.offset-scroll-margin{margin-right: ${theme.current.scrollW}px !important;}`;
+                        const scrollOffsetStyleElement = document.createElement('style');
+
+                        scrollOffsetStyleElement.classList.add('scroll-offset-style');
+                        scrollOffsetStyleElement.innerHTML = scrollOffsetStyleHTML;
+                        document.head.appendChild(scrollOffsetStyleElement);
+                    }
+                } else if(scrollOffsetStyleElement) {
+                    scrollOffsetStyleElement.remove();
+                }
+            }
+
+            checkWindow() {
+                theme.current.width = window.innerWidth;
+                theme.current.height = window.innerHeight;
+                theme.current.aspect_ratio = theme.current.height / (theme.current.width - theme.current.scrollW);
+                theme.current.height_percent = theme.current.aspect_ratio * 100;
+            }
+
+            checkBreakpoint() {
+                theme.current.is_mobile = theme.current.width < theme.breakpoints.main;
+                theme.current.is_desktop = !theme.current.is_mobile;
+                theme.current.is_mobile_md = theme.current.width < theme.breakpoints.main_md;
+                theme.current.is_desktop_md = !theme.current.is_mobile_md;
+                
+                for(let key in theme.breakpoints.values) {
+                    if(theme.breakpoints.values[key] > theme.current.width) break;
+
+                    theme.current.bp = key;
+                }
+                if(this.currentBp && this.currentBp != theme.current.bp) {
+                    window.dispatchEvent(new Event('theme.changed.breakpoint'));
+                }
+
+                if(theme.current.last_device !== undefined && theme.current.last_device !== theme.current.is_desktop) {
+                    window.dispatchEvent(new Event('theme.changed.device'));
+                }
+
+                this.currentBp = theme.current.bp;
+                theme.current.last_device = theme.current.is_desktop;
+            }
+        }
+
+        theme.WindowAnaliz = new WindowAnaliz;
+
+        class AssetsLoader {
+            constructor() {
+                this.paths = {
+                    scripts: {
+                        /*plugins*/
+                        plugin_slick: '{{ 'plugin.slick.s.min.js' | asset_url }}',
+                        plugin_instafeed: '{{ 'plugin.instafeed.s.min.js' | asset_url }}',
+                        plugin_revolution_slider: '{{ 'plugin.revolution-slider.s.min.js' | asset_url }}',
+                        plugin_shipping_rates_calculation: '{{ 'plugin.shipping-rates-calculation.s.min.js' | asset_url }}',
+                        /*shopify*/
+                        shopify_common: '{{ 'shopify_common.js' | shopify_asset_url }}',
+                        currency_rates: '{{ '//cdn.shopify.com/s/javascripts/currencies.js' }}',
+                        currency: '{{ 'module.currency.s.min.js' | asset_url }}',
+                        handlebars: '//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js',
+                        countries: '/services/javascripts/countries.js',
+                        qrcode: '{{ 'vendor/qrcode.js' | shopify_asset_url }}',
+                        /*global*/
+                        theme: '{{ 'theme.s.min.js' | asset_url }}',
+                        theme_pt2: '{{ 'theme-pt2.s.min.js' | asset_url }}',
+                        /*modules*/
+                        tooltip: '{{ 'module.tooltip.s.min.js' | asset_url }}',
+                        product_page: '{{ 'module.product-page.s.min.js' | asset_url }}',
+                        sticky_sidebar: '{{ 'module.sticky-sidebar.s.min.js' | asset_url }}',
+                        masonry: '{{ 'module.masonry.s.min.js' | asset_url }}',
+                        notifications: '{{ 'module.notifications.s.min.js' | asset_url }}',
+                        parallax: '{{ 'module.parallax.s.min.js' | asset_url }}',
+                        popup_subscription: '{{ 'module.popup-subscription.s.min.js' | asset_url }}',
+                        popup_send_confirmation: '{{ 'module.popup-subscription-confirmation.s.min.js' | asset_url }}',
+                        popup_age_confirmation: '{{ 'module.popup-age-confirmation.s.min.js' | asset_url }}',
+                        product_footbar: '{{ 'module.product-footbar.s.min.js' | asset_url }}',
+                        range_of_price: '{{ 'module.range-of-price.s.min.js' | asset_url }}',
+                        pubsub: '{{ 'module.pubsub.s.min.js' | asset_url }}',
+                        recipient_form: '{{ 'module.recipient-form.s.min.js' | asset_url }}',
+                        shipping_rates_calculation: '{{ 'module.shipping-rates-calculation.s.min.js' | asset_url }}',
+                        sticky_header: '{{ 'module.sticky-header.s.min.js' | asset_url }}',
+                        tabs: '{{ 'module.tabs.s.min.js' | asset_url }}',
+                        presentation: '{{ 'module.presentation.s.min.js' | asset_url }}',
+                        particles: '{{ 'module.particles.s.min.js' | asset_url }}',
+                        /*sections*/
+                        header: '{{ 'section.header.s.min.js' | asset_url }}',
+                        collections: '{{ 'section.collection-filters-form.s.min.js' | asset_url }}',
+                        article_page: '{{ 'section.article-page.s.min.js' | asset_url }}',
+                        carousel_articles: '{{ 'section.carousel-articles.s.min.js' | asset_url }}',
+                        carousel_brands: '{{ 'section.carousel-brands.s.min.js' | asset_url }}',
+                        carousel_products: '{{ 'section.carousel-products.s.min.js' | asset_url }}',
+                        carousel_reviews: '{{ 'section.carousel-reviews.s.min.js' | asset_url }}',
+                        gallery: '{{ 'section.gallery.s.min.js' | asset_url }}',
+                        builder: '{{ 'section.builder.s.min.js' | asset_url }}',
+                        builder_2021: '{{ 'section.builder-2021.s.min.js' | asset_url }}',
+                        lookbook: '{{ 'section.lookbook.s.min.js' | asset_url }}',
+                        slider_revolution: '{{ 'section.slider-revolution.s.min.js' | asset_url }}',
+                        sorting_collections: '{{ 'section.sorting-collections.s.min.js' | asset_url }}',
+                        brands: '{{ 'section.brands.s.min.js' | asset_url }}',
+                        footer: '{{ 'section.footer.s.min.js' | asset_url }}',
+                        ticker: '{{ 'section.ticker.s.min.js' | asset_url }}',
+                        /*templates*/
+                        customers_addresses: '{{ 'template.customers-addresses.s.min.js' | asset_url }}',
+                        customers_login: '{{ 'template.customers-login.s.min.js' | asset_url }}',
+                        giftcard: '{{ 'template.giftcard.s.min.js' | asset_url }}',
+                        /*custom*/
+                        custom: '{{ 'custom.js' | asset_url }}'
+                    },
+                    styles: {
+                        /*plugins*/
+                        plugin_tippy: '{{ 'plugin.tippy.s.min.css' | asset_url }}',
+                        plugin_fotorama: '{{ 'plugin.fotorama.s.min.css' | asset_url }}',
+                        plugin_ion_range_slider: '{{ 'plugin.ion-range-slider.s.min.css' | asset_url }}',
+                        plugin_revolution: '{{ 'plugin.revolution.s.min.css' | asset_url }}',
+                        plugin_slick: '{{ 'plugin.slick.s.min.css' | asset_url }}',
+                        /*shopify*/
+                        /*global*/
+                        theme: '{{ 'theme.css' | asset_url }}',
+                        theme_m: '{{ 'theme-m.s.min.css' | asset_url }}',
+                        theme_d: '{{ 'theme-d.s.min.css' | asset_url }}',
+                        {% for css_file in skin_css_files %}
+                            {%- assign css_file_name = 'theme-' | append: css_file | append: '.css' -%}
+                            theme_{{ css_file | replace: '-', '_' }}: '{{ css_file_name | asset_url }}',
+                        {% endfor %}
+                        presentation: '{{ 'presentation.s.min.css' | asset_url }}',
+                        custom: '{{ 'custom.s.min.css' | asset_url }}'
+                    }
+                };
+
+                this.settings = {
+                    scripts: {
+                        sticky_sidebar: {
+                            media: 'desktop-md'
+                        },
+                        tooltip: {
+                            media: 'desktop'
+                        }
+                    },
+                    styles: {
+                        theme_m: {
+                            loadedClass: 'css-theme-loaded font-base-loaded'
+                        },
+                        theme_d: {
+                            loadedClass: 'css-theme-loaded font-base-loaded'
+                        },
+                        font_base: {
+                            loadedClass: 'font-base-loaded'
+                        },
+                        /*
+                        theme: {
+                            loadedClass: 'css-theme-loaded'
+                        },
+                        */
+                        presentation: {
+                            loadedClass: 'css-presentation-loaded'
+                        }
+                    }
+                };
+
+                this.callbacks = {};
+
+                this.requirementList = {
+                    scripts: [],
+                    styles: []
+                };
+                this.statuses = {
+                    scripts: {},
+                    styles: {}
+                };
+                this.progress = {};
+
+                document.addEventListener('DOMContentLoaded', () => {
+                    this.DOMContentLoaded = true;
+                    window.dispatchEvent(new Event('theme.assetsLoader::theme.DOMContentLoaded'));
+                    if(!this.wasUserAction) this.anticipateUserEvent();
+                });
+
+                const userActionList = ['mousemove', 'keydown', 'mousedown', 'mousewheel', 'touchstart'];
+                const checkUserAction = event => {
+                    this.wasUserAction = true;
+                    html.classList.add('css-full-loaded');
+                    window.dispatchEvent(new Event('theme.assetsLoader::wasUserAction'));
+                    userActionList.forEach(event => document.removeEventListener(event, checkUserAction));
+                };
+
+                if(window.ios) this.wasUserAction = true;
+
+                userActionList.forEach(event => document.addEventListener(event, checkUserAction));
+                document.fonts.ready.then(e => {
+                    this.onLoadedTag('styles', 'font_base');
+                });
+                /*
+                window.addEventListener('load', () => {
+                    this.onLoadedTag('styles', 'font_base');
+                });
+                */
+                window.addEventListener('theme.resize', this.onResize);
+            }
+
+            anticipateUserEvent() {
+                /*
+                const optionButtons = document.querySelectorAll('.js-product-options [data-js-option-value]');
+
+                optionButtons.forEach(element => {
+                    const onEvent = e => {
+                        if(this.getDeepProperty(this.progress, ['scripts', 'theme_pt2']) !== 'finished') {
+                            const buttonsWrapper = element.closest('.js-product-options');
+                            window.addEventListener('theme.assetsLoader::loaded:scripts:vendor', () => {
+                                theme.Preloader.unset(buttonsWrapper);
+                            });
+                            theme.Preloader.set(buttonsWrapper, {
+                                fixed: true
+                            });
+                        }
+                        
+                        element.removeEventListener('click', onEvent);
+                    };
+
+                    element.addEventListener('click', onEvent);
+                });
+                */
+
+                {%- if template.name == 'collection' or template.name == 'search' -%}
+                    const collectionFiltersForm = document.querySelectorAll('collection-filters-form form, collection-navigation-form form, collection-sorting-clone-form form');
+
+                    collectionFiltersForm.forEach(element => {
+                        const onEvent = e => {
+                            if(this.getDeepProperty(this.progress, ['scripts', 'collections']) !== 'finished') {
+                                window.addEventListener('theme.assetsLoader::loaded:scripts:collections', () => {
+                                    element.dispatchEvent(new Event(e.type));
+                                });
+                                theme.Preloader.set(document.getElementById('CollectionProductGrid').parentNode, {
+                                    fixed: true,
+                                    spinner: theme.current.is_mobile ? false : null
+                                });
+                            }
+
+                            element.removeEventListener('input', onEvent);
+                        };
+
+                        element.addEventListener('input', onEvent);
+                    });
+                {%- endif -%}
+            }
+
+            onResize() {
+                document.querySelectorAll(`[rel="preload"][as="style"][data-media="${theme.current.is_desktop ? 'desktop' : 'mobile'}"]`)
+                    .forEach(element => element.dispatchEvent(new Event('load')));
+                document.querySelectorAll('[rel="preload"][as="script"][data-media]')
+                    .forEach(element => {
+                        const dataMedia = element.dataset.media;
+
+                        if((dataMedia === 'desktop' && window.innerWidth >= theme.breakpoints.main) || (dataMedia === 'desktop-md' && window.innerWidth >= theme.breakpoints.main_md)) {
+                            element.dispatchEvent(new Event('load'));
+                            element.removeAttribute('rel');
+                        }
+                    });
+            }
+
+            require(namespace, name) {
+                if(window.ie || this.requirementList[namespace].indexOf(name) !== -1 || !this.upload) {
+                    return;
+                }
+
+                this.requirementList[namespace].push(name);
+                this.startQueue(namespace);
+            }
+
+            loadManually(requires, callback) {
+                if(!this.upload || !this.loadManuallyOn) {
+                    callback();
+                    return;
+                }
+                if(callback) this.waitFullGroupLoad(requires, callback);
+                
+                requires.forEach(requireArr => {
+                    const [namespace, name] = requireArr;
+
+                    this.require(namespace, name);
+                });
+            }
+
+            waitFullGroupLoad(requires, callback) {
+                const onSomeLoaded = () => {
+                    let isFullGroupLoaded = true;
+
+                    requires.forEach(requireArr => {
+                        const [namespace, name] = requireArr;
+                        
+                        if(this.getDeepProperty(this.settings, [namespace, name, 'media']) !== undefined && !this.isActiveMedia(namespace, name)) {
+                            return;
+                        } else if(this.getDeepProperty(this.progress, [namespace, name]) !== 'finished') {
+                            isFullGroupLoaded = false;
+                            return false;
+                        }
+                    });
+
+                    if(isFullGroupLoaded) {
+                        window.removeEventListener('theme.assetsLoader::loaded', onSomeLoaded);
+                        callback();
+                    }
+
+                    return isFullGroupLoaded;
+                };
+
+                if(!onSomeLoaded()) window.addEventListener('theme.assetsLoader::loaded', onSomeLoaded);
+            }
+
+            isActiveMedia(namespace, name) {
+                const media = this.getDeepProperty(this.settings, [namespace, name, 'media']);
+
+                if((media === 'desktop' && window.innerWidth >= theme.breakpoints.main) || (media === 'desktop-md' && window.innerWidth >= theme.breakpoints.main_md)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            startQueue(namespace) {
+                if(this.statuses[namespace].progress) {
+                    this.statuses[namespace].needLoading = true;
+                    return;
+                }
+
+                this.statuses[namespace].progress = true;
+
+                const queue = [];
+
+                this.requirementList[namespace].forEach(name => {
+                    if(!this.getDeepProperty(this.progress, [namespace, name])) queue.push(name);
+                });
+                queue.forEach(name => {
+                    this.onLoadTag(namespace, name);
+                    this.loadTag(namespace, name);
+                });
+                this.statuses[namespace].progress = false;
+
+                if(this.statuses[namespace].needLoading) {
+                    this.statuses[namespace].needLoading = false;
+                    this.startQueue(namespace);
+                }
+            }
+
+            loadTag(namespace, name, callback) {
+                const tag = this[namespace === 'scripts' ? 'buildScriptTag' : 'buildStyleTag'](namespace, name, () => {
+                    this.onLoadedTag(namespace, name, callback);
+                });
+                document.head.insertBefore(tag, document.head.childNodes[document.head.childNodes.length - 1].nextSibling);
+            }
+
+            buildScriptTag(namespace, name, onload) {
+                const settingsMedia = this.getDeepProperty(this.settings.scripts, [name, 'media']);
+
+                if((settingsMedia === 'desktop' && window.innerWidth < theme.breakpoints.main) || (settingsMedia === 'desktop-md' && window.innerWidth < theme.breakpoints.main_md)) {
+                    const link = document.createElement('link');
+
+                    link.onload = () => this.onLoadScriptLinkPreload(name, onload);
+                    link.rel = 'preload';
+                    link.as = 'script';
+                    link.media = settingsMedia === 'desktop' ? `(min-width: ${theme.breakpoints.main}px)` : 
+                        settingsMedia === 'desktop-md' ? `(min-width: ${theme.breakpoints.main_md}px)` : `(max-width: ${theme.breakpoints.main - 1}px)`;
+                    link.dataset.media = settingsMedia;
+                    link.href = this.paths.scripts[name];
+
+                    return link;
+                } else {
+                    window.performance.mark(`theme:${namespace}:${name}:load`);
+                    /*console.debug('start:', namespace, name);*/
+
+                    const script = document.createElement('script');
+
+                    script.onload = onload;
+                    script.async = this.asyncStatus !== undefined ? this.asyncStatus : true;
+                    script.src = this.paths.scripts[name];
+
+                    return script;
+                }
+            }
+
+            onLoadScriptLinkPreload(name, callback) {
+                this.loadTag('scripts', name, callback);
+            }
+
+            buildStyleTag(namespace, name, onload) {
+                window.performance.mark(`theme:${namespace}:${name}:load`);
+                /*console.debug('start:', namespace, name);*/
+                
+                const link = document.createElement('link');
+                
+                link.onload = () => this.onLoadStyleLinkPreload(link, name);
+                link.rel = 'preload';
+                link.as = 'style';
+                link.href = this.paths.styles[name];
+
+                return link;
+            }
+
+            onLoadStyleLinkPreload(tag, name, callback) {
+                tag.onload = null;
+                tag.onload = this.onLoadedTag('styles', name, callback);
+                tag.rel='stylesheet';
+            }
+
+            onLoadTag(namespace, name) {
+                this.setDeepProperty(this.progress, [namespace, name], 'process');
+            }
+
+            onLoadedTag(namespace, name, callback) {
+                this.setDeepProperty(this.progress, [namespace, name], 'finished');
+                window.dispatchEvent(new Event('theme.assetsLoader::loaded'), {namespace, name});
+                window.dispatchEvent(new Event(`theme.assetsLoader::loaded:${namespace}:${name}`));
+                window.performance.mark(`theme:${namespace}:${name}:loaded`);
+                /*console.debug('loaded:', namespace, name);*/
+                
+                const loadedClass = this.getDeepProperty(this.settings, [namespace, name, 'loadedClass']);
+                const itemCallbacks = this.getDeepProperty(this.callbacks, [namespace, name]);
+
+                if(loadedClass) loadedClass.split(' ').forEach(className => html.classList.add(className));
+                if(itemCallbacks) itemCallbacks.call(this);
+                if(callback) callback();
+            }
+
+            setDeepProperty(startObj, complexityArray, value) {
+                complexityArray.forEach((prop, i) => {
+                    if(i < complexityArray.length - 1) {
+                         if(!startObj[prop]) startObj[prop] = {};
+
+                         startObj = startObj[prop];
+                    } else {
+                        startObj[prop] = value;
+                    }
+                });
+
+                return value;
+            }
+
+            getDeepProperty(startObj, complexityArray) {
+                let newLevelValue;
+
+                complexityArray.forEach((prop, i) => {
+                    if(startObj[prop]) {
+                        if(i < complexityArray.length - 1) {
+                            startObj = startObj[prop];
+                        } else {
+                            newLevelValue = startObj[prop];
+                        }
+                    } else {
+                        return false;
+                    }
+                });
+
+                return newLevelValue;
+            }
+
+            loadInlineStyles() {
+                const templates = document.body.querySelectorAll('template.js-loader-inline-style');
+
+                for(let template of templates) {
+                    
+                    if(!document.querySelectorAll(`style.js-loader-inline-style[data-key="${template.dataset.key}"]`).length) {
+                        let templateStyle = template.content.cloneNode(true).querySelector('style');
+                        let templateStyleInnerHTML = templateStyle.innerHTML;
+
+                        let style = document.createElement('style');
+
+                        for(let key in templateStyle.dataset) {
+                            style.dataset[key] = templateStyle.dataset[key];
+                        }
+
+                        if(templateStyle.media) style.media = templateStyle.media;
+                        if(templateStyle.classList) style.classList = templateStyle.classList;
+
+                        style.classList.add('js-loader-inline-style');
+                        style.innerHTML = templateStyleInnerHTML;
+    
+                        style.dataset.key = template.dataset.key;
+                        /*document.head.insertBefore(style, document.head.childNodes[document.head.childNodes.length - 1].nextSibling);*/
+                        template.parentNode.insertBefore(style, template);
+                    }
+
+                    template.remove();
+                }
+            }
+
+            onPageLoaded(callback, requires, useLoadManuallyMethod) {
+                const DOMContentLoadedCallback = () => {
+                    if(requires) {
+                        const requiresArray = [];
+                        
+                        for(let i = 0; i < requires.length; i++) {
+                            requiresArray.push([ 'scripts', requires[i] ]);
+                        }
+                        
+                        this[useLoadManuallyMethod ? 'loadManually' : 'waitFullGroupLoad'](requiresArray, function() {
+                            setTimeout(() => {
+                                callback();
+                            }, 0);
+                        });
+                    } else {
+                        callback();
+                    }
+                };
+
+                this.DOMContentLoaded ? DOMContentLoadedCallback() : document.addEventListener('DOMContentLoaded', DOMContentLoadedCallback);
+            }
+
+            onUserAction(callback, requires) {
+                const wasUserActionCallback = () => {
+                    this.onPageLoaded(callback, requires, true);
+                };
+
+                this.wasUserAction ? wasUserActionCallback() : window.addEventListener('theme.assetsLoader::wasUserAction', wasUserActionCallback);
+            }
+
+            onScrollOrUserAction(section, callback, requires) {
+                let isCallbackCalled = false;
+                const isVisible = force => {
+                    if(force || (section.getBoundingClientRect().bottom > -200 && section.getBoundingClientRect().top < window.innerHeight + 200)) {
+                        window.removeEventListener('mutation', isVisible);
+                        if(isCallbackCalled) return;
+                        isCallbackCalled = true;
+                        this.onPageLoaded(callback, requires, true);
+                        return true;
+                    }
+
+                    return false;
+                };
+
+                if(!isVisible()) window.addEventListener('mutation', isVisible);
+
+                this.onUserAction(() => {
+                    isVisible(true);
+                }, requires);
+            }
+        }
+
+        theme.AssetsLoader = new AssetsLoader;
+
+        theme.AssetsLoaderSettings = decodeURIComponent(atob(theme.AssetsLoaderSettings).split('').map(c => {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        
+        class LazyImage {
+            constructor() {
+                theme.AssetsLoader.onPageLoaded(() => {
+                    if(this.api) return;
+
+                    this.checkInlineBg();
+
+                    window.addEventListener('mutation', () => {
+                        document.querySelectorAll('.lazyload:not([data-bg]):not(.preloaded):not([data-ll-status])').forEach(element => {
+                            this.inlineCheck(element, element.dataset.bg ? 'bg' : null);
+                        });
+                    });
+                });
+                window.addEventListener('slider-initialized', e => {
+                    e.detail.slider.querySelectorAll('.lazyload:not([data-bg]):not(.preloaded):not([data-ll-status])').forEach(element => {
+                        this.inlineCheck(element, element.dataset.bg ? 'bg' : null);
+                    });
+                });
+                theme.AssetsLoader.onPageLoaded(() => {
+                    this.checkFullscreenElements();
+                });
+            }
+
+            buildSrcset(element, url, type) {
+                if(type === 'bg') {
+                    let width = element.getBoundingClientRect().width;
+        
+                    if(element.dataset.scale) width *= element.dataset.scale;
+
+                    return width > 0 ? url.replace('{width}', Math.ceil(width)) : element.dataset.bg;
+                } else {
+                    const parent = element.parentNode;
+                    const parentParams = parent.getBoundingClientRect();
+                    const height = parentParams.height;
+                    const aspectRatioOriginal = element.dataset.aspectRatioOriginal;
+                    let width = parentParams.width;
+                    let dataSrcset = element.dataset.srcset;
+
+                    if(!dataSrcset) dataSrcset = element.dataset.src;
+                    if(aspectRatioOriginal) {
+                        const stretchSize = element.dataset.stretchSize;
+                        const parentAspectRatio = element.dataset.aspectRatio;
+
+                        if(stretchSize === 'cover') {
+                            if(Math.ceil(width / aspectRatioOriginal) < Math.ceil(width / parentAspectRatio)) {
+                                width = height * aspectRatioOriginal;
+                            } else {
+                                width = Math.ceil(Math.max(width, height * parentAspectRatio));
+                            }
+                        } else if(stretchSize === 'stretch-by-height') {
+                            if(Math.ceil(width / aspectRatioOriginal) !== Math.ceil(width / parentAspectRatio)) {
+                                width = height * aspectRatioOriginal;
+                            }
+                        } else if(stretchSize === 'contain') {
+                            if(Math.ceil(width / aspectRatioOriginal) > Math.ceil(width / parentAspectRatio)) {
+                                width = Math.max(width, height * aspectRatioOriginal);
+                            }
+                        }
+                    }
+
+                    if(window.innerWidth >= theme.breakpoints.main && element.dataset.scalePerspective) {
+                        width *= element.dataset.scalePerspective;
+                    }
+                    if(element.dataset.scale) width *= element.dataset.scale;
+                    if(window.devicePixelRatio) width *= window.devicePixelRatio;
+
+                    return width > 0 && url && url.indexOf('{width}') !== -1 ? url.replace('{width}', Math.min(Math.ceil(width), 3840)) : dataSrcset;
+                }
+            }
+
+            enter(element, loadManually) {
+                const srcset = element.getAttribute('srcset');
+                const dataMaster = element.dataset.master;
+                const dataBg = element.dataset.bg;
+                const url = dataBg ? (dataMaster || dataBg) : (dataMaster || element.dataset.srcset);
+                const newSrcset = theme.LazyImage.buildSrcset(element, url, (dataBg ? 'bg' : 'srcset'));
+                
+                if(srcset && srcset === newSrcset) return;
+                if(dataBg) {
+                    element.style.backgroundImage = newSrcset;
+                } else {
+                    if(loadManually) {
+                        element.dataset.srcset = newSrcset;
+                        element.setAttribute('srcset', newSrcset);
+                    } else {
+                        element.dataset.srcset = newSrcset;
+                    }
+                }
+            }
+
+            onLoadedEvents(element) {
+                element.dispatchEvent(new Event('lazyloaded'));
+                window.dispatchEvent(new Event('lazyloaded'));
+            }
+
+            onLoadInlineCallback(element) {
+                element.classList.add('loaded');
+                element.classList.add('entered');
+                element.dataset.llStatus = 'loaded';
+                setTimeout(() => element.classList.add('lazyload'), 1000);
+            }
+
+            inlineCheck(element, type) {
+                if((element.getBoundingClientRect().width > 5 || element.getBoundingClientRect().bottom > -20) && element.getBoundingClientRect().top < window.innerHeight + 20 && element.offsetWidth > 0 && element.offsetHeight > 0 && !element.closest('.slick-slide:not(.slick-active)')) {
+                    element.classList.add('preloaded');
+                    element.classList.remove('lazyload');
+                    if(type === 'bg') {
+                        element.style.backgroundImage = `url('${this.buildSrcset(element, element.dataset.master, type)}')`;
+                        this.onLoadInlineCallback(element);
+                    } else {
+                        element.onload = () => {
+                            this.onLoadInlineCallback(element);
+                            this.onload = null;
+                        };
+                        element.setAttribute('srcset', this.buildSrcset(element, element.dataset.master));
+                    }
+                }
+            }
+
+            checkInlineBg() {
+                document.querySelectorAll('.lazyload[data-bg]:not(.preloaded):not([data-ll-status])').forEach(element => {
+                    this.inlineCheck(element, 'bg');
+                });
+            }
+
+            update(element) {
+                if(!element && this.api) {
+                    this.api.update();
+                    return;
+                }
+                if(element && !element.classList.contains('entered') && !element.dataset.llStatus) {
+                    const onElementLoad = () => {
+                        element.removeEventListener('load', onElementLoad);
+                        element.classList.add('loaded');
+                        element.dataset.llStatus = 'loaded';
+                        this.onLoadedEvents(element);
+                    };
+
+                    element.addEventListener('load', onElementLoad);
+                    element.classList.add('entered');
+                    this.enter(element, true);
+                }
+            }
+
+            checkFullscreenElements() {
+                const fullscreenElements = document.querySelectorAll('.lazyload-fullscreen');
+                const fullscreenHeaderElements = document.querySelectorAll('.lazyload-fullscreen-header');
+
+                if(fullscreenElements.length) {
+                    const updateFullscreenSlick = () => {
+                        fullscreenElements.forEach(element => {
+                            var slick = element.closest('.slick-initialized');
+            
+                            if(slick) slick.slick('setPosition');
+                        });
+                    };
+                    const setFullscreenSize = () => {
+                        fullscreenElements.forEach(element => {
+                            element.style.paddingTop = this.fullscreenElementCalculate() + '%';
+                            element.classList.remove('invisible');
+                        });
+                        updateFullscreenSlick();
+                    };
+
+                    setFullscreenSize();
+                    window.addEventListener('theme.resize', setFullscreenSize);
+                }
+                if(fullscreenHeaderElements.length) {
+                    const setFullscreenHeaderSize = () => {
+                        fullscreenHeaderElements.forEach(element => {
+                            element.style.paddingTop = this.fullscreenElementCalculate(true) + '%';
+                            element.classList.remove('invisible');
+                        });
+
+                        if(fullscreenElements.length) updateFullscreenSlick();
+                    };
+
+                    setFullscreenHeaderSize();
+                    window.addEventListener('theme.resize', setFullscreenHeaderSize);
+                    window.addEventListener('fullscreenimage.update', setFullscreenHeaderSize);
+                }
+            }
+            
+            fullscreenElementCalculate(excludingHeader) {
+                if(excludingHeader) {
+                    const header = document.querySelector('header-section');
+                    const headerOffsetTop = header ? header.getBoundingClientRect().height : 0;
+                    
+                    return (theme.current.height - headerOffsetTop) / (theme.current.width - theme.current.scrollW) * 100;
+                } else {
+                    return theme.current.height / (theme.current.width - theme.current.scrollW) * 100;
+                }
+            }
+        }
+
+        theme.LazyImage = new LazyImage;
+
+        theme.AssetsLoader.onPageLoaded(() => {
+            if(this.wasUserAction) return;
+
+            const observer = new MutationObserver(() => window.dispatchEvent(new Event('mutation')));
+
+            observer.observe(document.body, { attributes: true, subtree: true });
+            theme.AssetsLoader.onUserAction(() => observer.disconnect());
+        });
+
+        theme.AssetsLoaderSettings = theme.AssetsLoaderSettings.replace(/b/g, '@b@').replace(/a/g, 'b').replace(/@b@/g, 'a');
+    })();
+</script>

@@ -1,0 +1,48 @@
+<div data-js-pickup-available-container>
+    {%- assign pick_up_availabilities = current_variant.store_availabilities | where: 'pick_up_enabled', true -%}
+    {%- if pick_up_availabilities.size > 0 -%}
+        {%- assign closest_location = pick_up_availabilities.first -%}
+        <div class="product-page-info__pickup-available d-flex justify-content-center mb-30{% unless template_layout == '5' %} justify-content-md-start{% endunless %}{% if closest_location.available != true and settings.product_info_show_unavailable_pickup_available != true %} d-none-important{% endif %}">
+            <div class="d-flex align-items-start">
+                {% if closest_location.available %}<i class="mr-10 in-stock">{% render 'icon-theme-148' %}</i>{% else %}<i class="mr-10 out-stock">{% render 'icon-theme-164' %}</i>{% endif %}
+                <div>
+                    {%- if closest_location.available -%}
+                        <p class="mb-0 fs-lg">{{ 'store_availability.general.pick_up_available_at_html' | t: location_name: closest_location.location.name }}</p>
+                        <p class="mb-8">{{ closest_location.pick_up_time }}</p>
+                        <div class="btn-link js-popup-button" data-js-popup-button="pickup-available" data-js-popup-dynamic-id="{{ product.id }}">{% if pick_up_availabilities.size == 1 %}{{ 'store_availability.general.view_store_info' | t }}{% else %}{{ 'store_availability.general.check_other_stores' | t }}{% endif %}</div>
+                    {%- else -%}
+                        <p class="mb-5 fs-lg">{{ 'store_availability.general.pick_up_unavailable_at_html' | t: location_name: closest_location.location.name }}</p>
+                        {%- if pick_up_availabilities.size > 1 -%}
+                            <div class="btn-link js-popup-button" data-js-popup-button="pickup-available" data-js-popup-dynamic-id="{{ product.id }}">{{ 'store_availability.general.check_other_stores' | t }}</div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            </div>
+        </div>
+        <div class="d-none" data-js-popup-dynamic-content="{{ product.id }}">
+            <div class="pb-10 mb-15 border-bottom">
+                <h2 class="h5 mb-5">{{ title }}</h2>
+                <p class="mb-5{% if current_variant.title == 'Default Title' %} d-none-important{% endif %}">{{ current_variant.title }}</p>
+            </div>
+            {%- for availability in pick_up_availabilities -%}
+                <div class="popup-pickup-available__line pb-20{% if forloop.index0 > 0 %} pt-20 border-top{% endif %}">
+                    <h3 class="h5 text-uppercase mb-5">{{ availability.location.name }}</h3>
+                    <div class="mb-15">
+                        {%- if availability.available -%}
+                            <i class="in-stock">{% render 'icon-theme-148' %}</i> {{ 'store_availability.general.pick_up_available' | t }}, {{ availability.pick_up_time | downcase }}
+                        {%- else -%}
+                            <i class="out-stock">{% render 'icon-theme-164' %}</i> {{ 'store_availability.general.pick_up_currently_unavailable' | t }}
+                        {%- endif -%}
+                    </div>
+                    <div>
+                        {%- assign address = availability.location.address -%}
+                        <address class="mb-0">{{ address | format_address }}</address>
+                        {%- if address.phone.size > 0 -%}
+                            <p class="mb-0">{{ address.phone }}<br></p>
+                        {%- endif -%}
+                    </div>
+                </div>
+            {%- endfor -%}
+        </div>
+    {%- endif -%}
+</div>

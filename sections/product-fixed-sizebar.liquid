@@ -1,0 +1,101 @@
+{%- if section.blocks.size > 0 -%}
+    <div class="fixed-sidebar__section my-15">
+        <div class="product-fixed-sizebar position-relative px-10 pointer-events-all">
+            <div class="product-fixed-sizebar__btn d-flex flex-center position-absolute top-0 right-100 cursor-lg-pointer">
+                <i>{% render 'icon-theme-232' %}</i>
+            </div>
+            <div class="product-fixed-sizebar__content">
+                {%- for block in section.blocks -%}
+                    {%- assign random_value_diff = block.settings.max_value | minus: block.settings.min_value -%}
+                    {%- assign random_value = "now" | date: "%N" | modulo: random_value_diff | plus: block.settings.min_value -%}
+                    {% capture random_value %}<span>{{ random_value }}</span>{% endcapture %}
+                    {%- if block.settings.text == blank -%}
+                        {%- case forloop.index -%}
+                            {%- when 2 -%}
+                                {%- assign text = '{value} people added this item to cart' -%}
+                            {%- when 3 -%}
+                                {%- assign text = '{value} people have bought this item' -%}
+                            {%- else -%}
+                                {%- assign text = '{value} people are viewing this item' -%}
+                        {%- endcase -%}
+                    {%- else -%}
+                        {%- assign text = block.settings.text -%}
+                    {%- endif -%}
+                    {%- if block.settings.icon == blank -%}
+                        {%- case forloop.index -%}
+                            {%- when 2 -%}
+                                {%- assign icon = '[icon:theme-109]' -%}
+                            {%- when 3 -%}
+                                {%- assign icon = '[icon:theme-148]' -%}
+                            {%- else -%}
+                                {%- assign icon = '[icon:theme-154]' -%}
+                        {%- endcase -%}
+                    {%- else -%}
+                        {%- assign icon = block.settings.icon -%}
+                    {%- endif -%}
+                    {%- assign text_with_value = text | replace: '{value}', random_value -%}
+                    <div class="product-fixed-sizebar__line d-flex align-items-center py-9">
+                        <i>{% include 'parse-for-icons' with content: icon %}</i>
+                        <p class="mb-0">{{ text_with_value }}</p>
+                    </div>
+                {%- endfor -%}
+            </div>
+        </div>
+    </div>
+{%- endif -%}
+
+
+{% schema %}
+{
+"name": "Usage information sidebar",
+"settings": [
+
+{
+"type": "paragraph",
+"content": "[Available icons](https:\/\/shella-demo.myshopify.com\/pages\/icons)"
+},
+
+{
+"type": "header",
+"content": "Support"
+},
+{
+"type": "paragraph",
+"content": "[Read user manual](https://mpithemes.gitbook.io/shella-shopify-theme/)"
+}
+],
+"blocks": [
+{
+"type": "text_line",
+"name": "Text line",
+"settings": [
+{
+"type": "text",
+"id": "icon",
+"label": "Icon",
+"info": "Example: [icon:theme-154]"
+},
+{
+"type": "text",
+"id": "text",
+"label": "Text",
+"info": "Example: {value} people are viewing this item"
+},
+{
+"type": "text",
+"id": "min_value",
+"label": "Min value",
+"default": "20"
+},
+{
+"type": "text",
+"id": "max_value",
+"label": "Max value",
+"default": "100"
+}
+]
+}
+]
+}
+{% endschema %}
+

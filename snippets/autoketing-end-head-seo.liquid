@@ -1,0 +1,22 @@
+{%- capture autoketing_seo_snippets_end_head -%}
+  {% comment %}Body Liquid{% endcomment %}
+  <!-- Added by AUTOKETING SEO APP END HEAD -->
+  {%- assign autoketing_seo = shop.metafields.autoketing_seo -%}
+  {% comment %}Meta Tag{% endcomment %}
+  {%- if autoketing_seo.status_seo.status_meta_tag == true -%}
+    {%- capture autoketing_seo_meta -%}
+      {% include 'autoketing-seo-meta' %}
+    {%- endcapture -%}
+    {%- unless autoketing_seo_meta contains 'Liquid error' -%}
+      {{ autoketing_seo_meta }}
+    {%- endunless -%}
+  {%- endif -%}
+  {% comment %}Meta Tag{% endcomment %}
+  <!-- /Added by AUTOKETING SEO APP END HEAD -->
+  {% comment %}Body Liquid{% endcomment %}
+{%- endcapture -%}
+{% comment %}Check Liquid error{% endcomment %}
+{%- unless autoketing_seo_snippets_end_head contains 'Liquid error' -%}
+  {{ autoketing_seo_snippets_end_head }}
+{%- endunless -%}
+{% comment %}Check Liquid error{% endcomment %}

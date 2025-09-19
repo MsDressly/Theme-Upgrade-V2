@@ -1,0 +1,130 @@
+{% layout none %}
+
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign params = contentForQuerystring
+    | split: '"pageurl":"'
+    | last
+    | split: '"'
+    | first
+    | split: '.myshopify.com'
+    | last
+    | replace: '\/', '/'
+    | replace: '%20', ' '
+    | replace: '\u0026', '&'
+    | split: 'params='
+    | last
+    | split: '&'
+    | first
+    | replace: '%2B', '+'
+    | replace: '%3D', '='
+    | split: '+'
+-%}
+
+<div>
+    <div class="{{ params[0] }} {{ params[2] }}">
+        <div class="{{ params[1] }}">
+            <div></div>
+            <div>
+                <p><span>You review demo version of Shella theme.</span></p>
+                <p>Thank you for interest to our product. To remove this popup and activate theme <a href="https://mpithemes.gitbook.io/shella-shopify-theme/" target="_blank">add</a> </br><a href="https://mpithemes.gitbook.io/shella-shopify-theme/" target="_blank"><span>your purchase</span> code</a> at theme settings or <a href="[[owner_url]]" target="_blank">purchase theme</a>.</p>
+                <p>Email <a href="mailto:[[owner_email]]">[[owner_email]]</a> for more details. </p>
+            </div>
+        </div>
+    </div>
+    <div class="{{ params[0] }} {{ params[3] }}">
+        <div class="{{ params[1] }}">
+            <div></div>
+            <div>
+                <p>Sidebar filter is not available in demo mode. </br>You can test it on our demo.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .{{ params[0] }} {
+        position: fixed;
+        display: flex;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999999999;
+        pointer-events: none;
+    }
+    .{{ params[1] }} {
+        position: relative;
+        pointer-events: all;
+    }
+    .{{ params[1] }} {
+        padding: 20px;
+    }
+    .{{ params[1] }} div:first-child {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        opacity: 0.9;
+        background-color: #F34235;
+    }
+    .{{ params[1] }} div:not(:first-child) {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .{{ params[0] }} p {
+        margin-bottom: 0;
+        font-size: 32px;
+        line-height: 38px;
+        text-align: center;
+    }
+    @media (max-width: 1024px) {
+        .{{ params[0] }} p  {
+            font-size: 16px;
+            line-height: 20px;
+        }
+    }
+    .{{ params[0] }} p,
+    .{{ params[0] }} a,
+    .{{ params[0] }} a:hover,
+    .{{ params[0] }} a:active,
+    .{{ params[0] }} a:focus,
+    .{{ params[0] }} a:visited {
+        color: #ffffff;
+    }
+    .{{ params[0] }} a {
+        text-decoration: underline;
+    }
+    .{{ params[0] }} span {
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    .{{ params[2] }} {
+        align-items: flex-end;
+    }
+    .{{ params[2] }} .{{ params[1] }} {
+        width: 100%;
+    }
+    @media (max-width: 1024px) {
+        .{{ params[2] }} {
+            display: none;
+        }
+    }
+    .{{ params[3] }} {
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition-duration: 0.2s;
+        transition-property: opacity;
+    }
+    .{{ params[3] }} .{{ params[1] }} {
+        pointer-events: none;
+    }
+    .{{ params[3] }}.visible {
+        opacity: 1;
+    }
+    .{{ params[3] }}.visible .{{ params[1] }} {
+        pointer-events: all;
+    }
+</style>

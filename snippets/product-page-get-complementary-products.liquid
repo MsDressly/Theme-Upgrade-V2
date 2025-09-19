@@ -1,0 +1,70 @@
+<style>
+    .complementary-products [href] {
+      cursor: pointer;
+    }
+</style>
+
+<product-recommendations class="complementary-products" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ settings.product_info_complementary_products_limit }}&intent=complementary">
+    {%- if recommendations.performed? -%}
+        <div id="product-recommendations" class="mt-30 mb-40">
+            {%- if recommendations.products_count > 0 -%}
+            <div class="col-12 mb-10 mb-sm-15 p-0">
+                <label class="mb-6">{{ 'products.product.complementary_products_title' | t }}</label>
+                {%- for product in recommendations.products -%}
+                    {% include 'product-featured' with show_button: true, show_type_collections_vendor: false %}
+                {%- endfor -%}
+            </div>
+            {%- endif -%}
+        </div>
+    {%- endif -%}
+</product-recommendations>
+
+<script>
+    class ProductRecommendations extends HTMLElement {
+        constructor() {
+            super();
+        }
+        
+        connectedCallback() {
+            const handleIntersection = (entries, observer) => {
+
+            if (!entries[0].isIntersecting) return;
+            observer.unobserve(this);
+        
+            fetch(this.dataset.url)
+                .then(response => response.text())
+                .then(text => {
+                    const html = document.createElement('div');
+                    html.innerHTML = text;
+                    const recommendations = html.querySelector('product-recommendations');
+            
+                    if (recommendations && recommendations.innerHTML.trim().length) {
+                      const content = recommendations.innerHTML.replace(/<a/g, '<div').replace(/<\/a/g, '</div');
+                        this.innerHTML = content;
+
+                      this.addEventListener('click', event => {
+                        const target = event.target;
+                        const linkTag = target.closest('[href]');
+                        const button = target.closest('[data-js-product-button-add-to-cart]') || target;
+
+                        if(!target.hasAttribute('href') && !linkTag) return;
+
+                        if(button.hasAttribute('data-js-product-button-add-to-cart') && button.dataset.buttonStatus != 'select') {
+                          return;
+                        }
+                        
+                        window.location.href = (linkTag || target).getAttribute('href');
+                      });
+                    }
+                })
+                .catch(e => {
+                    console.error(e);
+                });
+            }
+        
+            new IntersectionObserver(handleIntersection.bind(this), {rootMargin: '0px 0px 400px 0px'}).observe(this);
+        }
+    }
+    
+    customElements.define('product-recommendations', ProductRecommendations);
+</script>

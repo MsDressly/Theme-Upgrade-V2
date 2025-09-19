@@ -1,0 +1,994 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "1721979779e55dd173": {
+      "type": "apps",
+      "blocks": {
+        "tolstoy_shoppable_video_ugc_carousel_block_qMiKwf": {
+          "type": "shopify://apps/tolstoy-shoppable-video-quiz/blocks/carousel-block/06fa8282-42ff-403e-b67c-1936776aed11",
+          "settings": {
+            "publishId": "zd80b6ums9ra0"
+          }
+        }
+      },
+      "block_order": [
+        "tolstoy_shoppable_video_ugc_carousel_block_qMiKwf"
+      ],
+      "disabled": true,
+      "settings": {
+        "container": "fullwidth",
+        "margin_top": 60,
+        "margin_bottom": 0,
+        "margin_top_mobile": 0,
+        "margin_bottom_mobile": 0,
+        "show_separator": false
+      }
+    },
+    "88140d03-ae09-46a4-aea0-a933fa487cd4": {
+      "type": "home-builder",
+      "blocks": {
+        "8f430030-1385-4cab-a2e6-02e862bb4b7a": {
+          "type": "promobox",
+          "settings": {
+            "url": "shopify://collections/all",
+            "image": "shopify://shop_images/SUMMER_SALE_ac5965e3-f469-4281-8d1d-20ce91ec5d0f.jpg",
+            "image_size": 1400,
+            "image_mobile": "shopify://shop_images/summer_sale_app_6a8f7f06-6cd1-4aaa-87d3-4f290e92f152.jpg",
+            "image_mobile_size": 900,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "",
+            "text_line_2": "",
+            "text_line_3": "",
+            "style": "1",
+            "button_1": "",
+            "button_1_url": "shopify://collections/new-in",
+            "color_button_type_1": "secondary",
+            "button_2": "",
+            "button_2_url": "shopify://collections/new-in",
+            "color_button_type_2": "default",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "type-1",
+            "content_position": "center",
+            "content_align": "center",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "auto",
+            "visible": "desktop_mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        }
+      },
+      "block_order": [
+        "8f430030-1385-4cab-a2e6-02e862bb4b7a"
+      ],
+      "settings": {
+        "title": "",
+        "container": "fullwidth",
+        "size_of_columns": "1",
+        "size_of_columns_mobile": "1",
+        "margins_for_columns": "preset_3",
+        "align_of_columns": "top_center",
+        "disable_column_paddings": false,
+        "precedence": "",
+        "customization_class": ""
+      }
+    },
+    "552f8dfe-f3b6-4e55-8753-3da9a77c6611": {
+      "type": "sorting-collections",
+      "blocks": {
+        "f31babba-a1b4-437f-b186-f54a81031e73": {
+          "type": "collection",
+          "settings": {
+            "title": "Most Popular",
+            "collection": "picked-for-you"
+          }
+        }
+      },
+      "block_order": [
+        "f31babba-a1b4-437f-b186-f54a81031e73"
+      ],
+      "custom_css": [],
+      "settings": {
+        "size_of_columns": "6",
+        "max_count": 12,
+        "show_btn_more_products": true
+      }
+    },
+    "4aa75084-79ab-48e0-84f5-fa47f5082b5e": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 40,
+        "margin_bottom": 0,
+        "margin_top_mobile": 10,
+        "margin_bottom_mobile": 0,
+        "container": "boxed",
+        "show_separator": false,
+        "title": ""
+      }
+    },
+    "c8ff5934-698a-4018-82a8-854d42a73e94": {
+      "type": "home-builder",
+      "blocks": {
+        "c02920cb-f277-4e32-b5f7-11944defff16": {
+          "type": "promobox",
+          "settings": {
+            "url": "shopify://collections/coats-jackets",
+            "image": "shopify://shop_images/Summer_Sale_Aug_T-shirts_81fe5796-d81b-41ba-893a-b95b9db91adc.jpg",
+            "image_size": 1400,
+            "image_mobile": "shopify://shop_images/t-shirt.jpg",
+            "image_mobile_size": 900,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "",
+            "text_line_2": "",
+            "text_line_3": "",
+            "style": "1",
+            "button_1": "",
+            "button_1_url": "shopify://collections/coats-jackets",
+            "color_button_type_1": "secondary",
+            "button_2": "",
+            "button_2_url": "shopify://collections/coats-jackets",
+            "color_button_type_2": "default",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "type-1",
+            "content_position": "center",
+            "content_align": "center",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "auto",
+            "visible": "desktop_mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        }
+      },
+      "block_order": [
+        "c02920cb-f277-4e32-b5f7-11944defff16"
+      ],
+      "settings": {
+        "title": "",
+        "container": "fullwidth",
+        "size_of_columns": "1",
+        "size_of_columns_mobile": "1",
+        "margins_for_columns": "preset_3",
+        "align_of_columns": "top_center",
+        "disable_column_paddings": false,
+        "precedence": "",
+        "customization_class": ""
+      }
+    },
+    "0b1081f1-7b56-4bae-9071-315bc0a59d5c": {
+      "type": "sorting-collections",
+      "blocks": {
+        "729f9fe8-0116-4d7d-97db-286c39e6bb49": {
+          "type": "collection",
+          "settings": {
+            "title": "Coats & Jackets",
+            "collection": "coats-jackets"
+          }
+        }
+      },
+      "block_order": [
+        "729f9fe8-0116-4d7d-97db-286c39e6bb49"
+      ],
+      "settings": {
+        "size_of_columns": "6",
+        "max_count": 12,
+        "show_btn_more_products": true
+      }
+    },
+    "1586283399218": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 40,
+        "margin_bottom": 0,
+        "margin_top_mobile": 10,
+        "margin_bottom_mobile": 0,
+        "container": "boxed",
+        "show_separator": false,
+        "title": ""
+      }
+    },
+    "1586279708879": {
+      "type": "home-builder",
+      "blocks": {
+        "1586279874234": {
+          "type": "promobox",
+          "settings": {
+            "url": "shopify://collections/formal-dresses",
+            "image": "shopify://shop_images/Summer_Sale_Aug_Jumpsuits.jpg",
+            "image_size": 1400,
+            "image_mobile": "shopify://shop_images/Summer_Sale_Aug_Dresses_Mobile.jpg",
+            "image_mobile_size": 900,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "",
+            "text_line_2": "",
+            "text_line_3": "",
+            "style": "1",
+            "button_1": "",
+            "button_1_url": "shopify://collections/dresses",
+            "color_button_type_1": "secondary",
+            "button_2": "",
+            "button_2_url": "shopify://collections/dresses",
+            "color_button_type_2": "default",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "type-1",
+            "content_position": "center",
+            "content_align": "center",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "auto",
+            "visible": "desktop_mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        }
+      },
+      "block_order": [
+        "1586279874234"
+      ],
+      "settings": {
+        "title": "",
+        "container": "fullwidth",
+        "size_of_columns": "1",
+        "size_of_columns_mobile": "1",
+        "margins_for_columns": "preset_3",
+        "align_of_columns": "top_center",
+        "disable_column_paddings": false,
+        "precedence": "",
+        "customization_class": ""
+      }
+    },
+    "8bc639e6-8e86-4cab-9c9a-ba696421ec8e": {
+      "type": "sorting-collections",
+      "blocks": {
+        "202bf472-8629-4b30-9e46-56afd25737f7": {
+          "type": "collection",
+          "settings": {
+            "title": "Formal Dresses",
+            "collection": "formal-dresses"
+          }
+        },
+        "aa240d0a-28fb-4711-94cc-2b9f5824903e": {
+          "type": "collection",
+          "settings": {
+            "title": "Dresses",
+            "collection": "dresses"
+          }
+        }
+      },
+      "block_order": [
+        "202bf472-8629-4b30-9e46-56afd25737f7",
+        "aa240d0a-28fb-4711-94cc-2b9f5824903e"
+      ],
+      "settings": {
+        "size_of_columns": "6",
+        "max_count": 12,
+        "show_btn_more_products": true
+      }
+    },
+    "1586282852274": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 40,
+        "margin_bottom": 0,
+        "margin_top_mobile": 10,
+        "margin_bottom_mobile": 0,
+        "container": "boxed",
+        "show_separator": false,
+        "title": ""
+      }
+    },
+    "4214e2f0-4f78-4055-a135-7b7d91821429": {
+      "type": "home-builder",
+      "blocks": {
+        "5f683658-038f-499f-ab10-43413dc650f9": {
+          "type": "promobox",
+          "settings": {
+            "url": "shopify://collections/cardigans-sweaters",
+            "image": "shopify://shop_images/Summer_Sale_Coats.jpg",
+            "image_size": 1400,
+            "image_mobile": "shopify://shop_images/Summer_Sale_Coats_Mobile.jpg",
+            "image_mobile_size": 900,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "",
+            "text_line_2": "",
+            "text_line_3": "",
+            "style": "1",
+            "button_1": "",
+            "button_1_url": "shopify://collections/cardigans-sweaters",
+            "color_button_type_1": "secondary",
+            "button_2": "",
+            "button_2_url": "shopify://collections/cardigans-sweaters",
+            "color_button_type_2": "default",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "type-1",
+            "content_position": "center",
+            "content_align": "center",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "auto",
+            "visible": "desktop_mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        }
+      },
+      "block_order": [
+        "5f683658-038f-499f-ab10-43413dc650f9"
+      ],
+      "settings": {
+        "title": "",
+        "container": "fullwidth",
+        "size_of_columns": "1",
+        "size_of_columns_mobile": "1",
+        "margins_for_columns": "preset_3",
+        "align_of_columns": "top_center",
+        "disable_column_paddings": false,
+        "precedence": "",
+        "customization_class": ""
+      }
+    },
+    "03820055-6bc0-4eb5-a833-d557bf0c4ab2": {
+      "type": "sorting-collections",
+      "blocks": {
+        "8ff32550-1cee-4053-b0cc-cb8c206e60e1": {
+          "type": "collection",
+          "settings": {
+            "title": "Cardigans & Sweaters",
+            "collection": "cardigans-sweaters"
+          }
+        }
+      },
+      "block_order": [
+        "8ff32550-1cee-4053-b0cc-cb8c206e60e1"
+      ],
+      "settings": {
+        "size_of_columns": "6",
+        "max_count": 12,
+        "show_btn_more_products": true
+      }
+    },
+    "1586283266986": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 40,
+        "margin_bottom": 0,
+        "margin_top_mobile": 10,
+        "margin_bottom_mobile": 0,
+        "container": "boxed",
+        "show_separator": false,
+        "title": ""
+      }
+    },
+    "4bb3f089-28a0-4ec7-bb01-76c367bd9149": {
+      "type": "home-builder",
+      "blocks": {
+        "6c7fde3c-3942-427d-a25d-b697bcb88df6": {
+          "type": "promobox",
+          "settings": {
+            "url": "shopify://collections/t-shirts",
+            "image": "shopify://shop_images/Summer_Sale_Sweaters.jpg",
+            "image_size": 1400,
+            "image_mobile": "shopify://shop_images/Summer_Sale_Sweaters_Mobile.jpg",
+            "image_mobile_size": 900,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "",
+            "text_line_2": "",
+            "text_line_3": "",
+            "style": "1",
+            "button_1": "",
+            "button_1_url": "shopify://collections/t-shirts",
+            "color_button_type_1": "secondary",
+            "button_2": "",
+            "button_2_url": "shopify://collections/t-shirts",
+            "color_button_type_2": "default",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "type-1",
+            "content_position": "center",
+            "content_align": "center",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "auto",
+            "visible": "desktop_mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        }
+      },
+      "block_order": [
+        "6c7fde3c-3942-427d-a25d-b697bcb88df6"
+      ],
+      "settings": {
+        "title": "",
+        "container": "fullwidth",
+        "size_of_columns": "1",
+        "size_of_columns_mobile": "1",
+        "margins_for_columns": "preset_3",
+        "align_of_columns": "top_center",
+        "disable_column_paddings": false,
+        "precedence": "",
+        "customization_class": ""
+      }
+    },
+    "554742d8-9abb-45fc-b166-402424eeb8c1": {
+      "type": "sorting-collections",
+      "blocks": {
+        "73fbfc49-0276-426e-a2cd-f27fa04d3173": {
+          "type": "collection",
+          "settings": {
+            "title": "T-Shirts",
+            "collection": "tops-blouses"
+          }
+        }
+      },
+      "block_order": [
+        "73fbfc49-0276-426e-a2cd-f27fa04d3173"
+      ],
+      "settings": {
+        "size_of_columns": "6",
+        "max_count": 18,
+        "show_btn_more_products": true
+      }
+    },
+    "1586283959656": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 40,
+        "margin_bottom": 0,
+        "margin_top_mobile": 10,
+        "margin_bottom_mobile": 0,
+        "container": "boxed",
+        "show_separator": false,
+        "title": ""
+      }
+    },
+    "d21ef781-d971-445f-bf4c-630e8db1d215": {
+      "type": "home-builder",
+      "blocks": {
+        "1df2bd98-5674-407e-ab91-277a82acdb28": {
+          "type": "promobox",
+          "settings": {
+            "url": "shopify://collections/jumpsuits-rompers-1",
+            "image": "shopify://shop_images/Summer_Sale_T-shirts.jpg",
+            "image_size": 1400,
+            "image_mobile": "shopify://shop_images/Summer_Sale_T-Shirts_Mobile.jpg",
+            "image_mobile_size": 900,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "",
+            "text_line_2": "",
+            "text_line_3": "",
+            "style": "1",
+            "button_1": "",
+            "button_1_url": "shopify://collections/jumpsuits-rompers-1",
+            "color_button_type_1": "secondary",
+            "button_2": "",
+            "button_2_url": "shopify://collections/jumpsuits-rompers-1",
+            "color_button_type_2": "default",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "type-1",
+            "content_position": "center",
+            "content_align": "center",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "auto",
+            "visible": "desktop_mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        }
+      },
+      "block_order": [
+        "1df2bd98-5674-407e-ab91-277a82acdb28"
+      ],
+      "settings": {
+        "title": "",
+        "container": "fullwidth",
+        "size_of_columns": "1",
+        "size_of_columns_mobile": "1",
+        "margins_for_columns": "preset_3",
+        "align_of_columns": "top_center",
+        "disable_column_paddings": false,
+        "precedence": "",
+        "customization_class": ""
+      }
+    },
+    "52c8f404-e853-48e9-acb8-74d72bdd3afb": {
+      "type": "sorting-collections",
+      "blocks": {
+        "73b56396-dab9-4449-bb0c-f19bf420356a": {
+          "type": "collection",
+          "settings": {
+            "title": "Jumpsuits & Rompers",
+            "collection": "jumpsuits-rompers-1"
+          }
+        }
+      },
+      "block_order": [
+        "73b56396-dab9-4449-bb0c-f19bf420356a"
+      ],
+      "settings": {
+        "size_of_columns": "6",
+        "max_count": 12,
+        "show_btn_more_products": true
+      }
+    },
+    "1586282646707": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 40,
+        "margin_bottom": 0,
+        "margin_top_mobile": 10,
+        "margin_bottom_mobile": 0,
+        "container": "boxed",
+        "show_separator": false,
+        "title": ""
+      }
+    },
+    "1586282860739": {
+      "type": "home-builder",
+      "blocks": {
+        "1586282889393": {
+          "type": "promobox",
+          "settings": {
+            "url": "shopify://collections/dresses",
+            "image": "shopify://shop_images/Dresses_Square.png",
+            "image_size": 900,
+            "image_mobile": "shopify://shop_images/Dresses_Square.png",
+            "image_mobile_size": 900,
+            "image_position_x": 50,
+            "color_image_mask": "#000000",
+            "image_mask_opacity": 0.2,
+            "text_line_1": "NEW IN DRESSES",
+            "text_line_2": "PERFECT YOUR LOOK",
+            "text_line_3": "Dress to impress with MsDressly's trendy dresses",
+            "style": "5",
+            "button_1": "DISCOVER MORE",
+            "button_1_url": "shopify://collections/dresses",
+            "color_button_type_1": "secondary",
+            "button_2": "Button #2 text",
+            "button_2_url": "",
+            "color_button_type_2": "default-transparent",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "type-1-3",
+            "content_position": "center",
+            "content_align": "center",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "auto",
+            "visible": "desktop_mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        },
+        "1586282892935": {
+          "type": "promobox",
+          "settings": {
+            "url": "shopify://collections/cardigans-sweaters",
+            "image": "shopify://shop_images/Sweaters_Square.png",
+            "image_size": 900,
+            "image_mobile": "shopify://shop_images/Sweaters_Square.png",
+            "image_mobile_size": 900,
+            "image_position_x": 50,
+            "color_image_mask": "#000000",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "CUTE SWEATERS",
+            "text_line_2": "THIS SEASON'S  SWEATERS",
+            "text_line_3": "Perfect your outfit with our trendy and versatile Sweaters",
+            "style": "5",
+            "button_1": "DISCOVER MORE",
+            "button_1_url": "shopify://collections/cardigans-sweaters",
+            "color_button_type_1": "secondary",
+            "button_2": "Button #2 text",
+            "button_2_url": "",
+            "color_button_type_2": "default-transparent",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "type-1-3",
+            "content_position": "center",
+            "content_align": "center",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "auto",
+            "visible": "desktop_mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        }
+      },
+      "block_order": [
+        "1586282889393",
+        "1586282892935"
+      ],
+      "settings": {
+        "title": "",
+        "container": "fullwidth",
+        "size_of_columns": "2",
+        "size_of_columns_mobile": "1",
+        "margins_for_columns": "preset_1",
+        "align_of_columns": "top_center",
+        "disable_column_paddings": false,
+        "precedence": "",
+        "customization_class": ""
+      }
+    },
+    "1586284059940": {
+      "type": "home-builder",
+      "blocks": {
+        "1586284065628": {
+          "type": "instagram",
+          "settings": {
+            "show_post_details": true,
+            "limit": 12,
+            "size_of_images": "6",
+            "inner_disable_paddings": true,
+            "fixed_height": 100,
+            "disable_lazyload": false,
+            "size_of_column": "auto"
+          }
+        },
+        "1586284075152": {
+          "type": "instagram_block",
+          "settings": {
+            "image": "shopify://shop_images/313040710_422423233417811_901973299163190427_n.jpg",
+            "image_size": 195,
+            "format_pjpg": true,
+            "disable_lazyload": false,
+            "url": "https://www.instagram.com/p/BnQ-ZctHuBf/",
+            "likes": "1324",
+            "comments": "125"
+          }
+        },
+        "1586284077419": {
+          "type": "instagram_block",
+          "settings": {
+            "image": "shopify://shop_images/313004672_1469566793520820_1206242352845968069_n.jpg",
+            "image_size": 195,
+            "format_pjpg": true,
+            "disable_lazyload": false,
+            "url": "https://www.instagram.com/p/BnQ-RAfHTFy/",
+            "likes": "415",
+            "comments": "72"
+          }
+        },
+        "1586284080852": {
+          "type": "instagram_block",
+          "settings": {
+            "image": "shopify://shop_images/312776466_200399215691376_2019501820472118048_n.jpg",
+            "image_size": 195,
+            "format_pjpg": true,
+            "disable_lazyload": false,
+            "url": "https://www.instagram.com/p/BnQ-S3MnoDv/",
+            "likes": "1435",
+            "comments": "108"
+          }
+        },
+        "1586284083626": {
+          "type": "instagram_block",
+          "settings": {
+            "image": "shopify://shop_images/312900150_3432748403673185_8082405063029375224_n_528443f7-c08c-4d08-88d5-360a05e2bc80.jpg",
+            "image_size": 195,
+            "format_pjpg": true,
+            "disable_lazyload": false,
+            "url": "https://www.instagram.com/p/BnQ-U5AHJY2/",
+            "likes": "1825",
+            "comments": "68"
+          }
+        },
+        "1586284086290": {
+          "type": "instagram_block",
+          "settings": {
+            "image": "shopify://shop_images/312905746_703055300679090_5949062951838096196_n.jpg",
+            "image_size": 195,
+            "format_pjpg": true,
+            "disable_lazyload": false,
+            "url": "https://www.instagram.com/p/BnQ-O77nsrY/",
+            "likes": "461",
+            "comments": "78"
+          }
+        },
+        "1586284088787": {
+          "type": "instagram_block",
+          "settings": {
+            "image": "shopify://shop_images/313373570_174127501941486_6090775274182931361_n.jpg",
+            "image_size": 195,
+            "format_pjpg": true,
+            "disable_lazyload": false,
+            "url": "https://www.instagram.com/p/BnQ-W7IHoyd/",
+            "likes": "1758",
+            "comments": "141"
+          }
+        },
+        "1586366161062": {
+          "type": "instagram_block",
+          "settings": {
+            "image": "shopify://shop_images/313014287_444943394409619_6752734220567653297_n.jpg",
+            "image_size": 195,
+            "format_pjpg": true,
+            "disable_lazyload": false,
+            "url": "https://www.instagram.com/p/BnQ-MvwnvvP/",
+            "likes": "4542",
+            "comments": "316"
+          }
+        },
+        "1586366163574": {
+          "type": "instagram_block",
+          "settings": {
+            "image": "shopify://shop_images/312937448_620239233115178_8727665574241638523_n.jpg",
+            "image_size": 195,
+            "format_pjpg": true,
+            "disable_lazyload": false,
+            "url": "https://www.instagram.com/p/BnQ-K8OnLcL/",
+            "likes": "537",
+            "comments": "102"
+          }
+        },
+        "1586366165951": {
+          "type": "instagram_block",
+          "settings": {
+            "image": "shopify://shop_images/313185480_661025228972402_2621887374029103623_n.jpg",
+            "image_size": 195,
+            "format_pjpg": true,
+            "disable_lazyload": false,
+            "url": "https://www.instagram.com/p/BnQ-JLIH4zd/",
+            "likes": "279",
+            "comments": "15"
+          }
+        },
+        "1586366171436": {
+          "type": "instagram_block",
+          "settings": {
+            "image": "shopify://shop_images/312767632_122168634002763_2998693765236612741_n.jpg",
+            "image_size": 195,
+            "format_pjpg": true,
+            "disable_lazyload": false,
+            "url": "https://www.instagram.com/p/BnQ-HD3HSJc/",
+            "likes": "783",
+            "comments": "45"
+          }
+        },
+        "1586366174420": {
+          "type": "instagram_block",
+          "settings": {
+            "image": "shopify://shop_images/312991782_1284415548988019_1441762211600235849_n.jpg",
+            "image_size": 195,
+            "format_pjpg": true,
+            "disable_lazyload": false,
+            "url": "https://www.instagram.com/p/BnQ-FOInhR4/",
+            "likes": "397",
+            "comments": "34"
+          }
+        },
+        "1586366177575": {
+          "type": "instagram_block",
+          "settings": {
+            "image": "shopify://shop_images/312664341_847778722886026_7021068594580745691_n.jpg",
+            "image_size": 195,
+            "format_pjpg": true,
+            "disable_lazyload": false,
+            "url": "https://www.instagram.com/p/BnQ-CcMHkKj/",
+            "likes": "334",
+            "comments": "18"
+          }
+        }
+      },
+      "block_order": [
+        "1586284065628",
+        "1586284075152",
+        "1586284077419",
+        "1586284080852",
+        "1586284083626",
+        "1586284086290",
+        "1586284088787",
+        "1586366161062",
+        "1586366163574",
+        "1586366165951",
+        "1586366171436",
+        "1586366174420",
+        "1586366177575"
+      ],
+      "settings": {
+        "title": "<p>Be the star of the show 👉 <a href=\"https://urlgeni.us/instagram/msdresslyig\" target=\"_blank\" title=\"MsDressly Instagram\">@msdressly</a></p>",
+        "container": "boxed",
+        "size_of_columns": "1",
+        "size_of_columns_mobile": "1",
+        "margins_for_columns": "none",
+        "align_of_columns": "top_center",
+        "disable_column_paddings": false,
+        "precedence": "",
+        "customization_class": ""
+      }
+    },
+    "1586567788223": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 40,
+        "margin_bottom": 0,
+        "margin_top_mobile": 10,
+        "margin_bottom_mobile": 0,
+        "container": "boxed",
+        "show_separator": false,
+        "title": ""
+      }
+    }
+  },
+  "order": [
+    "1721979779e55dd173",
+    "88140d03-ae09-46a4-aea0-a933fa487cd4",
+    "552f8dfe-f3b6-4e55-8753-3da9a77c6611",
+    "4aa75084-79ab-48e0-84f5-fa47f5082b5e",
+    "c8ff5934-698a-4018-82a8-854d42a73e94",
+    "0b1081f1-7b56-4bae-9071-315bc0a59d5c",
+    "1586283399218",
+    "1586279708879",
+    "8bc639e6-8e86-4cab-9c9a-ba696421ec8e",
+    "1586282852274",
+    "4214e2f0-4f78-4055-a135-7b7d91821429",
+    "03820055-6bc0-4eb5-a833-d557bf0c4ab2",
+    "1586283266986",
+    "4bb3f089-28a0-4ec7-bb01-76c367bd9149",
+    "554742d8-9abb-45fc-b166-402424eeb8c1",
+    "1586283959656",
+    "d21ef781-d971-445f-bf4c-630e8db1d215",
+    "52c8f404-e853-48e9-acb8-74d72bdd3afb",
+    "1586282646707",
+    "1586282860739",
+    "1586284059940",
+    "1586567788223"
+  ]
+}

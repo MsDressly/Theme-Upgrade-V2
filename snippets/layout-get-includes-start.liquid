@@ -1,0 +1,29 @@
+<div class="theme-wv"></div>
+<div class="layout-get-includes-start invisible">
+    {%- if settings.show_multiple_currencies -%}
+        <div id="multipleCurrenciesWrapper"></div>
+    {%- endif -%}
+    <div id="theme-loader" class="d-none">
+        {% render 'preloader-spinner' %}
+    </div>
+    <div class="scroll-offset-example"></div>
+    <div id="theme-icons" class="d-none">
+        <i>{% render 'icon-theme-006' %}</i>
+        <i>{% render 'icon-theme-007' %}</i>
+        <i>{% render 'icon-theme-164' %}</i>
+    </div>
+</div>
+{%- if layout_enable_snow_effect -%}
+    <div id="particles-js"></div>
+    <script>
+        theme.AssetsLoader.require('scripts', 'particles');
+    </script>
+{%- endif -%}
+{%- if settings.layout_enable_page_preloader -%}
+	<div id="page-preloader">
+        {% render 'preloader-spinner' with page: true %}
+    </div>
+{%- endif -%}
+<script>
+    theme.WindowAnaliz.initScrollPaddingStyle();
+</script>

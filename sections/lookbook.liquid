@@ -1,0 +1,255 @@
+{% include 'global-variables' %}
+<lookbook-section data-section-id="{{ section.id }}" data-section-type="lookbook" class="container d-block">
+    {%- if section.settings.grid_responsive != blank -%}
+        {%- assign grid_responsive = section.settings.grid_responsive | split: ',' -%}
+        {% capture grid %}col col-{{ grid_responsive[4] }} col-sm-{{ grid_responsive[3] }} col-md-{{ grid_responsive[2] }} col-lg-{{ grid_responsive[1] }} col-xl-{{ grid_responsive[0] }}{% endcapture %}
+    {%- else -%}
+        {% capture grid %}col-12 col-md-{{ 12 | divided_by: section.settings.grid }}{% endcapture %}
+    {%- endif -%}
+    <div class="lookbook{% if section.settings.layout != '1' %} mb-lg-5{% endif %}">
+        {%- assign product_detect_id = 0 -%}
+        {%- if section.blocks.size > 0 -%}
+            {%- assign blocks_size = 0 -%}
+            <div class="lookbook__content row">
+                {%- for block in section.blocks -%}
+                    {%- if block.type != 'image' -%}
+                        {%- continue -%}
+                    {%- endif -%}
+                    {%- assign image_index = forloop.index0 -%}
+                    {%- assign pickers_html = null -%}
+                    {%- assign pickers_text_html = null -%}
+                    <div class="{{ grid }} mb-30{% if section.settings.layout != '1' %} mb-lg-55{% endif %}">
+                        <div class="lookbook__item">
+                            <div class="position-relative">
+                                {% capture image_size %}{{ section.settings.image_size }}x{% endcapture %}
+                                {% render 'rimage' with image: block.settings.image size: image_size image_class: 'w-100' %}
+                                {%- assign products_from_index = image_index | plus: 1 -%}
+                                {%- for block in section.blocks offset: products_from_index -%}
+                                    {%- if block.type != 'product' -%}
+                                        {%- break -%}
+                                    {%- endif -%}
+                                    {%- if block.settings.product != blank -%}
+                                        {% capture product_detect %}|||{{ block.settings.product }}|||{% endcapture %}
+                                        {%- unless product_detects contains product_detect -%}
+                                            {%- assign product_detect_id = product_detect_id | plus: 1 -%}
+                                            {% capture product_detects %}{{ product_detects }}{{ product_detect }}{% endcapture %}
+                                        {%- endunless -%}
+                                        {%- if product_detect_id <= 20 -%}
+                                            {%- assign product = all_products[block.settings.product] -%}
+                                            {% include 'product-res-variables' %}
+                                        {%- endif -%}
+                                        {%- if block.settings.title != blank -%}
+                                            {%- assign title = block.settings.title -%}
+                                        {%- endif -%}
+                                        {%- if block.settings.image != blank -%}
+                                            {%- assign image = block.settings.image -%}
+                                        {%- endif -%}
+                                        {%- if block.settings.price != blank -%}
+                                            {%- assign price = block.settings.price | times: 100 -%}
+                                        {%- endif -%}
+                                        {%- if block.settings.compare_at_price != blank -%}
+                                            {%- assign compare_at_price = block.settings.compare_at_price | times: 100 -%}
+                                        {%- endif -%}
+                                        {% capture pickers_text_html %}
+                                            {{ pickers_text_html }}
+                                            <p class="{% if section.settings.layout == '1' %}d-lg-none {% endif %}mb-0"><a href="{{ routes.root_url }}{% if routes.root_url != '/' %}/{% endif %}products/{{ block.settings.product }}">{{ title | default: 'Product Title' }}</a> <span class="lookbook__price ml-5">{% include 'product-get-price' %}</span></p>
+                                        {% endcapture %}
+                                        {%- if section.settings.layout == '1' -%}
+                                            {% capture pickers_html %}
+                                                {{ pickers_html }}
+                                                <div class="lookbook__picker position-absolute" style="top: {{ block.settings.vertical_position }}%;left: {{ block.settings.horizontal_position }}%;" data-lookbook-picker>
+                                                    <div class="lookbook__picker-circle position-relative cursor-pointer" data-lookbook-picker-button></div>
+                                                    <div class="d-none d-lg-block">
+                                                        <div class="lookbook__product d-none position-absolute bottom-0 left-0" data-lookbook-product>
+                                                            <a href="{{ routes.root_url }}{% if routes.root_url != '/' %}/{% endif %}products/{{ block.settings.product }}" class="d-block">
+                                                                {%- capture image_id -%} data-image-id="{{ image.id }}"{%- endcapture -%}
+                                                                {% render 'rimage' with image: image size: '160x' alt: title image_class: 'w-100' disable_lazyload: lookbook_image_lazyload_disable %}
+                                                            </a>
+                                                            <div class="position-absolute top-0 right-0 mt-6 mr-4 cursor-pointer" data-lookbook-product-close>
+                                                                <i>{% render 'icon-theme-164' %}</i>
+                                                            </div>
+                                                            <div class="p-10">
+                                                                <p class="mb-0"><a href="{{ routes.root_url }}{% if routes.root_url != '/' %}/{% endif %}products/{{ block.settings.product }}">{{ title | default: 'Product Title' }}</a></p>
+                                                                <p class="mb-0">{% include 'product-get-price' %}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endcapture %}
+                                        {%- endif -%}
+                                        {%- assign title = null -%}
+                                        {%- assign image = null -%}
+                                        {%- assign price = null -%}
+                                        {%- assign compare_at_price = null -%}
+                                    {%- endif -%}
+                                {%- endfor -%}
+                                {%- if pickers_html != null -%}
+                                    <div class="absolute-stretch d-none d-lg-block">
+                                        {{ pickers_html }}
+                                    </div>
+                                {%- endif -%}
+                            </div>
+                            {%- if pickers_text_html != null -%}
+                                <div class="mt-15{% if section.settings.layout == '1' %} mt-lg-0{% endif %}">
+                                    {{ pickers_text_html }}
+                                </div>
+                            {%- endif -%}
+                        </div>
+                    </div>
+                    {%- assign blocks_size = blocks_size | plus: 1 -%}
+                {%- endfor -%}
+            </div>
+            {%- unless blocks_size > 0 -%}
+                <div class="col text-center">
+                    {% include 'no-blocks' %}
+                </div>
+            {%- endunless -%}
+        {%- else -%}
+            <div class="col text-center">
+                {% include 'no-blocks' %}
+            </div>
+        {%- endif -%}
+    </div>
+    <script>
+        theme.AssetsLoader.onUserAction(function() {
+            theme.AssetsLoader.require('scripts', 'lookbook');
+        });
+    </script>
+</lookbook-section>
+
+
+{% schema %}{
+    "name": "t:sections.lookbook.name",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "show_title",
+            "label": "t:sections.lookbook.settings.show_title.label",
+            "default": true
+        },
+        {
+            "type": "select",
+            "id": "layout",
+            "label": "t:sections.lookbook.settings.layout.label",
+            "default": "1",
+            "options": [
+                {
+                    "value": "1",
+                    "label": "t:sections.lookbook.settings.layout.option__1.label"
+                },
+                {
+                    "value": "2",
+                    "label": "t:sections.lookbook.settings.layout.option__2.label"
+                }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "grid",
+            "label": "t:sections.lookbook.settings.grid.label",
+            "default": "3",
+            "options": [
+                {
+                    "value": "2",
+                    "label": "t:sections.lookbook.settings.grid.option__1.label"
+                },
+                {
+                    "value": "3",
+                    "label": "t:sections.lookbook.settings.grid.option__2.label"
+                },
+                {
+                    "value": "4",
+                    "label": "t:sections.lookbook.settings.grid.option__3.label"
+                }
+            ]
+        },
+        {
+            "type": "text",
+            "id": "grid_responsive",
+            "label": "t:sections.lookbook.settings.grid_responsive.label",
+            "info": "t:sections.lookbook.settings.grid_responsive.info"
+        },
+        {
+            "type": "range",
+            "id": "image_size",
+            "min": 200,
+            "max": 1000,
+            "step": 50,
+            "unit": "px",
+            "default": 500,
+            "label": "t:sections.lookbook.settings.image_size.label"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "image",
+            "name": "t:sections.lookbook.blocks.image.name",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "t:sections.lookbook.blocks.image.settings.image.label"
+                }
+            ]
+        },
+        {
+            "type": "product",
+            "name": "t:sections.lookbook.blocks.product.name",
+            "settings": [
+                {
+                    "type": "product",
+                    "id": "product",
+                    "label": "t:sections.lookbook.blocks.product.settings.product.label"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "t:sections.lookbook.blocks.product.settings.image.label"
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "t:sections.lookbook.blocks.product.settings.title.label"
+                },
+                {
+                    "type": "text",
+                    "id": "price",
+                    "label": "t:sections.lookbook.blocks.product.settings.price.label",
+                    "info": "t:sections.lookbook.blocks.product.settings.price.info"
+                },
+                {
+                    "type": "text",
+                    "id": "compare_at_price",
+                    "label": "t:sections.lookbook.blocks.product.settings.compare_at_price.label",
+                    "info": "t:sections.lookbook.blocks.product.settings.compare_at_price.info"
+                },
+                {
+                    "type": "range",
+                    "id": "horizontal_position",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "default": 50,
+                    "label": "t:sections.lookbook.blocks.product.settings.horizontal_position.label"
+                },
+                {
+                    "type": "range",
+                    "id": "vertical_position",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "default": 50,
+                    "label": "t:sections.lookbook.blocks.product.settings.vertical_position.label"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Lookbook",
+            "category": "4) Collections"
+        }
+    ]
+}{% endschema %}

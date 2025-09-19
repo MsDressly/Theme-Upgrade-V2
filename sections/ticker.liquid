@@ -1,0 +1,163 @@
+{% include 'global-variables' %}
+
+<style>
+  {%- assign transparent_value = 'rgba(0,0,0,0)' -%}
+  {%- if section.settings.color_bg and section.settings.color_bg != '' and section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+      #TickerSection-{{ section.id }} .ticker {
+        --background: {{ section.settings.color_bg }};
+      }
+  {%- endif -%}
+  {%- if section.settings.color_text and section.settings.color_text != '' and section.settings.color_text != 'rgba(0,0,0,0)' -%}
+      #TickerSection-{{ section.id }} .ticker {
+        --text: {{ section.settings.color_text }};
+      }
+  {%- endif -%}
+</style>
+
+<div{% if section.settings.customization_class != blank %} class="{{ section.settings.customization_class }}"{% endif %}>
+  <div id="TickerSection-{{ section.id }}">
+    <div{% render 'layout-get-container-class' %}>
+      <div class="ticker gradient{% if section.settings.full_width %} ticker--full-width{% endif %}">
+        {% capture content_html %}
+          <div class="ticker__content">
+            {%- for block in section.blocks -%}
+              <div class="ticker__block" {{ block.shopify_attributes }}>
+                {%- if section.settings.show_separator -%}
+                  <span class="ticker__separator">✲</span>
+                {%- endif -%}
+                {%- if block.settings.text != blank -%}
+                  <span class="ticker__text rte">
+                    {{ block.settings.text }}
+                  </span>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        {% endcapture %}
+        <noscript>
+          <marquee behavior="scroll" loop="infinity" truespeed="200" scrolldelay="50">
+            {{ content_html }}
+          </marquee>
+        </noscript>
+        <ticker-section class="hidden" data-speed="{{ section.settings.speed }}" data-referral="{{ section.settings.referral }}">
+          {{ content_html }}
+        </ticker-section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    theme.AssetsLoader.require('scripts', 'ticker');
+</script>
+
+{% schema %}
+{
+  "name": "Ticker",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+        "type": "select",
+        "id": "container",
+        "label": "Content width",
+        "default": "fullwidth",
+        "options": [
+            {
+                "value": "fullwidth",
+                "label": "Fullwidth"
+            },
+            {
+                "value": "boxed",
+                "label": "Boxed"
+            }
+        ]
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+        "type": "checkbox",
+        "id": "show_separator",
+        "label": "Show separator",
+        "default": false
+    },
+    {
+      "type": "select",
+      "id": "referral",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "label": "Referral"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "label": "Speed",
+      "default": 3
+    },
+    {
+        "type": "header",
+        "content": "Colorize"
+    },
+    {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Background"
+    },
+    {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text"
+    },
+    {
+    "type": "header",
+    "content": "Customization"
+    },
+    {
+    "type": "text",
+    "id": "customization_class",
+    "label": "Customization class",
+    "info": "[Read user manual for adding extra classes](https://mpithemes.gitbook.io/shella-shopify-theme/)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "content",
+      "name": "Content",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ticker",
+      "blocks": [
+        {
+          "type": "content"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

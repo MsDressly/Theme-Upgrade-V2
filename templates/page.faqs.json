@@ -1,0 +1,75 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "show_title": true,
+        "show_content": true
+      }
+    },
+    "16282847074d0e3104": {
+      "type": "faqs",
+      "blocks": {
+        "f3511b75-84d4-4312-b117-59e344146c9f": {
+          "type": "section",
+          "settings": {
+            "question": "WHAT ARE SHIPPING TIMES AND COSTS?",
+            "page_content": "",
+            "answer": "",
+            "is_open": true
+          }
+        },
+        "2dfb7281-4521-46ff-89fb-f9057af73cd8": {
+          "type": "section",
+          "settings": {
+            "question": "WHAT PAYMENT METHODS CAN I USE?",
+            "page_content": "",
+            "answer": "",
+            "is_open": true
+          }
+        },
+        "f8c03a32-1625-4e1f-8cce-ebba6f95320a": {
+          "type": "section",
+          "settings": {
+            "question": "WHAT IS YOUR EXCHANGES, RETURNS AND REFUNDS POLICY?",
+            "page_content": "",
+            "answer": "",
+            "is_open": true
+          }
+        }
+      },
+      "block_order": [
+        "f3511b75-84d4-4312-b117-59e344146c9f",
+        "2dfb7281-4521-46ff-89fb-f9057af73cd8",
+        "f8c03a32-1625-4e1f-8cce-ebba6f95320a"
+      ],
+      "settings": {}
+    },
+    "162828471524694188": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 60,
+        "margin_bottom": 0,
+        "margin_top_mobile": 0,
+        "margin_bottom_mobile": 0,
+        "container": "boxed",
+        "show_separator": false,
+        "title": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "16282847074d0e3104",
+    "162828471524694188"
+  ]
+}

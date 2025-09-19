@@ -1,0 +1,52 @@
+{%- if type == 'invert' -%}
+    {%- assign button_vars = 'var(--button2-bg),var(--button2-bd),var(--button2-c),var(--button2-h-bg),var(--button2-h-bd),var(--button2-h-c),var(--button2-act-bg),var(--button2-act-bd),var(--button2-act-c)' | split: ',' -%}
+{%- elsif type == 'secondary' -%}
+    {%- assign button_vars = 'var(--button3-bg),var(--button3-bd),var(--button3-c),var(--button3-h-bg),var(--button3-h-bd),var(--button3-h-c),var(--button3-act-bg),var(--button3-act-bd),var(--button3-act-c)' | split: ',' -%}
+{%- elsif type == 'clean' -%}
+    {%- assign button_vars = 'var(--button5-bg),var(--button5-bd),var(--button5-c),var(--button5-h-bg),var(--button5-h-bd),var(--button5-h-c),var(--button5-act-bg),var(--button5-act-bd),var(--button5-act-c)' | split: ',' -%}
+{%- else -%}
+    {%- assign button_vars = 'var(--button-bg),var(--button-bd),var(--button-c),var(--button-h-bg),var(--button-h-bd),var(--button-h-c),var(--button-act-bg),var(--button-act-bd),var(--button-act-c)' | split: ',' -%}
+{%- endif -%}
+{{ class }} {
+    background-color: {{ button_vars[0] }};
+    border-color: {{ button_vars[1] }};
+}
+{{ class }},
+{{ class }}:visited,
+{{ class }}:active,
+{{ class }}:link,
+{{ class }}:focus,
+{{ class }} span {
+    color: {{ button_vars[2] }};
+}
+{{ class }} .icon {
+    fill: {{ button_vars[2] }};
+}
+@media (min-width: 1025px) {
+    {{ class }}:hover {
+        background-color: {{ button_vars[3] }};
+        border-color: {{ button_vars[4] }};
+        color: {{ button_vars[5] }};
+    }
+    {{ class }}:hover span {
+        color: {{ button_vars[5] }};
+    }
+    {{ class }}:hover .icon {
+        fill: {{ button_vars[5] }};
+    }
+}
+{{ class }}.active {
+    background-color: {{ button_vars[6] }};
+    border-color: {{ button_vars[7] }};
+}
+{{ class }}.active,
+{{ class }}.active:visited,
+{{ class }}.active:active,
+{{ class }}.active:link,
+{{ class }}.active:focus,
+{{ class }}.active span {
+    color: {{ button_vars[8] }};
+}
+{{ class }}.active .icon {
+    fill: {{ button_vars[8] }};
+}

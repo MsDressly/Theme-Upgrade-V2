@@ -1,0 +1,507 @@
+{% include 'global-variables' %}
+<aside id="CollectionSidebar" class="collection-sidebar collection-sidebar--{{ settings.collection_sidebar_position }} js-position" data-js-position-name="sidebar" {% if settings.collection_sidebar_position == 'dropdown' %} data-js-position-onload{% endif %}>        
+    <div class="collection-sidebar__wrapper">
+        {%- assign filters_block = section.blocks | where: 'type', 'filters' -%}
+        {%- if filters_block.size == 0 or section.settings.enable_default_filtering != true -%}
+            <collection-filters-form class="collection-filters d-none">
+                <form id="CollectionFiltersForm" class="collection-filters__form mb-0">
+                    <div id="FacetsWrapperDesktop" class="collection-filters__form-wrapper">
+                        <div class="d-none js-filter" data-index="0" id="Details-SortBy-{{ section.id }}">
+                            <select name="sort_by" id="SortBy">
+                                {%- for option in main_object.sort_options -%}
+                                    <option value="{{ option.value | escape }}"{% if option.value == sort_by %} selected="selected"{% endif %}>{{ option.name | escape }}</option>
+                                {%- endfor -%}
+                            </select>
+                        </div>
+                    </div>
+                    {%- if main_object.current_vendor or main_object.current_type or terms -%}
+                        <input type="hidden" name="q" value="{{ main_object.current_vendor }}{{ main_object.current_type }}{{ terms }}">
+                    {%- endif -%}
+                    {%- if terms -%}
+                        <input name="options[prefix]" type="hidden" value="last">
+                    {%- endif -%}
+                </form>
+            </collection-filters-form>
+        {%- endif -%}
+        {%- for block in section.blocks -%}
+            {%- assign sidebar_section_content = null -%}
+            {%- assign hide_section = blank -%}
+            {%- case block.type -%}
+            {%- when 'current_filters' -%}
+                {%- assign content_type = 'current-filters' -%}
+                {%- assign show_border = section.settings.show_filter_border -%}
+                {%- capture sidebar_section_content -%}
+                    <div id="CollectionCurrentFilters">
+                        {% include 'collection-current-filters' %}
+                    </div>
+                {%- endcapture -%}
+                {%- assign has_content = true -%}
+            {%- when 'collections' -%}
+                {%- assign content_type = 'nav' -%}
+                {%- assign show_border = section.settings.show_filter_border -%}
+                {%- capture sidebar_section_content -%}
+                    <collection-navigation-form class="collection-filters">
+                        <form id="CollectionLinksForm" class="collection-filters__form mb-0">
+                            <div class="collection-filters__filters">
+                                <div class="collection-filters__content">
+                                    <div class="collection-filters__content-wrapper pb-10 collections-menu">
+                                        {%- for link in linklists[block.settings.menu].links -%}
+                                            {%- if link.levels > 0 -%}
+                                                {%- assign has_inner_active_item = false -%}
+                                                {% capture inner_list_html %}
+                                                    {%- for sub_link in link.links -%}
+                                                        {%- if sub_link.type == 'collection_link' -%}
+                                                            <div class="collections-menu__button d-flex align-items-center mb-15 mb-lg-10 cursor-pointer">
+                                                                <label class="collection-filters__checkbox input-checkbox d-flex align-items-center mb-0 mr-0 cursor-pointer">
+                                                                    <input type="radio" 
+                                                                        class="d-none{% if collection.template_suffix != blank or sub_link.object.template_suffix != blank and sub_link.object.template_suffix != collection.template_suffix %} js-reload-collection{% elsif sub_link.type != 'collection_link' %} js-reload-collection{% endif %}" 
+                                                                        name="collection_link" 
+                                                                        value="{{ sub_link.object.url | default: sub_link.url }}"
+                                                                        {% if sub_link.object.handle == collection.handle -%} 
+                                                                        checked="checked"
+                                                                        {%- assign has_inner_active_item = true -%}
+                                                                        {% endif %}>
+                                                                    <span class="position-relative d-block mr-8 border"><i class="d-none">{% render 'icon-theme-146' %}</i></span>
+                                                                    <span>{{ sub_link.title }}{% if block.settings.show_collection_product_count and sub_link.object.all_products_count %} ({{ sub_link.object.all_products_count }}){% endif %}</span>
+                                                                </label>
+                                                                {% comment %}
+                                                                {%- if block.settings.show_collection_product_count and sub_link.object.all_products_count -%}
+                                                                    <span class="ml-auto">{{ sub_link.object.all_products_count }}</span>
+                                                                {%- endif -%}
+                                                                {% endcomment %}
+                                                            </div>
+                                                        {%- endif -%}
+                                                    {%- endfor -%}
+                                                {% endcapture %}
+                                            {%- endif -%}
+                                            <div class="collections-menu__item"{% if link.levels > 0 %} data-js-accordion="all"{% endif %}>
+                                                <div class="collections-menu__button d-flex align-items-center mb-15 mb-lg-10 cursor-pointer{% if link.object.handle == collection.handle or has_inner_active_item %} open{% endif %}"{% if link.levels > 0 %} data-js-accordion-button{% endif %}>
+                                                    <label class="collection-filters__checkbox input-checkbox d-flex align-items-center mb-0 mr-0 cursor-pointer">
+                                                        <input type="radio" 
+                                                            class="d-none{% if collection.template_suffix != blank or link.object.template_suffix != blank and link.object.template_suffix != collection.template_suffix or link.type != 'collection_link' %} js-reload-collection{% elsif link.type != 'collection_link' %} js-reload-collection{% endif %}" 
+                                                            name="collection_link" 
+                                                            value="{{ link.object.url | default: link.url }}"
+                                                            {% if link.object.handle == collection.handle %} checked="checked"{% endif %}
+                                                            {% if link.levels > 0 %} data-js-accordion-input{% endif %}>
+                                                        <span class="position-relative d-block mr-8 border"><i class="d-none">{% render 'icon-theme-146' %}</i></span>
+                                                        <span>{{ link.title }}{% if block.settings.show_collection_product_count and link.object.all_products_count %} ({{ link.object.all_products_count }}){% endif %}</span>
+                                                    </label>
+                                                    {%- if link.levels > 0 -%}
+                                                        <i class="collections-menu__arrow">{% render 'icon-theme-229' %}</i>
+                                                    {%- endif -%}
+                                                    {% comment %}
+                                                    {%- if block.settings.show_collection_product_count and link.object.all_products_count -%}
+                                                        <span class="ml-auto">{{ link.object.all_products_count }}</span>
+                                                    {%- endif -%}
+                                                    {% endcomment %}
+                                                </div>
+                                                {%- if link.levels > 0 -%}
+                                                    <div class="collections-menu__list{% unless link.object.handle == collection.handle or has_inner_active_item %} d-none{% endunless %} pt-1 ml-25" data-js-accordion-content>
+                                                        {{ inner_list_html }}
+                                                    </div>
+                                                {%- endif -%}
+                                            </div>
+                                            {%- assign has_content = true -%}
+                                        {%- endfor -%}
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </collection-navigation-form>
+                {%- endcapture -%}
+            {%- when 'filters' -%}
+                {%- unless section.settings.enable_default_filtering -%}
+                    {%- continue -%}    
+                {%- endunless -%}
+                {%- assign content_type = 'filters' -%}
+                {%- assign show_border = section.settings.show_filter_border -%}
+                <collection-filters-form class="collection-filters d-block">
+                    <form id="CollectionFiltersForm" class="collection-filters__form mb-0">
+                        <div id="FacetsWrapperDesktop" class="collection-filters__form-wrapper">
+                            <div class="d-none js-filter" data-index="0"id="Details-SortBy-{{ section.id }}">
+                                <select name="sort_by" id="SortBy">
+                                    {%- for option in main_object.sort_options -%}
+                                        <option value="{{ option.value | escape }}"{% if option.value == sort_by %} selected="selected"{% endif %}>{{ option.name | escape }}</option>
+                                    {%- endfor -%}
+                                </select>
+                            </div>
+                            {%- assign setting_blocks = section.blocks | where: 'type', 'filter_settings' -%}
+                            {%- for filter in main_object.filters -%}
+                                {%- assign settings_block = block -%}
+                                {%- for iteration_block in setting_blocks -%}
+                                    {%- if iteration_block.settings.filter_name == filter.label -%}
+                                        {%- assign settings_block = iteration_block -%}
+                                        {%- break -%}
+                                    {%- endif -%}
+                                {%- endfor -%}
+                                {%- assign make_as_rounded = false -%}
+                                {%- assign make_as_color = settings_block.settings.make_as_color -%}
+                                {%- if section.settings.make_availability_as_rounded and filter.param_name == 'filter.v.availability' -%}
+                                    {%- assign make_as_rounded = true -%}
+                                    {%- assign make_as_color = false -%}
+                                {%- endif -%}
+                                {% capture sidebar_section_content %}
+                                    {% case filter.type %}
+                                    {% when 'list' %}
+                                        {%- assign hide_section = true -%}
+                                        {%- if settings_block.settings.layout contains 'col' -%}
+                                            {%- assign layout_columns = settings_block.settings.layout | remove: '_col' | abs -%}
+                                        {%- endif -%}
+                                        <div class="collection-filters__filters js-filter" data-index="{{ forloop.index }}" id="Details-{{ filter.param_name | escape }}-{{ section.id }}">
+                                            {%- if section.settings.show_selected_filters_counter -%}
+                                            <div class="collection-filters__header d-flex">
+                                                <span class="collection-filters__selected mr-10 facets__selected no-js-hidden">{{ 'collection_template.filters_selected' | t: count: filter.active_values.size }}</span>
+                                                <facet-remove class="ml-auto">
+                                                    <a href="{{ filter.url_to_remove }}" class="collection-filters__reset btn-link btn-link--undecorated">
+                                                        {{ 'collection_template.reset' | t }}
+                                                    </a>
+                                                </facet-remove>
+                                            </div>
+                                            {%- endif -%}
+                                            <div class="collection-filters__content"{% if make_as_color %} data-property="color"{% endif %}>
+                                                <div class="collection-filters__content-wrapper{% if settings_block.settings.layout == 'row' %} d-flex flex-wrap pt-2 pb-10{% else %} row row--5 pt-1{% endif %}">   
+                                                    {%- capture filters_html -%}
+                                                        {%- assign items_counter = 0 -%}
+                                                        {%- for value in filter.values -%}
+                                                            {%- assign disable_checkbox = false -%}
+                                                            {%- if value.count == 0 and value.active == false -%}
+                                                                {%- assign disable_checkbox = true -%}
+                                                            {%- else -%}
+                                                                {%- assign hide_section = false -%}
+                                                            {%- endif -%}
+                                                            {%- if disable_checkbox and section.settings.hide_disabled_filters -%}
+                                                                {%- continue -%}
+                                                            {%- endif -%}
+                                                            {%- if settings_block.settings.layout contains 'col' and layout_columns > 1 and settings_block.settings.max_column_size != 0 -%}
+                                                                {%- if items_counter != 0 -%}
+                                                                    {%- assign items_counter_modulo = items_counter | modulo: settings_block.settings.max_column_size -%}
+                                                                    {%- if items_counter_modulo == 0 -%}
+                                                                        </div>
+                                                                        <div class="col-{{ 12 | divided_by: layout_columns }} mb-10">
+                                                                    {%- endif -%}
+                                                                {%- endif -%}
+                                                                {%- assign items_counter = items_counter | plus: 1 -%}
+                                                            {%- endif -%}
+                                                            <label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="collection-filters__checkbox{% if disable_checkbox %} collection-filters__checkbox--disabled{% if section.settings.hide_disabled_filters %} d-none-important{% endif %}{% endif %} {% if make_as_rounded %}input-boolean{% else %}input-checkbox{% endif %} d-flex align-items-center mb-15 mb-lg-10{% if settings_block.settings.layout == 'row' %} mr-15{% if make_as_color %} mr-lg-10 input-checkbox--unbordered{% endif %}{% endif %} cursor-pointer">
+                                                                <input type="checkbox"
+                                                                class="d-none"
+                                                                name="{{ value.param_name }}"
+                                                                value="{{ value.value }}"
+                                                                id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
+                                                                {% if value.active %}checked{% endif %}
+                                                                {% if disable_checkbox %}disabled{% endif %}>
+                                                                <span class="position-relative {% if make_as_rounded %}d-flex border{% else %}d-block{% endif %}{% if make_as_color %}{% if settings_block.settings.layout contains 'col' %} mr-8{% endif %} rounded-circle standard-color-default standard-color-{% render 'product-get-options-strip-symbols' with value: value.label %}{% else %} mr-8 border{% endif %}"{% if make_as_color %} data-value="{% render 'product-get-options-strip-symbols' with value: value.label %}"{% endif %}>
+                                                                    {% if make_as_rounded %}
+                                                                        <span class="position-absolute d-block border"></span>
+                                                                    {% else %}
+                                                                        <i class="d-none{% if make_as_color %} standard-color-arrow{% endif %}">{% render 'icon-theme-146' %}</i>
+                                                                    {% endif %}
+                                                                </span>
+                                                                {%- if make_as_color != true or settings_block.settings.layout contains 'col' -%}
+                                                                    <span>{{ value.label | escape }}{% if section.settings.show_filter_product_count %} ({{ value.count }}){% endif %}</span>
+                                                                {%- endif -%}
+                                                            </label>
+                                                        {%- endfor -%}
+                                                    {%- endcapture -%}
+                                                    {%- if settings_block.settings.layout contains 'col' -%}
+                                                        <div class="col-{{ 12 | divided_by: layout_columns }} mb-10">
+                                                            {{ filters_html }}
+                                                        </div>
+                                                    {%- else -%}
+                                                        {{ filters_html }}
+                                                    {%- endif -%}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% when 'price_range' %}
+                                        {%- assign hide_section = false -%}
+                                        {% liquid
+                                            assign currencies_using_comma_decimals = 'ANG,ARS,BRL,BYN,BYR,CLF,CLP,COP,CRC,CZK,DKK,EUR,HRK,HUF,IDR,ISK,MZN,NOK,PLN,RON,RUB,SEK,TRY,UYU,VES,VND' | split: ','
+                                            assign uses_comma_decimals = false
+                                            if currencies_using_comma_decimals contains cart.currency.iso_code
+                                            assign uses_comma_decimals = true
+                                            endif
+                                        %}                                                          
+                                        <div class="collection-filters__filters mb-10">
+                                            {%- if section.settings.show_selected_filters_counter -%}
+                                                <div class="collection-filters__header d-flex js-filter" data-index="{{ forloop.index }}-header" id="Details-Header-{{ section.id }}">
+                                                    {%- if settings.show_multiple_currencies -%}
+                                                        {%- assign max_price_amount = filter.range_max | money -%}
+                                                    {%- else -%}
+                                                        {%- assign max_price_amount = filter.range_max | money | strip_html | escape -%}
+                                                    {%- endif -%}
+                                                    <span class="collection-filters__selected mr-10 facets__selected">{{ "collection_template.max_price_html" | t: price: max_price_amount }}</span>
+                                                    <facet-remove class="ml-auto">
+                                                        <a href="{{ filter.url_to_remove }}" class="collection-filters__reset btn-link btn-link--undecorated">
+                                                            {{ 'collection_template.reset' | t }}
+                                                        </a>
+                                                    </facet-remove>
+                                                </div>
+                                            {%- endif -%}
+                                            <div class="collection-filters__content">
+                                                <div class="collection-filters__content-wrapper">
+                                                    {%- assign price_filter_type = section.settings.price_filter_type -%}
+                                                    {%- if settings.show_multiple_currencies -%}
+                                                        {%- assign price_filter_type = 'slider' -%}
+                                                    {%- endif -%}
+                                                    {%- if price_filter_type contains 'slider' -%}
+                                                        <div class="collection-filter-by-price pb-5">
+                                                            <input type="hidden" class="js-range-of-price" name="filter_by_price" data-min-filter-input-name="{{ filter.min_value.param_name }}" data-max-filter-input-name="{{ filter.max_value.param_name }}" data-min="0" data-max="{{ filter.range_max | divided_by: 100 }}" data-step="1"{% if filter.min_value.value %} data-from="{{ filter.min_value.value | divided_by: 100 }}"{% endif %}{% if filter.max_value.value %} data-to="{{ filter.max_value.value | divided_by: 100 }}"{% endif %}>
+                                                        </div>
+                                                        <script>
+                                                            theme.AssetsLoader.require('styles', 'plugin_ion_range_slider');
+                                                            theme.AssetsLoader.require('scripts', 'range_of_price');
+                                                        </script>
+                                                    {%- endif -%}
+                                                    <div class="js-filter" data-index="{{ forloop.index }}" id="Details-{{ filter.param_name | escape }}-{{ section.id }}">
+                                                        <price-range class="row align-items-center pb-10{% unless price_filter_type contains 'inputs' %} d-none{% endunless %}{% if price_filter_type contains 'slider' %} mt-5{% endif %}">
+                                                            <div class="col-auto px-10 d-none">
+                                                                <span>{{ 'collection_template.from' | t }}</span>
+                                                            </div>
+                                                            <div class="col pr-0">
+                                                                <label class="collection-filters__price-input-wrapper d-flex align-items-center position-relative w-100 m-0">
+                                                                    <input class="mb-0 text-right"
+                                                                        name="{{ filter.min_value.param_name }}"
+                                                                        id="Filter-{{ filter.label | escape }}-GTE"
+                                                                        {%- if filter.min_value.value -%}
+                                                                        {%- if uses_comma_decimals -%}value="{{ filter.min_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"{%- else -%}value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
+                                                                        {%- endif -%}
+                                                                        type="number"
+                                                                        placeholder="0"
+                                                                        min="0"
+                                                                        {%- if uses_comma_decimals -%}max="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' }}"{%- else -%}max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"{% endif %}
+                                                                    >
+                                                                    </input>
+                                                                    <span class="position-absolute left-0 ml-15">{{ cart.currency.symbol }}</span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="col-auto px-10">
+                                                                <span>{{ 'collection_template.to' | t }}</span>
+                                                            </div>
+                                                            <div class="col d-flex align-items-end pl-0">
+                                                                <label class="collection-filters__price-input-wrapper d-flex align-items-center position-relative w-100 m-0">
+                                                                    <input class="mb-0 text-right"
+                                                                        name="{{ filter.max_value.param_name }}"
+                                                                        id="Filter-{{ filter.label | escape }}-LTE"
+                                                                        {%- if filter.max_value.value -%}{%- if uses_comma_decimals -%}value="{{ filter.max_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"{%- else -%}value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
+                                                                        {%- endif -%}
+                                                                        type="number"
+                                                                        min="0"
+                                                                        {%- if uses_comma_decimals -%}
+                                                                        placeholder="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+                                                                        max="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+                                                                        {%- else -%}
+                                                                        placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                                                                        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                                                                        {% endif %}
+                                                                    >
+                                                                    </input>
+                                                                    <span class="position-absolute left-0 ml-15">{{ cart.currency.symbol }}</span>
+                                                                </label>
+                                                            </div>
+                                                        </price-range>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endcase %}
+                                {% endcapture %}
+
+                                {%- assign sidebar_section_title = settings_block.settings.title | default: filter.label | escape -%}
+                                {%- assign sidebar_section_index = 'section-filters-' | append: forloop.index -%}
+                                {% render 'collection-sidebar-section', content: sidebar_section_content, title: sidebar_section_title, settings_block: settings_block, has_content: true, content_type: content_type, hide_section: hide_section, show_border: show_border, index: sidebar_section_index %}
+                            {%- endfor -%}
+                            <noscript>
+                                <button type="submit" class="button-no-js">{{ 'collection_template.filter_button' | t }}</button>
+                            </noscript>
+                            {%- if main_object.current_vendor or main_object.current_type or terms -%}
+                                <input type="hidden" name="q" value="{{ main_object.current_vendor }}{{ main_object.current_type }}{{ terms }}">
+                            {%- endif -%}
+                            {%- if terms -%}
+                                <input name="options[prefix]" type="hidden" value="last">
+                            {%- endif -%}
+                        </div>
+                    </form>
+                </collection-filters-form>
+                {%- continue -%}
+            {%- when 'tags' -%}
+                {%- if section.settings.enable_default_filtering -%}
+                    {%- continue -%}    
+                {%- endif -%}
+                {%- assign content_type = 'filters' -%}
+                {%- assign show_border = section.settings.show_filter_border -%}
+                {%- assign make_as_color = block.settings.make_as_color -%}
+                {%- unless block.settings.show_checkbox -%}
+                    {%- assign make_as_color = false -%}
+                {%- endunless -%}
+                {%- if make_as_color or block.settings.tags_list != blank -%}
+                    {%- assign tags_list = block.settings.tags_list | newline_to_br | split: '<br />' -%}
+                    {%- assign formated_tags_list = null -%}
+                    {%- for tag in tags_list -%}
+                        {% capture formated_tags_list %}{{ formated_tags_list }}{% if formated_tags_list %}|||{% endif %}{{ tag | strip }}{% endcapture %}
+                    {%- endfor -%}
+                    {%- assign display_tags = formated_tags_list | split: '|||' -%}
+                {%- else -%}
+                    {%- assign display_tags = collection.all_tags -%}
+                {%- endif -%}
+                {%- if block.settings.layout contains 'col' -%}
+                    {%- assign layout_columns = block.settings.layout | remove: '_col' | abs -%}
+                {%- endif -%}
+                {%- assign hide_section = true -%}
+                {%- capture sidebar_section_content -%}
+                    <collection-navigation-form class="collection-filters">
+                        <form class="collection-filters__form mb-0">
+                            <div class="collection-filters__filters js-sh-filter" data-index="tags-{{ forloop.index }}">
+                                <div class="collection-filters__content"{% if make_as_color %} data-property="color"{% endif %}>
+                                    <div class="collection-filters__content-wrapper{% if block.settings.layout == 'row' %} d-flex flex-wrap pt-2 pb-10{% else %} row row--5 pt-1{% endif %}">
+                                        {%- unless display_tags.size == 0 -%}
+                                            {%- capture tags_html -%}
+                                                {%- assign items_counter = 0 -%}
+                                                {%- for tag in display_tags -%}
+                                                    {%- unless collection.all_tags contains tag -%}
+                                                        {%- continue -%}
+                                                    {%- endunless -%}
+                                                    {%- assign hide_section = false -%}
+                                                    {%- assign tag_url = tag | link_to_tag: tag | split: 'href="' | last | split: '"' | first -%}
+                                                    {%- if current_tags contains tag -%}
+                                                        {%- assign to_tag_url = tag | link_to_remove_tag: tag | split: 'href="' | last | split: '"' | first -%}
+                                                    {%- else -%}
+                                                        {%- assign to_tag_url = tag | link_to_add_tag: tag | split: 'href="' | last | split: '"' | first -%}
+                                                    {%- endif -%}
+                                                    {%- if block.settings.layout contains 'col' and layout_columns > 1 and block.settings.max_column_size != 0 -%}
+                                                        {%- if items_counter != 0 -%}
+                                                            {%- assign items_counter_modulo = items_counter | modulo: block.settings.max_column_size -%}
+                                                            {%- if items_counter_modulo == 0 -%}
+                                                                </div>
+                                                                <div class="col-{{ 12 | divided_by: layout_columns }} mb-10">
+                                                            {%- endif -%}
+                                                        {%- endif -%}
+                                                        {%- assign items_counter = items_counter | plus: 1 -%}
+                                                    {%- endif -%}
+                                                    <label class="collection-filters__checkbox input-checkbox d-flex align-items-center mb-15 mb-lg-10{% if block.settings.layout == 'row' %} mr-15{% if make_as_color %} mr-lg-10 input-checkbox--unbordered{% endif %}{% endif %} cursor-pointer">
+                                                        <input type="checkbox" class="d-none" name="collection_link" value="{{ to_tag_url }}"{% if current_tags contains tag %} checked="checked"{% endif %}>
+                                                        {%- if make_as_color -%}
+                                                            {%- assign tag_standart_color = tag_url | split: '/' | last | split: '?' | first | downcase -%}
+                                                        {%- endif -%}
+                                                        <span class="{% unless block.settings.show_checkbox %}d-none-important {% endunless %}position-relative d-block{% if make_as_color %}{% if block.settings.layout contains 'col' %} mr-8{% endif %} rounded-circle standard-color-default standard-color-{% render 'product-get-options-strip-symbols' with value: tag_standart_color %}{% else %} mr-8 border{% endif %}"{% if make_as_color %} data-value="{% render 'product-get-options-strip-symbols' with value: tag_standart_color %}"{% endif %}>
+                                                            <i class="d-none{% if make_as_color %} standard-color-arrow{% endif %}">{% render 'icon-theme-146' %}</i>
+                                                        </span>
+                                                        {%- if make_as_color != true or block.settings.layout contains 'col' and block.settings.show_checkbox != false -%}
+                                                            <span>{{ tag }}</span>
+                                                        {%- endif -%}
+                                                    </label>
+                                                {%- endfor -%}
+                                            {%- endcapture -%}
+                                            {%- if block.settings.layout contains 'col' -%}
+                                                <div class="col-{{ 12 | divided_by: layout_columns }} mb-10">
+                                                    {{ tags_html }}
+                                                </div>
+                                            {%- else -%}
+                                                {{ tags_html }}
+                                            {%- endif -%}
+                                        {%- endunless -%}
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </collection-navigation-form>
+                {%- endcapture -%}
+                {%- if block.settings.for_collections != blank -%}
+                    {%- assign for_collections = block.settings.for_collections | split: ',' -%}
+                    {%- unless for_collections contains collection.handle -%}
+                        {%- assign hide_section = true -%}
+                    {%- endunless -%}
+                {%- endif -%}
+                {%- if collection.current_vendor or collection.current_type -%}
+                    {%- assign hide_section = true -%}
+                {%- endif -%}
+                {%- assign has_content = true -%}
+            {%- when 'products' -%}
+                {%- assign content_type = 'info' -%}
+                {%- assign show_border = section.settings.show_filter_border -%}
+                {%- capture sidebar_section_content -%}
+                    {%- assign products = collections[block.settings.collection].products -%}
+                    {%- assign products_limit = block.settings.max_count -%}
+                    {%- if products_limit == 0 -%}
+                        {%- assign products_limit = products.size -%}
+                    {%- endif -%}
+                    {%- if products.size > 0 -%}
+                        {%- for product in products limit: products_limit -%}
+                            {%- if block.settings.product_type == 'full' -%}
+                                {% include 'product-collection' %}
+                            {%- else -%}
+                                {% include 'product-featured' %}
+                            {%- endif -%}
+                        {%- endfor -%}
+                        {%- assign has_content = true -%}
+                    {%- endif -%}
+                {%- endcapture -%}
+            {%- when 'custom_html' -%}
+                {%- assign content_type = 'info' -%}
+                {%- assign show_border = false -%}
+                {%- capture sidebar_section_content -%}
+                    {% capture custom_html %}
+                        {% include 'parse-page-html-content' with default_page: 'include-collections-sidebar' page_content: block.settings.page_content %}
+                    {% endcapture %}
+                    {%- if custom_html != blank -%}
+                        <div class="rte">
+                            {{ custom_html }}
+                        </div>
+                        {%- assign has_content = true -%}
+                    {%- endif -%}
+                {%- endcapture -%}
+            {%- when 'promobox' -%}
+                {%- assign content_type = 'info' -%}
+                {%- assign show_border = false -%}
+                {%- capture sidebar_section_content -%}
+                    {% render 'promobox' with block: block promobox_curtain_opacity: promobox_curtain_opacity promobox_height_preset_1: promobox_height_preset_1 promobox_height_preset_2: promobox_height_preset_2 promobox_height_preset_3: promobox_height_preset_3 promobox_ultra_height_preset_1: promobox_ultra_height_preset_1 promobox_ultra_height_preset_3: promobox_ultra_height_preset_3 %}
+                    {%- assign has_content = true -%}
+                {%- endcapture -%}
+            {%- when 'subscription' -%}
+                {%- assign content_type = 'info' -%}
+                {%- assign show_border = false -%}
+                {%- capture sidebar_section_content -%}
+                    {%- if block.settings.paragraph != blank -%}
+                        <p>{{ block.settings.paragraph }}</p>
+                    {%- endif -%}
+                    <div class="d-flex flex-column">
+                        {%- if settings.subscription_show_confirmation_checkbox -%}
+                            <input id="Collection-Sidebar-Subscription-checkbox" type="checkbox" class="d-none input-checkbox-disable-trigger" name="footer_subscription">
+                            <label for="Collection-Sidebar-Subscription-checkbox" class="footer__subscription-checkbox subscription-checkbox input-checkbox input-checkbox--input-out position-relative d-inline-flex align-items-start mt-10 cursor-pointer">
+                                <span class="position-relative d-block mt-0 mr-10 border"><i class="d-none">{% render 'icon-theme-146' %}</i></span>
+                                <span>{{ 'general.form.subscription.checkbox_html' | t }}</span>
+                            </label>
+                            <div class="input-checkbox-disable-trigger-error subscription-checkbox-error d-none mt-10">
+                                <div class="note note--error mb-5">
+                                    <ul>
+                                        <li>{{ 'general.form.subscription.checkbox_error' | t }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        {%- endif -%}
+                        {%- if settings.subscription_method == 'shopify' -%}
+                            {% form 'customer', id: null, class: 'subscription-form form-group--type-inline form-input-button form-input-button--type-02 d-flex flex-column flex-lg-row mb-15' %}
+                                {% render 'form-get-check-error-popup' %}
+                                <input type="hidden" name="contact[tags]" value="newsletter">
+                                <input type="email" name="contact[email]" class="mb-0 mr-lg-10{% if form.errors %} input--error{% endif %}" placeholder="{{ block.settings.placeholder }}" required="required">
+                                <input type="submit" class="input-checkbox-disable-body btn mt-10 mt-lg-0" name="commit" value="{{ block.settings.button_text }}">
+                            {% endform %}
+                        {%- elsif settings.subscription_method == 'mailchimp' -%}
+                            <form action="{{ settings.subscription_mailchimp_form_action }}" method="post" class="subscription-form form-group--type-inline form-input-button form-input-button--type-02 d-flex flex-column flex-lg-row mb-15" target="_blank">
+                                <input type="email" name="EMAIL" class="mb-0 mr-lg-10" placeholder="{{ block.settings.placeholder }}" required="required">
+                                <input type="submit" class="input-checkbox-disable-body btn mt-10 mt-lg-0" value="{{ block.settings.button_text }}">
+                            </form>
+                        {%- endif -%}
+                    </div>
+                    {%- assign has_content = true -%}
+                {%- endcapture -%}
+            {%- endcase -%}
+            
+            {%- assign sidebar_section_title = block.settings.title | defalut: 'TITLE' -%}
+            {%- if sidebar_section_content -%}
+                {%- assign sidebar_section_index = 'section-' | append: forloop.index -%}
+                {% render 'collection-sidebar-section', content: sidebar_section_content, title: sidebar_section_title, settings_block: block, has_content: has_content, content_type: content_type, hide_section: hide_section, show_border: show_border, index: sidebar_section_index %}
+            {%- endif -%}
+        {%- endfor -%}
+    </div>
+</aside>

@@ -1,0 +1,155 @@
+{%- assign share_type = share_type | default: 1 | abs -%}
+{%- if share_type == 1 -%}
+    {%- assign grid = 'col-2' -%}
+{%- else -%}
+    {%- assign grid = 'col-6 col-md-4' -%}
+{%- endif -%}
+<div class="social-share social-share--type-{{ share_type }} overflow-hidden">
+    <div class="row">
+        {%- if settings.social_share_enable_facebook -%}
+            <div class="social-share__col {{ grid }} px-5 mb-10">
+                <a href="//www.facebook.com/sharer.php?u={{ shop.url | append: share_permalink }}" target="_blank" class="social-share__item social-share__item--facebook position-relative d-block">
+                    <div class="social-share__item_bg absolute-stretch"></div>
+                    <div class="social-share__item_content position-relative d-flex flex-center">
+                        <i>{% render 'icon-social-facebook' %}</i>
+                        {%- if share_type == 2 -%}
+                            <span class="ml-10">{{ 'general.social.share_text.facebook' | t }}</span>
+                        {%- endif -%}
+                    </div>
+                </a>
+            </div>
+        {%- endif -%}
+        {%- if settings.social_share_enable_twitter -%}
+            <div class="social-share__col {{ grid }} px-5 mb-10">
+                <a href="//twitter.com/share?text={{ share_title | url_param_escape }}&amp;url={{ shop.url | append: share_permalink }}" target="_blank" class="social-share__item social-share__item--twitter position-relative d-block">
+                    <div class="social-share__item_bg absolute-stretch"></div>
+                    <div class="social-share__item_content position-relative d-flex flex-center">
+                        <i>{% render 'icon-social-twitter' %}</i>
+                        {%- if share_type == 2 -%}
+                            <span class="ml-5">{{ 'general.social.share_text.twitter' | t }}</span>
+                        {%- endif -%}
+                    </div>
+                </a>
+            </div>
+        {%- endif -%}
+        {%- if settings.social_share_enable_pinterest -%}
+            <div class="social-share__col {{ grid }} px-5 mb-10">
+                <a href="//pinterest.com/pin/create/button/?url={{ shop.url | append: share_permalink }}&amp;media={{ share_image | img_url: '1024x1024' }}&amp;description={{ share_title | url_param_escape }}" target="_blank" class="social-share__item social-share__item--pinterest position-relative d-block">
+                    <div class="social-share__item_bg absolute-stretch"></div>
+                    <div class="social-share__item_content position-relative d-flex flex-center">
+                        <i>{% render 'icon-social-pinterest-2' %}</i>
+                        {%- if share_type == 2 -%}
+                            <span class="ml-7">{{ 'general.social.share_text.pinterest' | t }}</span>
+                        {%- endif -%}
+                    </div>
+                </a>
+            </div>
+        {%- endif -%}
+        {%- if settings.social_share_enable_linkedin -%}
+            <div class="social-share__col {{ grid }} px-5 mb-10">
+                <a href="//www.linkedin.com/shareArticle?mini=true&url={{ shop.url | append: share_permalink }}&title={{ share_title | url_param_escape }}&summary=&source=" target="_blank" class="social-share__item social-share__item--linkedin position-relative d-block">
+                    <div class="social-share__item_bg absolute-stretch"></div>
+                    <div class="social-share__item_content position-relative d-flex flex-center">
+                        <i>{% render 'icon-social-linkedin' %}</i>
+                        {%- if share_type == 2 -%}
+                            <span class="ml-6">{{ 'general.social.share_text.linkedin' | t }}</span>
+                        {%- endif -%}
+                    </div>
+                </a>
+            </div>
+        {%- endif -%}
+        {%- if settings.social_share_enable_buffer -%}
+            <div class="social-share__col {{ grid }} px-5 mb-10">
+                <a href="//buffer.com/add?text={{ share_title | url_param_escape }}&url={{ shop.url | append: share_permalink }}" target="_blank" class="social-share__item social-share__item--buffer position-relative d-block">
+                    <div class="social-share__item_bg absolute-stretch"></div>
+                    <div class="social-share__item_content position-relative d-flex flex-center">
+                        <i>{% render 'icon-social-buffer' %}</i>
+                        {%- if share_type == 2 -%}
+                            <span class="ml-6">{{ 'general.social.share_text.buffer' | t }}</span>
+                        {%- endif -%}
+                    </div>
+                </a>
+            </div>
+        {%- endif -%}
+        {%- if settings.social_share_enable_reddit -%}
+            <div class="social-share__col {{ grid }} px-5 mb-10">
+                <a href="//www.reddit.com/submit?title={{ share_title | url_param_escape }}&url={{ shop.url | append: share_permalink }}" target="_blank" class="social-share__item social-share__item--reddit position-relative d-block">
+                    <div class="social-share__item_bg absolute-stretch"></div>
+                    <div class="social-share__item_content position-relative d-flex flex-center">
+                        <i>{% render 'icon-social-reddit' %}</i>
+                        {%- if share_type == 2 -%}
+                            <span class="ml-5">{{ 'general.social.share_text.reddit' | t }}</span>
+                        {%- endif -%}
+                    </div>
+                </a>
+            </div>
+        {%- endif -%}
+        {% comment %}
+            line
+            hatena
+            pocket
+
+            https://social-plugins.line.me/lineit/share?url=
+            https://b.hatena.ne.jp/add?mode=confirm&amp;url=
+            https://getpocket.com/edit?url=
+            
+            snippets/icon-social-hatena.svg
+            snippets/icon-social-pocket.svg
+            snippets/icon-social-line.svg
+
+            LINE   
+            primary color  #06c755
+            background-color  #cdf4dd
+
+            Hatena
+            primary color  #1588cb
+            background-color  #d0e7f5
+
+            Pocket
+            primary color  #ef4056
+            background-color  #fcd9dd 
+
+        {% endcomment %}
+        {%- if settings.social_share_enable_line -%}
+            <div class="social-share__col {{ grid }} px-5 mb-10">
+                <a href="//social-plugins.line.me/lineit/share?url={{ shop.url | append: share_permalink }}&text={{ share_title | url_param_escape }}" target="_blank" class="social-share__item social-share__item--line position-relative d-block">
+                    <div class="social-share__item_bg absolute-stretch"></div>
+                    <div class="social-share__item_content position-relative d-flex flex-center">
+                        <i>{% render 'icon-social-line' %}</i>
+                        {%- if share_type == 2 -%}
+                            <span class="ml-5">{{ 'general.social.share_text.line' | t }}</span>
+                        {%- endif -%}
+                    </div>
+                </a>
+            </div>
+        {%- endif -%}
+
+        {%- if settings.social_share_enable_hatena -%}
+            <div class="social-share__col {{ grid }} px-5 mb-10">
+                <a href="//b.hatena.ne.jp/add?mode=confirm&amp;url={{ share_title | url_param_escape }}&url={{ shop.url | append: share_permalink }}" target="_blank" class="social-share__item social-share__item--hatena position-relative d-block">
+                    <div class="social-share__item_bg absolute-stretch"></div>
+                    <div class="social-share__item_content position-relative d-flex flex-center">
+                        <i>{% render 'icon-social-hatena' %}</i>
+                        {%- if share_type == 2 -%}
+                            <span class="ml-5">{{ 'general.social.share_text.hatena' | t }}</span>
+                        {%- endif -%}
+                    </div>
+                </a>
+            </div>
+        {%- endif -%}
+
+        {%- if settings.social_share_enable_pocket -%}
+            <div class="social-share__col {{ grid }} px-5 mb-10">
+                <a href="//getpocket.com/edit?url={{ share_title | url_param_escape }}&url={{ shop.url | append: share_permalink }}" target="_blank" class="social-share__item social-share__item--pocket position-relative d-block">
+                    <div class="social-share__item_bg absolute-stretch"></div>
+                    <div class="social-share__item_content position-relative d-flex flex-center">
+                        <i>{% render 'icon-social-pocket' %}</i>
+                        {%- if share_type == 2 -%}
+                            <span class="ml-5">{{ 'general.social.share_text.pocket' | t }}</span>
+                        {%- endif -%}
+                    </div>
+                </a>
+            </div>
+        {%- endif -%}
+    </div>
+</div>

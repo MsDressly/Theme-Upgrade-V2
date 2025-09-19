@@ -1,0 +1,36 @@
+{%- assign quantity_type = quantity_type | default: 1 -%}
+{%- case quantity_type -%}
+    {%- when 1 %}
+        <label{% unless quantity_show_title %} class="d-none"{% endunless %}>{{ 'products.product.quantity' | t }}</label>
+        <div class="input-quantity input-quantity--type-01 d-flex js-product-quantity"{% if quantity_connect %} data-js-quantity-connect="{{ quantity_connect }}"{% endif %}>
+            <input type="number" class="mb-0 mr-10" name="quantity" value="1" min="1"{% if product_form_id %} form="{{ product_form_id }}"{% endif %}>
+            <div class="d-flex flex-center mr-10 border cursor-pointer" data-control="-"><i>{% render 'icon-theme-189' %}</i></div>
+            <div class="d-flex flex-center border cursor-pointer" data-control="+"><i>{% render 'icon-theme-188' %}</i></div>
+        </div>
+    {%- when 2 %}
+        <label{% unless quantity_show_title %} class="d-none"{% endunless %}>{{ 'products.product.quantity' | t }}</label>
+        <div class="input-quantity input-quantity--type-02 d-flex js-product-quantity"{% if quantity_connect %} data-js-quantity-connect="{{ quantity_connect }}"{% endif %}>
+            <div class="d-flex flex-center cursor-pointer" data-control="-"><i>{% render 'icon-theme-189' %}</i></div>
+            <input type="number" class="mb-0 text-center" name="quantity" value="1" min="1"{% if product_form_id %} form="{{ product_form_id }}"{% endif %}>
+            <div class="d-flex flex-center cursor-pointer" data-control="+"><i>{% render 'icon-theme-188' %}</i></div>
+        </div>
+    {%- when 3 %}
+        <label{% unless quantity_show_title %} class="d-none"{% endunless %}>{{ 'products.product.quantity' | t }}</label>
+        <div class="input-quantity input-quantity--type-03 d-flex mr-10 js-product-quantity"{% if quantity_connect %} data-js-quantity-connect="{{ quantity_connect }}"{% endif %}>
+            <input type="number" class="mb-0" name="quantity" value="1" min="1"{% if product_form_id %} form="{{ product_form_id }}"{% endif %}>
+        </div>
+    {%- when 4 %}
+        <label{% unless quantity_show_title %} class="d-none"{% endunless %}>{{ 'products.product.quantity' | t }}</label>
+        <div class="input-quantity input-quantity--type-04 d-flex align-items-center position-relative mr-10 js-product-quantity"{% if quantity_connect %} data-js-quantity-connect="{{ quantity_connect }}"{% endif %}>
+            <div class="d-flex flex-center position-absolute left-0 ml-10 cursor-pointer" data-control="-"><i>{% render 'icon-theme-189' %}</i></div>
+            <input type="number" class="mb-0 px-35 text-center" name="quantity" value="1" min="1"{% if product_form_id %} form="{{ product_form_id }}"{% endif %}>
+            <div class="d-flex flex-center position-absolute right-0 mr-10 cursor-pointer" data-control="+"><i>{% render 'icon-theme-188' %}</i></div>
+        </div>
+    {%- when 5 %}
+        <label{% unless quantity_show_title %} class="d-none"{% endunless %}>{{ 'products.product.quantity' | t }}</label>
+        <div class="input-quantity input-quantity--type-05 d-flex js-product-quantity"{% if quantity_connect %} data-js-quantity-connect="{{ quantity_connect }}"{% endif %}>
+            <div class="d-flex flex-center border cursor-pointer" data-control="-"><i>{% render 'icon-theme-189' %}</i></div>
+            <input type="number" class="mx-10 mb-0 text-center" name="quantity" value="1" min="1"{% if product_form_id %} form="{{ product_form_id }}"{% endif %}>
+            <div class="d-flex flex-center border cursor-pointer" data-control="+"><i>{% render 'icon-theme-188' %}</i></div>
+        </div>
+{%- endcase -%}

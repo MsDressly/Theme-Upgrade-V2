@@ -1,0 +1,34 @@
+{% layout none %}
+{% include 'global-variables' %}
+{%- assign pageUrl = content_for_header | split:'"pageurl":"' | last | split:'"' | first | replace:'\/','/' | prepend: 'https://' | remove: canonical_url | url_decode | replace:'\u0026', '&#38;' | replace:'%20', ' ' -%}
+{%- if pageUrl contains '?' -%}
+    {%- assign params = pageUrl | remove: '?' | split: '&#38;' -%}
+    {%- for param in params -%}
+        {%- assign prop_n_value = param | split: '=' -%}
+        {%- if prop_n_value[0] == 'max_count' -%}
+            {%- assign max_count = prop_n_value[1] -%}
+        {%- elsif prop_n_value[0] == 'size_of_columns' -%}
+            {%- assign size_of_columns = prop_n_value[1] -%}
+        {%- elsif prop_n_value[0] == 'async_ajax_loading' -%}
+            {%- assign async_ajax_loading = prop_n_value[1] -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endif -%}
+{%- assign limit = size_of_columns | at_most: max_count | plus: 1 -%}
+{%- unless max_count -%}
+    {%- assign limit = 6 -%}
+    {%- assign async_ajax_loading = false -%}
+{%- endunless -%}
+{%- for product in collections[collection.handle].products limit: max_count -%}
+    {%- if async_ajax_loading == 'false' or forloop.index0 < limit -%}
+        <div class="carousel__item col-auto" data-async="{{ async_ajax_loading }}">
+            {% include 'product-collection' with url_without_collection: true %}
+        </div>
+    {%- elsif async_ajax_loading == 'true' and forloop.index >= limit and forloop.last == true -%}
+        <div class="carousel__item col-auto" data-async="{{ async_ajax_loading }}">
+            {% include 'product-collection' with url_without_collection: true %}
+        </div>
+    {%- else -%}
+        <div class="carousel__item col-auto" data-handle="{{ product.handle }}"></div>
+    {%- endif -%}
+{%- endfor -%}

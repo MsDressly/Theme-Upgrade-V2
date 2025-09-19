@@ -1,0 +1,88 @@
+{% comment %}
+    Renders a set of links for paginated results. Must be used within paginate tags.
+
+    Usage:
+    {% paginate results by 2 %}
+      {% render 'pagination', paginate: paginate, anchor: '#yourID' %}
+    {% endpaginate %}
+
+    Accepts:
+    - paginate: {Object}
+    - anchor: {String} (optional) This can be added so that on page reload it takes you to wherever you've placed your anchor tag.
+{% endcomment %}
+
+{%- assign type = type | default: 'classic' -%}
+{%- assign pagination_margin = pagination_margin | default: 'mt-35' -%}
+{%- if type == 'classic' or type == 'centered_classic' -%}
+  {%- if paginate.parts.size > 0 -%}
+    <div class="pagination-wrapper">
+      <nav class="pagination" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
+        <ul class="pagination__list list-unstyled d-flex align-items-center{% if type == 'centered_classic' %} justify-content-center{% endif %} {{ pagination_margin }}" role="list">
+        {%- if paginate.previous -%}
+          <li class="pagination__prev px-7">
+            <collection-pagination-item>
+              <a href="{{ paginate.previous.url }}{{ anchor }}" class="pagination__item pagination__item--next pagination__item-arrow btn" aria-label="{{ 'general.pagination.previous' | t }}">
+                {{ 'general.pagination.previous' | t }}
+              </a>
+            </collection-pagination-item>
+          </li>
+        {%- endif -%}
+
+        {%- for part in paginate.parts -%}
+          <li class="pagination__page px-7">
+            {%- if part.is_link -%}
+              <collection-pagination-item>
+                <a href="{{ part.url }}{{ anchor }}" class="pagination__item" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</a>
+              </collection-pagination-item>
+            {%- else -%}
+              {%- if part.title == paginate.current_page -%}
+                <span class="pagination__item pagination__item--current current" aria-current="page" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</span>
+              {%- else -%}
+                <span class="pagination__item">{{ part.title }}</span>
+              {%- endif -%}
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+
+        {%- if paginate.next -%}
+          <li class="pagination__prev px-7">
+            <collection-pagination-item>
+              <a href="{{ paginate.next.url }}{{ anchor }}" class="pagination__item pagination__item--prev pagination__item-arrow btn" aria-label="{{ 'general.pagination.next' | t }}" >
+                {{ 'general.pagination.next' | t }}
+              </a>
+            </collection-pagination-item>
+          </li>
+        {%- endif -%}
+        </ul>
+      </nav>
+    </div>
+  {%- endif -%}
+{%- elsif type == 'button_load_more' -%}
+  <nav class="pagination d-flex justify-content-center {{ pagination_margin }}">
+    {%- if paginate.next -%}
+      <collection-pagination-item>
+        <a href="{{ paginate.next.url }}{{ anchor }}" class="btn js-append-content" aria-label="{{ 'general.pagination.next' | t }}">
+          <span>{{ 'general.pagination.load_more' | t }}</span>
+        </a>
+      </collection-pagination-item>
+    {%- else -%}
+      <div class="btn" disabled="disabled">
+        <span>{{ 'general.pagination.no_more_products' | t }}</span>
+      </div>
+    {%- endif -%}
+    </nav>
+{%- elsif type == 'infinite_scroll' -%}
+  <nav class="pagination d-flex justify-content-center {{ pagination_margin }} pointer-events-none">
+    {%- if paginate.next.is_link -%}
+      <collection-pagination-item>
+        <a href="{{ paginate.next.url }}{{ anchor }}" class="btn js-append-content" aria-label="{{ 'general.pagination.next' | t }}">
+          <span>{{ 'general.pagination.infinite_scroll' | t }}</span>
+        </a>
+      </collection-pagination-item>
+    {%- else -%}
+      <div class="btn" disabled="disabled">
+        <span>{{ 'general.pagination.no_more_products' | t }}</span>
+      </div>
+    {%- endif -%}
+    </nav>
+{%- endif -%}

@@ -1,0 +1,13 @@
+{%- if settings.product_format_pjpg -%}
+    {%- assign image_format = 'pjpg' -%}
+{%- else -%}
+    {%- assign image_format = null -%}
+{%- endif -%}
+{%- if settings.product_collection_image_size != 'auto' -%}
+    {%- assign stretch_size = settings.product_collection_image_size -%}
+    {%- assign height_procent = settings.product_collection_image_height_percent -%}
+{%- endif -%}
+<a href="{{ url }}" class="d-block cursor-default" data-js-product-image>
+    {%- capture image_id -%} data-image-id="{{ image.id }}"{%- endcapture -%}
+    {% render 'rimage' with image: image size: image_size format: image_format height_procent: height_procent stretch_size: stretch_size alt: title attr: image_id disable_lazyload: disable_lazyload %}
+</a>

@@ -1,0 +1,28 @@
+<!-- snippets/product-get-price.liquid -->
+{%- assign add_js_attribute = add_js_attribute | default: true -%}
+{%- if compare_at_price > price -%}
+    <span class="price price--sale"{% if add_js_attribute %} data-js-product-price{% endif %}><span>{{ compare_at_price | money }}</span>{% if settings.price_show_sale_separator %}{{ 'products.product.price_sale_separator' | t }}{% endif %}<span>{{ price | money }}</span></span>
+{%- else -%}
+    <span class="price"{% if add_js_attribute %} data-js-product-price{% endif %}><span>{{ price | money }}</span></span>
+{%- endif -%}
+{%- if current_variant.unit_price_measurement -%}
+    <span class="price-unit d-block mt-5">
+        <label class="d-none">{{ 'products.product.unit_price_label' | t }}</label>
+        <span class="price-unit__price">
+            {%- capture unit_price_separator -%}
+                <span> / </span><span class="d-none"> {{ 'general.accessibility.unit_price_separator' | t }}&nbsp; </span>
+            {%- endcapture -%}
+            {%- capture unit_price_base_unit -%}
+                <span>
+                {%- if current_variant.unit_price_measurement -%}
+                    {%- if current_variant.unit_price_measurement.reference_value != 1 -%}
+                        {{- current_variant.unit_price_measurement.reference_value -}}
+                    {%- endif -%}
+                    {{- current_variant.unit_price_measurement.reference_unit -}}
+                {%- endif -%}
+              </span>
+            {%- endcapture -%}
+            (<span>{{ current_variant.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}})
+        </span>
+    </span>
+{%- endif -%}

@@ -1,0 +1,14 @@
+{%- if preview_image_html -%}
+    {% capture links_path %}{{ link.title }}{% if sub_link %}+{{ sub_link.title }}{% if sub_sub_link %}+{{ sub_sub_link.title }}{% endif %}{% endif %}{% endcapture %}
+    {%- assign links_path_handle = links_path | handleize | prepend: '|||' | append: '|||' -%}
+    {%- if preview_image_html contains links_path_handle -%}
+        {%- assign content_split_1 = preview_image_html | split: links_path_handle -%}
+        {%- assign content_split_2 = content_split_1[1] | split: '|||' -%}
+        <span class="menu__preview-image order-1 d-none d-lg-block position-lg-relative mt-lg-auto ml-lg-auto pointer-events-none" data-js-menu-preview-image>
+            <span class="menu__preview-image_image position-lg-absolute top-lg-0 left-lg-0 ml-lg-5">
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=" data-src="{{ content_split_2[0] }}" class="lazyload position-lg-relative" alt="{{ links_path }}">
+                <span class="menu__preview-image_shadow absolute-lg-stretch"></span>
+            </span>
+        </span>
+    {%- endif -%}
+{%- endif -%}

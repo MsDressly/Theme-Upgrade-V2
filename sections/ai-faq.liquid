@@ -1,0 +1,114 @@
+{% comment %}
+  AI-Generated FAQ and Highlights Section
+  Renders metafields created by the AI SEO app.
+{% endcomment %}
+
+{%- liquid
+  assign faqs = product.metafields.ai_seo.faqs.value
+  assign highlights = product.metafields.ai_seo.highlights.value
+  assign eeat = product.metafields.ai_seo.eeat.value
+  assign json_ld = product.metafields.ai_seo.json_ld.value
+-%}
+
+{%- if faqs and faqs.size > 0 -%}
+  <div class="page-width ai-seo-section">
+    {% if highlights and highlights.size > 0 %}
+      <h2>Highlights</h2>
+      <ul class="ai-seo-highlights">
+        {% for item in highlights %}
+          <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="ai-faq-accordion">
+      {% for faq in faqs %}
+        <details>
+          <summary>{{ faq.question }}</summary>
+          <div class="faq-answer">
+            <p>{{ faq.answer }}</p>
+          </div>
+        </details>
+      {% endfor %}
+    </div>
+
+    {% if eeat != blank %}
+      <div class="ai-eeat-content">
+        <h3>Our Commitment & Expertise</h3>
+        <p>{{ eeat }}</p>
+      </div>
+    {% endif %}
+  </div>
+
+  <script type="application/ld+json">
+    {{ json_ld | json }}
+  </script>
+
+  <style>
+    /* Match product content width and add horizontal padding */
+    .ai-seo-section {
+      margin-inline: auto;
+      max-width: var(--page-width, 1200px);
+      padding-inline: clamp(16px, 4vw, 32px);
+      padding-block: 24px;
+    }
+
+    .ai-seo-section h2 {
+      margin: 0 0 12px;
+    }
+
+    .ai-seo-highlights {
+      margin: 0 0 20px;
+      padding-left: 1.2em;
+      list-style: disc;
+    }
+
+    .ai-faq-accordion details {
+      border-bottom: 1px solid #e0e0e0;
+      padding: 15px 0;
+    }
+
+    .ai-faq-accordion summary {
+      font-weight: bold;
+      cursor: pointer;
+      list-style: none; /* Hide default triangle */
+      padding-right: 25px;
+      position: relative;
+    }
+    .ai-faq-accordion summary::-webkit-details-marker {
+      display: none;
+    }
+    .ai-faq-accordion summary::after {
+      content: '+';
+      position: absolute;
+      right: 5px;
+      font-size: 20px;
+      transition: transform 0.2s;
+    }
+    .ai-faq-accordion details[open] summary::after {
+      transform: rotate(45deg);
+    }
+    .ai-faq-accordion .faq-answer {
+      padding-top: 10px;
+    }
+
+    .ai-eeat-content {
+      margin-top: 30px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-left: 4px solid #ccc;
+    }
+  </style>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "AI SEO Content",
+  "tag": "section",
+  "settings": [],
+  "presets": [
+    { "name": "AI SEO Content" }
+  ]
+}
+{% endschema %}

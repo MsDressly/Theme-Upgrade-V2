@@ -1,0 +1,25 @@
+.home-section-title a[href^="https://"], .home-section-title a[href^="https://"]:visited, .home-section-title a[href^="https://"]:active, .home-section-title a[href^="https://"]:link {
+  color: var(--theme-primary) !important;
+}
+
+.builder--modification-1 {
+  background-color: var(--theme-primary);
+}
+
+.builder--modification-2 {
+  background-color: #FFD2B1;
+}
+
+.promobox--modification-1 .promobox__plate,
+.promobox--list-collections-2 .promobox__plate {
+  min-height: 50px;
+}
+.promobox--modification-1:hover .promobox__plate .promobox__content::before,
+.promobox--list-collections-2:hover .promobox__plate .promobox__content::before {
+  background-color: var(--theme-primary);
+  opacity: 1;
+}
+.promobox--modification-1:hover .promobox__text-1,
+.promobox--list-collections-2:hover .promobox__text-1 {
+  color: var(--theme2);
+}

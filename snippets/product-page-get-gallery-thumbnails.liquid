@@ -1,0 +1,17 @@
+{% capture thumbnail_item_class %}{% if thumbnails_type == 'collage' %}col-md-2-5 px-md-5 mt-md-10{% else %}mb-md-10{% endif %}{% endcapture %}
+{%- for media in product.media -%}
+    <div class="product-gallery__thumbnail_item product-gallery__thumbnail_item--type-{{ media.media_type }} {{ thumbnail_item_class }}{% if thumbnails_type == 'collage' and first_load_group %}{% if first_load_group_index == forloop.index0 or groups_arr[forloop.index0] == '"video_group"' %}{% if first_load_group_index %} current{% endif %}{% assign first_load_group_index = null %}{% elsif groups_arr[forloop.index0] != first_load_group %} d-none{% endif %}{% elsif first_load_index == forloop.index0 %} current{% endif %}" data-js-product-gallery-thumbnail-item{% if groups_arr %} data-group={{ groups_arr[forloop.index0] }}{% endif %}>
+        <div class="product-gallery__thumbnail_item_inner position-relative cursor-lg-pointer">
+            {% render 'rimage' with image: media size: thumbnail_image_size disable_lazyload: false format: image_format height_procent: gallery_height_procent stretch_size: 'cover' alt: title %}
+            {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+                <div class="product-gallery__thumbnail_item_bg absolute-stretch d-flex flex-center">
+                    <i class="position-absolute mr-3">{% render 'icon-theme-211' %}</i>
+                </div>
+                {%- elsif media.media_type == 'model' -%}
+                <div class="product-gallery__thumbnail_item_bg absolute-stretch d-flex flex-center">
+                    <i class="position-absolute mr-3">{% render 'icon-theme-322' %}</i>
+                </div>
+            {%- endif -%}
+        </div>
+    </div>
+{%- endfor -%}

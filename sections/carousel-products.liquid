@@ -1,0 +1,231 @@
+{%- if section.blocks.size > 0 -%}
+    {% include 'global-variables' %}
+    {%- assign get_carousel_products_async_ajax_loading = carousel_products_async_ajax_loading -%}
+    {%- if request.design_mode -%}
+        {%- assign is_design_mode = true -%}
+        {%- assign get_carousel_products_async_ajax_loading = false -%}
+    {%- endif -%}
+    {%- assign get_carousel_products_async_ajax_loading = false -%}
+    <carousel-products class="d-block" data-section-id="{{ section.id }}" data-section-type="carousel-products">
+        <div class="overflow-hidden{% if template.name == 'collection' or template.name == 'search' %} pb-70 pb-lg-95{% endif %}">
+            <div{% render 'layout-get-container-class', fullwidth_need_paddings: true %}>
+                <div class="carousel{% if section.settings.arrows %} carousel--arrows{% endif %}{% if section.settings.container == 'fullwidth' %} carousel--fullwidth{% endif %} carousel-products position-relative"{% if get_carousel_products_async_ajax_loading == true %} data-carousel-ajax{% endif %}>
+                    <div class="carousel__head{% unless section.settings.show_title %} d-none{% endunless %} row justify-content-center mb-25"{% if section.blocks.size > 1 %} data-carousel-control{% endif %}>
+                        {%- for block in section.blocks -%}
+                            {%- if collections[block.settings.collection] != blank -%}
+                                <h2 class="h4 carousel__title home-section-title home-section-title--multiple col-auto mw-100 mb-10 text-center">
+                                    <a href="{{ collections[block.settings.collection].url }}"{% if forloop.index == 1 %} class="active"{% endif %} data-collection="{{ collections[block.settings.collection].handle }}">{% if block.settings.title != blank %}{{ block.settings.title }}{% else %}{{ collections[block.settings.collection].title }}{% endif %}</a>
+                                </h2>
+                                {%- elsif forloop.index0 == 0 -%}
+                                {% render 'no-blocks', message: 'homepage.onboarding.no_content_message.carousel_products' %}
+                            {%- endif -%}
+                        {%- endfor -%}
+                    </div>
+                    <div class="carousel__slider_wrapper position-relative">
+                        <div class="carousel__slider position-relative{% if get_carousel_products_async_ajax_loading == true %} invisible{% endif %} js-slider-tracking"
+                             data-js-carousel
+                             data-autoplay="{{ section.settings.autoplay }}"
+                             data-speed="{{ section.settings.speed | times: 1000 }}"
+                             data-count="{{ section.settings.size_of_columns }}"
+                             data-infinite="{{ section.settings.infinite }}"
+                             data-arrows="{{ section.settings.arrows }}"
+                             data-bullets="{{ section.settings.bullets }}">
+                            {%- if section.settings.arrows -%}
+                                <div class="carousel__prev-placeholder position-absolute cursor-pointer" data-js-carousel-prev></div>
+                                <div class="carousel__prev position-absolute pointer-events-none" data-js-carousel-arrow><i>{% render 'icon-theme-006' %}</i></div>
+                            {%- endif -%}
+                            <div class="carousel__products overflow-hidden">
+                                {%- for block in section.blocks limit: 1 -%}
+                                    {%- assign max_count = section.settings.max_count  -%}
+                                    {%- assign limit = section.settings.size_of_columns | abs | at_most: max_count | plus: 1 -%}
+                                    {%- if is_design_mode -%}
+                                        {%- assign max_count = limit | plus: 1 -%}
+                                    {%- endif -%}
+                                    <div class="carousel__slick row" data-js-carousel-slick data-carousel-items data-max-count="{{ max_count }}" data-products-pre-row="{{ section.settings.size_of_columns }}" data-async-ajax-loading="{{ get_carousel_products_async_ajax_loading }}">
+                                        {%- for product in collections[block.settings.collection].products limit: max_count -%}
+                                            {%- if first_product == blank -%}
+                                                {%- assign first_product = product -%}
+                                            {%- endif -%}
+                                            {%- if get_carousel_products_async_ajax_loading != true -%}
+                                                {%- if forloop.index0 < limit -%}
+                                                    <div class="carousel__item col-auto"{% if get_carousel_products_async_ajax_loading %} data-carousel-product-preload data-handle="{{ product.handle }}"{% endif %}>
+                                                        {%- if get_carousel_products_async_ajax_loading == false -%}
+                                                            {%- assign disable_lazyload = carousel_products_image_lazyload_disable -%}
+                                                            {% include 'product-collection' with url_without_collection: true %}
+                                                        {%- endif -%}
+                                                    </div>
+                                                    {%- elsif forloop.index >= limit and forloop.last == true -%}
+                                                    <div class="carousel__item col-auto" data-carousel-product-preload data-handle="{{ product.handle }}">
+                                                        {%- assign disable_lazyload = carousel_products_image_lazyload_disable -%}
+                                                        {% include 'product-collection' with url_without_collection: true %}
+                                                    </div>
+                                                {%- else -%}
+                                                    <div class="carousel__item col-auto" data-handle="{{ product.handle }}"></div>
+                                                {%- endif -%}
+                                            {%- endif -%}
+                                        {%- endfor -%}
+                                    </div>
+                                {%- endfor -%}
+                            </div>
+                            {%- if section.settings.arrows -%}
+                                <div class="carousel__next-placeholder position-absolute cursor-pointer" data-js-carousel-next></div>
+                                <div class="carousel__next position-absolute pointer-events-none" data-js-carousel-arrow><i>{% render 'icon-theme-007' %}</i></div>
+                            {%- endif -%}
+                        </div>
+                        {%- if get_carousel_products_async_ajax_loading == true -%}
+                            <div class="carousel__spacer">
+                                <div class="row">
+                                    <div class="col-6 col-md-4 col-xl-{{ 12 | divided_by: section.settings.size_of_columns }}">
+                                        <div style="padding-top:{{ 1 | divided_by: first_product.images[0].aspect_ratio | times: 100 }}%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% include 'preloader-spinner' %}
+                        {%- endif -%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </carousel-products>
+    <script>
+        theme.AssetsLoader.require('scripts', 'carousel_products');
+    </script>
+{%- else -%}
+    {% render 'no-blocks' %}
+{%- endif -%}
+
+
+{% schema %}{
+    "name": "t:sections.product_carousel.name",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "show_title",
+            "label": "t:sections.product_carousel.settings.show_title.label",
+            "default": true
+        },
+        {
+            "type": "header",
+            "content": "t:sections.product_carousel.settings.header__1.content"
+        },
+        {
+            "type": "select",
+            "id": "container",
+            "label": "t:sections.product_carousel.settings.container.label",
+            "default": "boxed",
+            "options": [
+                {
+                    "value": "fullwidth",
+                    "label": "t:sections.product_carousel.settings.container.option__1.label"
+                },
+                {
+                    "value": "boxed",
+                    "label": "t:sections.product_carousel.settings.container.option__2.label"
+                }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "size_of_columns",
+            "label": "t:sections.product_carousel.settings.size_of_columns.label",
+            "default": "4",
+            "options": [
+                {
+                    "value": "2",
+                    "label": "t:sections.product_carousel.settings.size_of_columns.option__1.label"
+                },
+                {
+                    "value": "3",
+                    "label": "t:sections.product_carousel.settings.size_of_columns.option__2.label"
+                },
+                {
+                    "value": "4",
+                    "label": "t:sections.product_carousel.settings.size_of_columns.option__3.label"
+                }
+            ]
+        },
+        {
+            "type": "range",
+            "id": "max_count",
+            "min": 2,
+            "max": 50,
+            "step": 1,
+            "unit": "pds",
+            "label": "t:sections.product_carousel.settings.max_count.label",
+            "default": 6
+        },
+        {
+            "type": "header",
+            "content": "t:sections.product_carousel.settings.header__2.content"
+        },
+        {
+            "type": "checkbox",
+            "id": "autoplay",
+            "label": "t:sections.product_carousel.settings.autoplay.label",
+            "default": true
+        },
+        {
+            "type": "range",
+            "id": "speed",
+            "min": 2,
+            "max": 10,
+            "step": 1,
+            "label": "t:sections.product_carousel.settings.speed.label",
+            "default": 5
+        },
+        {
+            "type": "checkbox",
+            "id": "infinite",
+            "label": "t:sections.product_carousel.settings.infinite.label",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "arrows",
+            "label": "t:sections.product_carousel.settings.arrows.label",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "bullets",
+            "label": "t:sections.product_carousel.settings.bullets.label",
+            "default": true
+        },
+        {
+            "type": "header",
+            "content": "t:sections.product_carousel.settings.header__3.content"
+        },
+        {
+            "type": "paragraph",
+            "content": "t:sections.product_carousel.settings.paragraph__1.content"
+        },
+        {
+            "type": "paragraph",
+            "content": "t:sections.product_carousel.settings.paragraph__2.content"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "collection",
+            "name": "t:sections.product_carousel.blocks.collection.name",
+            "settings": [
+                {
+                    "type": "textarea",
+                    "id": "title",
+                    "label": "t:sections.product_carousel.blocks.collection.settings.title.label"
+                },
+                {
+                    "type": "collection",
+                    "id": "collection",
+                    "label": "t:sections.product_carousel.blocks.collection.settings.collection.label"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Product carousel",
+            "category": "2) Carousels"
+        }
+    ]
+}{% endschema %}

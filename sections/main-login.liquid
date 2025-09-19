@@ -1,0 +1,88 @@
+{% include 'breadcrumbs' %}
+<div class="login pb-60">
+  <div class="container">
+    <div id="CustomerLoginForm">
+      <h1 class="h3 mt-30 mb-40 text-center">{{ 'customer.login.title' | t }}</h1>
+      {% form 'customer_login' %}
+        <label for="CustomerEmail" class="label-required">{{ 'customer.login.email_title' | t }}</label>
+        <input type="email"
+               name="customer[email]"
+               id="CustomerEmail"
+               class="{% if form.errors contains 'email' %}input-error{% endif %}"
+               placeholder="{{ 'customer.login.email_placeholder' | t }}"
+               spellcheck="false"
+               autocomplete="off"
+               autocapitalize="off"
+               required="required"
+               autofocus>
+        {%- if form.password_needed -%}
+          <label for="CustomerPassword" class="label-required">{{ 'customer.login.password_title' | t }}</label>
+          <input type="password"
+                 name="customer[password]"
+                 id="CustomerPassword"
+                 class="{% if form.errors contains 'password' %}input-error{% endif %}"
+                 placeholder="{{ 'customer.login.password_placeholder' | t }}"
+                 required="required">
+        {%- endif -%}
+        {% include 'form-get-message' %}
+        <div class="text-center">
+          <input type="submit" class="btn btn--full btn--secondary" value="{{ 'customer.login.sign_in' | t }}">
+          <div>
+            <a href="{{ shop.url }}" class="h6 btn-link mt-20 mb-0">{{ 'customer.login.cancel' | t }}</a>
+          </div>
+          {%- if form.password_needed -%}
+            <div>
+              <a href="#recover" class="btn-link mt-15 js-button-block-visibility" data-block-link="#recover">{{ 'customer.login.forgot_password' | t }}</a>
+            </div>
+          {%- endif -%}
+        </div>
+      {% endform %}
+    </div>
+    {% form 'recover_customer_password' %}
+      <div id="RecoverPasswordForm" class="pt-35 mt-35 border-top{% unless form.posted_successfully? %} d-none-important{% endunless %}" data-block-visibility="#recover" data-block-onscroll>
+        <h2 class="h3 text-center">{{ 'customer.recover_password.title' | t }}</h2>
+        <p>{{ 'customer.recover_password.subtext' | t }}</p>
+        {%- if form.posted_successfully? -%}
+          <span class="hide reset-password-success"></span>
+        {%- endif -%}
+        <label for="RecoverEmail" class="label-required">{{ 'customer.recover_password.email_title' | t }}</label>
+        <input type="email"
+               name="email"
+               id="RecoverEmail"
+               placeholder="{{ 'customer.recover_password.email_placeholder' | t }}"
+               spellcheck="false"
+               autocomplete="off"
+               autocapitalize="off"
+               required="required"
+               autofocus
+               data-block-visibility-focus>
+        {% include 'form-get-message' %}
+        <input type="submit" class="btn btn--full" value="{{ 'customer.recover_password.submit' | t }}">
+        <div class="mt-15 text-center">
+          <span class="btn-link js-button-block-visibility" data-action="close" data-block-link="#recover">{{ 'customer.recover_password.cancel' | t }}</span>
+        </div>
+      </div>
+    {% endform %}
+    {%- if shop.checkout.guest_login -%}
+      <h2 class="h3 mt-30 text-center">{{ 'customer.login.guest_title' | t }}</h2>
+      {% form 'guest_login' %}
+        <input type="submit" class="btn btn--full" value="{{ 'customer.login.guest_continue' | t }}">
+      {% endform %}
+    {%- endif -%}
+    <div class="pt-35 mt-35 border-top">
+      <h2 class="h3 text-center">{{ 'customer.login.sign_up_title' | t }}</h2>
+      {% include 'parse-page-html-content' with default_page: 'include-account-page' page_content: settings.account_page_sing_up_page_content %}
+      <a href="/account/register" class="btn btn--full">{{ 'customer.login.create_account' | t }}</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  theme.AssetsLoader.require('scripts', 'customers_login');
+</script>
+
+
+{% schema %}{
+    "name": "t:sections.login.name",
+    "settings": []
+}{% endschema %}

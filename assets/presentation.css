@@ -1,0 +1,66 @@
+.presentation {
+  float: right;
+  width: 180px;
+  z-index: 99999;
+  transform: translate3d(100%, 0, 0);
+  -webkit-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
+  transition: var(--animation-css-duration) transform, var(--animation-css-duration) box-shadow;
+  will-change: transform, box-shadow;
+}
+.presentation.open {
+  transform: none !important;
+}
+
+.presentation__btn {
+  width: 30px;
+  height: 30px;
+}
+.presentation__btn i {
+  position: absolute;
+  transition: var(--animation-css-duration) transform;
+  will-change: transform;
+}
+.presentation__btn i:first-child {
+  transform: scale3d(1, 1, 1);
+}
+.presentation__btn i:first-child .icon {
+  width: 24px;
+}
+.presentation__btn i:last-child {
+  transform: scale3d(0, 0, 1);
+}
+.presentation__btn i:last-child .icon {
+  width: 16px;
+}
+
+.presentation.open .presentation__btn {
+  width: 30px;
+  height: 30px;
+}
+.presentation.open .presentation__btn i:first-child {
+  transform: scale3d(0, 0, 1);
+}
+.presentation.open .presentation__btn i:last-child {
+  transform: scale3d(1, 1, 1);
+}
+
+.presentation__content label p {
+  transition: var(--animation-css-duration) color;
+}
+.presentation__content a {
+  transition: var(--animation-css-duration) color;
+}
+.presentation__content .input-boolean input ~ span,
+.presentation__content .input-boolean input + span span {
+  transition-duration: var(--animation-css-duration);
+}
+
+[dir=rtl] .presentation {
+  float: left;
+  transform: translate3d(-100%, 0, 0);
+}
+[dir=rtl] .presentation.close {
+  transform: translate3d(-100%, 0, 0) !important;
+}

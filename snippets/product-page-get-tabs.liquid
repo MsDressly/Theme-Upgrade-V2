@@ -1,0 +1,155 @@
+<!-- snippets/product-page-get-tabs.liquid -->
+{%- if section.settings.show_tab_reviews and settings.reviews_type != 'disable' -%}
+    {% capture reviews_html %}
+        
+        {%- if settings.reviews_type == 'growave' and settings.app_growave_enable == true -%}
+            {% capture the_snippet_reviews %}{% render 'socialshopwave-widget-recommends' with 1 %}{% endcapture %}
+            {%- unless the_snippet_reviews contains 'Liquid error' -%}
+                {{ the_snippet_reviews }}
+            {%- endunless -%}
+        {%- elsif settings.reviews_type == 'loox' -%}
+            <div id="looxReviews" data-product-id="{{product.id}}" class="loox-reviews-default">{{ product.metafields.loox.reviews }}</div>
+        
+        {%- endif -%}
+    {%- endcapture -%}
+{%- endif -%}
+{% capture tabs_html %}
+    {%- assign active_tab = ' data-active="true"' -%}
+    {%- assign custom_tab_index = 1 -%}
+    {%- if section.settings.show_tab_description -%}
+        {%- if description != blank -%}
+            <div class="tabs__btn{% if active_tab %} active{% endif %}" data-js-tabs-btn{{ active_tab }}>{{ 'products.product.tabs.description' | t }}</div>
+            {% capture tabs_body_html %}
+                {{ tabs_body_html }}
+                <div{% if active_tab %} class="active"{% endif %} data-js-tabs-tab>
+                    <span data-js-tabs-btn-mobile>{{ 'products.product.tabs.description' | t }} <i>{% render 'icon-theme-188' %}</i></span>
+                    <div class="tabs__content rte overflow-hidden" data-js-tabs-content{% if active_tab %} style="display: block;"{% assign active_tab = null %}{% endif %}>
+                        {% include 'parse-for-icons' content: description %}
+                    </div>
+                </div>
+            {% endcapture %}
+            {%- assign active_tab = null -%}
+        {%- endif -%}
+    {%- endif -%}
+    {%- for block in section.blocks -%}
+        {%- if block.type == 'tab_custom' -%}
+            <div class="tabs__btn{% if active_tab %} active{% endif %}" data-js-tabs-btn{{ active_tab }}>{{ block.settings.title }}</div>
+            {% capture tabs_body_html %}
+                {{ tabs_body_html }}
+                {%- case custom_tab_index -%}
+                    {%- when 2 %}{% assign custom_tab_default_page = 'include-product-tab-custom-html-2' -%}
+                    {%- else %}{% assign custom_tab_default_page = 'include-product-tab-custom-html' -%}
+                {%- endcase -%}
+                <div{% if active_tab %} class="active"{% endif %} data-js-tabs-tab>
+                    <span data-js-tabs-btn-mobile>{{ block.settings.title }} <i>{% render 'icon-theme-188' %}</i></span>
+                    <div class="tabs__content rte overflow-hidden" data-js-tabs-content{% if active_tab %} style="display: block;"{% assign active_tab = null %}{% endif %}>
+                        {% include 'parse-page-html-content' with default_page: custom_tab_default_page page_content: block.settings.page_content html: block.settings.content %}
+                    </div>
+                </div>
+            {% endcapture %}
+            {%- assign custom_tab_index = custom_tab_index | plus: 1 -%}
+            {%- assign active_tab = null -%}
+        {%- elsif block.type == 'tab_custom_liquid' -%}
+            <div class="tabs__btn{% if active_tab %} active{% endif %}" data-js-tabs-btn{{ active_tab }}>{{ block.settings.title }}</div>
+            {% capture tabs_body_html %}
+                {{ tabs_body_html }}
+                <div{% if active_tab %} class="active"{% endif %} data-js-tabs-tab>
+                    <span data-js-tabs-btn-mobile>{{ block.settings.title }} <i>{% render 'icon-theme-188' %}</i></span>
+                    <div class="tabs__content rte overflow-hidden" data-js-tabs-content{% if active_tab %} style="display: block;"{% assign active_tab = null %}{% endif %}>
+                        {{ block.settings.custom_liquid }}
+                    </div>
+                </div>
+            {% endcapture %}
+            {%- assign active_tab = null -%}
+        
+        {%- elsif block.type == 'tab_klarna_app' -%}
+            {%- if settings.app_klarna_enable -%}
+                <div class="tabs__btn{% if active_tab %} active{% endif %}" data-js-tabs-btn{{ active_tab }} data-tab="klarna">{{ 'products.product.tabs.klarna' | t }}</div>
+                {% capture tabs_body_html %}
+                    {{ tabs_body_html }}
+                    <div{% if active_tab %} class="active"{% endif %} data-js-tabs-tab>
+                        <span data-js-tabs-btn-mobile>{{ 'products.product.tabs.klarna' | t }} <i>{% render 'icon-theme-188' %}</i></span>
+                        <div class="tabs__content" data-js-tabs-content{% if active_tab %} style="display: block;"{% assign active_tab = null %}{% endif %}>
+                            <div class="d-flex px-15">
+                                <div class="{{ block.settings.class_name }}"></div>
+                            </div>
+                        </div>
+                    </div>
+                {% endcapture %}
+                {%- assign active_tab = null -%}
+            {%- endif -%}
+        
+        {%- endif -%}
+    {%- endfor -%}
+    {%- assign metafield_namespaces = 'tab,tab1,tab2,tab3' | split: ',' -%}               
+    {%- for ns in metafield_namespaces -%}
+        {%- if metafields[ns].title and metafields[ns].content -%}
+            <div class="tabs__btn{% if active_tab %} active{% endif %}" data-js-tabs-btn{{ active_tab }}>{{ metafields[ns].title }}</div>
+            {% capture tabs_body_html %}
+                {{ tabs_body_html }}
+                <div{% if active_tab %} class="active"{% endif %} data-js-tabs-tab>
+                    <span data-js-tabs-btn-mobile>{{ metafields[ns].title }} <i>{% render 'icon-theme-188' %}</i></span>
+                    <div class="tabs__content rte overflow-hidden" data-js-tabs-content{% if active_tab %} style="display: block;"{% assign active_tab = null %}{% endif %}>
+                        {% include 'parse-for-icons' content: metafields[ns].content %}
+                    </div>
+                </div>
+            {% endcapture %}
+            {%- assign active_tab = null -%}
+        {%- endif -%}
+    {%- else -%}
+        {%- break -%}
+    {%- endfor -%}
+    {%- if section.settings.show_tab_reviews -%}
+        {%- if settings.reviews_type != 'disable' -%}
+            <div class="tabs__btn{% if active_tab %} active{% endif %}" data-js-tabs-btn{{ active_tab }} data-tab="reviews">{{ 'products.product.tabs.reviews' | t }}</div>
+            {% capture tabs_body_html %}
+                {{ tabs_body_html }}
+                <div{% if active_tab %} class="active"{% endif %} data-js-tabs-tab>
+                    <span data-js-tabs-btn-mobile>{{ 'products.product.tabs.reviews' | t }} <i>{% render 'icon-theme-188' %}</i></span>
+                    <div class="tabs__content" data-js-tabs-content{% if active_tab %} style="display: block;"{% assign active_tab = null %}{% endif %}>
+                        <div class="tabs-review">
+                            {{ reviews_html }}
+                        </div>
+                    </div>
+                    </div>
+            {% endcapture %}
+            {%- assign active_tab = null -%}
+        {%- endif -%}
+    {%- endif -%}
+{%- endcapture -%}
+{%- if section.settings.tabs_type == 'tabs' -%}
+    {%- if active_tab == null -%}
+        <tabs-element class="tabs product-tabs d-block" data-type="{% if template_layout == '1' or template_layout == '5' %}horizontal{% else %}mobile{% endif %}" data-scrolling-to-opened-tab="{{ section.settings.scrolling_to_opened_tab }}">
+            <div class="tabs__head" data-js-tabs-head>
+                <div class="tabs__slider" data-js-tabs-slider>
+                    {{ tabs_html }}
+                </div>
+                <div class="tabs__nav tabs__nav--prev" data-js-tabs-nav-prev><i>{% render 'icon-theme-006' %}</i></div>
+                <div class="tabs__nav tabs__nav--next" data-js-tabs-nav-next><i>{% render 'icon-theme-007' %}</i></div>
+            </div>
+            <div class="tabs__body">
+                {{ tabs_body_html }}
+            </div>
+        </tabs-element>
+    {%- else -%}
+        {%- if request.design_mode -%}
+            <div class="w-100 h5 py-20 m-0 text-center">Add tabs in the settings Product page -> + Add block</div>
+        {%- endif -%}
+    {%- endif -%}
+{%- elsif section.settings.tabs_type == 'sheet' -%}
+    {%- if section.settings.show_tab_description -%}
+        {%- if description != blank -%}
+            <div class="pt-10 mt-40 mt-lg-{% if settings.product_info_layout == '2' %}40{% else %}100{% endif %}">
+                <div class="rte overflow-hidden">
+                    {% include 'parse-for-icons' content: description %}
+                </div>
+            </div>
+            {%- assign has_tab_description = true -%}
+        {%- endif -%}
+    {%- endif -%}
+    {%- if section.settings.show_tab_reviews -%}
+        <div class="pt-10 {% if has_tab_description %}mt-40{% else %}mt-40 mt-lg-{% if settings.product_info_layout == '2' %}40{% else %}100{% endif %}{% endif %}">
+            {{ reviews_html }}
+        </div>
+    {%- endif -%}
+{%- endif -%}

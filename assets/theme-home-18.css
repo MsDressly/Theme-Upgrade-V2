@@ -1,0 +1,28 @@
+@media (max-width: 540px) {
+  #shopify-section-1601061193308 .one-product-info {
+    padding-bottom: 114% !important;
+  }
+}
+
+.one-product__bg .one-product-info__price {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 540px) {
+  .promobox--modification-1 .promobox__content {
+    align-items: flex-start !important;
+  }
+}
+@media (max-width: 540px) {
+  .promobox--modification-1 .promobox__content > * {
+    padding-top: 30px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .promobox--modification-2 .promobox__content {
+    max-width: 500px;
+  }
+}

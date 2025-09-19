@@ -1,0 +1,143 @@
+{%- assign template_handle = template.name | handle -%}
+<div class="popup fixed-stretch d-none js-popup{% if quick_view_content != blank %} active show{% endif %}" tabindex="0">
+    <div class="popup__bg fixed-stretch cursor-pointer pointer-events-none{% if quick_view_content != blank %} visible{% endif %}" data-js-popup-bg></div>
+    <div class="popup__body position-relative d-none flex-lg-column" data-js-popup-name="navigation" data-popup-mobile-left data-popup-desktop-top>
+        {% include 'popup-navigation' %}
+    </div>
+    {%- if template_handle contains 'collection' or template_handle contains 'search' -%}
+        {%- if settings.collection_show_sidebar == 'desktop_and_mobile' or settings.collection_show_sidebar == 'desktop' -%}
+            <div class="popup__body position-relative d-none" data-js-popup-name="sidebar" data-popup-left{% if settings.collection_sidebar_position != 'dropdown' and settings.collection_sidebar_position != 'top' %} data-js-popup-mobile-only{% endif %}>
+                {% include 'popup-sidebar' %}
+            </div>
+        {%- endif -%}
+    {%- endif -%}
+    {%- if template_handle contains 'blog' and settings.blog_show_sidebar == 'desktop_and_mobile' or settings.blog_show_sidebar == 'desktop' -%}
+        <div class="popup__body position-relative d-none" data-js-popup-name="sidebar" data-popup-left{% if settings.blog_sidebar_position != 'dropdown' %} data-js-popup-mobile-only{% endif %}>
+            {% include 'popup-sidebar' %}
+        </div>
+    {%- endif -%}
+    {%- if template_handle contains 'article' and settings.article_show_sidebar == 'desktop_and_mobile' or settings.article_show_sidebar == 'desktop' -%}
+        <div class="popup__body position-relative d-none" data-js-popup-name="sidebar" data-popup-left{% if settings.article_sidebar_position != 'dropdown' %} data-js-popup-mobile-only{% endif %}>
+            {% include 'popup-sidebar' %}
+        </div>
+    {%- endif -%}
+    {%- if settings.cart_popup_enable -%}
+        {%- if settings.cart_popup_type == 'center' -%}
+            <div class="popup__body position-relative d-none flex-center px-15 py-30" data-js-popup-name="cart" data-popup-center data-js-popup-ajax>
+                {% include 'popup-cart' %}
+            </div>
+        {%- else -%}
+            <div class="popup__body position-relative d-none justify-content-end" data-js-popup-name="cart" data-popup-right data-js-popup-ajax>
+                {% include 'popup-cart' %}
+            </div>
+        {%- endif -%}
+    {%- endif -%}
+    {%- if settings.wishlist_type == 'default' -%}
+        <div class="popup__body position-relative d-none justify-content-end" data-js-popup-name="wishlist" data-popup-right data-js-popup-ajax>
+            {% include 'popup-wishlist' %}
+        </div>
+        <div class="popup__body position-relative d-none flex-center px-15 py-30" data-js-popup-name="wishlist-full" data-popup-center data-js-popup-ajax>
+            {% include 'popup-wishlist-full' %}
+        </div>
+    {%- endif -%}
+    {%- if settings.compare_type == 'default' -%}
+        <div class="popup__body position-relative d-none flex-center px-15 py-30" data-js-popup-name="compare-full" data-popup-center data-js-popup-ajax>
+            {% include 'popup-compare-full' %}
+        </div>
+    {%- endif -%}
+    {%- if shop.customer_accounts_enabled and settings.account_show_header_button and settings.account_popup_enable -%}
+        <div class="popup__body position-relative d-none justify-content-end" data-js-popup-name="account" data-popup-right>
+            {% include 'popup-account' %}
+        </div>
+    {%- endif -%}
+    {%- if settings.services_show_header_button and settings.services_popup_enable -%}
+        <div class="popup__body position-relative d-none justify-content-end" data-js-popup-name="services" data-popup-right>
+            {% include 'popup-services' %}
+        </div>
+    {%- endif -%}
+    {%- if settings.subscription_confirmation_popup_enable -%}
+        <div class="popup__body position-relative d-none flex-center px-15 py-30" data-js-popup-name="subscription-confirmation" data-popup-center>
+            {% include 'popup-subscription-confirmation' %}
+        </div>
+    {%- endif -%}
+    {%- if template_handle == 'index' and settings.subscription_popup_enable -%}
+        <div class="popup__body position-relative d-none{% unless settings.subscription_popup_layout == '5' %} flex-center px-15 py-30{% endunless %}" data-js-popup-name="subscription" data-popup-center>
+            {% include 'popup-subscription' %}
+        </div>
+    {%- endif -%}
+    {%- if settings.product_collection_show_button_quick_view -%}
+        <div class="popup__body position-relative d-none flex-center px-15 py-30{% if quick_view_content != blank %} show visible{% endif %}" data-js-popup-name="quick-view" data-popup-center data-js-popup-ajax>
+            {% include 'popup-quick-view' with content: quick_view_content %}
+        </div>
+    {%- endif -%}
+    {%- if template_handle == 'password' -%}
+        <div class="popup__body position-relative d-none justify-content-end" data-js-popup-name="password" data-popup-right data-js-popup-mobile-only>
+            {% include 'popup-password' %}
+        </div>
+    {%- endif -%}
+    {%- if settings.product_info_show_size_guide -%}
+        <div class="popup__body position-relative d-none flex-center px-15 py-30" data-js-popup-name="size-guide" data-popup-center>
+            {% include 'popup-size-guide' %}
+        </div>
+    {%- endif -%}
+    {%- if settings.product_info_show_delivery_return -%}
+        <div class="popup__body position-relative d-none flex-center px-15 py-30" data-js-popup-name="delivery-return" data-popup-center>
+            {% include 'popup-delivery-return' %}
+        </div>
+    {%- endif -%}
+    {%- if settings.product_info_show_message -%}
+        <div class="popup__body position-relative d-none flex-center px-15 py-30" data-js-popup-name="message" data-popup-center>
+            {% include 'popup-product-contact' %}
+        </div>
+    {%- endif -%}
+    <div class="popup__body position-relative d-none flex-center px-15 py-30" data-js-popup-name="contact-confirmation" data-popup-center>
+        {% include 'popup-contact-confirmation' %}
+    </div>
+    {%- if settings.layout_age_confirmation and template_handle != 'page' -%}
+        <div class="popup__body position-relative d-none flex-center px-15 py-30" data-js-popup-name="age-confirmation" data-popup-center data-disable-bg-click>
+            {% include 'popup-age-confirmation' %}
+        </div>
+    {%- endif -%}
+    {%- if template_handle contains 'product' -%}
+        <div class="popup__body position-relative d-none justify-content-end" data-js-popup-name="pickup-available" data-popup-right>
+            {% include 'popup-pickup-available' %}
+        </div>
+    {%- endif -%}
+</div>
+{% capture popups_style_base_html %}
+    <style>
+        {{ popups_style_base_html }}
+        :root {
+            --theme-popups-bg: var(--theme);
+            --popups-navigation-mob-bg: var(--theme4);
+
+            --animation-popup-duration: 0.4s;      
+
+            {%- if settings.layout_settings_file == 'skin-14' -%}
+                --popups-navigation-mob-bg: var(--theme2);
+            {%- elsif settings.layout_settings_file == 'skin-15' -%}
+                --popups-navigation-mob-bg: var(--theme2);
+            {%- elsif settings.layout_settings_file == 'skin-16' -%}
+                --popups-navigation-mob-bg: var(--theme2);
+            {%- elsif settings.layout_settings_file == 'skin-17' -%}
+                --popups-navigation-mob-bg: var(--theme2);
+            {%- elsif settings.layout_settings_file == 'skin-18' -%}
+                --popups-navigation-mob-bg: var(--theme2);
+            {%- endif -%}
+
+            {%- if settings.color_theme_popups_bg and settings.color_theme_popups_bg != '' and settings.color_theme_popups_bg != transparent_value -%}
+                --theme-popups-bg: {{ settings.color_theme_popups_bg }};
+            {%- endif -%}
+        }
+    </style>
+{% endcapture %}
+{%- if popups_style_base_html -%}
+    {%- if request.design_mode -%}
+        {{ popups_style_base_html }}
+    {%- else -%}
+        <template class="js-loader-inline-style" data-key="{{ popups_style_base_html | hmac_sha1: 'secret_key' }}">{{ popups_style_base_html }}</template>
+    {%- endif -%}
+{%- endif -%}
+<script>
+    theme.AssetsLoader.loadInlineStyles();
+</script>

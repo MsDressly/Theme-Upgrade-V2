@@ -1,0 +1,241 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "show_title": false,
+        "show_content": true
+      }
+    },
+    "ea6229f2-41a3-4ec7-9dd9-f2d1d0f91321": {
+      "type": "information-line",
+      "blocks": {
+        "template--17983181914432__ea6229f2-41a3-4ec7-9dd9-f2d1d0f91321-1676224680679a2cbe-0": {
+          "type": "content",
+          "settings": {
+            "icon": "theme-116",
+            "title": "Free Shipping.",
+            "paragraph": "All orders of $100 or more of eligible items across any product category qualify.",
+            "url": ""
+          }
+        },
+        "template--17983181914432__ea6229f2-41a3-4ec7-9dd9-f2d1d0f91321-1676224680679a2cbe-1": {
+          "type": "content",
+          "settings": {
+            "icon": "theme-125",
+            "title": "Payment Methods.",
+            "paragraph": "Credit Card: Visa, MasterCard, Maestro, American Express, Apple Pay, Google Pay, Shop Pay.",
+            "url": ""
+          }
+        },
+        "template--17983181914432__ea6229f2-41a3-4ec7-9dd9-f2d1d0f91321-1676224680679a2cbe-2": {
+          "type": "content",
+          "settings": {
+            "icon": "theme-009",
+            "title": "Returns & Refunds.",
+            "paragraph": "You can return any item purchased on MsDressly.com within 45 days of the delivery date.",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--17983181914432__ea6229f2-41a3-4ec7-9dd9-f2d1d0f91321-1676224680679a2cbe-0",
+        "template--17983181914432__ea6229f2-41a3-4ec7-9dd9-f2d1d0f91321-1676224680679a2cbe-1",
+        "template--17983181914432__ea6229f2-41a3-4ec7-9dd9-f2d1d0f91321-1676224680679a2cbe-2"
+      ],
+      "settings": {
+        "title": "",
+        "type": "1",
+        "style": "1"
+      }
+    },
+    "6ecbb293-d9a5-4527-81d5-78a9058b2e1b": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 60,
+        "margin_bottom": 0,
+        "margin_top_mobile": 0,
+        "margin_bottom_mobile": 0,
+        "container": "boxed",
+        "show_separator": false,
+        "title": ""
+      }
+    },
+    "3622764c-5c48-4422-a9ba-34ae6c7903b4": {
+      "type": "home-builder",
+      "blocks": {
+        "c1a72d1c-1c49-4e65-8298-08f6e3eccf4b": {
+          "type": "custom_html",
+          "settings": {
+            "page_content": "follow-us-on-social",
+            "liquid": "",
+            "size_of_column": "auto"
+          }
+        }
+      },
+      "block_order": [
+        "c1a72d1c-1c49-4e65-8298-08f6e3eccf4b"
+      ],
+      "settings": {
+        "title": "",
+        "container": "boxed",
+        "size_of_columns": "1",
+        "size_of_columns_mobile": "1",
+        "margins_for_columns": "none",
+        "align_of_columns": "top_center",
+        "disable_column_paddings": false,
+        "precedence": "",
+        "customization_class": ""
+      }
+    },
+    "0e8d1802-b8c2-49be-8197-f18b8fc1bb87": {
+      "type": "home-builder",
+      "blocks": {
+        "3eac940c-91a0-4f75-a322-6a8fb1776080": {
+          "type": "promobox",
+          "settings": {
+            "url": "https://www.instagram.com/MsDressly/",
+            "image": "shopify://shop_images/1_7b466dec-aef2-4c23-a8d6-847e416372f6.png",
+            "image_size": 200,
+            "image_mobile": "shopify://shop_images/1_7b466dec-aef2-4c23-a8d6-847e416372f6.png",
+            "image_mobile_size": 200,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "",
+            "text_line_2": "",
+            "text_line_3": "",
+            "style": "1",
+            "button_1": "Follow us on Instagram",
+            "button_1_url": "https://www.instagram.com/MsDressly/",
+            "color_button_type_1": "invert",
+            "button_2": "",
+            "button_2_url": "",
+            "color_button_type_2": "secondary-transparent",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "type-1-7",
+            "content_position": "center",
+            "content_align": "center",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "3",
+            "visible": "desktop_mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        },
+        "09771e55-debe-4d91-af64-9862b70837d0": {
+          "type": "promobox",
+          "settings": {
+            "url": "https://www.pinterest.ca/MsDressly/",
+            "image": "shopify://shop_images/2_d7f07568-4a0a-43cc-ae25-d63cfb60a355.png",
+            "image_size": 200,
+            "image_mobile": "shopify://shop_images/2_d7f07568-4a0a-43cc-ae25-d63cfb60a355.png",
+            "image_mobile_size": 200,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "",
+            "text_line_2": "",
+            "text_line_3": "",
+            "style": "1",
+            "button_1": "Pinterest",
+            "button_1_url": "https://www.pinterest.ca/MsDressly/",
+            "color_button_type_1": "invert",
+            "button_2": "",
+            "button_2_url": "",
+            "color_button_type_2": "secondary-transparent",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "clean",
+            "content_position": "center",
+            "content_align": "center",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "auto",
+            "visible": "desktop_mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        }
+      },
+      "block_order": [
+        "3eac940c-91a0-4f75-a322-6a8fb1776080",
+        "09771e55-debe-4d91-af64-9862b70837d0"
+      ],
+      "settings": {
+        "title": "",
+        "container": "boxed",
+        "size_of_columns": "4",
+        "size_of_columns_mobile": "2",
+        "margins_for_columns": "none",
+        "align_of_columns": "top_center",
+        "disable_column_paddings": false,
+        "precedence": "",
+        "customization_class": ""
+      }
+    },
+    "f134f627-1a85-48c7-83c3-160ce865b06a": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 60,
+        "margin_bottom": 0,
+        "margin_top_mobile": 0,
+        "margin_bottom_mobile": 0,
+        "container": "boxed",
+        "show_separator": false,
+        "title": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "ea6229f2-41a3-4ec7-9dd9-f2d1d0f91321",
+    "6ecbb293-d9a5-4527-81d5-78a9058b2e1b",
+    "3622764c-5c48-4422-a9ba-34ae6c7903b4",
+    "0e8d1802-b8c2-49be-8197-f18b8fc1bb87",
+    "f134f627-1a85-48c7-83c3-160ce865b06a"
+  ]
+}

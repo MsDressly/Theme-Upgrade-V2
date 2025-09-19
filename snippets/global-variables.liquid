@@ -1,0 +1,324 @@
+{% comment %}
+START: GLOBAL
+[layout_enable_snow_effect] Used Particles JavaScript plugin - https://vincentgarreau.com/particles.js/
+[layout_preloader_cursor] Set cursor image for page pre-loader
+[layout_image_lazyload_effect] Values: 'fade-in', 'show', 'none'
+{% endcomment %}
+{%- assign layout_body_min_height = 30 -%}
+{%- assign layout_enable_snow_effect = false -%}
+{%- assign layout_preloader_cursor = null -%}
+{%- assign layout_image_lazyload_effect = 'fade-in' -%}
+{% comment %}
+END: GLOBAL
+{% endcomment %}
+{% comment %}
+START: BUTTON & INPUT
+{% endcomment %}
+{%- assign input_min_height = 35 -%}
+{%- assign button_border = '1px solid' -%}
+{%- assign button_min_height = 35 -%}
+{%- assign button_padding_horizontal_d = 16 -%}
+{%- assign button_padding_horizontal_m = button_padding_horizontal_d -%}
+{%- assign button_text_padding_horizontal = button_padding_horizontal_d -%}
+{%- assign button_middle_large_min_height = 56 -%}
+{%- assign button_middle_large_padding_horizontal = 35 -%}
+{%- assign form_inline_button_min_height = button_min_height -%}
+{%- assign form_column_button_min_height = button_min_height -%}
+{%- assign product_page_addtocart_min_height_d = button_min_height -%}
+{% comment %}
+END: BUTTON & INPUT
+{% endcomment %}
+{% comment %}
+START: OFFSETS
+Values > 0 and < 100, must be a multiple of 5
+{% endcomment %}
+{%- assign offset_collection_page_content_margin_top_d = 25 -%}
+{%- assign offset_collection_page_products_margin_top_d = 30 -%}
+{%- assign offset_collection_page_product_margin_bottom_d = 30 -%}
+{%- assign offset_collection_page_pagination_margin_bottom_d = 40 -%}
+{%- assign offset_collection_page_head_centered_d = false -%}
+{%- assign offset_product_page_content_margin_top_d = 30 -%}
+{%- assign offset_product_page_content_margin_bottom_d = 30 -%}
+{%- assign offset_pages_margin_top_d = 0 -%}
+{%- assign offset_pages_margin_bottom_d = 60 -%}
+{% comment %}
+END: OFFSETS
+{% endcomment %}
+{% comment %}
+START: ANIMATIONS
+Must be duplicated in next variables to assets/theme.scss.liquid file
+[animation_css_duration] - $animation-css-duration
+[animation_menu_desktop_duration] - $animation-menu-mobile-duration
+[animation_dropdown_duration] - $animation-dropdown-duration
+[animation_accordion_duration] - $animation-accordion-duration
+[animation_footbar_product_duration] - $animation-footbar-product-duration:
+[animation_tabs_duration] - $animation-tabs-duration
+{% endcomment %}
+{%- assign animation_css_duration = 0.3 -%}
+{%- assign animation_tooltips_inertia = true -%}
+{%- assign animation_tooltips_show_duration = 0.2 -%}
+{%- assign animation_tooltips_hide_duration = 0.1 -%}
+{%- assign animation_header_sticky_fade_duration = 0.1 -%}
+{%- assign animation_menu_desktop_duration = 0.4 -%}
+{%- assign animation_dropdown_duration = 0.3 -%}
+{%- assign animation_accordion_duration = 0.4 -%}
+{%- assign animation_footbar_product_duration = 0.4 -%}
+{%- assign animation_tabs_duration = 0.4 -%}
+{%- assign animation_tabs_scroll_duration = 0.4 -%}
+{%- assign animation_pagination_scroll_duration = 1 -%}
+{%- assign animation_backtotop_scroll_duration = 0.4 -%}
+{% comment %}
+END: ANIMATIONS
+{% endcomment %}
+{% comment %}
+START: HEADER SECTION
+[header_container] Values: 'inherit', 'fullwidth', 'boxed'
+[header_logo_adaptive, header_logo_adaptive_max_width] Adaptive centered logo on the desktop (only for type #2). Move the centered logo to the side"
+[header_vertical_menu_items_limit] Items limit for vertical menu, 0 - no limit
+{% endcomment %}
+{%- assign header_container = 'inherit' -%}
+{%- assign header_menu_container_paddings_horizontal = 20 -%}
+{%- assign header_menu_items_paddings_horizontal = 7 -%}
+{%- assign header_menu_list_on_a_par = false -%}
+{%- assign header_menu_list_border_radius = settings.button_border_radius -%}
+{%- assign header_logo_adaptive = true -%}
+{%- assign header_logo_adaptive_max_width = 1024 -%}
+{%- assign header_enable_tooltips = true -%}
+{%- assign header_enable_transparent = false -%}
+{%- assign header_tape_min_height = 35 -%}
+{%- assign header_bottom_tape_height = 70 -%}
+{%- assign header_info_line_min_height = 38 -%}
+{%- assign header_additional_line_min_height = 39 -%}
+{%- assign header_top_line_min_height = 40 -%}
+{%- assign header_5_top_line_min_height = 75 -%}
+{%- assign header_6_top_line_min_height = 75 -%}
+{%- assign header_7_top_line_min_height = 75 -%}
+{%- assign header_bottom_line_min_height = 40 -%}
+{%- assign header_vertical_menu_items_limit = 10 -%}
+{%- assign header_tape_show_once = true -%}
+{%- assign header_tape_cookies_life = 1 -%}
+{% comment %}
+END: HEADER SECTION
+{% endcomment %}
+{% comment %}
+START: HOME BUILDER
+[home_builder_instagram_image_size] Values: '240', '320', '480', '640'
+{% endcomment %}
+{%- assign home_builder_instagram_image_size = '240' -%}
+{% comment %}
+END: HOME BUILDER
+{% endcomment %}
+{% comment %}
+START: PRODUCT
+{% endcomment %}
+{%- assign product_enable_tooltips = true -%}
+{%- assign product_payment_enable_tooltips = true -%}
+{%- assign product_option_enable_tooltips = true -%}
+{%- assign product_option_type_text_min_width = 25 -%}
+{%- assign product_ajax_preload_json = true -%}
+{%- assign product_hide_disabled_options = true -%}
+{%- assign product_collection_content_offsets = 1 -%}
+{%- assign product_collection_description_truncatewords = 40 -%}
+{%- assign product_popup_buttons_show_icon = true -%}
+{%- assign product_page_related_show_border = true -%}
+{% comment %}
+END: PRODUCT
+{% endcomment %}
+{% comment %}
+START: HOME BUILDER
+{% endcomment %}
+{%- assign home_builder_margins_for_columns_preset_1 = 'mb-10 mb-sm-15' -%}
+{%- assign home_builder_margins_for_columns_preset_2 = 'mb-45 mb-sm-60' -%}
+{%- assign home_builder_margins_for_columns_preset_3 = 'mb-30 mb-sm-30' -%}
+{%- assign home_builder_margins_for_columns_preset_4 = 'mb-30 mb-sm-45' -%}
+{%- assign home_builder_margins_for_columns_preset_5 = 'mb-35 mb-sm-40' -%}
+{%- assign home_builder_slider_revolution_grid_width_preset_1 = '1440,1025,768,541' -%}
+{%- assign home_builder_slider_revolution_grid_height_preset_1 = '550,700,650,600' -%}
+{%- assign home_builder_slider_revolution_grid_width_preset_2 = '1440,1025,768,541' -%}
+{%- assign home_builder_slider_revolution_grid_height_preset_2 = '690,700,650,600' -%}
+{%- assign home_builder_slider_revolution_grid_width_preset_3 = '1440,1025,768,541' -%}
+{%- assign home_builder_slider_revolution_grid_height_preset_3 = '730,700,650,600' -%}
+{% comment %}
+END: HOME BUILDER
+{% endcomment %}
+{% comment %}
+START: PROMO BOX
+[promobox_height_preset_1] Example: '65%' or '550px' or '550px,500px,400px,350px,120%', value can setting in % (percent) or px (pixels). Responsive levels are [1260, 1025, 768, 541]
+[promobox_curtain_opacity] Values > 0 and < 1
+[promobox_style_{n}_button_{n}] Values: default, type-2, type-3, type-4, default-transparent, type-2-transparent, type-3-transparent, type-4-transparent
+{% endcomment %}
+{%- assign promobox_height_preset_1 = '550px,500px,450px,400px,550px' -%}
+{%- assign promobox_height_preset_2 = '690px,600px,550px,550px,550px' -%}
+{%- assign promobox_height_preset_3 = '730px,650px,550px,550px,550px' -%}
+{%- assign promobox_ultra_height_preset_1 = '38%' -%}
+{%- assign promobox_ultra_height_preset_3 = '730px' -%}
+{%- assign promobox_curtain_opacity = 0.7 -%}
+{%- assign promobox_text_bg_opacity = 0.8 -%}
+{% comment %}
+END: PROMO BOX
+{% endcomment %}
+{% comment %}
+START: CAROUSEL PRODUCTS
+{% endcomment %}
+{%- assign carousel_products_async_ajax_loading = true -%}
+{%- assign carousel_products_image_lazyload_disable = false -%}
+{% comment %}
+END: CAROUSEL PRODUCTS
+{% endcomment %}
+{% comment %}
+START: CAROUSEL RELATED PRODUCTS
+{% endcomment %}
+{%- assign carousel_related_products_async_ajax_loading = true -%}
+{%- assign carousel_related_products_image_lazyload_carousel_disable = false -%}
+{% comment %}
+END: CAROUSEL RELATED PRODUCTS
+{% endcomment %}
+{% comment %}
+START: CAROUSEL ARTICLES
+{% endcomment %}
+{%- assign carousel_articles_image_lazyload_disable = false -%}
+{% comment %}
+END: CAROUSEL ARTICLES
+{% endcomment %}
+{% comment %}
+START: CAROUSEL BRANDS
+{% endcomment %}
+{%- assign carousel_brands_image_lazyload_disable = false -%}
+{% comment %}
+END: CAROUSEL BRANDS
+{% endcomment %}
+{% comment %}
+START: SORTING COLLECTIONS
+{% endcomment %}
+{%- assign sorting_collections_async_ajax_loading = true -%}
+{%- assign sorting_collections_image_lazyload_disable = false -%}
+{% comment %}
+END: SORTING COLLECTIONS
+{% endcomment %}
+{% comment %}
+START: INFORMATION LINE
+[information_line_padding_v] Values > 0 and < 100, must be a multiple of 5
+{% endcomment %}
+{%- assign information_line_padding_v = 10 -%}
+{% comment %}
+END: INFORMATION LINE
+{% endcomment %}
+{% comment %}
+START: LOOKBOOK
+{% endcomment %}
+{%- assign lookbook_image_lazyload_disable = false -%}
+{% comment %}
+END: LOOKBOOK
+{% endcomment %}
+{% comment %}
+START: FOOTER
+[footer_container] Values: 'inherit', 'fullwidth', 'boxed'
+[footer_other_page_margins] Example: 'mt-50 mt-md-60'
+[footer_button_back_to_top_limit] Button 'Back to top' scroll visible limit
+[footer_social_media_size] Values: 'default', 'large'
+{% endcomment %}
+{%- assign footer_container = 'inherit' -%}
+{%- assign footer_content_offsets = 1 -%}
+{%- assign footer_other_page_margins = null -%}
+{%- assign footer_button_back_to_top_limit = 600 -%}
+{%- assign footer_social_media_size = 'default' -%}
+{%- assign footer_social_enable_tooltips = true -%}
+{%- assign footer_subscription_button_padding_horizontal = 20 -%}
+{%- assign footer_logo_margin_horizontal = 15 -%}
+{% comment %}
+END: FOOTER
+{% endcomment %}
+
+{%- if settings.layout_settings_file == 'skin-1' -%}
+{%- elsif settings.layout_settings_file == 'skin-2' -%}
+    {%- assign header_top_line_min_height = 60 -%}
+    {%- assign header_bottom_line_min_height = 41 -%}
+{%- elsif settings.layout_settings_file == 'skin-3' -%}
+{%- elsif settings.layout_settings_file == 'skin-4' -%}
+    {%- assign header_enable_transparent = true -%}
+{%- elsif settings.layout_settings_file == 'skin-5' -%}
+    {%- assign header_top_line_min_height = 60 -%}
+    {%- assign header_bottom_line_min_height = 41 -%}
+    {%- assign header_menu_list_on_a_par = true -%}
+    {%- assign promobox_text_bg_opacity = 0.6 -%}
+{%- elsif settings.layout_settings_file == 'skin-6' -%}
+    {%- assign promobox_curtain_opacity = 0.5 -%}
+    {%- assign header_top_line_min_height = 42 -%}
+{%- elsif settings.layout_settings_file == 'skin-7' -%}
+    {%- assign offset_collection_page_content_margin_top_d = 75 -%}
+    {%- assign offset_collection_page_products_margin_top_d = 80 -%}
+    {%- assign offset_collection_page_product_margin_bottom_d = 70 -%}
+    {%- assign offset_collection_page_pagination_margin_bottom_d = 70 -%}
+    {%- assign offset_product_page_content_margin_top_d = 70 -%}
+    {%- assign offset_product_page_content_margin_bottom_d = 70 -%}
+    {%- assign offset_pages_margin_top_d = 70 -%}
+    {%- assign offset_pages_margin_bottom_d = 90 -%}
+    {%- assign button_padding_horizontal_d = 24 -%}
+    {%- assign header_top_line_min_height = 82 -%}
+    {%- assign button_min_height = 45 -%}
+    {%- assign product_page_addtocart_min_height_d = button_min_height -%}
+    {%- assign footer_social_media_size = 'large' -%}
+{%- elsif settings.layout_settings_file == 'skin-8' -%}
+    {%- assign header_menu_items_paddings_horizontal = 10 -%}
+    {%- assign header_top_line_min_height = 61 -%}
+    {%- assign header_bottom_line_min_height = 41 -%}
+{%- elsif settings.layout_settings_file == 'skin-9' -%}
+    {%- assign offset_collection_page_product_margin_bottom_d = 40 -%}
+{%- elsif settings.layout_settings_file == 'skin-10' -%}
+    {%- assign header_bottom_line_min_height = 40 -%}
+{%- elsif settings.layout_settings_file == 'skin-11' -%}
+    {%- assign layout_enable_snow_effect = true -%}
+    {%- assign button_min_height = 45 -%}
+    {%- assign form_inline_button_min_height = 35 -%}
+    {%- assign form_column_button_min_height = 35 -%}
+    {%- assign button_padding_horizontal_d = 21 -%}
+    {%- assign header_menu_list_border_radius = 2 -%}
+    {%- assign product_page_addtocart_min_height_d = 60 -%}
+    {%- assign header_menu_items_paddings_horizontal = 9 -%}
+    {%- assign header_top_line_min_height = 82 -%}
+    {%- assign promobox_text_bg_opacity = 0.9 -%}
+    {%- assign information_line_padding_v = 40 -%}
+{%- elsif settings.layout_settings_file == 'skin-12' -%}
+    {%- assign offset_pages_margin_top_d = 40 -%}
+    {%- assign offset_pages_margin_bottom_d = 100 -%}
+    {%- assign button_min_height = 46 -%}
+    {%- assign form_inline_button_min_height = button_min_height -%}
+    {%- assign form_column_button_min_height = button_min_height -%}
+    {%- assign product_page_addtocart_min_height_d = button_min_height -%}
+    {%- assign button_padding_horizontal_d = 31 -%}
+    {%- assign button_border = '2px solid' -%}
+    {%- assign header_info_line_min_height = 35 -%}
+    {%- assign header_top_line_min_height = 80 -%}
+    {%- assign header_menu_items_paddings_horizontal = 13 -%}
+    {%- assign product_option_type_text_min_width = 50 -%}
+    {%- assign product_collection_content_offsets = 2 -%}
+    {%- assign footer_content_offsets = 2 -%}
+    {%- assign footer_social_media_size = 'large-2' -%}
+    {%- assign footer_subscription_button_padding_horizontal = 30 -%}
+    {%- assign footer_logo_margin_horizontal = 25 -%}
+{%- elsif settings.layout_settings_file == 'skin-13' -%}
+    {%- assign header_logo_adaptive_max_width = 10000 -%}
+    {%- assign header_menu_list_on_a_par = false -%}
+    {%- assign header_menu_items_paddings_horizontal = 14 -%}
+    {%- assign button_padding_horizontal_d = 19 -%}
+    {%- assign form_inline_button_min_height = button_min_height -%}
+    {%- assign form_column_button_min_height = button_min_height -%}
+    {%- assign product_page_addtocart_min_height_d = button_min_height -%}
+    {%- assign header_top_line_min_height = 80 -%}
+    {%- assign footer_subscription_button_padding_horizontal = button_padding_horizontal_d -%}
+    {%- assign footer_social_media_size = 'large' -%}
+{%- elsif settings.layout_settings_file == 'skin-14' -%}
+    {%- assign header_top_line_min_height = 60 -%}
+    {%- assign header_menu_items_paddings_horizontal = 10 -%}
+    {%- assign offset_collection_page_head_centered_d = true -%}
+{%- elsif settings.layout_settings_file == 'skin-15' -%}
+    {%- assign header_menu_list_border_radius = 0 -%}
+    {%- assign product_popup_buttons_show_icon = false -%}
+    {%- assign footer_social_media_size = 'middle' -%}
+{%- elsif settings.layout_settings_file == 'skin-16' -%}
+    {%- assign header_menu_list_border_radius = 0 -%}
+{%- elsif settings.layout_settings_file == 'skin-18' -%}
+    {%- assign header_top_line_min_height = 60 -%}
+    {%- assign product_page_related_show_border = false -%}
+{%- elsif settings.layout_settings_file == 'custom' -%}
+{%- endif -%}

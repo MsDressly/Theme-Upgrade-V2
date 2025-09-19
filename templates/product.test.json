@@ -1,0 +1,834 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "5675053d-3467-4746-963e-4514477aad42": {
+          "type": "title",
+          "settings": {}
+        },
+        "d250ceb2-23c9-4926-be00-8fcb455e62e9": {
+          "type": "reviews",
+          "disabled": true,
+          "settings": {}
+        },
+        "a5bd3c3b-9ef1-4cde-a923-54a7efc01c14": {
+          "type": "details",
+          "disabled": true,
+          "settings": {}
+        },
+        "d5e4b255-784c-4754-9cbe-eddd84c93af2": {
+          "type": "price",
+          "disabled": true,
+          "settings": {}
+        },
+        "5a6109f3-d35a-4f38-8da0-143bf0234539": {
+          "type": "countdown",
+          "disabled": true,
+          "settings": {}
+        },
+        "b85ba278-399a-4ad1-859d-7823852521f0": {
+          "type": "stock_countdown",
+          "disabled": true,
+          "settings": {}
+        },
+        "3c0386b9-ffa8-4bf2-8e13-0b90634f90ad": {
+          "type": "visitors",
+          "disabled": true,
+          "settings": {}
+        },
+        "f7689ce9-d953-4a78-b2ca-74088d888a7f": {
+          "type": "border",
+          "disabled": true,
+          "settings": {}
+        },
+        "dcb960c0-aac1-469d-a4fd-e416a4a6ed4f": {
+          "type": "icon_with_text",
+          "disabled": true,
+          "settings": {
+            "style": "inline",
+            "icon_svg_1": "theme-127",
+            "text_1": "<p>Warrenty. No code needed, just head for checkout!</p>",
+            "icon_svg_2": "theme-142",
+            "text_2": "<p>Free shipping. All orders are dispatched the next business day!</p>",
+            "icon_svg_3": "theme-144",
+            "text_3": "<p>We will beat any price. We back all products with a 14 days guarantee.</p>",
+            "icon_svg_4": "",
+            "text_4": "",
+            "icon_svg_5": "",
+            "text_5": "",
+            "icon_svg_6": "",
+            "text_6": ""
+          }
+        },
+        "2293f673-2bca-4a7b-a16c-accf31a2783b": {
+          "type": "border",
+          "disabled": true,
+          "settings": {}
+        },
+        "6d2130b9-35eb-4ec7-9832-b3555f913259": {
+          "type": "options",
+          "disabled": true,
+          "settings": {}
+        },
+        "548e2413-180e-4825-aba6-4f46e5ef4317": {
+          "type": "popups",
+          "disabled": true,
+          "settings": {}
+        },
+        "261885ab-1671-4ab7-aafc-3bae58123846": {
+          "type": "notes",
+          "disabled": true,
+          "settings": {}
+        },
+        "b033f3a3-2862-435c-8579-29bede720233": {
+          "type": "buttons_quantity",
+          "disabled": true,
+          "settings": {}
+        },
+        "72d08ef7-bfb9-4c2a-b18a-951575e7ce50": {
+          "type": "complementary_products",
+          "disabled": true,
+          "settings": {}
+        },
+        "07c447a5-98d7-4315-9048-ac172d3673dc": {
+          "type": "free_shipping",
+          "disabled": true,
+          "settings": {}
+        },
+        "d318ee16-4ffe-4001-8845-ecbed8fa0d1b": {
+          "type": "pickup_availability",
+          "disabled": true,
+          "settings": {}
+        },
+        "e63a4691-7127-45d6-a8d8-191fe152dad6": {
+          "type": "payments",
+          "disabled": true,
+          "settings": {}
+        },
+        "fe7b0507-5483-4956-ab0f-ea3a90f57b1f": {
+          "type": "social_share_buttons",
+          "disabled": true,
+          "settings": {}
+        },
+        "b0febcf2-a38c-4ae7-a929-10af2ad0e5f4": {
+          "type": "tab_custom",
+          "disabled": true,
+          "settings": {
+            "title": "ADDITIONAL",
+            "content": "",
+            "page_content": ""
+          }
+        },
+        "959240db-9a88-436b-8c09-b6c9e0ebb7a8": {
+          "type": "tab_custom",
+          "disabled": true,
+          "settings": {
+            "title": "CUSTOM TAB",
+            "content": "",
+            "page_content": ""
+          }
+        }
+      },
+      "block_order": [
+        "5675053d-3467-4746-963e-4514477aad42",
+        "d250ceb2-23c9-4926-be00-8fcb455e62e9",
+        "a5bd3c3b-9ef1-4cde-a923-54a7efc01c14",
+        "d5e4b255-784c-4754-9cbe-eddd84c93af2",
+        "5a6109f3-d35a-4f38-8da0-143bf0234539",
+        "b85ba278-399a-4ad1-859d-7823852521f0",
+        "3c0386b9-ffa8-4bf2-8e13-0b90634f90ad",
+        "f7689ce9-d953-4a78-b2ca-74088d888a7f",
+        "dcb960c0-aac1-469d-a4fd-e416a4a6ed4f",
+        "2293f673-2bca-4a7b-a16c-accf31a2783b",
+        "6d2130b9-35eb-4ec7-9832-b3555f913259",
+        "548e2413-180e-4825-aba6-4f46e5ef4317",
+        "261885ab-1671-4ab7-aafc-3bae58123846",
+        "b033f3a3-2862-435c-8579-29bede720233",
+        "72d08ef7-bfb9-4c2a-b18a-951575e7ce50",
+        "07c447a5-98d7-4315-9048-ac172d3673dc",
+        "d318ee16-4ffe-4001-8845-ecbed8fa0d1b",
+        "e63a4691-7127-45d6-a8d8-191fe152dad6",
+        "fe7b0507-5483-4956-ab0f-ea3a90f57b1f",
+        "b0febcf2-a38c-4ae7-a929-10af2ad0e5f4",
+        "959240db-9a88-436b-8c09-b6c9e0ebb7a8"
+      ],
+      "settings": {
+        "gallery_size": "6",
+        "sidebar": "off",
+        "enable_sticky_sidebar": true,
+        "show_tabs": true,
+        "show_tab_description": true,
+        "show_tab_reviews": true,
+        "scrolling_to_opened_tab": false,
+        "tabs_type": "tabs"
+      }
+    },
+    "16343107307257fa4f": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 60,
+        "margin_top_mobile": 15,
+        "margin_bottom_mobile": 15,
+        "container": "boxed",
+        "show_separator": true,
+        "title": ""
+      }
+    },
+    "1634305888493e174c": {
+      "type": "home-builder",
+      "blocks": {
+        "11aa9b3f-b997-44dd-84c8-7f7bfbfb61d6": {
+          "type": "promobox",
+          "settings": {
+            "url": "shopify://collections/dresses",
+            "image": "shopify://shop_images/pp1.png",
+            "image_size": 1450,
+            "image_mobile": "shopify://shop_images/Rectangle_6.jpg",
+            "image_mobile_size": 550,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "",
+            "text_line_2": "SHELLA - MULTIPURPOSE SHOPIFY THEME",
+            "text_line_3": "Shella – premium, responsive, fashion Shopify theme. Our team puts years of web development experience into Shella theme. It includes same features as other themes at themeforest, plus some unique features which you can find only at Shella theme. Builder, true collection filter, fashion icons, etc. Enjoy Shella theme  :)",
+            "style": "2",
+            "button_1": "",
+            "button_1_url": "",
+            "color_button_type_1": "default",
+            "button_2": "",
+            "button_2_url": "",
+            "color_button_type_2": "default",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "type-1-3",
+            "content_position": "center_left",
+            "content_align": "left",
+            "add_container": true,
+            "content_width": 100,
+            "text_width": 560,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "auto",
+            "visible": "desktop",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        },
+        "68b2e46e-54cb-4c61-bb63-006f1d03d3d0": {
+          "type": "promobox",
+          "settings": {
+            "url": "",
+            "image": "shopify://shop_images/Rectangle_a13d5f0c-f13a-4ecc-8931-e758e53d7d56.jpg",
+            "image_size": 1450,
+            "image_mobile_size": 550,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "",
+            "text_line_2": "",
+            "text_line_3": "",
+            "style": "1",
+            "button_1": "",
+            "button_1_url": "",
+            "color_button_type_1": "default",
+            "button_2": "",
+            "button_2_url": "",
+            "color_button_type_2": "default",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "type-2-13",
+            "content_position": "center",
+            "content_align": "center",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "auto",
+            "visible": "mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        },
+        "7b8d6ffa-c7fb-461c-8961-d2ef50a68605": {
+          "type": "promobox",
+          "settings": {
+            "url": "",
+            "image_size": 1450,
+            "image_mobile_size": 550,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "",
+            "text_line_2": "SHELLA - MULTIPURPOSE SHOPIFY THEME",
+            "text_line_3": "Shella – premium, responsive, fashion Shopify theme. Our team puts years of web development experience into Shella theme. It includes same features as other themes at themeforest, plus some unique features which you can find only at Shella theme. Builder, true collection filter, fashion icons, etc. Enjoy Shella theme  :)",
+            "style": "8",
+            "button_1": "",
+            "button_1_url": "",
+            "color_button_type_1": "default",
+            "button_2": "",
+            "button_2_url": "",
+            "color_button_type_2": "default",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "text",
+            "content_position": "center",
+            "content_align": "left",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "auto",
+            "visible": "mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        }
+      },
+      "block_order": [
+        "11aa9b3f-b997-44dd-84c8-7f7bfbfb61d6",
+        "68b2e46e-54cb-4c61-bb63-006f1d03d3d0",
+        "7b8d6ffa-c7fb-461c-8961-d2ef50a68605"
+      ],
+      "settings": {
+        "title": "<p>SECTIONS ON EVERY PAGE</p>",
+        "container": "boxed",
+        "size_of_columns": "1",
+        "size_of_columns_mobile": "1",
+        "margins_for_columns": "none",
+        "align_of_columns": "top_center",
+        "disable_column_paddings": false,
+        "precedence": "",
+        "customization_class": ""
+      }
+    },
+    "1634128136bb246108": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 60,
+        "margin_bottom": 0,
+        "margin_top_mobile": 60,
+        "margin_bottom_mobile": 0,
+        "container": "boxed",
+        "show_separator": false,
+        "title": ""
+      }
+    },
+    "1634128129c7f7073c": {
+      "type": "home-builder",
+      "blocks": {
+        "7cec1383-4d32-4930-87ce-4fe8b3ed1e36": {
+          "type": "promobox",
+          "settings": {
+            "url": "",
+            "image": "shopify://shop_images/p2.png",
+            "image_size": 1450,
+            "image_mobile_size": 550,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "Text line #1",
+            "text_line_2": "Text line #2",
+            "text_line_3": "Text line #3",
+            "style": "1",
+            "button_1": "Button #1 text",
+            "button_1_url": "",
+            "color_button_type_1": "default",
+            "button_2": "Button #2 text",
+            "button_2_url": "",
+            "color_button_type_2": "default",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "clean",
+            "content_position": "center",
+            "content_align": "center",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "auto",
+            "visible": "desktop_mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        },
+        "e0da6f6c-8b2a-4023-92ab-91c1d9545e4f": {
+          "type": "promobox",
+          "settings": {
+            "url": "",
+            "image_size": 1450,
+            "image_mobile_size": 550,
+            "image_position_x": 50,
+            "color_image_mask": "rgba(0,0,0,0)",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "",
+            "text_line_2": "FAST, CLEAN, AND FLEXIBLE",
+            "text_line_3": "Shella is the fastest, featured, fresh, dynamically developing, best converting Shopify theme. Try it now! The first theme according to 15 Best Themes for Your Shopify eCommerce Business",
+            "style": "8",
+            "button_1": "",
+            "button_1_url": "shopify://pages/look-book-br-autumn-winter-2018",
+            "color_button_type_1": "default",
+            "button_2": "",
+            "button_2_url": "",
+            "color_button_type_2": "default",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "text",
+            "content_position": "center_right",
+            "content_align": "left",
+            "add_container": false,
+            "content_width": 78,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "auto",
+            "visible": "desktop_mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        }
+      },
+      "block_order": [
+        "7cec1383-4d32-4930-87ce-4fe8b3ed1e36",
+        "e0da6f6c-8b2a-4023-92ab-91c1d9545e4f"
+      ],
+      "settings": {
+        "title": "",
+        "container": "boxed",
+        "size_of_columns": "2",
+        "size_of_columns_mobile": "1",
+        "margins_for_columns": "preset_4",
+        "align_of_columns": "center_left",
+        "disable_column_paddings": true,
+        "precedence": "",
+        "customization_class": ""
+      }
+    },
+    "16343067578e5a158b": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 30,
+        "margin_bottom": 0,
+        "margin_top_mobile": 0,
+        "margin_bottom_mobile": 0,
+        "container": "boxed",
+        "show_separator": false,
+        "title": ""
+      }
+    },
+    "16343061697540a24a": {
+      "type": "home-builder",
+      "blocks": {
+        "b5795efe-e069-445c-96ed-648806b68a63": {
+          "type": "promobox",
+          "settings": {
+            "url": "shopify://pages/about-our-store",
+            "image_size": 1450,
+            "image_mobile_size": 550,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "",
+            "text_line_2": "SHOPIFY THEME FOR YOUR SUCCESS",
+            "text_line_3": "",
+            "style": "8",
+            "button_1": "",
+            "button_1_url": "",
+            "color_button_type_1": "default",
+            "button_2": "",
+            "button_2_url": "",
+            "color_button_type_2": "default",
+            "list_1": "include-product-page-os2-banner",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "text",
+            "content_position": "center",
+            "content_align": "left",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "6",
+            "visible": "desktop_mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        },
+        "85f7a1cf-8f84-49a2-9fa6-ec269bde1e34": {
+          "type": "promobox",
+          "settings": {
+            "url": "shopify://pages/about-our-store",
+            "image": "shopify://shop_images/p1.png",
+            "image_size": 1450,
+            "image_mobile_size": 550,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "",
+            "text_line_2": "Text line #2",
+            "text_line_3": "Text line #3",
+            "style": "1",
+            "button_1": "Button #1 text",
+            "button_1_url": "",
+            "color_button_type_1": "default",
+            "button_2": "Button #2 text",
+            "button_2_url": "",
+            "color_button_type_2": "default",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "clean",
+            "content_position": "center",
+            "content_align": "center",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "6",
+            "visible": "desktop_mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        }
+      },
+      "block_order": [
+        "b5795efe-e069-445c-96ed-648806b68a63",
+        "85f7a1cf-8f84-49a2-9fa6-ec269bde1e34"
+      ],
+      "settings": {
+        "title": "",
+        "container": "boxed",
+        "size_of_columns": "1",
+        "size_of_columns_mobile": "1",
+        "margins_for_columns": "preset_4",
+        "align_of_columns": "center",
+        "disable_column_paddings": false,
+        "precedence": "2,1",
+        "customization_class": ""
+      }
+    },
+    "1634306765ae1d554e": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 30,
+        "margin_bottom": 0,
+        "margin_top_mobile": 30,
+        "margin_bottom_mobile": 0,
+        "container": "boxed",
+        "show_separator": false,
+        "title": ""
+      }
+    },
+    "1634306845f7435aab": {
+      "type": "home-builder",
+      "blocks": {
+        "5f0a26aa-5ee6-4322-82af-7ca683129070": {
+          "type": "promobox",
+          "settings": {
+            "url": "",
+            "image": "shopify://shop_images/pp4.png",
+            "image_size": 1450,
+            "image_mobile_size": 550,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "",
+            "text_line_2": "Save hundreds of dollars each month with Shella. You don't need to purchase additional apps.",
+            "text_line_3": "",
+            "style": "3",
+            "button_1": "",
+            "button_1_url": "",
+            "color_button_type_1": "default",
+            "button_2": "",
+            "button_2_url": "",
+            "color_button_type_2": "default",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "type-2-12",
+            "content_position": "center",
+            "content_align": "left",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "4",
+            "visible": "desktop_mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        },
+        "bac2c754-6193-49ae-b5c2-aab7e70761eb": {
+          "type": "promobox",
+          "settings": {
+            "url": "",
+            "image": "shopify://shop_images/pp5.jpg",
+            "image_size": 1450,
+            "image_mobile_size": 550,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "",
+            "text_line_2": "Dropshipping ready — import hundreds of productsto Shella in minutes",
+            "text_line_3": "",
+            "style": "3",
+            "button_1": "",
+            "button_1_url": "",
+            "color_button_type_1": "default",
+            "button_2": "",
+            "button_2_url": "",
+            "color_button_type_2": "default",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "type-2-12",
+            "content_position": "center",
+            "content_align": "left",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "4",
+            "visible": "desktop_mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        },
+        "3baf4b9c-a833-4558-ad91-71d74397651a": {
+          "type": "promobox",
+          "settings": {
+            "url": "",
+            "image": "shopify://shop_images/pp6.png",
+            "image_size": 1450,
+            "image_mobile_size": 550,
+            "image_position_x": 50,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "",
+            "text_line_2": "Numerous header typeswith hundreds of options",
+            "text_line_3": "",
+            "style": "3",
+            "button_1": "",
+            "button_1_url": "",
+            "color_button_type_1": "default",
+            "button_2": "",
+            "button_2_url": "",
+            "color_button_type_2": "default",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "type-2-12",
+            "content_position": "center",
+            "content_align": "left",
+            "add_container": false,
+            "content_width": 100,
+            "text_width": 0,
+            "height": "auto",
+            "min_height": 0,
+            "size_of_column": "4",
+            "visible": "desktop_mobile",
+            "parallax": "disable",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none",
+            "animation_text": "none",
+            "color_text_1": "",
+            "color_text_2": "",
+            "color_text_3": "",
+            "color_text_bg": "",
+            "color_curtain_bg": "",
+            "customization_class": ""
+          }
+        }
+      },
+      "block_order": [
+        "5f0a26aa-5ee6-4322-82af-7ca683129070",
+        "bac2c754-6193-49ae-b5c2-aab7e70761eb",
+        "3baf4b9c-a833-4558-ad91-71d74397651a"
+      ],
+      "settings": {
+        "title": "<p>WHY CHOOSE SHELLA THEME</p>",
+        "container": "boxed",
+        "size_of_columns": "1",
+        "size_of_columns_mobile": "1",
+        "margins_for_columns": "preset_3",
+        "align_of_columns": "top_center",
+        "disable_column_paddings": false,
+        "precedence": "",
+        "customization_class": ""
+      }
+    },
+    "163430726099b71d81": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 30,
+        "margin_bottom": 0,
+        "margin_top_mobile": 5,
+        "margin_bottom_mobile": 5,
+        "container": "boxed",
+        "show_separator": false,
+        "title": ""
+      }
+    },
+    "related-products": {
+      "type": "carousel-related-products",
+      "settings": {
+        "show_section": true,
+        "type": "related",
+        "size_of_columns": "4",
+        "max_count": 6,
+        "autoplay": true,
+        "speed": 5,
+        "infinite": true,
+        "arrows": true,
+        "bullets": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "16343107307257fa4f",
+    "1634305888493e174c",
+    "1634128136bb246108",
+    "1634128129c7f7073c",
+    "16343067578e5a158b",
+    "16343061697540a24a",
+    "1634306765ae1d554e",
+    "1634306845f7435aab",
+    "163430726099b71d81",
+    "related-products"
+  ]
+}

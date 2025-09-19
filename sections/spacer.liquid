@@ -1,0 +1,113 @@
+<div data-section-id="{{ section.id }}" data-section-type="spacer"{% render 'layout-get-container-class' %}>
+    {%- if section.settings.margin_top_mobile != 0 -%}
+        {%- assign margin_top_mobile = section.settings.margin_top_mobile -%}
+    {%- else -%}
+        {%- assign margin_top_mobile = section.settings.margin_top -%}
+    {%- endif -%}
+    {%- if section.settings.margin_bottom_mobile != 0 -%}
+        {%- assign margin_bottom_mobile = section.settings.margin_bottom_mobile -%}
+    {%- else -%}
+        {%- assign margin_bottom_mobile = section.settings.margin_bottom -%}
+    {%- endif -%}
+    {% capture section_margins %}pt-{{ margin_top_mobile }} pt-md-{{ section.settings.margin_top }} pb-{{ margin_bottom_mobile }} pb-md-{{ section.settings.margin_bottom }}{% endcapture %}
+    <div class="builder-spacer {{ section_margins }}">
+        {%- if section.settings.show_separator -%}
+            <div class="border-top"></div>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+            <h2 class="h4 home-section-title{% if section.settings.show_separator %} mt-30{% endif %} mb-0 text-center">{{ section.settings.title | remove: '<p>' | remove: '</p>' | remove: ' class="text-underline"' | replace: '&lt;', '<' | replace: '&gt;', '>' }}</h2>
+        {%- endif -%}
+    </div>
+</div>
+
+
+{% schema %}
+{
+    "name": "Spacer",
+    "settings": [
+        {
+            "type": "range",
+            "id": "margin_top",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "px",
+            "label": "Margin top",
+            "default": 60
+        },
+        {
+            "type": "range",
+            "id": "margin_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "px",
+            "label": "Margin bottom",
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "margin_top_mobile",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "px",
+            "label": "Mobile margin top",
+            "info": "0 - get the desktop value",
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "margin_bottom_mobile",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "px",
+            "label": "Mobile margin bottom",
+            "info": "0 - get the desktop value",
+            "default": 0
+        },
+        {
+            "type": "select",
+            "id": "container",
+            "label": "Content width",
+            "default": "boxed",
+            "options": [
+                {
+                    "value": "fullwidth",
+                    "label": "Fullwidth"
+                },
+                {
+                    "value": "boxed",
+                    "label": "Boxed"
+                }
+            ]
+        },
+        {
+            "type": "checkbox",
+            "id": "show_separator",
+            "label": "Show separator",
+            "default": false
+        },
+        {
+            "type": "richtext",
+            "id": "title",
+            "label": "Title"
+        },
+        {
+            "type": "header",
+            "content": "User manual"
+        },
+        {
+            "type": "paragraph",
+            "content": "[Read user manual](https://mpithemes.gitbook.io/shella-shopify-theme/)"
+        }
+    ],
+    "presets": [
+            {
+                "name": "Spacer",
+                "category": "1) Main building sections"
+            }
+        ]
+    }
+{% endschema %}

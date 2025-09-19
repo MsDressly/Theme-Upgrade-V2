@@ -1,0 +1,31 @@
+.popup-subscription--layout-02 .popup-subscription__text-line-02 {
+  font-family: var(--alternative-family) !important;
+}
+
+@media (max-width: 1024px) {
+  .promobox--modification-1 {
+    text-align: center !important;
+  }
+}
+@media (max-width: 540px) {
+  .promobox--modification-1 .promobox__content {
+    align-items: flex-start !important;
+  }
+}
+@media (max-width: 540px) {
+  .promobox--modification-1 .promobox__content > * {
+    padding-top: 30px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+@media (max-width: 540px) {
+  .promobox--modification-1 .promobox__text-1 {
+    font-size: 36px;
+    line-height: 43px;
+  }
+}
+
+.builder---modification-1 {
+  background-color: #8A2626;
+}

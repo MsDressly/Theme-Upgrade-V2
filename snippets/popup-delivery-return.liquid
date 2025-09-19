@@ -1,0 +1,8 @@
+<div class="popup-delivery-return position-relative py-30 px-15" data-popup-content>
+    <i class="popup-delivery-return__close position-absolute cursor-pointer" data-js-popup-close>{% render 'icon-theme-164' %}</i>
+    <div class="popup-delivery-return__content mx-auto">
+        <div class="rte">
+            {% include 'parse-page-html-content' with default_page: 'include-popup-delivery-return' page_content: settings.product_info_delivery_return_page_content %}
+        </div>
+    </div>
+</div>

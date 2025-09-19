@@ -1,0 +1,28 @@
+<script>
+    document.addEventListener('theme:cart::added', event => {
+        /* Use veriables: event.detail, event.detail.button, event.detail.product, event.detail.data, event.detail.data.id */
+        /* START: your code */
+        log('Added to cart!', event.detail);
+  
+        /* END: your code */
+        (function($){
+            if(!$) return;
+            /* START: if you need jQuery */
+    
+            /* END: if you need jQuery */
+        })(jQueryTheme);
+    });
+    document.addEventListener('theme:cart::removed', event => {
+        /* Use veriables: event.detail, event.detail.button, event.detail.product, event.detail.data, event.detail.data.id */
+        /* START: your code */
+        log('Removed from cart!', event.detail);
+
+        /* END: your code */
+        (function($){
+            if(!$) return;
+            /* START: if you need jQuery */
+    
+            /* END: if you need jQuery */
+        })(jQueryTheme);
+    });
+</script>

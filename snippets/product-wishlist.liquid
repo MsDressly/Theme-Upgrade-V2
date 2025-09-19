@@ -1,0 +1,83 @@
+{% include 'global-variables' %}
+{% include 'product-res-variables' %}
+{%- assign image_size = image_size | default: '200x' -%}
+{%- assign show_label_in_stock = show_label_in_stock | default: settings.product_collection_show_label_in_stock -%}
+{%- assign show_label_pre_order = show_label_pre_order | default: settings.product_collection_show_label_pre_order -%}
+{%- assign show_label_out_stock = show_label_out_stock | default: settings.product_collection_show_label_out_stock -%}
+{%- assign show_label_sale = show_label_sale | default: settings.product_collection_show_label_sale -%}
+{%- assign show_label_new = show_label_new | default: settings.product_collection_show_label_new -%}
+{%- assign show_label_hot = show_label_hot | default: settings.product_collection_show_label_hot -%}
+{%- assign show_title = show_title | default: settings.product_collection_show_title -%}
+{%- assign show_price = show_price | default: settings.product_collection_show_price -%}
+{%- assign show_button_add_to_cart = show_button_add_to_cart | default: settings.product_collection_show_button_add_to_cart -%}
+{%- assign show_button_quick_view = show_button_quick_view | default: settings.product_collection_show_button_quick_view -%}
+{%- assign show_button_remove = show_button_remove | default: true -%}
+{%- assign product_form_id = 'wishlist-quick-add-' | append: product.id | append: current_variant.id -%}
+<div class="col-6 col-md-4 col-lg-3 col-xl-2">
+    <product-item class="product-wishlist{% if settings.product_collection_centered_info %} product-wishlist--centered{% endif %} d-flex flex-column mb-30" data-js-product data-js-store-lists-product-wishlist data-product-handle="{{ product.handle }}" data-product-variant-id="{{ current_variant_id }}">
+        <div class="d-flex flex-column">
+            <a href="#" class="product-wishlist__image product-image product-image--hover-{{ settings.product_hover_animation_type }} position-relative w-100 js-product-images-navigation js-product-images-hovered-end">
+                <img>
+                
+            </a>
+            <div class="product-wishlist__content d-flex flex-column align-items-start mt-15">
+                {%- case settings.product_collection_more_info_type -%}
+                    {% when 'type' %}
+                        {%- if product.type != blank -%}
+                            <div class="product-collection__more-info mb-3">
+                                <a href="{{ product.type | link_to_type | split: 'href="' | last | split: '"' | first }}">{{ product.type }}</a>
+                            </div>
+                        {%- endif -%}
+                    {% when 'collections' %}
+                        {%- if product.collections.size > 0 -%}
+                            <div class="product-collection__more-info mb-3">
+                                {% render 'product-get-collections' with product: product %}
+                            </div>
+                        {%- endif -%}
+                    {% when 'vendor' %}
+                        {%- if product.vendor.size > 0 -%}
+                            <div class="product-collection__more-info mb-3">
+                                {%- for vendor in product.vendor -%}
+                                    <a href="{{ vendor | link_to_vendor | split: 'href="' | last | split: '"' | first }}">{{ vendor }}{% if forloop.last != true %},{% endif %}</a>{% if forloop.last != true %} {% endif %}
+                                {%- endfor -%}
+                            </div>
+                        {%- endif -%}
+                {%- endcase -%}
+                {%- if show_title -%}
+                    <div class="product-wishlist__title mb-3">
+                        <h3 class="m-0">
+                            <a href="{{ url }}">{{ title }}</a>
+                        </h3>
+                    </div>
+                {%- endif -%}
+                {%- if show_price -%}
+                    <div class="product-wishlist__price mb-10">
+                        {% include 'product-get-price' %}
+                    </div>
+                {%- endif -%}
+                <div class="d-flex flex-column">
+                    {%- if show_button_add_to_cart -%}
+                        <div class="product-wishlist__variants d-none">
+                            {% render 'product-get-variants' with product: product current_variant: current_variant show_options: show_options show_custom_options: show_custom_options, product_form_id: product_form_id %}
+                        </div>
+                    {%- endif -%}
+                    {%- if show_button_add_to_cart or show_button_quick_view -%}
+                        <div class="product-wishlist__buttons d-flex flex-column flex-lg-row align-items-lg-center flex-wrap mt-5 mt-lg-10">
+                            
+                            {%- if show_button_quick_view -%}
+                                <div class="product-collection__buttons-section d-flex d-lg-none px-lg-10">
+                                    <div class="product-wishlist__button-quick-view-mobile mb-10">
+                                        {% render 'product-get-button-quick-view' with type: 'btn-text' product_enable_tooltips: product_enable_tooltips %}
+                                    </div>
+                                </div>
+                            {%- endif -%}
+                        </div>
+                    {%- endif -%}
+                </div>
+                {%- if show_button_remove -%}
+                    <div class="product-wishlist__remove btn-link js-store-lists-remove-wishlist">{{ 'products.product.remove' | t }}</div>
+                {%- endif -%}
+            </div>
+        </div>
+    </product-item>
+</div>

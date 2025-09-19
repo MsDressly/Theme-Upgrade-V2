@@ -1,0 +1,25 @@
+{%- if settings.product_variant_auto_select != 'enable' or product_variant_auto_select_enable == true -%}
+    {% unless product.selected_variant %}
+        {%- assign enable_select_options_button = true -%}
+    {% endunless %}
+    {%- if product.variants.size == 1 and product.variants.first.title contains 'Default Title' -%}
+		{%- assign enable_select_options_button = false -%}
+	{%- endif -%}
+{%- endif -%}
+{%- capture default_title -%}{{ 'products.product.default_variant_title' | t }}{%- endcapture -%}
+{%- if show_custom_options == true -%}
+    <select name="id" class="{% if product.variants.size == 1 and product.variants.first.title contains 'Default Title' %}d-none {% endif %}m-0" data-js-product-variants{% if product_form_id %} form="{{ product_form_id }}"{% endif %}>
+        {%- for variant in product.variants -%}
+            <option{% if variant.id == current_variant.id and variant.available %} selected="selected"{% endif %}{% unless variant.available %} disabled="disabled"{% endunless %} value="{{ variant.id }}">{{ variant.title | replace: 'Default Title', default_title }}</option>
+        {%- endfor -%}
+    </select>
+{%- else -%}
+    <select name="id" class="{% if product.variants.size == 1 and product.variants.first.title contains 'Default Title' %}d-none {% endif %}m-0" data-js-product-variants="control"{% if product_form_id %} form="{{ product_form_id }}"{% endif %}>
+        {%- if enable_select_options_button -%}
+            <option selected="selected" disabled="disabled">{{ default_title }}</option>
+        {%- endif -%}
+        {%- for variant in product.variants -%}
+                <option{% if variant.id == current_variant.id and variant.available and enable_select_options_button != true %} selected="selected"{% endif %}{% comment %}{% unless variant.available %} disabled="disabled"{% endunless %}{% endcomment %} value="{{ variant.id }}">{{ variant.title | replace: 'Default Title', default_title }}</option>
+        {%- endfor -%}
+    </select>
+{%- endif -%}

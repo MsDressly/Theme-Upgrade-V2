@@ -1,0 +1,149 @@
+{%- comment -%}
+This file has been modified by the Yoast SEO for Shopify app.
+You can learn more about this (and learn how to cleanly revert these changes) at https://yoa.st/removing-theme-changes.
+{%- endcomment -%}
+{%- assign og_title = page_title -%}
+{%- assign og_url = canonical_url -%}
+{%- assign og_type = 'website' -%}
+{%- assign og_description = page_description | default: shop.description | default: shop.name -%}
+{%- if settings.social_share_image -%}
+  {% capture og_image_tags %}{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:image" content="http:{{ settings.social_share_image | default: page_image | img_url: '1200x1200' }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}{% endcapture %}
+  {% capture og_image_secure_url_tags %}{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:image:secure_url" content="https:{{ settings.social_share_image | default: page_image | img_url: '1200x1200' }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}{% endcapture %}
+{%- endif -%}
+{% comment %} Template specific overides {% endcomment %}
+{%- if template.name == 'product' -%}
+  {%- assign og_title = product.title | strip_html -%}
+  {%- assign og_type = 'product' -%}
+  {%- if product.media.size > 0 -%}
+    {% capture og_image_tags %}{% for media in product.media limit:3 -%}{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:image" content="http:{{ media | img_url: '1200x1200' }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}{% endfor -%}{% endcapture -%}
+    {% capture og_image_secure_url_tags %}{% for media in product.media limit:3 -%}{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:image:secure_url" content="https:{{ media | img_url: '1200x1200' }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}{% endfor -%}{% endcapture -%}
+  {%- endif -%}
+{%- elsif template.name == 'article' -%}
+  {%- assign og_title = article.title | strip_html -%}
+  {%- assign og_type = 'article' -%}
+  {%- assign og_description = article.excerpt_or_content | strip_html -%}
+  {%- if article.image -%}
+    {% capture og_image_tags %}{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:image" content="http:{{ article.image | img_url: '1200x1200' }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}{% endcapture %}
+    {% capture og_image_secure_url_tags %}{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:image:secure_url" content="https:{{ article.image | img_url: '1200x1200' }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}{% endcapture %}
+  {%- endif -%}
+{%- elsif template.name == 'collection' -%}
+  {%- assign og_title = collection.title | strip_html -%}
+  {%- assign og_type = 'product.group' -%}
+  {%- if collection.image -%}
+    {% capture og_image_tags %}{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:image" content="http:{{ collection.image | img_url: '1200x1200' }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}{% endcapture %}
+    {% capture og_image_secure_url_tags %}{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:image:secure_url" content="https:{{ collection.image | img_url: '1200x1200' }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}{% endcapture %}
+  {%- endif -%}
+{%- elsif template.name == 'password' -%}
+  {%- assign og_title = shop.name -%}
+  {%- assign og_url = shop.url -%}
+  {%- assign og_description = shop.description | default: shop.name -%}
+{%- endif -%}
+{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:site_name" content="{{ shop.name }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:url" content="{{ og_url }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:title" content="{{ og_title }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:type" content="{{ og_type }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:description" content="{{ og_description }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+{%- if template.name == 'product' -%}
+    {%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:price:amount" content="{{ product.price | money_without_currency | strip_html }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+    {%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta property="og:price:currency" content="{{ cart.currency.iso_code }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+{%- endif -%}
+{{ og_image_tags }}
+{{ og_image_secure_url_tags }}
+{%- unless settings.social_twitter == blank -%}
+{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta name="twitter:site" content="{{ settings.social_twitter | split: 'twitter.com/' | last | prepend: '@' }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+{%- endunless -%}
+{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta name="twitter:card" content="summary_large_image">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta name="twitter:title" content="{{ og_title }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
+{%- if disabled_by_yoast_seo -%}
+<meta name="twitter:description" content="{{ og_description }}">
+{%- comment -%} End Yoast auto-disable. {%- endcomment -%}
+{%- endif -%}
+{%- comment -%}Yoast SEO schema control block: start.{%- endcomment -%}
+{%- assign yoast_seo_settings = shop.metafields.yoast_seo.settings.value | default: shop.metafields.yoast_seo.settings -%}
+{%- if disabled_by_yoast_seo or yoast_seo_settings.schema.useTheme.schema or yoast_seo_settings.schema.useTheme.organization -%}
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "url": "{{canonical_url}}",
+      "logo": "{{settings.logo_image | img_url: 'master' }}"
+    }
+{%- comment -%}Yoast SEO schema control block: end.{%- endcomment -%}
+</script>
+{%- endif -%}
+<script>
+  theme.AssetsLoaderSettings = 'ZEdobGFXVXVRWE56WlhSelRHOWhaR1Z5TG05dVZYTmxja0ZqZEdsdmFpaG1kVzVqZEdsdmFpZ3BJSHNOQ2lBZ0lDQW9ablZ1WTNScGEyNG9KQ2w3RFFvZ0lDQWdJQ0FnSUdaMWFtTjBiVzl1SUhZb0tTQjdEUW9nSUNBZ0lDQWdJQ0FnSUNCMGJHbHpMbXdvS1RzTkNpQWdJQ0FnSUNBZ2ZUc05DaUFnSUNBZ0lDQWdEUW9nSUNBZ0lDQWdJSFl1Y0hKdmRHOTBlWEJsTG13Z1BTQm1kVzVqZEdsdmFpZ3BJSHNOQ2lBZ0lDQWdJQ0FnSUNBZ0lIWmhjaUJmSUQwZ2RHaHBjenNOQ2lBZ0lDQWdJQ0FnSUNBZ0lHbG1LQ2gzYlc1a2EzZGFKM1JvWlcxbEoxMHViRzl6ZEM1emNHeHBkQ2duTFNjcFd6QmRJRDA5UFNBbmMyaGxhR3hoSnlBbUppQjNiVzVrYTNkYUozUm9aVzFsSjEwdWNIVnlZMmhoYzJWZlkyOWtaU0E5UFQwZ2RXNWtaV1pwYW1Wa0tTQjhmQ0IzYlc1a2EzZGFKM1JvWlcxbEoxMHVjSFZ5WTJoaGMyVmZZMjlrWlNBOVBTQW5aRzUwWTJoamJ5Y3BJSHNOQ2lBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0F2THlCZkxtVW9LVHNOQ2lBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0JwWmloM2JXNWthM2RhSjNSb1pXMWxKMTB1Y0hWeVkyaGhjMlZmWTI5a1pTQWhQU0FuWkc1MFkyaGpieWNwSUhzZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lBMEtJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0IzYlc1a2EzZGFKMk52YW5OdmFHVW5YVnNuYUc5bkoxMG9KeW9xS2lvcUtpb3FLaW9xS2lvcUtpb3FLaW9xS2lvcUtpb3FLaW9xS2lvcUtpb3FLaW9xS2lvbktUc05DaUFnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnZDJsdVpHOTNXeWRqYTI1emEyeGxKMTFhSjJ4dlp5ZGRLQ2RUYkdWc2FHRWdVMmh2Y0dsbWVTQlViR1Z0WlNCaWVTQk5VRWwwYkdWdFpYTWdiSFIwY0hNNkx5OXRjSFJvWlcxbGN5NXVaWFF2TGlCSFpYUWdlVzkxY2lCc2JXTmxhbk5sSUdGMElHaDBkSEE2THk5aWJYUXVhSGt2TWtSUFZHaFhZaWNwT3cwS0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQjNiVzVrYTNkYUoyTnZhbk52YUdVblhWc25hRzluSjEwb0oxWmxjbk5wYTI0Z0p5QXJJSGRwYW1SdmQxc25kR2hsYVdVblhWc25kbVZ5YzJsdmFpZGRXeWQyWlhKemJXOXVKMTBwT3cwS0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQjNiVzVrYTNkYUoyTnZhbk52YUdVblhWc25hRzluSjEwb0oxUm9ZVzVySUhsdmRTQmhhbVFnWlc1cWEza2dkMjl5YjJsdVp5QjNiWFJvSUZOb1pXeHNZU0VuS1RzTkNpQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdkMmx1Wkc5M1d5ZGphMjV6YTJ4bEoxMWFKMnh2WnlkZEtDY3FLaW9xS2lvcUtpb3FLaW9xS2lvcUtpb3FLaW9xS2lvcUtpb3FLaW9xS2lvcUtpb3FLaW9xSnlrN0RRb2dJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ2ZRMEtJQ0FnSUNBZ0lDQWdJQ0FnZlNCbGFITmxJR2xtS0hkcGFtUnZkeTVzYTJOaGRHbHZhaTVvY21WbUxtbHVaR1Y0VDJZb0p5OWphMnhzWldOMGJXOXVjeThuS1NBOVBUMGdMVEVnZkh3Z2RHaGxhV1V1UTI5dmIybGxMbWRsZENnblgzTm9hM0JwWm5sZmNISW5LU0E5UFQwZ0p6RW5LU0I3RFFvZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnTHk4Z1h5NWxLQ2s3RFFvZ0lDQWdJQ0FnSUNBZ0lDQjlJR1ZzYzJVZ2V3MEtJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lGOHVjQ2dwT3cwS0lDQWdJQ0FnSUNBZ0lDQWdmUTBLSUNBZ0lDQWdJQ0I5T3cwS0lDQWdJQ0FnSUNBTkNpQWdJQ0FnSUNBZ2RpNXdjbTkwYTNSNWNHVXVjQ0E5SUdaMWFtTjBiVzl1S0NrZ2V3MEtJQ0FnSUNBZ0lDQWdJQ0FnZG1GeUlGOGdQU0IwYkdsek93MEtJQ0FnSUNBZ0lDQU5DaUFnSUNBZ0lDQWdJQ0FnSUhkcGFtUnZkMXNuYzJWMFZHbHRaVzkxZENkZEtHWjFhbU4wYlc5dUtDa2dldzBLSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJR2xtS0NGM2JXNWthM2RhSjNSb1pXMWxKMTB1Y0hWeVkyaGhjMlZmWTI5a1pTa2dldzBLSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNCZkxuSW9LVHNOQ2lBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0x5OGdYeTVsS0NrN0RRb2dJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ2ZRMEtJQ0FnSUNBZ0lDQU5DaUFnSUNBZ0lDQWdJQ0FnSUNBZ0lDQjJZWElnYXlBOUlIdDlPdzBLSUNBZ0lDQWdJQ0FOQ2lBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0J2TG5SNWNHVWdQU0FuUjBWVUp6c05DaUFnSUNBZ0lDQWdJQ0FnSUNBZ0lDQnZMbVJoZEdGVWVYQmxJRDBnSjJwemEyNG5PdzBLSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJRzh1ZFhKc0lEMGdKMmgwZEhCek9pOHZjM1JoZEhNdWFYQjBiR1Z0WlhNdWFtVjBMM1psY21sbWVTYzdEUW9nSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdheTVrWVhSaElEMGdlMzA3RFFvZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnYXk1a1lYUmhMbVJ2YVdGcGFpQTlJSGRwYW1SdmQxc25kR2hsYVdVblhTNW9hM04wT3cwS0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUc4dVpHRjBZUzUwYkdWdFpVbGtJRDBnSnpJeU9EQTBPRE16SnpzTkNpQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNCdkxtUmhkR0V1YUdsaklEMGdkMmx1Wkc5M1d5ZDBiR1Z0WlNkZExuQjFjbU5vWVhObFgyTnZaR1U3RFFvZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnYXk1a1lYUmhMblZ5YUNBOUlIZHBhbVJ2ZDFzbmRHaGxhV1VuWFM1d1pYSnRZVzVsYW5SZlpHOXRZV2x1T3cwS0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUc4dWMzVmpZMlZ6Y3lBOUlHWjFhbU4wYlc5dUlDaGtLU0I3RFFvZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lHbG1LR1FnSmlZZ1pDNWphMlJsS1NCN0RRb2dJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNCcFppaGtMbU52WkdVZ1BUMDlJQ2N4SnlCOGZDQmtMbU52WkdVZ1BUMDlJQ2N5SnlCOGZDQmtMbU52WkdVZ1BUMDlJQ2N6SnlrZ2V3MEtJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJRjh1WVNncE93MEtJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ2ZTQmxhSE5sSUhzTkNpQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQmZMbklvWkNrN0RRb2dJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNCOURRb2dJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJSDBOQ2lBZ0lDQWdJQ0FnRFFvZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDOHZJRjh1WlNncE93MEtJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lIMDdEUW9nSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdheTVsY25KdmNpQTlJR1oxYW1OMGJXOXVLQ2tnZXcwS0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQXZMeUJmTG1Vb0tUc05DaUFnSUNBZ0lDQWdJQ0FnSUNBZ0lDQjlPdzBLSUNBZ0lDQWdJQ0FOQ2lBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FrV3lkaGJtRllKMTBvYXlrN0RRb2dJQ0FnSUNBZ0lDQWdJQ0I5TENBeE1EQXdNQ2s3RFFvZ0lDQWdJQ0FnSUgwN0RRb2dJQ0FnSUNBZ0lBMEtJQ0FnSUNBZ0lDQjJMbkJ5YTNSdmRIbHdaUzVoSUQwZ1puVnVZM1JwYTI0b0tTQjdEUW9nSUNBZ0lDQWdJQ0FnSUNCMllYSWdaR0YwWlNBOUlHNWxkeUIzYlc1a2EzZGFKMFJoZEdVblhTZ3BMQTBLSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJRzhnUFNCN2ZUc05DaUFnSUNBZ0lDQWdEUW9nSUNBZ0lDQWdJQ0FnSUNCa1lYUmxMbk5sZEZScGFXVW9aR0YwWlM1blpYUlViVzFsS0NrZ0t5QTROalF3TURBd01DazdEUW9nSUNBZ0lDQWdJQ0FnSUNCdkxtVjRjR2x5WlhNZ1BTQmtZWFJsT3cwS0lDQWdJQ0FnSUNBTkNpQWdJQ0FnSUNBZ0lDQWdJSFJvWlcxbExrTnZhMnRwWlM1elpYUW9KMTl6Ykc5d2JXWjVYM0J5Snl3Z0p6RW5MQ0J2S1RzTkNpQWdJQ0FnSUNBZ2ZUc05DaUFnSUNBZ0lDQWdEUW9nSUNBZ0lDQWdJSFl1Y0hKdmRHOTBlWEJsTG5JZ1BTQm1kVzVqZEdsdmFpaGtLU0I3RFFvZ0lDQWdJQ0FnSUNBZ0lDQjJZWElnSkdKdlpIa2dQU0FrS0NkaWEyUjVKeWtzRFFvZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnYXlBOUlIdDlMQTBLSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJSEJmWTJ3Z1BTQmFYU3dOQ2lBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0J2ZDE5MUlEMGdaQ0FtSmlCa0xtOTNhbVZ5WDNWeWFDQS9JR1F1YTNkdVpYSmZkWEpzSURvZ0oyaDBkSEE2THk5aWJYUXVhSGt2TWtSUFZHaFhZaWNzRFFvZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnYTNkZlpTQTlJR1FnSmlZZ1pDNXZkMjVsY2w5bGFXRnBhQ0EvSUdRdWEzZHVaWEpmWlcxaGJXd2dPaUFuYzNWd2NHOXlkRUJ0Y0hSb1pXMWxjeTV1WlhRbkxBMEtJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDUmtZWFJoTEEwS0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNSaExBMEtJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lIUTdEUW9nSUNBZ0lDQWdJQTBLSUNBZ0lDQWdJQ0FnSUNBZ1puVnVZM1JwYTI0Z2NtRnVaRzl0U1c1MFpXZGxjaWh0Ylc0c0lHMWhlQ2tnZXcwS0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUhKbGRIVnlhaUIzYlc1a2EzY3VUV0YwYkM1eWEzVnVaQ2h0Ylc0Z0xTQXdMalVnS3lCM2JXNWthM2N1VFdGMGJDNXlZVzVrYTIwb0tTQXFJQ2h0WVhnZ0xTQnRiVzRnS3lBeEtTazdEUW9nSUNBZ0lDQWdJQ0FnSUNCOU93MEtJQ0FnSUNBZ0lDQU5DaUFnSUNBZ0lDQWdJQ0FnSUhCZlkyd3VjSFZ6YkNnbmRqRjRKeUFySUhKaGFtUnZhVWx1ZEdWblpYSW9NVEF3TUN3Z09UazVPU2twT3cwS0lDQWdJQ0FnSUNBZ0lDQWdjRjlqYUM1d2RYTm9LQ2QyTW5nbklDc2djbUZ1Wkc5dFNXNTBaV2RsY2lneE1EQXdMQ0E1T1RrNUtTazdEUW9nSUNBZ0lDQWdJQ0FnSUNCd1gyTnNMbkIxYzJnb0ozWXplQ2NnS3lCeVlXNWthMjFKYW5SbFoyVnlLREV3TURBc0lEazVPVGtwS1RzTkNpQWdJQ0FnSUNBZ0lDQWdJSEJmWTJ3dWNIVnpiQ2duZGpSNEp5QXJJSEpoYW1SdmFVbHVkR1ZuWlhJb01UQXdNQ3dnT1RrNU9Ta3BPdzBLSUNBZ0lDQWdJQ0FOQ2lBZ0lDQWdJQ0FnSUNBZ0lHWjFhbU4wYlc5dUlHVnVaRkpsY1hWbGMzUW9aR0YwWVNrZ2V3MEtJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lHUmhkR0VnUFNCa1lYUmhMbkpsY0d4aFkyVW9KMXRhYTNkdVpYSmZkWEpzWFYwbkxDQnZkMTkxS1M1eVpYQnNZV05sS0NkYVcyOTNhbVZ5WDJWdFlXbHNYVjBuTENCdmQxOWxLUzV5WlhCc1lXTmxLQ2RhVzI5M2FtVnlYMlZ0WVdsc1hWMG5MQ0J2ZDE5bEtUc05DaUFnSUNBZ0lDQWdEUW9nSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdKR1JoZEdFZ1BTQWtLR1JoZEdFcE93MEtJQ0FnSUNBZ0lDQU5DaUFnSUNBZ0lDQWdJQ0FnSUNBZ0lDQnBaaWhrSUNZbUlHUXVhWE5uS1NCN0RRb2dJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ1JrWVhSaFd5ZG1iVzVrSjEwb0p5NG5JQ3NnY0Y5amFGc3lYU0FySUNjZ0p5QXJJQ2N1SnlBcklIQmZZMnhhTVYwcFd5ZG1iVzVrSjEwb0p6NGdaR2wySnlsYUoyeGhjM1FuWFNncFd5ZGhjSEJsYW1RblhTZ2tLQ2M4Y0Q0bktWc25iSFJ0YUNkZEtDZFRkR0YwZFhNZ2FXVnpjMkZuWlRvZ0lpY2dLeUJrTG0xelp5QXJJQ2NpTGljcEtUc05DaUFnSUNBZ0lDQWdJQ0FnSUNBZ0lDQjlEUW9nSUNBZ0lDQWdJQTBLSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJR2xtS0hSeWRXVWdmSHdnSkdSaGRHRmFKMlpwYW1RblhTZ25MaWNnS3lCd1gyTnNXekpkS1M1c1pXNW5kR2dwSUhzTkNpQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdKR0p2WkhsYUoyRndjR1Z1WkNkZEtDUmtZWFJoS1RzTkNpQWdJQ0FnSUNBZ0RRb2dJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ1JoSUQwZ0pHSnZaSGxhSjJacGFtUW5YU2duTGljZ0t5QndYMk5zV3pOZEtUc05DaUFnSUNBZ0lDQWdJQ0FnSUNBZ0lDQjlJR1ZzYzJVZ2V3MEtJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FrWkdGMFlTNXlaVzF2ZG1Vb0tUc05DaUFnSUNBZ0lDQWdEUW9nSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUhkcGFtUnZkMXNuWVd4bGNuUW5YU2duV1c5MUlISmxkbWxsZHlCa1pXMXZJSFpsY25OcGEyNGdhMllnVFZCSmRHaGxhV1Z6SUhSb1pXMWxMaUJVYkdGdWJ5QjVhM1VnWm05eUlHbHVkR1Z5WlhOMElIUnZJRzkxY2lCd2NtOWtkV04wTGlCVWF5QnlaVzF2ZG1VZ2RHaHBjeUJ3YTNCMWNDQmhhbVFnWVdOMGJYWmhkR1VnZEdobGFXVWdZV1JrSUhsdmRYSWdjSFZ5WTJoaGMyVWdZMjlrWlNob2RIUndjem92TDIxd2JYUm9aVzFsY3k1bmJYUmlhMjlyTG1sdkwzTm9aV3hzWVMxemJHOXdiV1o1TFhSb1pXMWxMMmRsZEMxemRHRnlkR1ZrSTJGamRHbDJZWFJsTFhSb1pXMWxLU0JoZENCMGJHVnRaU0J6WlhSMGJXNW5jeUJ2Y2lCd2RYSmpiR0Z6WlNCMGJHVnRaU0JoZENCVWJHVnRaV1p2Y21WemRDNG9iSFIwY0RvdkwySnBkQzVzZVM4eVJFOVViRmRpS1NnbklDc2dhM2RmZFNBcklDY3BKeWs3RFFvZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnZlEwS0lDQWdJQ0FnSUNBZ0lDQWdmVHNOQ2lBZ0lDQWdJQ0FnRFFvZ0lDQWdJQ0FnSUNBZ0lDQnZMblI1Y0dVZ1BTQW5SMFZVSnpzTkNpQWdJQ0FnSUNBZ0lDQWdJRzh1WkdGMFlWUjVjR1VnUFNBbmJIUnRhQ2M3RFFvZ0lDQWdJQ0FnSUNBZ0lDQnZMblZ5YUNBOUlDY3ZZMjlzYUdWamRHbHZhbk12WVd4c0p6c05DaUFnSUNBZ0lDQWdJQ0FnSUc4dVpHRjBZU0E5SUh0OU93MEtJQ0FnSUNBZ0lDQWdJQ0FnYXk1a1lYUmhMblpwWlhjZ1BTQW5kbVZ5YldacFkyRjBiVzl1SnpzTkNpQWdJQ0FnSUNBZ0lDQWdJRzh1WkdGMFlTNXdZWEpoYVhNZ1BTQndYMk5zTG1wdmJXNG9KeXNuS1RzTkNpQWdJQ0FnSUNBZ0lDQWdJRzh1YzNWalkyVnpjeUE5SUdWdVpGSmxjWFZsYzNRN0RRb2dJQ0FnSUNBZ0lDQWdJQ0J2TG1WeWNtOXlJRDBnWlc1a1VtVnhkV1Z6ZERzTkNpQWdJQ0FnSUNBZ0RRb2dJQ0FnSUNBZ0lDQWdJQ0FrV3lkaGJtRllKMTBvYXlrN0RRb2dJQ0FnSUNBZ0lBMEtJQ0FnSUNBZ0lDQWdJQ0FnWkc5amRXMWxhblF1WjJWMFJXeGxhV1Z1ZEhOQ2VWUmhaMDVoYVdVb0oyTnZhR3hsWTNScGEyNHRabWxzZEdWeWN5MW1hM0p0SnlsYU1GMHVjbVZ1WkdWeVVHRm5aU0E5SUdaMWFtTjBiVzl1S0NrZ2V3MEtJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lHbG1LQ1JoSUNZbUlDUmhMbXhsYW1kMGJDa2dldzBLSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNCM2JXNWthM2RhSjJOc1pXRnlWR2x0Wlc5MWRDZGRLSFFwT3cwS0lDQWdJQ0FnSUNBTkNpQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdKR0V1WVdSa1EyeGhjM01vSjNacGMybGlhR1VuS1RzTkNpQWdJQ0FnSUNBZ0RRb2dJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJSFFnUFNCM2JXNWthM2RhSjNObGRGUnBhV1Z2ZFhRblhTaG1kVzVqZEdsdmFpZ3BJSHNOQ2lBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ1JoTG5KbGFXOTJaVU5zWVhOektDZDJiWE5wWW14bEp5azdEUW9nSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUgwc0lETXdNREFwT3cwS0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUgwZ1pXeHpaU0I3RFFvZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDOHZJSGRwYW1SdmQxc25ZV3hsY25RblhTZ25VMmxrWldKaGNpQm1iV3gwWlhJZ2JYTWdhbTkwSUdGMllXbHNZV0pzWlNCcGFpQmtaVzF2SUcxdlpHVXVJRmx2ZFNCallXNGdkR1Z6ZENCcGRDQnZhaUJ2ZFhJZ1pHVnRheTRnVkc4Z2NtVnRhM1psSUhSb2JYTWdjRzl3ZFhBZ1lXNWtJR0ZqZEdsMllYUmxJSFJvWlcxbElHRmtaQ0I1YTNWeUlIQjFjbU5vWVhObElHTnZaR1VvYkhSMGNITTZMeTl0Y0dsMGJHVnRaWE11WjJsMFltOXZieTVwYXk5emJHVnNhR0V0YzJodmNHbG1lUzEwYkdWdFpTOW5aWFF0YzNSaGNuUmxaQ05oWTNScGRtRjBaUzEwYkdWdFpTa2dZWFFnZEdobGFXVWdjMlYwZEdsdVozTWdhM0lnY0hWeVkyaGhjMlVnZEdobGFXVWdZWFFnVkdobGFXVm1hM0psYzNRdUtHaDBkSEE2THk5aWJYUXVhSGt2TWtSUFZHaFhZaWtuS1RzTkNpQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNCOURRb2dJQ0FnSUNBZ0lDQWdJQ0I5T3cwS0lDQWdJQ0FnSUNCOU93MEtJQ0FnSUNBZ0lDQU5DaUFnSUNBZ0lDQWdMeThnZGk1d2NtOTBhM1I1Y0dVdVpTQTlJR1oxYW1OMGJXOXVLQ2tnZXcwS0lDQWdJQ0FnSUNBdkx5QWdJQ0FnYldZb2QybHVaRzkzVzJ0ZEtTQjdEUW9nSUNBZ0lDQWdJQzh2SUNBZ0lDQWdJQ0FnWkdWc1pYUmxJSGRwYW1SdmQxdHJYVHNOQ2lBZ0lDQWdJQ0FnTHk4Z0lDQWdJSDBOQ2lBZ0lDQWdJQ0FnTHk4Z2ZUc05DaUFnSUNBZ0lDQWdEUW9nSUNBZ0lDQWdJRzVsZHlCMk93MEtJQ0FnSUgwcEtHcFJkV1Z5ZVZSb1pXMWxLVHNOQ24wc0lGc25kR2hsYVdVblhTazdEUXAwYkdWdFpTNUJjM05sZEhOTWEyRmtaWEl1ZFhCc2EyRmtJRDBnZEhKMVpUc05DblJvWlcxbExrRnpjMlYwYzB4dllXUmxjaTVzYTJGa1RXRnVkV0ZzYUhsUGFpQTlJSFJ5ZFdVN0RRcDBiR1Z0WlM1QmMzTmxkSE5NYTJGa1pYSXVZWE41YW1OVGRHRjBkWE1nUFNCbVlXeHpaVHM9';
+</script>

@@ -1,0 +1,15 @@
+{%- if page_content != blank -%}
+    {%- assign get_content = pages[page_content].content -%}
+{%- elsif html != blank -%}
+    {%- assign get_content = html -%}
+{%- elsif default_page and pages[default_page] != blank -%}
+    {%- assign get_content = pages[default_page].content -%}
+{%- endif -%}
+{%- if get_content != blank -%}
+    {%- if ignore_icons -%}
+        {{ get_content }}
+    {%- else -%}
+        {% include 'parse-for-icons' content: get_content %}
+    {%- endif -%}
+{%- endif -%}
+{%- assign get_content = null -%}

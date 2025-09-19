@@ -1,0 +1,31 @@
+{% include 'breadcrumbs' %}
+<div class="activate-account pb-60">
+  <div class="container">
+    <h1 class="h3 mt-30 mb-40 text-center">{{ 'customer.activate_account.title' | t }}</h1>
+    <p>{{ 'customer.activate_account.subtext' | t }}</p>
+    {% form 'activate_customer_password' %}
+      <label for="CustomerPassword" class="label-required">{{ 'customer.activate_account.password_title' | t }}</label>
+      <input type="password"
+             name="customer[password]"
+             id="CustomerPassword"
+             placeholder="{{ 'customer.activate_account.password_placeholder' | t }}"
+             required="required">
+      <label for="CustomerPasswordConfirmation" class="label-required">{{ 'customer.activate_account.password_confirm_title' | t }}</label>
+      <input type="password"
+             name="customer[password_confirmation]"
+             id="CustomerPasswordConfirmation"
+             placeholder="{{ 'customer.activate_account.password_confirm_placeholder' | t }}"
+             required="required">
+      {% include 'form-get-message' %}
+      <div class="d-flex">
+        <input type="submit" class="btn btn--full mr-15" value="{{ 'customer.activate_account.submit' | t }}">
+        <input type="submit" class="btn btn--full btn--secondary m-0" name="decline" value="{{ 'customer.activate_account.cancel' | t }}">
+      </div>
+    {% endform %}
+  </div>
+</div>
+
+{% schema %}{
+    "name": "t:sections.activate_account.name",
+    "settings": []
+}{% endschema %}

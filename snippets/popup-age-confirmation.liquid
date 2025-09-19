@@ -1,0 +1,54 @@
+{% capture popups_style_base_html %}
+    {{ popups_style_base_html }}
+    :root {
+        --popup-age-confirmation-bg: var(--theme);
+        --popup-age-confirmation-icon-c: var(--theme2);
+        --popup-age-confirmation-text-c: var(--theme2);
+        --popup-age-confirmation-checkbox-text-c: var(--theme2);
+    }
+
+    .popup-age-confirmation {
+        background-color: var(--popup-age-confirmation-bg);
+    }
+    .popup-age-confirmation .input-checkbox input + span {
+        background-color: var(--popup-age-confirmation-checkbox-text-c);
+    }
+    .popup-age-confirmation__close .icon {
+        fill: var(--popup-age-confirmation-icon-c);
+    }
+    .popup-age-confirmation__text-line-01 {
+        color: var(--popup-age-confirmation-text-c);
+    }
+    .popup-age-confirmation__checkbox-text {
+        color: var(--popup-age-confirmation-checkbox-text-c) !important;
+    }
+    .popup-age-confirmation__checkbox-text a {
+        @include link-color(var(--popup-age-confirmation-checkbox-text-c));
+    }
+{% endcapture %}
+<div class="popup-age-confirmation position-relative" data-popup-content>
+    <i class="popup-age-confirmation__close position-absolute cursor-pointer" data-js-popup-age-confirmation-close-website>{% render 'icon-theme-164' %}</i>
+    <div class="popup-age-confirmation__content position-relative d-flex flex-column flex-center pt-100 pb-95 px-30 mx-auto text-center" style="background-image: url({{ settings.layout_age_confirmation_image | img_url: 'master' }});">
+        <p class="popup-age-confirmation__text-line-01 h3 mt-5 mb-5">{{ 'general.popups.age_confirmation.title_html' | t }}</p>
+        <div class="popup-age-confirmation__btns w-100 px-sm-0 mt-25">
+            <div class="row">
+                <div class="col-12 col-sm-6 mb-10">
+                    <div class="btn btn--secondary w-100{% if settings.layout_age_confirmation_checkbox %} pointer-events-none{% endif %}" data-js-popup-close>{{ 'general.popups.age_confirmation.button_yes' | t }}</div>
+                </div>
+                <div class="col-12 col-sm-6 mb-10">
+                    <div class="btn btn--invert btn--transparent w-100" data-js-popup-age-confirmation-close-website>{{ 'general.popups.age_confirmation.button_no' | t }}</div>
+                </div>
+            </div>
+        </div>
+        {%- if settings.layout_age_confirmation_checkbox -%}
+        <label class="popup-age-confirmation__checkbox input-checkbox position-relative d-inline-flex align-items-center mt-30 mx-auto cursor-pointer text-left">
+            <input type="checkbox" class="d-none" name="age_confirmation_checkbox" id="PopupAgeConfirmationCheckbox" data-js-popup-age-confirmation-checkbox>
+            <span class="position-relative d-block mr-10 border"><i class="d-none">{% render 'icon-theme-146' %}</i></span>
+            <span class="popup-age-confirmation__checkbox-text">{{ 'general.popups.age_confirmation.checkbox_label_html' | t }}</span>
+        </label>
+        {%- endif -%}
+    </div>
+</div>
+<script>
+    theme.AssetsLoader.require('scripts', 'popup_age_confirmation');
+</script>

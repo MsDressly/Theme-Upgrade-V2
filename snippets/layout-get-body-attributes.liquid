@@ -1,0 +1,5 @@
+{% capture body_attributes %}
+    id="{{ page_title | handle }}" class="template-{{ template.name | handle }} theme-css-animate{%- if settings.popup_enable_bg_blur %} popup-bg-blur{% endif %}"
+    {%- if settings.show_multiple_currencies %} data-currency-multiple="true"{% endif %}
+{%- endcapture -%}
+{{ body_attributes }}

@@ -1,0 +1,422 @@
+{% include 'global-variables' %}
+<style>
+    {% render 'css-inline-style-start-type' %}
+</style>
+{% include 'css-variables' %}
+<style>
+    {{ settings.font_base | font_face: font_display: 'swap' }}
+    {%- if settings.font_base_type == 'all' or settings.font_base_type == 'semi_bold_n_italic' or settings.font_base_type == 'semi_bold' -%}
+        {{ settings.font_base | font_modify: 'weight', '600' | font_face: font_display: 'swap' }}
+    {%- endif -%}
+    {%- if settings.font_base_type == 'all' or settings.font_base_type == 'bold_n_italic' or settings.font_base_type == 'bold' -%}
+        {{ settings.font_base | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
+    {%- endif -%}
+    {%- if settings.font_base_type == 'all' or settings.font_base_type == 'medium' -%}
+        {{ settings.font_base | font_modify: 'weight', '500' | font_face: font_display: 'swap' }}
+    {%- endif -%}
+    {%- if settings.font_base_type == 'all' or settings.font_base_type == 'italic' or settings.font_base_type == 'semi_bold_n_italic' or settings.font_base_type == 'bold_n_italic' -%}
+        {{ settings.font_base | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+    {%- endif -%}
+    {%- if settings.font_base_type == 'all' or settings.font_base_type == 'bold_italic' -%}
+        {{ settings.font_base | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+    {%- endif -%}
+    {%- unless settings.font_base_apply_to_all -%}
+        {%- if settings.font_heading.family != settings.font_base.family -%}
+            {{ settings.font_heading | font_face: font_display: 'swap' }}
+            {%- if settings.font_heading_type == 'all' or settings.font_heading_type == 'semi_bold_n_italic' or settings.font_heading_type == 'semi_bold' -%}
+                {{ settings.font_heading | font_modify: 'weight', '600' | font_face: font_display: 'swap' }}
+            {%- endif -%}
+            {%- if settings.font_heading_type == 'all' or settings.font_heading_type == 'bold_n_italic' or settings.font_heading_type == 'bold' -%}
+                {{ settings.font_heading | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
+            {%- endif -%}
+            {%- if settings.font_base_type == 'all' or settings.font_base_type == 'italic' or settings.font_base_type == 'semi_bold_n_italic' or settings.font_base_type == 'bold_n_italic' -%}
+                {{ settings.font_heading | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+            {%- endif -%}
+            {%- if settings.font_heading_type == 'all' or settings.font_heading_type == 'bold_italic' -%}
+                {{ settings.font_heading | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+            {%- endif -%}
+        {%- endif -%}
+        {%- if settings.font_button.family != settings.font_base.family -%}
+            {{ settings.font_button | font_face: font_display: 'swap' }}
+        {%- endif -%}
+        {%- if settings.font_menu.family != settings.font_base.family -%}
+            {{ settings.font_menu | font_face: font_display: 'swap' }}
+        {%- endif -%}
+    {%- endunless -%}
+    {%- if settings.font_load_alternative and settings.font_alternative.family != settings.font_base.family -%}
+        {{ settings.font_alternative | font_face: font_display: 'swap' }}
+        {%- if settings.font_alternative_type == 'all' or settings.font_alternative_type == 'bold_n_italic' or settings.font_alternative_type == 'bold' -%}
+            {{ settings.font_alternative | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
+        {%- endif -%}
+        {%- if settings.font_alternative_type == 'all' or settings.font_alternative_type == 'bold_n_italic' or settings.font_alternative_type == 'italic' -%}
+            {{ settings.font_alternative | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+        {%- endif -%}
+        {%- if settings.font_alternative_type == 'all' or settings.font_alternative_type == 'bold_italic' -%}
+            {{ settings.font_alternative | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+        {%- endif -%}
+        .ff-alternative {
+            font-family: {{ settings.font_alternative.family }}, {{ settings.font_alternative.fallback_families }};
+        }
+    {%- endif -%}
+    body > main {
+        min-height: {{ layout_body_min_height }}vh
+    }
+    {%- if settings.button_border_radius > 0 -%}
+        .btn,
+        .spr-summary-actions-newreview,
+        .spr-button,
+        .dynamic-checkout__button--styled button.shopify-payment-button__button {
+            border-radius: {{ settings.button_border_radius }}px !important;
+        }
+    {%- endif -%}
+    {%- if settings.button_border_radius > 0 -%}
+        .menu-vertical-btn {
+            border-top-left-radius: {{ settings.button_border_radius }}px;
+            border-top-right-radius: {{ settings.button_border_radius }}px;
+        }
+    {%- endif -%}
+    {%- if settings.button_border_radius > 0 -%}
+        .menu--vertical {
+            border-bottom-left-radius: {{ settings.button_border_radius }}px;
+            border-bottom-right-radius: {{ settings.button_border_radius }}px;
+        }
+    {%- endif -%}
+    {%- if settings.input_border_radius > 0 -%}
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        input[type="password"],
+        input[type="search"],
+        input[type="tel"],
+        input[type="date"],
+        textarea,
+        select,
+        .input-quantity [data-control] {
+            border-radius: {{ settings.input_border_radius }}px !important;
+        }
+    {%- endif -%}
+    {%- if layout_image_lazyload_effect == 'fade-in' -%}
+        .rimage__img {
+            transition-property: opacity;
+            transition-duration: {{ animation_css_duration }}s;
+        }
+        .rimage__img.lazyload:not(.loaded):not(.donothide) {
+            opacity: 0.001;
+        }
+    {%- elsif layout_image_lazyload_effect == 'show' -%}
+        .rimage__img.lazyload:not(.loaded):not(.donothide) {
+            opacity: 0.001;
+        }
+    {%- endif -%}
+    .promobox__bg {
+        opacity: {{ promobox_text_bg_opacity }};
+    }
+    .promobox__curtain_bg {
+        opacity: {{ promobox_curtain_opacity }};
+    }
+    {%- if product_hide_disabled_options -%}
+        [data-js-product-options] [data-js-option-value].disabled {
+            display: none !important;
+        }
+    {%- endif -%}
+    {%- if settings.product_collection_image_border_radius > 0 -%}
+        .product-collection__image,
+        .product-wishlist__image,
+        .product-compare__image,
+        .product-featured__image,
+        .product-cart__image,
+        .product-store-lists__image {
+            border-radius: {{ settings.product_collection_image_border_radius }}px;
+            overflow: hidden;
+        }
+    {%- endif -%}
+    {%- if settings.product_collection_title_trim -%}
+        .product-collection__title,
+        .product-collection__title * {
+            max-width: 100%;
+        }
+        .product-collection__title a {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    {%- endif -%}
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="password"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="date"],
+    select {
+        min-height: {{ input_min_height }}px;
+    }
+    .btn:not(.btn--size-large),
+    .spr-summary-actions-newreview,
+    .dynamic-checkout__button--styled button.shopify-payment-button__button {
+        min-height: {{ button_min_height }}px;
+    }
+    .btn.btn--size-middle-large {
+        min-height: {{ button_middle_large_min_height }}px;
+        padding-left: {{ button_middle_large_padding_horizontal }}px;
+        padding-right: {{ button_middle_large_padding_horizontal }}px;
+    }
+    .spr-button {
+        min-height: {{ button_min_height }}px !important;
+    }
+    .dynamic-checkout__button--styled .shopify-payment-button__button .checkoutLight {
+        height: {{ button_min_height }}px !important;
+    }
+    form .btn:not(.btn--size-large) {
+        min-height: {{ button_min_height }}px;
+    }
+    .form-group--type-inline .btn:not(.btn--size-large) {
+        min-height: {{ form_inline_button_min_height }}px;
+    }
+    .form-group--type-column .btn:not(.btn--size-large) {
+        min-height: {{ form_column_button_min_height }}px;
+    }
+    .product-page-info__button-add-to-cart .btn:not(.btn--size-large) {
+        min-height: {{ product_page_addtocart_min_height_d }}px;
+    }
+    .btn,
+    .spr-summary-actions-newreview,
+    .spr-button {
+        border: {{ button_border }};
+    }
+    .btn--text {
+        padding-left: {{ button_text_padding_horizontal }}px;
+        padding-right: {{ button_text_padding_horizontal }}px;
+    }
+    .dynamic-checkout__button--styled button.shopify-payment-button__button {
+        border: {{ button_border }};
+    }
+    .product-options__value--text {
+        min-width: {{ product_option_type_text_min_width }}px;
+    }
+    .preloader__bg {
+        background-color: {{ settings.color_theme2 | default: '#ffffff' }};
+    }
+    .preloader--page .preloader__bg {
+        opacity: {{ settings.layout_preloader_opacity }};
+    }
+    
+    {% render 'css-style-button' with class: '.product-collection__button-add-to-cart .btn' type: product_collection_add_to_cart_btn_type %}
+    {% render 'css-style-button' with class: '.product-page-info__button-add-to-cart .btn' type: product_page_add_to_cart_btn_type %}
+    {% render 'css-style-button' with class: '.product-page-info__button-add-to-wishlist .btn' type: product_page_wishlist_btn_type %}
+    {% render 'css-style-button' with class: '.product-page-info__button-add-to-compare .btn' type: product_page_compare_btn_type %}
+    {% render 'css-style-button' with class: '.one-product-info__button-add-to-cart .btn' type: one_product_add_to_cart_btn_type %}
+    {% render 'css-style-button' with class: '.carousel-articles .btn' type: article_carousel_btn_type %}
+    {% render 'css-style-button' with class: '.pagination .btn' type: pagination_btn_type %}
+    {% render 'css-style-button' with class: '.empty-btn' type: empty_btn_type %}
+
+    @media (min-width: 1025px) {
+        .btn,
+        .spr-summary-actions-newreview,
+        .spr-button,
+        .dynamic-checkout__button--styled button.shopify-payment-button__button {
+            padding-left: {{ button_padding_horizontal_d }}px;
+            padding-right: {{ button_padding_horizontal_d }}px;
+        }
+        .preloader--page {
+            cursor: {% if layout_preloader_cursor != blank %}url('{{ layout_preloader_cursor | img_url }}'),{% endif %} default !important;
+        }
+    }
+    @media (max-width: 1024px) {
+        .btn,
+        .spr-summary-actions-newreview,
+        .spr-button,
+        .dynamic-checkout__button--styled button.shopify-payment-button__button {
+            padding-left: {{ button_padding_horizontal_m }}px;
+            padding-right: {{ button_padding_horizontal_m }}px;
+        }
+    }
+    
+    {%- if settings.reviews_type == 'loox' -%}
+        .loox-rating .loox-icon {
+            font-size: 1.22em;
+        }
+        .loox-rating .loox-icon:not(:last-child) {
+            margin-right: 5px;
+        }
+        .loox-rating span {
+            margin-left: 2px;
+            vertical-align: 2px;
+        }
+        #looxReviews {
+            height: auto !important;
+        }
+    {%- endif -%}
+    
+    {%- if template.name == 'product' or settings.product_collection_show_button_quick_view -%}
+        {%- assign product_info_zoom_scale_coef = settings.product_info_zoom_scale_coef | minus: 1 | times: 100 -%}
+        .product-gallery__zoom_container_zoomed {
+            bottom: -{{ product_info_zoom_scale_coef }}%;
+            right: -{{ product_info_zoom_scale_coef }}%;
+        }
+        {%- if settings.product_info_gallery_height_and_size_path == 'collection' -%}
+            {%- assign height_percent = settings.product_collection_image_height_percent -%}
+            {%- assign product_info_gallery_image_size = settings.product_collection_image_size -%}
+        {%- else -%}
+            {%- assign height_percent = settings.product_info_gallery_height_percent -%}
+            {%- assign product_info_gallery_image_size = settings.product_info_gallery_image_size -%}
+        {%- endif -%}
+        {% if product_info_gallery_image_size != 'auto' %}
+            @media (min-width: {% if settings.product_info_gallery_image_size_mobile == 'use_desktop_settings' %}0{% else %}768{% endif %}px) {
+                .product-gallery__main .product-gallery__blockratio {
+                    position: relative;
+                    margin-left: auto;
+                    margin-right: auto;
+                    padding-top: {{ height_percent }}% !important;
+                }
+                .product-gallery__main .product-gallery__blockratio_content {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                }
+                .product-gallery__main .product-gallery__blockratio_static-content {
+                    position: absolute;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                }
+                .product-gallery__main .product-gallery__blockratio_content .rimage,
+                .product-gallery__main .product-gallery__blockratio_content .rvideo {
+                    position: absolute;
+                    left: -50%;
+                    top: -50%;
+                }
+            }
+        {% endif %}
+        .product-gallery__fullscreen .product-gallery__blockratio {
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: {{ height_percent }}% !important;
+        }
+        .product-gallery__fullscreen .product-gallery__blockratio_content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+        .product-gallery__fullscreen .product-gallery__blockratio_static-content {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        .product-gallery__fullscreen .product-gallery__blockratio_content .rimage {
+            position: absolute;
+            left: -50%;
+            top: -50%;
+        }
+    {%- endif -%}
+    {%- unless request.page_type contains 'customers/' or request.page_type contains 'password' or template contains 'contact' -%}
+        .grecaptcha-badge {
+            display: none !important;
+        }
+    {%- endunless -%}
+    {% comment %}
+        .rte ul,
+        .rte ol {
+            list-style: initial !important;
+            padding-left: 16px !important;
+        }
+        .rte ul li,
+        .rte ol li {
+            padding-left: initial !important;
+        }
+        .rte ul li::before,
+        .rte ol li::before {
+            content: none !important;
+        }
+    {% endcomment %}
+
+    .js-languages-list .header__dropdown::before {
+        content: '';
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        height: 4px;
+        width: 100%;
+    }
+</style>
+<style>
+    {% render 'css-inline-style-start-type-pt2' %}
+</style>
+{% comment %}
+<style>
+    :is(#shopify-chat iframe, #dummy-chat-button-iframe) {
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        height: 30px !important;
+        width: 100% !important;
+    }
+</style>
+{% capture chatStyles %}
+    <style>
+    :is(html, body, body > div, button) {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+    }
+
+    button {
+        padding: 0 !important;
+        height: 100% !important;
+        width: 100% !important;
+        margin: 0 !important;
+        justify-content: center !important;
+        border-radius: 0 !important;
+    }
+    </style>
+{% endcapture %}
+<script>
+    window.addEventListener('load', function () {
+        let iframeName = document.getElementById("dummy-chat-button-iframe");
+        let iframeContent = iframeName.contentDocument;
+        iframeContent.body.innerHTML = iframeContent.body.innerHTML + `
+        {{ chatStyles }}
+        `;
+    });
+</script>
+{% endcomment %}
+<script>
+    eval(decodeURIComponent(atob(theme.AssetsLoaderSettings).split('').map(c => {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join('')));
+</script>
+{%- if settings.tooltips_enable -%}
+    <script>theme.AssetsLoader.onLoadTag('styles', 'plugin_tippy')</script>
+    <link rel="preload" href="{{ 'plugin.tippy.s.min.css' | asset_url }}" as="style" onload="window.theme.AssetsLoader.onLoadStyleLinkPreload(this, 'plugin_tippy')">
+{%- endif -%}
+<script>theme.AssetsLoader.onLoadTag('styles', 'theme_m')</script>
+<link rel="preload" href="{{ 'theme-m.s.min.css' | asset_url }}" as="style" media="(max-width: 1024px)" data-media="mobile" onload="window.theme.AssetsLoader.onLoadStyleLinkPreload(this, 'theme_m')">
+<script>theme.AssetsLoader.onLoadTag('styles', 'theme_d')</script>
+<link rel="preload" href="{{ 'theme-d.s.min.css' | asset_url }}" as="style" media="(min-width: 1025px)" data-media="desktop" onload="window.theme.AssetsLoader.onLoadStyleLinkPreload(this, 'theme_d')">
+{%- if skin_css_files contains settings.layout_settings_file -%}
+    <script>theme.AssetsLoader.onLoadTag('styles', '{{ settings.layout_settings_file | replace: '-', '_' }}')</script>
+    <link rel="preload" href="{{ 'theme-' | append: settings.layout_settings_file | append: '.css' | asset_url }}" as="style" onload="window.theme.AssetsLoader.onLoadStyleLinkPreload(this, '{{ settings.layout_settings_file | replace: '-', '_' }}')">
+{%- endif -%}
+{%- if settings.dev_enable_custom_css == true -%}
+    <script>theme.AssetsLoader.onLoadTag('styles', 'custom')</script>
+    <link rel="preload" href="{{ 'custom.s.min.css' | asset_url }}" as="style" onload="window.theme.AssetsLoader.onLoadStyleLinkPreload(this, 'custom')">
+{%- endif -%}
+
+<script>
+  (function() {
+    if(window.safari && window.innerWidth > 1009) {
+        document.querySelectorAll(`[rel="preload"][as="style"][data-media]`)
+          .forEach(element => element.rel = 'stylesheet');
+    }
+  })();
+</script>

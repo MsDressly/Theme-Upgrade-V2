@@ -1,0 +1,113 @@
+{% capture column_left_n_right %}
+    {% render 'header-get-menu-column-type' with type: megamenu.column_left_type size: megamenu.column_left_size %}
+    |||{% render 'header-get-menu-column-type' with type: megamenu.column_right_type size: megamenu.column_right_size right_side: true %}
+{% endcapture %}
+{%- assign content_types = 'megamenu_promobox,megamenu_brands,megamenu_products,megamenu_custom_html,megamenu_subscription' | split: ',' -%}
+{%- assign content_index = 1 -%}
+{%- for block in section.blocks offset: megamenu_index -%}
+    {%- unless content_types contains block.type -%}
+        {%- break -%}
+    {%- endunless -%}
+    {% capture content_html %}
+        {%- if block.type == 'megamenu_custom_html' -%}
+            <div class="rte">
+                {% include 'parse-page-html-content' with page_content: block.settings.page_content %}
+            </div>
+        {%- elsif block.type == 'megamenu_products' -%}
+            {%- assign title_url = collections[block.settings.collection].url -%}
+            {%- assign products = collections[block.settings.collection].products -%}
+            <div class="menu__products row">
+                {%- if products.size > 0 -%}
+                    {%- assign limit = block.settings.products_per_row | times: block.settings.products_rows -%}
+                    {%- for product in products limit: limit -%}
+                        <div class="col-lg-{{ 12 | divided_by: block.settings.products_per_row }}">
+                            {% include 'product-search' %}
+                        </div>
+                    {%- endfor -%}
+                {%- endif -%}
+            </div>
+        {%- elsif block.type == 'megamenu_promobox' -%}
+            {% render 'promobox' with block: block %}
+        {%- elsif block.type == 'megamenu_brands' -%}
+            {%- case block.settings.size_of_images -%}
+                {%- when '1' -%}{%- assign grid = 'col-12' -%}
+                {%- when '2' -%}{%- assign grid = 'col-6' -%}
+                {%- when '3' -%}{%- assign grid = 'col-4 ' -%}
+                {%- when '4' -%}{%- assign grid = 'col-3' -%}
+                {%- when '5' -%}{%- assign grid = 'col-2-5' -%}
+                {%- when '6' -%}{%- assign grid = 'col-2' -%}
+                {%- when '12' -%}{%- assign grid = 'col-1' -%}
+            {%- endcase -%}
+            <div class="menu__brands menu__group menu__group--offset-small row">
+                {%- for i in (1..10) -%}
+                    {% capture prop_image_name %}image_{{ i }}{% endcapture %}
+                    {%- if block.settings[prop_image_name] == blank -%}
+                        {%- break -%}
+                    {%- endif -%}
+                    {% capture prop_image_size_name %}image_size_{{ i }}{% endcapture %}
+                    {% capture prop_url_name %}url_{{ i }}{% endcapture %}
+                    {%- assign brand_image = block.settings[prop_image_name] -%}
+                    {%- assign brand_image_size = block.settings[prop_image_size_name] -%}
+                    {%- assign brand_url = block.settings[prop_url_name] | default: null -%}
+                    <div class="{{ grid }} d-none d-lg-block px-lg-5 mb-lg-10">
+                        {% render 'promobox' with type: 'clean-bordered' image: brand_image image_size: brand_image_size url: brand_url %}
+                    </div>
+                {%- endfor -%}
+            </div>
+        {%- elsif block.type == 'megamenu_subscription' -%}
+            <div class="d-flex flex-column">
+                {%- if settings.subscription_show_confirmation_checkbox -%}
+                    <input id="Header-Subscription-{{ block.id }}-checkbox" type="checkbox" class="d-none input-checkbox-disable-trigger" name="footer_subscription">
+                    <label for="Header-Subscription-{{ block.id }}-checkbox" class="footer__subscription-checkbox subscription-checkbox input-checkbox input-checkbox--input-out position-relative d-inline-flex align-items-start mt-10 cursor-pointer">
+                        <span class="position-relative d-block mt-0 mr-10 border"><i class="d-none">{% render 'icon-theme-146' %}</i></span>
+                        <span>{{ 'general.form.subscription.checkbox_html' | t }}</span>
+                    </label>
+                    <div class="input-checkbox-disable-trigger-error subscription-checkbox-error d-none mt-10">
+                        <div class="note note--error mb-5">
+                            <ul>
+                                <li>{{ 'general.form.subscription.checkbox_error' | t }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                {%- endif -%}
+                {%- if settings.subscription_method == 'shopify' -%}
+                    {% form 'customer', id: null, class: 'subscription-form d-flex mb-20' %}
+                        {% render 'form-get-check-error-popup' %}
+                        <input type="hidden" name="contact[tags]" value="newsletter">
+                        <input type="email" name="contact[email]" class="mb-0 mr-10{% if form.errors %} input--error{% endif %}" placeholder="{{ block.settings.placeholder }}" required="required">
+                        <input type="submit" class="input-checkbox-disable-body btn btn--secondary" name="commit" value="{{ block.settings.button_text }}">
+                    {% endform %}
+                {%- elsif settings.subscription_method == 'mailchimp' -%}
+                    <form action="{{ settings.subscription_mailchimp_form_action }}" method="post" class="subscription-form d-flex mb-20" target="_blank">
+                        <input type="email" name="EMAIL" class="mb-0 mr-10" placeholder="{{ block.settings.placeholder }}" required="required">
+                        <input type="submit" class="input-checkbox-disable-body btn btn--secondary" value="{{ block.settings.button_text }}">
+                    </form>
+                {%- endif -%}
+            </div>
+        {%- endif -%}
+    {% endcapture %}
+    {% capture title_html %}
+        {%- if block.settings.title != blank -%}
+            {%- assign title_url = title_url | default: block.settings.url -%}
+            {%- if title_url -%}
+                <a href="{{ title_url }}" class="menu__title mb-lg-10">{{ block.settings.title }}</a>
+            {%- else -%}
+                <div class="menu__title mb-lg-10">{{ block.settings.title }}</div>
+            {%- endif -%}
+            {%- assign title_url = null -%}
+        {%- endif -%}
+    {% endcapture %}
+    {% capture content_shortcode %}<!--content-{{ content_index }}-->{% endcapture %}
+    {% capture title_shortcode %}<!--title-{{ content_index }}-->{% endcapture %}
+    {%- assign column_left_n_right = column_left_n_right | replace_first: content_shortcode, content_html | replace_first: title_shortcode, title_html -%}
+    {%- if column_left_n_right contains content_shortcode -%}
+        {% capture up_content_shortcode %}<!--content-{{ content_index | plus: 1 }}-->{% endcapture %}
+        {% capture up_title_shortcode %}<!--title-{{ content_index | plus: 1 }}-->{% endcapture %}
+        {%- assign column_left_n_right = column_left_n_right | replace: content_shortcode, up_content_shortcode | replace: title_shortcode, up_title_shortcode -%}
+    {%- endif -%}
+    {%- assign content_index = content_index | plus: 1 -%}
+    {%- assign title_url = null -%}
+{%- endfor -%}
+{%- assign column_left_n_right = column_left_n_right | split: '|||' -%}
+{%- assign column_left = column_left_n_right[0] -%}
+{%- assign column_right = column_left_n_right[1] -%}

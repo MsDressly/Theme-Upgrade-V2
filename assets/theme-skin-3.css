@@ -1,0 +1,19 @@
+.popup-subscription--layout-03 .popup-subscription__text-line-02 {
+  font-family: var(--alternative-family) !important;
+}
+
+@media (max-width: 540px) {
+  .promobox--modification-1 .promobox__text-2 {
+    font-size: 44px;
+    line-height: 50px;
+  }
+}
+
+.promobox--modification-2 .promobox__btn-1,
+.promobox--modification-2 .promobox__btn-2 {
+  max-width: 220px;
+  width: 100%;
+}
+.promobox--modification-2.promobox--type-1-curtain-2 .promobox__content .promobox__text-1 {
+  color: var(--theme2);
+}

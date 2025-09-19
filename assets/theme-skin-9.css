@@ -1,0 +1,29 @@
+.popup-subscription--layout-04 .popup-subscription__text-line-01,
+.popup-subscription--layout-04 .popup-subscription__text-line-02,
+.popup-subscription--layout-04 .popup-subscription__text-line-03 {
+  font-weight: bold !important;
+}
+
+@media (min-width: 768px) {
+  .promobox--modification-1 .promobox__content_inner {
+    margin-left: 30px;
+  }
+}
+
+.promobox--modification-2 .promobox__plate {
+  bottom: 15px;
+}
+.promobox--modification-2 .promobox__plate .promobox__content::before {
+  background-color: transparent;
+}
+
+.builder---modification-1 {
+  background-color: var(--theme4);
+}
+
+@media (min-width: 768px) {
+  [dir=rtl] .promobox--modification-1 .promobox__content_inner {
+    margin-left: 0;
+    margin-right: 30px;
+  }
+}

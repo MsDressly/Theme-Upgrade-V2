@@ -1,0 +1,18 @@
+<{{ tag | default: 'div' }} class="logo h6 w-100 m-0{% if image != blank or svg %} text-hide{% endif %}">
+    {%- if settings.logo_types == 'svg' -%}
+        {% capture svg_logo %}{% include svg %}{% endcapture %}
+        {% unless svg_logo contains 'Liquid error' %}
+            {% capture logo_content %}{{ svg_logo }}{% endcapture %}
+        {% endunless %}
+    {%- elsif image != blank -%}
+        {%- capture image_attr -%}itemprop="logo"{%- endcapture -%}
+        {%- capture image_size -%}{{ width | times: 2 }}x{%- endcapture -%}
+        {% capture logo_content %}
+            {% render 'rimage' with image: image size: image_size scale: 2 alt: shop.name attr: image_attr %}
+        {% endcapture %}
+    {%- endif -%}
+    <a href="{{ routes.root_url }}"{% if logo_content %} class="d-block text-hide"{% endif %}>
+        {{ logo_content }}
+        {{- shop.name -}}
+    </a>
+</{{ tag | default: 'div' }}>

@@ -1,0 +1,221 @@
+/* Critical CSS for above-the-fold content - Optimized for performance */
+:root {
+  --base-family: "Basic Commercial", sans-serif;
+  --theme: #17344A;
+  --theme2: #ffffff;
+  --theme-body: var(--theme2);
+  --theme-c: #5D7180;
+  --theme-primary: #5a31f4;
+  --header-m-bg: var(--theme2);
+}
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--base-family);
+  margin: 0;
+  padding: 0;
+  background-color: var(--theme-body);
+  color: var(--theme-c);
+  font-display: swap;
+  line-height: 1.5;
+}
+
+/* Header critical styles */
+.header {
+  z-index: 3;
+  will-change: transform;
+  position: relative;
+}
+
+.header__content {
+  background-color: var(--header-m-bg);
+}
+
+/* Layout */
+.container {
+  width: 100%;
+  padding: 0 10px;
+  margin: 0 auto;
+}
+
+@media (min-width: 1025px) {
+  .container {
+    max-width: 1200px;
+    padding: 0 15px;
+  }
+}
+
+/* Button styles */
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 14px !important;
+  border: 1px solid;
+  min-height: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+/* Utility classes */
+.d-none {
+  display: none !important;
+}
+
+.d-block {
+  display: block !important;
+}
+
+/* Preloader */
+.preloader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateZ(0);
+}
+
+/* Performance optimizations */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Loading states */
+.loading {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.loaded {
+  opacity: 1;
+}
+
+/* Skip to content link for accessibility */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  z-index: 999999;
+  color: white;
+  background: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 3px;
+}
+
+.skip-to-content:focus {
+  top: 6px;
+}
+
+/* Above-the-fold content styles */
+.main-content {
+  min-height: 100vh;
+}
+
+/* Grid system - minimal */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+
+.col {
+  flex: 1;
+  padding: 0 15px;
+}
+
+@media (max-width: 768px) {
+  .col {
+    flex: 0 0 100%;
+  }
+}
+
+/* Typography - critical only */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 1rem 0;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--theme);
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Links */
+a {
+  color: var(--theme-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Forms - critical */
+input, select, textarea {
+  font-family: inherit;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--theme-primary);
+  outline-offset: 2px;
+}
+
+/* Performance hints */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+} 

@@ -1,0 +1,127 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "Footer",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "1586284608625": {
+          "type": "subscription",
+          "settings": {
+            "title": "Newsletter subscription",
+            "paragraph": "Sign up for MsDressly® member status and get $10 off your next order! Plus monthly Giveaways!",
+            "placeholder": "Enter Your Email Address",
+            "button_text": "SUBSCRIBE!"
+          }
+        },
+        "1586284525260": {
+          "type": "menu",
+          "settings": {
+            "title": "",
+            "show_title_on_desktop": true,
+            "menu": "need-help",
+            "size": 0,
+            "rows_limit": 0
+          }
+        },
+        "1586284527889": {
+          "type": "menu",
+          "settings": {
+            "title": "",
+            "show_title_on_desktop": true,
+            "menu": "footer",
+            "size": 0,
+            "rows_limit": 0
+          }
+        },
+        "1586284530934": {
+          "type": "menu",
+          "settings": {
+            "title": "",
+            "show_title_on_desktop": true,
+            "menu": "",
+            "size": 0,
+            "rows_limit": 0
+          }
+        },
+        "d5678107-4815-4436-aae5-17ee6c1a3dc2": {
+          "type": "custom_html",
+          "settings": {
+            "title": "Customer Service",
+            "show_title_on_desktop": true,
+            "page_content": ""
+          }
+        },
+        "1586284588048": {
+          "type": "social_media",
+          "settings": {
+            "title": "Follow us",
+            "show_facebook": true,
+            "show_twitter": true,
+            "show_instagram": true,
+            "show_pinterest": true,
+            "show_youtube": true,
+            "show_behance": false,
+            "show_skype": false,
+            "show_tiktok": true
+          }
+        },
+        "footer-0": {
+          "type": "copyright",
+          "settings": {
+            "page_content": "include-footer-copyright-3"
+          }
+        },
+        "1586284627913": {
+          "type": "payments",
+          "settings": {}
+        },
+        "933c7b96-9800-49e0-bd40-82c8fadcd014": {
+          "type": "colorize",
+          "settings": {
+            "bg": "",
+            "bd": "",
+            "c": "",
+            "subscription_btn_type": "auto",
+            "links_c": "",
+            "links_h_c": "",
+            "title_c": "",
+            "icons_c": "",
+            "icons_h_c": ""
+          }
+        }
+      },
+      "block_order": [
+        "1586284608625",
+        "1586284525260",
+        "1586284527889",
+        "1586284530934",
+        "d5678107-4815-4436-aae5-17ee6c1a3dc2",
+        "1586284588048",
+        "footer-0",
+        "1586284627913",
+        "933c7b96-9800-49e0-bd40-82c8fadcd014"
+      ],
+      "settings": {
+        "type": "1",
+        "style": "2",
+        "show_logo": true,
+        "show_button_back_to_top": true,
+        "enable_fixed": true,
+        "enable_follow_on_shop": true
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

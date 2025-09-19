@@ -1,0 +1,21 @@
+
+
+<div class="wishlist">
+    <div class="container">
+        <div class="wishlist__head d-flex justify-content-lg-center align-items-center position-relative mb-15 mb-lg-30">
+            {%- if template contains 'page.' -%}
+                <h1 class="h3 mt-20 mb-0 text-center{% if items_length < 1 %} d-none-important{% endif %}" data-js-store-lists-has-items-wishlist>{{ page.title }}</h1>
+            {%- else -%}
+                <h2 class="h3 mb-0 text-center{% if items_length < 1 %} d-none-important{% endif %}" data-js-store-lists-has-items-wishlist>{{ 'general.popups.wishlist-full.title' | t }}</h2>
+            {%- endif -%}
+            <div class="wishlist__button-remove position-absolute d-inline-flex align-items-center cursor-pointer right-0 js-store-lists-clear-wishlist{% if items_length < 1 %} d-none-important{% endif %}" data-js-store-lists-has-items-wishlist><i class="mb-4 mr-4">{% render 'icon-theme-165' %}</i>{{ 'wishlist_page.button_remove_all' | t }}</div>
+        </div>
+        <div class="popup-wishlist-full__items row{% if items_length < 1 %} d-none-important{% endif %}" data-js-store-lists-has-items-wishlist>
+
+        </div>
+        <div class="d-flex flex-column align-items-center py-40 py-md-100 my-100{% if items_length > 0 %} d-none-important{% endif %}" data-js-store-lists-dhas-items-wishlist>
+            <h3>{{ 'wishlist_page.empty.title' | t }}</h3>
+            <p>{{ 'wishlist_page.empty.paragraph' | t }}</p>
+        </div>
+    </div>
+</div>

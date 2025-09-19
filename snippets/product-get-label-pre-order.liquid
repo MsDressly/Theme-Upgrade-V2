@@ -1,0 +1,4 @@
+<div class="label label--pre-order mb-3 mr-3 text-nowrap{% if variant_pre_order != true %} d-none-important{% endif %}" data-js-product-label-pre-order>{{ 'products.product.label.pre_order' | t }}</div>
+{%- if variant_pre_order -%}
+    {%- assign has_labels = true -%}
+{%- endif -%}

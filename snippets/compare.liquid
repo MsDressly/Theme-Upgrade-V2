@@ -1,0 +1,50 @@
+<div class="compare">
+    <div class="container">
+        <div class="compare__head d-flex justify-content-lg-center align-items-center position-relative px-15 mb-15 mb-lg-30">
+            {%- if template contains 'page.' -%}
+                <h1 class="h3 mt-20 mb-0 text-center{% if items_length < 1 %} d-none-important{% endif %}" data-js-store-lists-has-items-compare>{{ page.title }}</h1>
+            {%- else -%}
+                <h2 class="h3 mb-0 text-center{% if items_length < 1 %} d-none-important{% endif %}" data-js-store-lists-has-items-compare>{{ 'general.popups.compare-full.title' | t }}</h2>
+            {%- endif -%}
+            <div class="compare__button-remove position-absolute d-inline-flex align-items-center cursor-pointer right-0 mr-5 js-store-lists-clear-compare{% if items_length < 1 %} d-none-important{% endif %}" data-js-store-lists-has-items-compare><i class="mb-4 mr-4">{% render 'icon-theme-165' %}</i>{{ 'compare_page.button_remove_all' | t }}</div>
+        </div>
+        <table class="table d-block{% if items_length < 1 %} d-none-important{% endif %} pb-20" data-js-store-lists-has-items-compare>
+
+        </table>
+        <div class="d-flex flex-column align-items-center py-40 py-md-100 my-100{% if items_length > 0 %} d-none-important{% endif %}" data-js-store-lists-dhas-items-compare>
+            <h3>{{ 'compare_page.empty.title' | t }}</h3>
+            <p>{{ 'compare_page.empty.paragraph' | t }}</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.compareSettings = {
+        strings: {
+            title: {{ 'compare_page.products_title' | t | json }},
+            description: {{ 'compare_page.description_title' | t | json }},
+            collections: {{ 'compare_page.collection_title' | t | json }},
+            availability: {{ 'compare_page.availability_title' | t | json }},
+            product_type: {{ 'compare_page.product_type_title' | t | json }},
+            vendor: {{ 'compare_page.vendor_title' | t | json }},
+            sku: {{ 'compare_page.sku_title' | t | json }},
+            barcode: {{ 'compare_page.barcode_title' | t | json }},
+            empty_section: {{ 'compare_page.empty_section' | t | json }},
+            in_stock: {{ 'compare_page.in_stock' | t | json }},
+            out_stock: {{ 'compare_page.out_stock' | t | json }}
+        },
+        visible: {
+            description: {{ settings.compare_show_description | json }},
+            collection: {{ settings.compare_show_collection | json }},
+            availability: {{ settings.compare_show_availability | json }},
+            product_type: {{ settings.compare_show_product_type | json }},
+            vendor: {{ settings.compare_show_vendor | json }},
+            sku: {{ settings.compare_show_sku | json }},
+            barcode: {{ settings.compare_show_barcode | json }},
+            options: {{ settings.compare_show_options | json }}
+        },
+        settings: {
+            description_max_size: {{ settings.compare_description_max_size | json }}
+        }
+    };
+</script>

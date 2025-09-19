@@ -1,0 +1,173 @@
+# Optimized robots.txt for AI crawlers and Shopify store
+# Last updated: July 18, 2025
+
+# General rules for all crawlers
+User-agent: *
+Disallow: /admin
+Disallow: /cart
+Disallow: /carts
+Disallow: /orders
+Disallow: /checkout
+Disallow: /*/checkouts
+Disallow: /*/orders
+Disallow: /account
+Disallow: /a/downloads/-/*
+Disallow: /collections/*sort_by*
+Disallow: /*/collections/*sort_by*
+Disallow: /*?*oseid=*
+Disallow: /*preview_theme_id*
+Disallow: /*preview_script_id*
+Disallow: /apple-app-site-association
+Disallow: /blogs/*+*
+Disallow: /blogs/*%2B*
+Disallow: /blogs/*%2b*
+Disallow: /*/blogs/*+*
+Disallow: /*/blogs/*%2B*
+Disallow: /*/blogs/*%2b*
+
+# Allow policies for indexing (optional, adjust based on need)
+Allow: /policies/
+
+# Allow search pages for AI crawlers to index relevant content
+Allow: /search
+
+Sitemap: https://www.msdressly.com/sitemap.xml
+
+# AI-specific crawlers: Allow full access to relevant content
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin
+Disallow: /cart
+Disallow: /carts
+Disallow: /orders
+Disallow: /checkout
+Disallow: /*/checkouts
+Disallow: /*/orders
+Disallow: /account
+Crawl-delay: 2
+
+User-agent: GPTBot
+Allow: /
+Disallow: /admin
+Disallow: /cart
+Disallow: /carts
+Disallow: /orders
+Disallow: /checkout
+Disallow: /*/checkouts
+Disallow: /*/orders
+Disallow: /account
+Crawl-delay: 2
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin
+Disallow: /cart
+Disallow: /carts
+Disallow: /orders
+Disallow: /checkout
+Disallow: /*/checkouts
+Disallow: /*/orders
+Disallow: /account
+Crawl-delay: 2
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin
+Disallow: /cart
+Disallow: /carts
+Disallow: /orders
+Disallow: /checkout
+Disallow: /*/checkouts
+Disallow: /*/orders
+Disallow: /account
+Crawl-delay: 2
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /admin
+Disallow: /cart
+Disallow: /carts
+Disallow: /orders
+Disallow: /checkout
+Disallow: /*/checkouts
+Disallow: /*/orders
+Disallow: /account
+Crawl-delay: 2
+
+User-agent: CCBot
+Allow: /
+Disallow: /admin
+Disallow: /cart
+Disallow: /carts
+Disallow: /orders
+Disallow: /checkout
+Disallow: /*/checkouts
+Disallow: /*/orders
+Disallow: /account
+Crawl-delay: 2
+
+# Google AdsBot: Maintain existing rules
+User-agent: adsbot-google
+Disallow: /checkout
+Disallow: /cart
+Disallow: /carts
+Disallow: /orders
+Disallow: /*/checkouts
+Disallow: /*/orders
+Disallow: /*?*oseid=*
+Disallow: /*preview_theme_id*
+Disallow: /*preview_script_id*
+
+# Nutch: Keep blocked
+User-agent: Nutch
+Disallow: /
+
+# AhrefsBot: Maintain crawl delay and restrictions
+User-agent: AhrefsBot
+Crawl-delay: 10
+Disallow: /admin
+Disallow: /cart
+Disallow: /carts
+Disallow: /orders
+Disallow: /checkout
+Disallow: /*/checkouts
+Disallow: /*/orders
+Disallow: /account
+Disallow: /a/downloads/-/*
+Disallow: /collections/*sort_by*
+Disallow: /*/collections/*sort_by*
+Disallow: /*?*oseid=*
+Disallow: /*preview_theme_id*
+Disallow: /*preview_script_id*
+Disallow: /apple-app-site-association
+Disallow: /policies/
+Disallow: /search
+
+# AhrefsSiteAudit: Maintain crawl delay and restrictions
+User-agent: AhrefsSiteAudit
+Crawl-delay: 10
+Disallow: /admin
+Disallow: /cart
+Disallow: /carts
+Disallow: /orders
+Disallow: /checkout
+Disallow: /*/checkouts
+Disallow: /*/orders
+Disallow: /account
+Disallow: /a/downloads/-/*
+Disallow: /collections/*sort_by*
+Disallow: /*/collections/*sort_by*
+Disallow: /*?*oseid=*
+Disallow: /*preview_theme_id*
+Disallow: /*preview_script_id*
+Disallow: /apple-app-site-association
+Disallow: /policies/
+Disallow: /search
+
+# MJ12bot: Maintain crawl delay
+User-agent: MJ12bot
+Crawl-delay: 10
+
+# Pinterest: Maintain crawl delay
+User-agent: Pinterest
+Crawl-delay: 1

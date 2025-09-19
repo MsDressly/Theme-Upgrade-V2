@@ -1,0 +1,13 @@
+{%- unless preview_link_substitution -%}
+    {{- default_link -}}
+{%- else -%}
+    {%- capture links_path %}{{ link.title }}{% if sub_link %}+{{ sub_link.title }}{% if sub_sub_link %}+{{ sub_sub_link.title }}{% endif %}{% endif %}{% endcapture -%}
+    {%- assign links_path_handle = links_path | handleize | prepend: '|||' | append: '|||' -%}
+    {%- if preview_link_substitution contains links_path_handle -%}
+        {%- assign content_split_1 = preview_link_substitution | split: links_path_handle -%}
+        {%- assign content_split_2 = content_split_1[1] | split: '|||' -%}
+        {{- content_split_2[0] | strip_newlines -}}
+    {%- else -%}
+        {{- default_link -}}
+    {%- endif -%}
+{%- endunless -%}

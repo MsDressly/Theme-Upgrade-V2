@@ -1,0 +1,158 @@
+<div class="footbar d-flex flex-column align-items-lg-start position-fixed bottom-0 left-0 w-100 pointer-events-none">
+    
+    {%- if settings.notification_products_enable and settings.notification_products_collection != blank and collections[settings.notification_products_collection] != blank -%}
+        <div class="notification position-relative js-notification">
+            <div class="notification__inner d-none px-sm-10 px-lg-15 mb-sm-10 mb-lg-15 js-notification-products" data-js-delay="{{ settings.notification_products_delay }}" data-js-interval-min="{{ settings.notification_products_interval_min }}" data-js-interval-max="{{ settings.notification_products_interval_max }}" data-js-max-time-life="{{ settings.notification_products_time_life }}" data-js-notification-inner>
+                <div class="notification-products p-10 pointer-events-all">
+                    {% capture product_minutes_text %}{{ 'general.notifications.purchase.minutes' | t }}{% endcapture %}
+                    {%- assign product_minutes_text_split = product_minutes_text | split: '|' -%}
+                    {%- for product in collections[settings.notification_products_collection].products limit: 20 -%}
+                        {%- assign random_date_h = "now" | date: "%M" | plus: forloop.index0 -%}
+                        {% capture notification_text_01 %}{{ 'general.notifications.purchase.text_line_01' | t }}{% endcapture %}
+                        {%- assign random_time_diff = settings.notification_products_range_max | minus: settings.notification_products_range_min -%}
+                        {%- assign random_time = random_date_h | modulo: random_time_diff | plus: settings.notification_products_range_min -%}
+                        {% capture products_places %}{{ 'general.notifications.purchase.places' | t }}{% endcapture %}
+                        {%- assign products_places_split = products_places | split: '|' -%}
+                        {%- assign products_places_size_0 = products_places_split.size | minus: 1 -%}
+                        {%- assign random_place_index = random_date_h | modulo: products_places_size_0 -%}
+                        {% capture time %}{{ random_time }} {% if random_time == 1 %}{{ product_minutes_text_split[0] }}{% else %}{{ product_minutes_text_split[1] }}{% endif %}{% endcapture %}
+                        {% capture place %}{{ products_places_split[random_place_index] }}{% endcapture %}
+                        {% capture notification_text_02 %}{{ 'general.notifications.purchase.text_line_02' | t }}{% endcapture %}
+                        {%- assign notification_text_02 = notification_text_02 | replace: '{time}', time | replace: '{place}', place -%}
+                        <div class="d-none" data-js-notification-products-item>
+                            {% include 'product-notification' %}
+                        </div>
+                    {%- endfor -%}
+                </div>
+            </div>
+        </div>
+        {% include 'product-res-variables-clear' %}
+        <script>
+            theme.AssetsLoader.onUserAction(function() {
+				theme.AssetsLoader.require('scripts', 'notifications');
+			});
+        </script>
+    {%- endif -%}
+    
+    {%- if settings.notification_cookies_enable -%}
+        <div class="notification position-relative js-notification">
+            <div class="notification__inner d-none px-sm-10 px-lg-15 mb-sm-10 mb-lg-15 js-notification-cookies" data-js-show-once="{{ settings.notification_cookies_show_once }}" data-js-delay="{{ settings.notification_cookies_delay }}" data-js-cookies-life="{{ settings.notification_cookies_cookies_life }}" data-js-notification-inner>
+                <div class="notification-cookies position-relative p-20 text-center text-sm-left pointer-events-all">
+                    <div class="notification-cookies__bg position-absolute absolute-stretch"></div>
+                    <div class="position-relative">
+                        <p class="mb-0">{{ 'general.notifications.cookies.text' | t }}</p>
+                        <div class="d-flex align-items-center justify-content-center justify-content-sm-end mt-15">
+                            <a href="{{ settings.notification_cookies_button_information_link | default: '/pages/cookie-policy' }}" target="_blank" class="notification-cookies__button-info btn-link py-10 py-sm-0 mr-20">{{ 'general.notifications.cookies.button_information' | t }}</a>
+                            <div class="notification-cookies__button-close btn-link py-10 py-sm-0 d-flex align-items-center" data-js-action="close">{{ 'general.notifications.cookies.button_close' | t }}<i>{% render 'icon-theme-146' %}</i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            {%- if settings.notification_cookies_delay == 0 -%}
+                if(document.cookie.indexOf('notification-cookies=off') === -1) {
+                    var notification_cookies = document.querySelector('.js-notification-cookies');
+
+                    notification_cookies.classList.add('animate', 'visible');
+                    notification_cookies.classList.remove('d-none');
+                }
+            {%- endif -%}
+            theme.AssetsLoader.onUserAction(function() {
+				theme.AssetsLoader.require('scripts', 'notifications');
+			});
+        </script>
+    {%- endif -%}
+    {% comment %}
+    {% include 'footbar-get-development' %}
+    {% endcomment %}
+    {%- if template.name == 'product' and settings.product_footbar_enable -%}
+        {% capture cart_icon_name %}{{ settings.cart_icon | default: 'icon-theme-109' }}{% endcapture %}
+        {% include 'product-res-variables' %}
+        {%- assign image_size = '60x' -%}
+        <div class="footbar-product w-100 js-footbar-product pointer-events-all" data-product-handle="{{ product.handle }}" data-js-product-clone="footbar">
+            <div class="container d-flex">
+                <div class="d-flex align-items-center w-100 py-2">
+                    <div class="footbar-product__image mr-20 mr-lg-15">
+                        <div data-js-product-image>
+                            {%- capture image_id -%} data-image-id="{{ image.id }}"{%- endcapture -%}
+                            {% render 'rimage' with image: image size: image_size alt: title attr: image_id %}
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column py-4 mr-15">
+                        {%- if settings.product_footbar_show_title -%}
+                            <div class="footbar-product__title d-none d-lg-block">
+                                <h4 class="m-0">{{ title }}</h4>
+                            </div>
+                        {%- endif -%}
+                        {%- if settings.product_footbar_show_price -%}
+                            <div class="footbar-product__price">
+                                {% include 'product-get-price' %}
+                            </div>
+                        {%- endif -%}
+                        {%- if settings.reviews_type != 'disable' -%}
+                            {%- if settings.product_footbar_show_reviews -%}
+                                <div class="footbar-product__reviews d-none d-lg-block">
+                                    {%- if settings.reviews_type == 'default' -%}
+                                        {% render 'product-get-review' with product: product hide_counter: settings.product_info_hide_reviews_counter %}
+                                    {%- elsif settings.reviews_type == 'growave' and settings.app_growave_enable == true -%}
+                                        {% capture the_snippet_review_avg %}{% render 'ssw-widget-avg-rate-listing', product: product %}{% endcapture %}
+                                        {%- unless the_snippet_review_avg contains 'Liquid error' or product.metafields.ssw['review'].avg == 0 -%}
+                                            {{ the_snippet_review_avg }}
+                                        {%- endunless -%}
+                                    
+                                    {%- elsif settings.reviews_type == 'loox' and product.metafields.loox.num_reviews -%}
+                                        <div class="mt-2">
+                                            <a href="#looxReviews">
+                                                <div class="loox-rating" data-id="{{ product.id }}" data-rating="{{ product.metafields.loox.avg_rating }}" data-raters="{{ product.metafields.loox.num_reviews }}"></div>
+                                            </a>
+                                        </div>
+                                    
+                                    {%- endif -%}
+                                </div>
+                            {%- endif -%}
+                        {%- endif -%}
+                    </div>
+                    <div class="footbar-product__controls w-100 d-flex flex-column flex-lg-row align-items-lg-center py-4 ml-auto">
+                        {%- if settings.product_footbar_show_options and settings.product_show_custom_options -%}
+                            <div class="footbar-product__options{% if product.variants.size == 1 and product.variants.first.title contains 'Default' %} d-none{% endif %}{% if settings.product_footbar_options_type == 'default' %} d-lg-none{% endif %} py-4 ml-auto mx-lg-auto mr-lg-15">
+                                {% render 'product-get-variants' with product: product current_variant: current_variant show_options: settings.product_footbar_show_options show_custom_options: false %}
+                            </div>
+                            {%- if settings.product_footbar_options_type == 'default' -%}
+                                <div class="footbar-product__options d-none d-lg-block py-4 mx-lg-auto mr-lg-15">
+                                    {% include 'product-get-options' with options_type: 3 select_dropdown_position: 'top' options_show_title: true trigger: 'footbar' %}
+                                </div>
+                            {%- endif -%}
+                        {%- endif -%}
+                        <div class="d-flex align-items-center py-4 ml-auto">
+                            {%- if settings.product_footbar_show_quantity -%}
+                                <div class="footbar-product__quantity d-none d-lg-block ml-auto mr-15">
+                                    {% render 'product-get-quantity' with quantity_type: 2 quantity_connect: 'footbar' %}
+                                </div>
+                            {%- endif -%}
+                            {%- if settings.product_footbar_show_button_add_to_cart -%}
+                                <div class="footbar-product__button-add-to-cart">
+                                    <button type="button" class="btn btn--status" name="add" data-js-trigger="add-to-cart" data-js-button-add-to-cart-clone="footbar" data-js-product-button-add-to-cart{% unless current_variant.available %} disabled="disabled" data-button-status="sold-out"{% elsif variant_pre_order %} data-button-status="pre-order"{% else %}{% if enable_select_variant_button %} data-button-status="select"{% endif %}{% endunless %}>
+                                        <span class="d-flex flex-center text-nowrap">{{ 'products.product.add_to_cart.title' | t }}</span>
+                                        <span class="d-flex flex-center text-nowrap" data-button-content="added"><i class="mr-5 mb-4">{% render 'icon-theme-110' %}</i>{{ 'products.product.add_to_cart.added' | t }}</span>
+                                        {%- if enable_select_variant_button -%}
+                                            <span class="d-flex flex-center" data-button-content="select">{{ 'products.product.add_to_cart.select_options' | t }}</span>
+                                        {%- endif -%}
+                                        <span class="d-flex flex-center text-nowrap" data-button-content="sold-out">{{ 'products.product.add_to_cart.sold_out' | t }}</span>
+                                        <span class="d-flex flex-center" data-button-content="pre-order"><i class="btn__icon mr-5 mb-4">{% include cart_icon_name %}</i><span class="btn__text">{{ 'products.product.add_to_cart.pre_order' | t }}</span></span>
+                                    </button>
+                                </div>
+                            {%- endif -%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include 'product-res-variables-clear' %}
+        <script>
+            theme.AssetsLoader.onUserAction(function() {
+				theme.AssetsLoader.require('scripts', 'product_footbar');
+			});
+        </script>
+    {%- endif -%}
+</div>

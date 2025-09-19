@@ -1,0 +1,80 @@
+<div class="container">
+    <div class="page-width">
+        <h1 class="my-40 text-center">{{ page.title }}</h1>
+        <h3 class="mb-30 text-center">Theme Icons</h3>
+        <div class="table-wrap">
+            <table class="responsive-table mb-35">
+                <tr>
+                    <th>NAME</th><th>SNIPPET</th><th>SHORTCODE</th>
+                </tr>
+                {%- for icon_numb in (1..235) -%}
+                    <tr>
+                        {%- assign icon_name = icon_numb -%}
+                        {%- if icon_numb < 10 -%}
+                            {%- assign icon_name = icon_name | prepend: '00' -%}
+                        {%- elsif icon_numb < 100 -%}
+                            {%- assign icon_name = icon_name | prepend: '0' -%}
+                        {%- endif -%}
+                        {%- assign icon_name = icon_name | prepend: 'theme-' -%}
+                        {%- assign icon_snippet = icon_name | prepend: 'icon-' -%}
+                        <td><i>{% include icon_snippet %}</i></td>
+                        <td>{{ icon_snippet }}</td>
+                        <td>[icon:{{ icon_name }}]</td>
+                    </tr>
+                {%- endfor -%}
+                {%- for icon_numb in (304..322) -%}
+                    <tr>
+                        {%- assign icon_name = icon_numb -%}
+                        {%- if icon_numb < 10 -%}
+                            {%- assign icon_name = icon_name | prepend: '00' -%}
+                            {%- elsif icon_numb < 100 -%}
+                            {%- assign icon_name = icon_name | prepend: '0' -%}
+                        {%- endif -%}
+                        {%- assign icon_name = icon_name | prepend: 'theme-' -%}
+                        {%- assign icon_snippet = icon_name | prepend: 'icon-' -%}
+                        <td><i>{% include icon_snippet %}</i></td>
+                        <td>{{ icon_snippet }}</td>
+                        <td>[icon:{{ icon_name }}]</td>
+                    </tr>
+                {%- endfor -%}
+            </table>
+        </div>
+        <h3 class="mb-30 text-center">Dry Icons</h3>
+        <div class="table-wrap">
+            <table class="responsive-table mb-35">
+                <tr>
+                    <th>NAME</th><th>ICON</th><th>SHORTCODE</th>
+                </tr>
+                {%- for icon_numb in (1..46) -%}
+                    <tr>
+                        {%- assign icon_name = icon_numb -%}
+                        {%- if icon_numb < 10 -%}
+                            {%- assign icon_name = icon_name | prepend: '0' -%}
+                        {%- endif -%}
+                        {%- assign icon_name = icon_name | prepend: 'dry-' -%}
+                        {%- assign icon_snippet = icon_name | prepend: 'icon-' -%}
+                        <td><i class="icon-fs-26">{% include icon_snippet %}</i></td>
+                        <td>{{ icon_snippet }}</td>
+                        <td>[icon:{{ icon_name }}]</td>
+                    </tr>
+                {%- endfor -%}
+            </table>
+        </div>
+        <h3 class="mb-30 text-center">Payments</h3>
+        <div class="table-wrap">
+            <table class="responsive-table mb-35">
+                <tr>
+                    <th>NAME</th><th>ICON</th><th>SHORTCODE</th>
+                </tr>
+                {%- assign payment_icons = 'icon-payment-afterpay,icon-payment-american-express,icon-payment-apple-pay,icon-payment-bitcoin,icon-payment-dankort,icon-payment-diners-club,icon-payment-discover,icon-payment-dogecoin,icon-payment-dwolla,icon-payment-forbrugsforeningen,icon-payment-google-pay,icon-payment-ideal,icon-payment-jcb,icon-payment-klarna,icon-payment-klarna-pay-later,icon-payment-litecoin,icon-payment-maestro,icon-payment-master,icon-payment-paypal,icon-payment-shopify-pay,icon-payment-sofort,icon-payment-visa' | split: ',' -%}
+                {%- for icon_snippet in payment_icons -%}
+                    <tr>
+                        <td><i class="icon-fs-40">{% include icon_snippet %}</i></td>
+                        <td>{{ icon_snippet }}</td>
+                        <td>[icon:{{ icon_snippet | remove_first: 'icon-' }}]</td>
+                    </tr>
+                {%- endfor -%}
+            </table>
+        </div>
+    </div>
+</div>

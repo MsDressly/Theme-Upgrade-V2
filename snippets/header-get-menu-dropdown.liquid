@@ -1,0 +1,28 @@
+<div class="menu__dropdown d-lg-none position-lg-absolute">
+    <div class="menu__list menu__list--styled menu__level-02 menu__level-02 p-lg-20">
+        <div class="menu__item menu__back d-lg-none"><a href="{% render 'header-get-menu-link-substitution' with preview_link_substitution: preview_link_substitution default_link: output_link.url link: output_link %}">{{ output_link.title }}</a></div>
+        {%- for sub_link in output_link.links -%}
+            <div class="menu__item{% if sub_link.levels > 0 %} menu__item--has-children position-lg-relative{% endif %}">
+                <a href="{% render 'header-get-menu-link-substitution' with preview_link_substitution: preview_link_substitution default_link: sub_link.url link: output_link sub_link: sub_link %}" class="d-flex align-items-center px-lg-5"><span>{{ sub_link.title }}</span>{% render 'header-get-menu-labels' with label_html: label_html link: output_link sub_link: sub_link %}{% if sub_link.levels > 0 %} <i class="ml-auto">{% render 'icon-theme-231' %}</i>{% endif %}{% render 'header-get-menu-preview-image' with preview_image_html: preview_image_html link: output_link sub_link: sub_link sub_sub_link: 'empty_lvl' %}</a>
+                {%- if sub_link.levels > 0 -%}
+                    <div class="menu__list menu__level-03 position-lg-absolute p-lg-15">
+                        <div class="menu__item menu__back d-lg-none"><a href="{% render 'header-get-menu-link-substitution' with preview_link_substitution: preview_link_substitution default_link: sub_link.url link: output_link sub_link: sub_link %}">{{ sub_link.title }}</a></div>
+                        {%- for sub_sub_link in sub_link.links -%}
+                            <div class="menu__item{% if sub_sub_link.levels > 0 %} menu__item--has-children position-lg-relative{% endif %}">
+                                <a href="{% render 'header-get-menu-link-substitution' with preview_link_substitution: preview_link_substitution default_link: sub_sub_link.url link: output_link sub_link: sub_link sub_sub_link: sub_sub_link %}" class="d-flex align-items-center px-lg-5"><span>{{ sub_sub_link.title }}</span>{% render 'header-get-menu-labels' with label_html: label_html link: output_link sub_link: sub_link sub_sub_link: sub_sub_link %}{% if sub_sub_link.levels > 0 %} <i class="ml-auto">{% render 'icon-theme-231' %}</i>{% endif %}{% render 'header-get-menu-preview-image' with preview_image_html: preview_image_html link: output_link sub_link: sub_link sub_sub_link: sub_sub_link %}</a>
+                                {%- if sub_sub_link.levels > 0 -%}
+                                    <div class="menu__list menu__level-04 position-lg-absolute p-lg-15">
+                                        <div class="menu__item menu__back d-lg-none"><a href="{% render 'header-get-menu-link-substitution' with preview_link_substitution: preview_link_substitution default_link: sub_sub_link.url link: output_link sub_link: sub_link sub_sub_link: sub_sub_link %}">{{ sub_sub_link.title }}</a></div>
+                                        {%- for sub_sub_sub_link in sub_sub_link.links -%}
+                                            <div class="menu__item"><a href="{{ sub_sub_sub_link.url }}" class="d-flex align-items-center px-lg-5"><span>{{ sub_sub_sub_link.title }}</span>{% render 'header-get-menu-labels' with label_html: label_html link: output_link sub_link: sub_sub_link sub_sub_link: sub_sub_sub_link %}{% render 'header-get-menu-preview-image' with preview_image_html: preview_image_html link: output_link sub_link: sub_sub_link sub_sub_link: sub_sub_sub_link %}</a></div>
+                                        {%- endfor -%}
+                                    </div>
+                                {%- endif -%}
+                            </div>
+                        {%- endfor -%}
+                    </div>
+                {%- endif -%}
+            </div>
+        {%- endfor -%}
+    </div>
+</div>

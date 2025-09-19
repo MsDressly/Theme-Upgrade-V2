@@ -1,0 +1,14 @@
+{%- if content != blank and content contains '[icon:' -%}
+    {%- assign contenr_html = content -%}
+    {%- assign content_split = content | split: '[icon:' -%}
+    {%- for fragment in content_split offset: 1 -%}
+        {%- assign fragment_split = fragment | split: ']' -%}
+        {%- assign icon_shortcode = '[icon:' | append: fragment_split[0] | append: ']' -%}
+        {%- assign icon_name = 'icon-' | append: fragment_split[0] -%}
+        {% capture icon_html %}{% include icon_name %}{% endcapture %}
+        {%- assign contenr_html = contenr_html | replace: icon_shortcode, icon_html -%}
+    {%- endfor -%}
+    {{ contenr_html }}
+{%- else -%}
+    {{ content }}
+{%- endif -%}

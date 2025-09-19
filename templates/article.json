@@ -1,0 +1,136 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-article",
+      "blocks": {
+        "tags": {
+          "type": "tags",
+          "settings": {
+            "title": "TAGS",
+            "show_border": true
+          }
+        },
+        "subscription": {
+          "type": "subscription",
+          "settings": {
+            "title": "WIN GIVEAWAYS AND GIFTS👇",
+            "show_border": false,
+            "paragraph": "Join our email list for weekly giveaways 🎁",
+            "button_text": "JOIN",
+            "placeholder": "Enter your email address"
+          }
+        },
+        "1541433718854": {
+          "type": "slide",
+          "settings": {
+            "for_article": "reviews/womens-sexy-elegant-night-out-contrast-bustier-cupped-design-backless-cut-out-waist-thigh-high-slit-spaghetti-strap-cami-maxi-dress",
+            "image": "shopify://shop_images/718f749668704416_ab037a6b-8b6e-4148-bac0-5049adc5af21.jpg",
+            "title": "ALL UNDER $20"
+          }
+        },
+        "1541433806550": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "for_article": "news/how-to-layer-sweaters-for-extra-warmth-style",
+            "title": "Sale 70% Off"
+          }
+        },
+        "1541434047934": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "for_article": "news/how-to-layer-sweaters-for-extra-warmth-style",
+            "title": "Third slide"
+          }
+        },
+        "categories_VtaLd7": {
+          "type": "categories",
+          "settings": {
+            "title": "CATEGORIES",
+            "menu": "main-menu",
+            "show_border": true
+          }
+        }
+      },
+      "block_order": [
+        "tags",
+        "subscription",
+        "1541433718854",
+        "1541433806550",
+        "1541434047934",
+        "categories_VtaLd7"
+      ],
+      "settings": {
+        "show_information": true,
+        "show_image": true,
+        "show_content": true,
+        "show_tags": true,
+        "show_social_share_buttons": false,
+        "social_share_buttons_type": "1",
+        "show_navigation": true,
+        "show_comments": true,
+        "autoplay": true,
+        "speed": 5,
+        "infinite": true
+      }
+    },
+    "17240510479b777462": {
+      "type": "apps",
+      "blocks": {
+        "reputon_reviews_rate_us_widget_block_e6ztAg": {
+          "type": "shopify://apps/reputon-reviews/blocks/rate-us-widget-block/5ae2d5d1-9c77-4a27-aaa7-dea75a671f2a",
+          "settings": {
+            "widget-title": "How do you like our recommendations?",
+            "description": "Rate our picks for you and win prizes 👇"
+          }
+        }
+      },
+      "block_order": [
+        "reputon_reviews_rate_us_widget_block_e6ztAg"
+      ],
+      "settings": {
+        "container": "fullwidth",
+        "margin_top": 60,
+        "margin_bottom": 0,
+        "margin_top_mobile": 0,
+        "margin_bottom_mobile": 0,
+        "show_separator": false
+      }
+    },
+    "sorting_collections_XCYmqj": {
+      "type": "sorting-collections",
+      "blocks": {
+        "collection_jTRkJQ": {
+          "type": "collection",
+          "settings": {
+            "title": "",
+            "collection": "picked-for-you"
+          }
+        }
+      },
+      "block_order": [
+        "collection_jTRkJQ"
+      ],
+      "settings": {
+        "size_of_columns": "4",
+        "max_count": 12,
+        "show_btn_more_products": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "17240510479b777462",
+    "sorting_collections_XCYmqj"
+  ]
+}

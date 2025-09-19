@@ -1,0 +1,630 @@
+{%- assign id_class = 'banner--id-' | append: id -%}
+{% capture tag_div_or_link_open %}{% if block.settings.url != blank %}<a href="{{ block.settings.url }}" class="d-block"{% else %}div{% endif %}>{% endcapture %}
+{% capture tag_div_or_link_close %}</{% if block.settings.url != blank %}a{% else %}div{% endif %}>{% endcapture %}
+{% capture tag_span_or_link_open %}{% if block.settings.url != blank %}<a href="{{ block.settings.url }}" class="d-block"{% else %}span{% endif %}>{% endcapture %}
+{% capture tag_span_or_link_close %}</{% if block.settings.url != blank %}a{% else %}span{% endif %}>{% endcapture %}
+{% capture text1_tag_type %}{% if block.settings.text_1_type contains 'h1' %}h1{% elsif block.settings.text_1_type contains 'h2' %}h2{% elsif block.settings.text_1_type contains 'h3' %}h3{% else %}p{% endif %}{% endcapture %}
+{% capture text2_tag_type %}{% if block.settings.text_2_type contains 'h1' %}h1{% elsif block.settings.text_2_type contains 'h2' %}h2{% elsif block.settings.text_2_type contains 'h3' %}h3{% else %}p{% endif %}{% endcapture %}
+{% capture text3_tag_type %}{% if block.settings.text_3_type contains 'h1' %}h1{% elsif block.settings.text_3_type contains 'h2' %}h2{% elsif block.settings.text_3_type contains 'h3' %}h3{% else %}p{% endif %}{% endcapture %}
+{%- if block.settings.text_1_type contains 'link' -%}
+    {%- assign text1_tag_open = tag_span_or_link_open -%}
+    {%- assign text1_tag_close = tag_span_or_link_close -%}
+{%- endif -%}
+{%- if block.settings.text_2_type contains 'link' -%}
+    {%- assign text2_tag_open = tag_span_or_link_open -%}
+    {%- assign text2_tag_close = tag_span_or_link_close -%}
+{%- endif -%}
+{%- if block.settings.text_3_type contains 'link' -%}
+    {%- assign text3_tag_open = tag_span_or_link_open -%}
+    {%- assign text3_tag_close = tag_span_or_link_close -%}
+{%- endif -%}
+{%- if block.settings.parallax == 'to_top' or block.settings.parallax == 'to_bottom' -%}
+    {%- assign parallax_enable = true -%}
+{%- endif -%}
+{%- assign video_lazyload = video_lazyload | default: false -%}
+{%- if block.settings.video_settings contains 'autoplay' -%}
+    {%- assign video_autoplay = true -%}
+{%- endif -%}
+{%- if block.settings.video_settings contains 'controls' -%}
+    {%- assign video_controls = true -%}
+{%- endif -%}
+{%- if block.settings.media_height == 'preset_550' -%}
+    {%- assign media_height_custom_bps = '550px,450px,550px' | split: ',' -%}
+    {%- assign media_height_custom_enable = true -%}
+{%- elsif block.settings.media_height contains 'fullscreen' -%}
+    {%- assign media_height = block.settings.media_height -%}
+{%- elsif block.settings.media_height == 'custom' and block.settings.media_height_custom != blank -%}
+    {%- assign media_height_custom_bps = block.settings.media_height_custom | split: ',' -%}
+    {%- assign media_height_custom_enable = true -%}
+{%- elsif parallax_enable -%}
+    {% capture media_height_custom_bps %}{{ 1.0 | divided_by: block.settings.image.aspect_ratio | times: 60 | append: '%' }}{% if block.settings.image_bp1 != blank %}|{{ 1.0 | divided_by: block.settings.image_bp1.aspect_ratio | times: 60 | append: '%' }}{% endif %}{% if block.settings.image_bp2 != blank %}{% if block.settings.image_bp1 == blank %}|{% endif %}|{{ 1.0 | divided_by: block.settings.image_bp2.aspect_ratio | times: 60 | append: '%' }}{% endif %}{% endcapture %}
+    {%- assign media_height_custom_bps = media_height_custom_bps | split: ',' -%}
+    {%- assign media_height_custom_enable = true -%}
+{%- endif -%}
+{%- assign breakpoint_1 = block.settings.breakpoint_1 | default: 1024 -%}
+{%- assign breakpoint_2 = block.settings.breakpoint_2 | default: 540 -%}
+{%- assign image_width_resolution_bps = block.settings.image_width_resolution | split: ',' -%}
+{%- capture image_size -%}{{ image_width_resolution_bps[0] | default: 1440 }}x{%- endcapture -%}
+
+{% capture styles_tags %}
+    <style>
+        .{{ id_class }} .banner__content {
+            text-align: {{ block.settings.text_align }};
+            {%- case block.settings.content_position -%}
+                {%- when 'top_left' %}align-items: flex-start; justify-content: flex-start;
+                {%- when 'top_center' %}align-items: flex-start; justify-content: center;
+                {%- when 'top_right' %}align-items: flex-start; justify-content: flex-end;
+                {%- when 'center_left' %}align-items: center; justify-content: flex-start;
+                {%- when 'center' %}align-items: center; justify-content: center;
+                {%- when 'center_right' %}align-items: center; justify-content: flex-end;
+                {%- when 'bottom_left' %}align-items: flex-end; justify-content: flex-start;
+                {%- when 'bottom_center' %}align-items: flex-end; justify-content: center;
+                {%- when 'bottom_right' %}align-items: flex-end; justify-content: flex-end;
+                {%- when 'container_top_left' %}align-items: flex-start; justify-content: flex-start;
+                {%- when 'container_top_right' %}align-items: flex-start; justify-content: flex-end;
+                {%- when 'container_center_left' %}align-items: center; justify-content: flex-start;
+                {%- when 'container_center_right' %}align-items: center; justify-content: flex-end;
+                {%- when 'container_bottom_left' %}align-items: flex-end; justify-content: flex-start;
+                {%- when 'container_bottom_right' %}align-items: flex-end; justify-content: flex-end;
+            {%- endcase -%}
+        }
+        {%- if block.settings.content_position contains 'container_' -%}
+            @media (min-width: {{ breakpoint_1 | plus: 1 }}px) and (min-width: 1025px) {
+                .{{ id_class }} .banner__content {
+                    max-width: 980px;
+                    padding-right: 15px;
+                    padding-left: 15px;
+                }
+            }
+            @media (min-width: {{ breakpoint_1 | plus: 1 }}px) and (min-width: 1260px) {
+                .{{ id_class }} .banner__content {
+                    max-width: 1200px;
+                    padding-right: 15px;
+                    padding-left: 15px;
+                }
+            }
+        {%- endif -%}
+        {%- if block.settings.content_width != blank -%}
+            .{{ id_class }} .banner__texts {
+                width: {{ block.settings.content_width }}px;
+            }
+        {%- endif -%}
+        {%- if block.settings.content_vertical_paddings != blank -%}
+            {%- assign content_vertical_paddings_split = block.settings.content_vertical_paddings | split: ',' -%}
+            .{{ id_class }} .banner__texts {
+                padding-top: {{ content_vertical_paddings_split[0] }}px !important;
+                padding-bottom: {{ content_vertical_paddings_split[1] | default: content_vertical_paddings_split[0] }}px !important;
+            }
+        {%- endif -%}
+        .{{ id_class }} .banner__text--n1 {
+            {% if block.settings.text_1_size > 0 %}display: block;{% else %}display: none;{% endif %}
+            margin-bottom: {{ block.settings.text_1_margin_bottom }}px;
+        }
+        .{{ id_class }} .banner__text--n1 .banner__text-line,
+        .{{ id_class }} .banner__custom-html--full,
+        .{{ id_class }} .banner__custom-html--full > *,
+        .{{ id_class }} .banner__custom-html--line-n1,
+        .{{ id_class }} .banner__custom-html--line-n1 > * {
+            {% if block.settings.text_1_color != blank %}color: {{ block.settings.text_1_color }};{% endif %}
+            font-size: {{ block.settings.text_1_size }}px;
+            line-height: {{ block.settings.text_1_line_height }}px;
+            letter-spacing: {{ block.settings.text_1_letter_spacing | divided_by: 100.0 }}em;
+            font-weight: {{ block.settings.text_1_weight }};
+            {% if block.settings.text_1_font_name != blank %}font-family: {{ block.settings.text_1_font_name }};{% endif %}
+        }
+        {% if block.settings.texts_style contains '1' %}.{{ id_class }} .banner__text--n1 .banner__text-line{% if block.settings.texts_style contains 'h' %}:hover{% endif %}{text-decoration: underline}{% endif %}
+        .{{ id_class }} .banner__text--n2 {
+            {% if block.settings.text_2_size > 0 %}display: block;{% else %}display: none;{% endif %}
+            margin-bottom: {{ block.settings.text_2_margin_bottom }}px;
+        }
+        .{{ id_class }} .banner__text--n2 .banner__text-line,
+        .{{ id_class }} .banner__custom-html--line-n2,
+        .{{ id_class }} .banner__custom-html--line-n2 > * {
+            {% if block.settings.text_2_color != blank %}color: {{ block.settings.text_2_color }};{% endif %}
+            font-size: {{ block.settings.text_2_size }}px;
+            line-height: {{ block.settings.text_2_line_height }}px;
+            letter-spacing: {{ block.settings.text_2_letter_spacing | divided_by: 100.0 }}em;
+            font-weight: {{ block.settings.text_2_weight }};
+            {% if block.settings.text_2_font_name != blank %}font-family: {{ block.settings.text_2_font_name }};{% endif %}
+        }
+        {% if block.settings.texts_style contains '2' %}.{{ id_class }} .banner__text--n2 .banner__text-line{% if block.settings.texts_style contains 'h' %}:hover{% endif %}{text-decoration: underline}{% endif %}
+        .{{ id_class }} .banner__text--n3 {
+            {% if block.settings.text_3_size > 0 %}display: block;{% else %}display: none;{% endif %}
+            margin-bottom: {{ block.settings.text_3_margin_bottom }}px;
+        }
+        .{{ id_class }} .banner__text--n3 .banner__text-line,
+        .{{ id_class }} .banner__custom-html--line-n3,
+        .{{ id_class }} .banner__custom-html--line-n3 > * {
+            {% if block.settings.text_3_color != blank %}color: {{ block.settings.text_3_color }};{% endif %}
+            font-size: {{ block.settings.text_3_size }}px;
+            line-height: {{ block.settings.text_3_line_height }}px;
+            letter-spacing: {{ block.settings.text_3_letter_spacing | divided_by: 100.0 }}em;
+            font-weight: {{ block.settings.text_3_weight }};
+            {% if block.settings.text_3_font_name != blank %}font-family: {{ block.settings.text_3_font_name }};{% endif %}
+        }
+        {% if block.settings.texts_style contains '3' %}.{{ id_class }} .banner__text--n3 .banner__text-line{% if block.settings.texts_style contains 'h' %}:hover{% endif %}{text-decoration: underline}{% endif %}
+        .{{ id_class }} .banner__btns {
+            {% if block.settings.buttons_size > 0 %}display: flex !important;{% else %}display: none !important;{% endif %}
+            margin-top: {{ block.settings.buttons_margin_top }}px;
+            {%- if block.settings.buttons_width != blank -%}
+                width: {{ block.settings.buttons_width }}px;
+            {%- endif -%}
+        }
+        {%- if block.settings.texts_style contains 'link_underline' -%}
+            .{{ id_class }} .banner__text > * > a .banner__text-line {text-decoration: underline}
+        {%- elsif block.settings.texts_style contains 'link_hover_underline' -%}
+            .{{ id_class }} .banner__text > * > a .banner__text-line:hover {text-decoration: underline}
+        {%- elsif block.settings.texts_style contains 'link_revert_hover_underline' -%}
+            .{{ id_class }} .banner__text > * > a .banner__text-line {text-decoration: underline}
+            .{{ id_class }} .banner__text > * > a .banner__text-line:hover {text-decoration: none}
+        {%- endif -%}
+        .{{ id_class }} .banner__btns .btn {
+            font-size: {{ block.settings.buttons_size }}px;
+            line-height: {{ block.settings.buttons_line_height }}px;
+            letter-spacing: {{ block.settings.buttons_letter_spacing | divided_by: 100.0 }}em;
+            font-weight: {{ block.settings.buttons_weight }};
+            {% if block.settings.buttons_font_name != blank %}font-family: {{ block.settings.buttons_font_name }};{% endif %}
+        }
+        .{{ id_class }} .banner__btn--n1 {
+            {% if block.settings.button_1_background != blank %}background-color: {{ block.settings.button_1_background }} !important;{% endif %}
+            {% if block.settings.button_1_text != blank %}color: {{ block.settings.button_1_text }} !important;{% endif %}
+            {% if block.settings.button_1_border != blank %}border-color: {{ block.settings.button_1_border }} !important;{% endif %}
+        }
+        .{{ id_class }} .banner__btn--n1:hover {
+            {% if block.settings.button_1_background_act != blank %}background-color: {{ block.settings.button_1_background_act }} !important;{% endif %}
+            {% if block.settings.button_1_text_act != blank %}color: {{ block.settings.button_1_text_act }} !important;{% endif %}
+            {% if block.settings.button_1_border_act != blank %}border-color: {{ block.settings.button_1_border_act }} !important;{% endif %}
+        }
+        .{{ id_class }} .banner__btn--n2 {
+            {% if block.settings.button_2_background != blank %}background-color: {{ block.settings.button_2_background }} !important;{% endif %}
+            {% if block.settings.button_2_text != blank %}color: {{ block.settings.button_2_text }} !important;{% endif %}
+            {% if block.settings.button_2_border != blank %}border-color: {{ block.settings.button_2_border }} !important;{% endif %}
+        }
+        .{{ id_class }} .banner__btn--n2:hover {
+            {% if block.settings.button_2_background_act != blank %}background-color: {{ block.settings.button_2_background_act }} !important;{% endif %}
+            {% if block.settings.button_2_text_act != blank %}color: {{ block.settings.button_2_text_act }} !important;{% endif %}
+            {% if block.settings.button_2_border_act != blank %}border-color: {{ block.settings.button_2_border_act }} !important;{% endif %}
+        }
+        @media (min-width: {{ breakpoint_1 | plus: 1 }}px) {
+            {%- if block.settings.image_bp1 != blank -%}
+                .{{ id_class }} .banner__image_bp--n1 {
+                    display: none;
+                }
+            {%- endif -%}
+            {%- if media_height_custom_bps[0] != blank -%}
+                .{{ id_class }} .banner__media .rimage__height-spacer,
+                .{{ id_class }} .banner__media .rvideo__height-spacer,
+                .{{ id_class }} .banner__media .embed-responsive__height-spacer {
+                    padding-top: {{ media_height_custom_bps[0] }};
+                }
+            {%- endif -%}
+            .{{ id_class }} .banner__text-line--bp1 {
+                display: none;
+            }
+            {% if block.settings.text_align == 'left' %}.{{ id_class }} .banner__btns {margin-right: auto;}
+            {% elsif block.settings.text_align == 'right' %}.{{ id_class }} .banner__btns {margin-left: auto;}
+            {% elsif block.settings.text_align == 'center' %}.{{ id_class }} .banner__btns {margin-left: auto;margin-right: auto;}
+            {%- endif -%}
+            {%- if block.settings.buttons_direction == 'column' -%}
+                .{{ id_class }} .banner__btns {
+                    flex-direction: column;
+                }
+                .{{ id_class }} .banner__btn {
+                    width: 100%;
+                }
+                .{{ id_class }} .banner__btn:not(:first-child) {
+                    margin-top: 10px;
+                }
+            {%- else -%}
+                .{{ id_class }} .banner__btn {
+                    width: 50%;
+                }
+                .{{ id_class }} .banner__btn:not(:first-child) {
+                    margin-left: 10px;
+                }
+            {%- endif -%}
+        }
+        @media (max-width: {{ breakpoint_1 }}px) {
+            {%- if block.settings.image_bp1 != blank -%}
+                .{{ id_class }} .banner__image_bp--n0 {
+                    display: none;
+                }
+            {%- endif -%}
+            {%- if media_height_custom_enable and media_height_custom_bps[0] != blank -%}
+                .{{ id_class }} .banner__media .rimage__height-spacer,
+                .{{ id_class }} .banner__media .rvideo__height-spacer,
+                .{{ id_class }} .banner__media .embed-responsive__height-spacer {
+                    padding-top: {{ media_height_custom_bps[1] | default: media_height_custom_bps[0] }};
+                }
+            {%- endif -%}
+            .{{ id_class }} .banner__content {
+                text-align: {{ block.settings.text_align_bp1 }};
+                {%- case block.settings.content_position_bp1 -%}
+                    {%- when 'top_left' %}align-items: flex-start; justify-content: flex-start;
+                    {%- when 'top_center' %}align-items: flex-start; justify-content: center;
+                    {%- when 'top_right' %}align-items: flex-start; justify-content: flex-end;
+                    {%- when 'center_left' %}align-items: center; justify-content: flex-start;
+                    {%- when 'center' %}align-items: center; justify-content: center;
+                    {%- when 'center_right' %}align-items: center; justify-content: flex-end;
+                    {%- when 'bottom_left' %}align-items: flex-end; justify-content: flex-start;
+                    {%- when 'bottom_center' %}align-items: flex-end; justify-content: center;
+                    {%- when 'bottom_right' %}align-items: flex-end; justify-content: flex-end;
+                    {%- when 'container_top_left' %}align-items: flex-start; justify-content: flex-start;max-width: 1200px;padding-right: 15px;padding-left: 15px;
+                    {%- when 'container_top_right' %}align-items: flex-start; justify-content: flex-end;max-width: 1200px;padding-right: 15px;padding-left: 15px;
+                    {%- when 'container_center_left' %}align-items: center; justify-content: flex-start;max-width: 1200px;padding-right: 15px;padding-left: 15px;
+                    {%- when 'container_center_right' %}align-items: center; justify-content: flex-end;max-width: 1200px;padding-right: 15px;padding-left: 15px;
+                    {%- when 'container_bottom_left' %}align-items: flex-end; justify-content: flex-start;max-width: 1200px;padding-right: 15px;padding-left: 15px;
+                    {%- when 'container_bottom_right' %}align-items: flex-end; justify-content: flex-end;max-width: 1200px;padding-right: 15px;padding-left: 15px;
+                {%- endcase -%}
+            }
+            .{{ id_class }} .banner__text-line--bp0 {
+                display: none;
+            }
+            {% if block.settings.text_bp1_enable == true %}
+                .{{ id_class }} .banner__text--n1 {
+                    {% if block.settings.text_1_size_bp1 > 0 %}display: block;{% else %}display: none;{% endif %}
+                    margin-bottom: {{ block.settings.text_1_margin_bottom_bp1 }}px;
+                }
+                .{{ id_class }} .banner__text--n1 .banner__text-line {
+                    font-size: {{ block.settings.text_1_size_bp1 }}px;
+                    line-height: {{ block.settings.text_1_line_height_bp1 }}px;
+                }
+                .{{ id_class }} .banner__text--n2 {
+                    {% if block.settings.text_2_size_bp1 > 0 %}display: block;{% else %}display: none;{% endif %}
+                    margin-bottom: {{ block.settings.text_2_margin_bottom_bp1 }}px;
+                }
+                .{{ id_class }} .banner__text--n2 .banner__text-line {
+                    font-size: {{ block.settings.text_2_size_bp1 }}px;
+                    line-height: {{ block.settings.text_2_line_height_bp1 }}px;
+                }
+                .{{ id_class }} .banner__text--n3 {
+                    {% if block.settings.text_3_size_bp1 > 0 %}display: block;{% else %}display: none;{% endif %}
+                    margin-bottom: {{ block.settings.text_3_margin_bottom_bp1 }}px;
+                }
+                .{{ id_class }} .banner__text--n3 .banner__text-line {
+                    font-size: {{ block.settings.text_3_size_bp1 }}px;
+                    line-height: {{ block.settings.text_3_line_height_bp1 }}px;
+                }
+                .{{ id_class }} .banner__btns {
+                    {% if block.settings.buttons_size_bp1 > 0 %}display: flex !important;{% else %}display: none !important;{% endif %}
+                    margin-top: {{ block.settings.buttons_margin_top_bp1 }}px;
+                }
+                .{{ id_class }} .banner__btns .btn {
+                    font-size: {{ block.settings.buttons_size_bp1 }}px;
+                    line-height: {{ block.settings.buttons_line_height_bp1 }}px;
+                }
+            {% endif %}
+        }
+        {%- if block.settings.content_position_bp1 contains 'container_' -%}
+            @media (min-width: {{ breakpoint_2 | plus: 1 }}px) and (min-width: 541px) and (max-width: {{ breakpoint_1 }}px) {
+                .{{ id_class }} .banner__content {
+                    max-width: 540px;
+                    padding-right: 15px;
+                    padding-left: 15px;
+                }
+            }
+            @media (min-width: {{ breakpoint_2 | plus: 1 }}px) and (min-width: 768px) and (max-width: {{ breakpoint_1 }}px) {
+                .{{ id_class }} .banner__content {
+                    max-width: 740px;
+                    padding-right: 15px;
+                    padding-left: 15px;
+                }
+            }
+        {%- endif -%}
+        @media (min-width: {{ breakpoint_2 | plus: 1 }}px) {
+            {%- if block.settings.content_margins != blank -%}
+                {%- assign content_margins_split = block.settings.content_margins | split: ',' -%}
+                {%- if block.settings.content_position contains 'left' -%}
+                    .{{ id_class }} .banner__texts {
+                        margin-left: {{ content_margins_split[0] }};
+                    }
+                {%- elsif block.settings.content_position contains 'right' -%}
+                    .{{ id_class }} .banner__texts {
+                        margin-right: {{ content_margins_split[0] }};
+                    }
+                {%- endif -%}
+                {%- if content_margins_split[1] != blank -%}
+                    {%- if block.settings.content_position contains 'top' -%}
+                        .{{ id_class }} .banner__texts {
+                            margin-top: {{ content_margins_split[1] }};
+                        }
+                    {%- elsif block.settings.content_position contains 'bottom' -%}
+                        .{{ id_class }} .banner__texts {
+                            margin-bottom: {{ content_margins_split[1] }};
+                        }
+                    {%- endif -%}
+                {%- endif -%}
+            {%- endif -%}
+            {%- if block.settings.image_bp2 != blank -%}
+                .{{ id_class }} .banner__image_bp--n2 {
+                    display: none;
+                }
+            {%- endif -%}
+            .{{ id_class }} .banner__text-line--bp2 {
+                display: none;
+            }
+        }
+        @media (max-width: {{ breakpoint_1 }}px) and (min-width: {{ breakpoint_2 | plus: 1 }}px) {
+            {% if block.settings.text_align_bp1 == 'left' %}.{{ id_class }} .banner__btns {margin-right: auto;}
+            {% elsif block.settings.text_align_bp1 == 'right' %}.{{ id_class }} .banner__btns {margin-left: auto;}
+            {% elsif block.settings.text_align_bp1 == 'center' %}.{{ id_class }} .banner__btns {margin-left: auto;margin-right: auto;}
+            {%- endif -%}
+            {%- if block.settings.buttons_direction_bp1 == 'column' -%}
+                .{{ id_class }} .banner__btns {
+                    flex-direction: column;
+                }
+                .{{ id_class }} .banner__btn {
+                    width: 100%;
+                }
+                .{{ id_class }} .banner__btn:not(:first-child) {
+                    margin-top: 10px;
+                }
+            {%- else -%}
+                .{{ id_class }} .banner__btn {
+                    width: 50%;
+                }
+                .{{ id_class }} .banner__btn:not(:first-child) {
+                    margin-left: 10px;
+                }
+            {%- endif -%}
+        }
+        @media (max-width: {{ breakpoint_2 }}px) {
+            {%- if block.settings.image_bp2 != blank -%}
+                .{{ id_class }} .banner__image_bp--n0,
+                .{{ id_class }} .banner__image_bp--n1 {
+                    display: none;
+                }
+            {%- endif -%}
+            {%- if media_height_custom_enable and media_height_custom_bps[0] != blank -%}
+                .{{ id_class }} .banner__media .rimage__height-spacer,
+                .{{ id_class }} .banner__media .rvideo__height-spacer,
+                .{{ id_class }} .banner__media .embed-responsive__height-spacer {
+                    padding-top: {{ media_height_custom_bps[2] | default: media_height_custom_bps[1] | default: media_height_custom_bps[0] }};
+                }
+            {%- endif -%}
+            .{{ id_class }} .banner__content {
+                text-align: {{ block.settings.text_align_bp2 }};
+                {%- case block.settings.content_position_bp2 -%}
+                    {%- when 'top_left' %}align-items: flex-start; justify-content: flex-start;
+                    {%- when 'top_center' %}align-items: flex-start; justify-content: center;
+                    {%- when 'top_right' %}align-items: flex-start; justify-content: flex-end;
+                    {%- when 'center_left' %}align-items: center; justify-content: flex-start;
+                    {%- when 'center' %}align-items: center; justify-content: center;
+                    {%- when 'center_right' %}align-items: center; justify-content: flex-end;
+                    {%- when 'bottom_left' %}align-items: flex-end; justify-content: flex-start;
+                    {%- when 'bottom_center' %}align-items: flex-end; justify-content: center;
+                    {%- when 'bottom_right' %}align-items: flex-end; justify-content: flex-end;
+                {%- endcase -%}
+            }
+            {%- if block.settings.content_margins_bp2 != blank -%}
+                {%- assign content_margins_split_bp2 = block.settings.content_margins_bp2 | split: ',' -%}
+                {%- if block.settings.content_position_bp2 contains 'left' -%}
+                    .{{ id_class }} .banner__texts {
+                        margin-left: {{ content_margins_split_bp2[0] }};
+                    }
+                {%- elsif block.settings.content_position_bp2 contains 'right' -%}
+                    .{{ id_class }} .banner__texts {
+                        margin-right: {{ content_margins_split_bp2[0] }};
+                    }
+                {%- endif -%}
+                {%- if content_margins_split_bp2[1] != blank -%}
+                    {%- if block.settings.content_position_bp2 contains 'top' -%}
+                        .{{ id_class }} .banner__texts {
+                            margin-top: {{ content_margins_split_bp2[1] }};
+                        }
+                    {%- elsif block.settings.content_position_bp2 contains 'bottom' -%}
+                        .{{ id_class }} .banner__texts {
+                            margin-bottom: {{ content_margins_split_bp2[1] }};
+                        }
+                    {%- endif -%}
+                {%- endif -%}
+            {%- endif -%}
+            {%- if block.settings.content_width_bp2 != blank -%}
+                .{{ id_class }} .banner__texts {
+                    width: {{ block.settings.content_width_bp2 }}px;
+                }
+            {%- endif -%}
+            {%- if block.settings.content_vertical_paddings_bp2 != blank -%}
+                {%- assign content_vertical_paddings_bp2_split = block.settings.content_vertical_paddings_bp2 | split: ',' -%}
+                .{{ id_class }} .banner__texts {
+                    padding-top: {{ content_vertical_paddings_bp2_split[0] }}px !important;
+                    padding-bottom: {{ content_vertical_paddings_bp2_split[1] | default: content_vertical_paddings_bp2_split[0] }}px !important;
+                }
+            {%- endif -%}
+            .{{ id_class }} .banner__text-line--bp1 {
+                display: none;
+            }
+            {% if block.settings.text_align_bp2 == 'left' %}.{{ id_class }} .banner__btns {margin-right: auto;}
+            {% elsif block.settings.text_align_bp2 == 'right' %}.{{ id_class }} .banner__btns {margin-left: auto;}
+            {% elsif block.settings.text_align_bp2 == 'center' %}.{{ id_class }} .banner__btns {margin-left: auto;margin-right: auto;}
+            {%- endif -%}
+            {%- if block.settings.buttons_direction_bp2 == 'column' -%}
+                .{{ id_class }} .banner__btns {
+                    flex-direction: column;
+                }
+                .{{ id_class }} .banner__btn {
+                    width: 100%;
+                }
+                .{{ id_class }} .banner__btn:not(:first-child) {
+                    margin-top: 10px;
+                }
+            {%- else -%}
+                .{{ id_class }} .banner__btn {
+                    width: 50%;
+                }
+                .{{ id_class }} .banner__btn:not(:first-child) {
+                    margin-left: 10px;
+                }
+            {%- endif -%}
+            {%- if block.settings.buttons_width_bp2 != blank -%}
+                .{{ id_class }} .banner__btns {
+                    width: {{ block.settings.buttons_width_bp2 }}px;
+                }
+            {%- endif -%}
+            {% if block.settings.text_bp2_enable == true %}
+                .{{ id_class }} .banner__text--n1 {
+                    {% if block.settings.text_1_size_bp2 > 0 %}display: block;{% else %}display: none;{% endif %}
+                    margin-bottom: {{ block.settings.text_1_margin_bottom_bp2 }}px;
+                }
+                .{{ id_class }} .banner__text--n1 .banner__text-line {
+                    font-size: {{ block.settings.text_1_size_bp2 }}px;
+                    line-height: {{ block.settings.text_1_line_height_bp2 }}px;
+                }
+                .{{ id_class }} .banner__text--n2 {
+                    {% if block.settings.text_2_size_bp2 > 0 %}display: block;{% else %}display: none;{% endif %}
+                    margin-bottom: {{ block.settings.text_2_margin_bottom_bp2 }}px;
+                }
+                .{{ id_class }} .banner__text--n2 .banner__text-line {
+                    font-size: {{ block.settings.text_2_size_bp2 }}px;
+                    line-height: {{ block.settings.text_2_line_height_bp2 }}px;
+                }
+                .{{ id_class }} .banner__text--n3 {
+                    {% if block.settings.text_3_size_bp2 > 0 %}display: block;{% else %}display: none;{% endif %}
+                    margin-bottom: {{ block.settings.text_3_margin_bottom_bp2 }}px;
+                }
+                .{{ id_class }} .banner__text--n3 .banner__text-line {
+                    font-size: {{ block.settings.text_3_size_bp2 }}px;
+                    line-height: {{ block.settings.text_3_line_height_bp2 }}px;
+                }
+                .{{ id_class }} .banner__btns {
+                    {% if block.settings.buttons_size_bp2 > 0 %}display: flex !important;{% else %}display: none !important;{% endif %}
+                    margin-top: {{ block.settings.buttons_margin_top_bp2 }}px;
+                }
+                .{{ id_class }} .banner__btns .btn {
+                    font-size: {{ block.settings.buttons_size_bp2 }}px;
+                    line-height: {{ block.settings.buttons_line_height_bp2 }}px;
+                }
+            {% endif %}
+        }
+    </style>
+{% endcapture %}
+{%- if request.design_mode -%}
+    {{ styles_tags }}
+{%- else -%}
+    <template class="js-loader-inline-style" data-key="{{ styles_tags | hmac_sha1: 'secret_key' }}">{{ styles_tags }}</template>
+    <script>
+        theme.AssetsLoader.loadInlineStyles();
+    </script>
+{%- endif -%}
+
+<div class="banner banner--type-1 {{ id_class }} position-relative">
+    <div class="banner__media position-relative">
+        {%- if block.settings.video_external_url != blank -%}
+            <div class="banner__video-external">
+                {% render 'video-external' video_url: block.settings.video_external_url.id video_url_type: block.settings.video_external_url.type autoplay: video_autoplay controls: video_controls lazyload: video_lazyload height_custom: media_height_custom_enable height: media_height %}
+            </div>
+        {%- elsif block.settings.video_mp4_url != blank -%}
+            <div class="banner__video">
+                {% render 'rvideo' with video: block.settings.video_mp4_url autoplay: video_autoplay controls: video_controls lazyload: video_lazyload poster: block.settings.image poster_size: image_size height_custom: media_height_custom_enable height: media_height %}
+            </div>
+        {%- elsif block.settings.image != blank -%}
+            {%- assign banner_bg_type = 'image' -%}
+            {% capture parallax_attrs %}{% if parallax_enable %} js-parallax parallax" data-direction="{{ block.settings.parallax }}{% endif %}{% endcapture %}
+            <div class="banner__image">
+                <div class="banner__image_bp banner__image_bp--n0{{ parallax_attrs }}">
+                    {{ tag_div_or_link_open }}{% render 'rimage' image: block.settings.image size: image_size height: media_height height_custom: media_height_custom_enable stretch_size: 'cover' is_parallax: parallax_enable %}{{ tag_div_or_link_close }}
+                </div>
+                {%- if block.settings.image_bp1 != blank -%}
+                    {%- capture image_size_bp1 -%}{{ image_width_resolution_bps[1] | default: 1024 }}x{%- endcapture -%}
+                    <div class="banner__image_bp banner__image_bp--n1{{ parallax_attrs }}">
+                        {{ tag_div_or_link_open }}{% render 'rimage' image: block.settings.image_bp1 size: image_size_bp1 height: media_height height_custom: media_height_custom_enable stretch_size: 'cover' is_parallax: parallax_enable %}{{ tag_div_or_link_close }}
+                    </div>
+                {%- endif -%}
+                {%- if block.settings.image_bp2 != blank -%}
+                    {%- capture image_size_bp2 -%}{{ image_width_resolution_bps[2] | default: 540 }}x{%- endcapture -%}
+                    <div class="banner__image_bp banner__image_bp--n2{{ parallax_attrs }}">
+                        {{ tag_div_or_link_open }}{% render 'rimage' image: block.settings.image_bp2 size: image_size_bp2 height: media_height height_custom: media_height_custom_enable stretch_size: 'cover' is_parallax: parallax_enable %}{{ tag_div_or_link_close }}
+                    </div>
+                {%- endif -%}
+            </div>
+        {%- endif -%}
+        {%- if block.settings.media_mask_opacity > 0 -%}
+            <div class="banner__media_mask absolute-stretch pointer-events-none" style="background-color: {{ block.settings.media_mask_color }}; opacity: {{ block.settings.media_mask_opacity | divided_by: 100.0 }};"></div>
+        {%- endif -%}
+    </div>
+    <div class="banner__content absolute-stretch d-flex mx-auto">
+        <div class="banner__texts{% if block.settings.content_mask_opacity > 0 %} banner__texts--with-mask{% endif %} mw-100 p-10 p-sm-15">
+            {%- if block.settings.content_mask_opacity > 0 -%}
+                <div class="banner__content_mask absolute-stretch" style="background-color: {{ block.settings.content_mask_color }}; opacity: {{ block.settings.content_mask_opacity | divided_by: 100.0 }};"></div>
+            {%- endif -%}
+            {%- if block.settings.custom_html != blank and block.settings.custom_html contains 'eplace' -%}
+                <div class="banner__custom-html banner__custom-html--full">{{ pages[block.settings.custom_html].content }}</div>
+            {%- else -%}
+                {%- if block.settings.text_1 != blank -%}
+                    <div class="banner__text banner__text--n1">
+                        <{{ text1_tag_type }}>
+                            {{ text1_tag_open | default: '<span>' }}
+                                {%- if block.settings.text_1 contains '>>' -%}
+                                    {%- assign text_1_split = block.settings.text_1 | newline_to_br | split: '>>' -%}
+                                    <span class="banner__text-line banner__text-line--bp0">{{ text_1_split[0] }}</span>
+                                    <span class="banner__text-line banner__text-line--bp1">{{ text_1_split[1] }}</span>
+                                    <span class="banner__text-line banner__text-line--bp2">{{ text_1_split[2] }}</span>
+                                {%- else -%}
+                                    <span class="banner__text-line">{{ block.settings.text_1 | newline_to_br }}</span>
+                                {%- endif -%}
+                            {{ text1_tag_close | default: '</span>' }}
+                        </{{ text1_tag_type }}>
+                    </div>
+                {%- endif -%}
+                {%- if block.settings.custom_html != blank and block.settings.custom_html contains 'ine1' -%}
+                    {%- assign ignore_custom_html = true -%}
+                    <div class="banner__custom-html banner__custom-html--line-n1">{{ pages[block.settings.custom_html].content }}</div>
+                {%- endif -%}
+                {%- if block.settings.text_2 != blank -%}
+                    <div class="banner__text banner__text--n2">
+                        <{{ text2_tag_type }}>
+                            {{ text2_tag_open | default: '<span>' }}
+                                {%- if block.settings.text_2 contains '>>' -%}
+                                    {%- assign text_2_split = block.settings.text_2 | newline_to_br | split: '>>' -%}
+                                    <span class="banner__text-line banner__text-line--bp0">{{ text_2_split[0] }}</span>
+                                    <span class="banner__text-line banner__text-line--bp1">{{ text_2_split[1] }}</span>
+                                    <span class="banner__text-line banner__text-line--bp2">{{ text_2_split[2] }}</span>
+                                {%- else -%}
+                                    <span class="banner__text-line">{{ block.settings.text_2 | newline_to_br }}</span>
+                                {%- endif -%}
+                            {{ text2_tag_close | default: '</span>' }}
+                        </{{ text2_tag_type }}>
+                    </div>
+                {%- endif -%}
+                {%- if block.settings.custom_html != blank and block.settings.custom_html contains 'ine2' -%}
+                    {%- assign ignore_custom_html = true -%}
+                    <div class="banner__custom-html banner__custom-html--line-n2">{{ pages[block.settings.custom_html].content }}</div>
+                {%- endif -%}
+                {%- if block.settings.text_3 != blank -%}
+                    <div class="banner__text banner__text--n3">
+                        <{{ text3_tag_type }}>
+                            {{ text3_tag_open | default: '<span>' }}
+                                {%- if block.settings.text_3 contains '>>' -%}
+                                    {%- assign text_3_split = block.settings.text_3 | newline_to_br | split: '>>' -%}
+                                    <span class="banner__text-line banner__text-line--bp0">{{ text_3_split[0] }}</span>
+                                    <span class="banner__text-line banner__text-line--bp1">{{ text_3_split[1] }}</span>
+                                    <span class="banner__text-line banner__text-line--bp2">{{ text_3_split[2] }}</span>
+                                {%- else -%}
+                                    <span class="banner__text-line">{{ block.settings.text_3 | newline_to_br }}</span>
+                                {%- endif -%}
+                            {{ text3_tag_close | default: '</span>' }}
+                        </{{ text3_tag_type }}>
+                    </div>
+                {%- endif -%}
+                {%- if block.settings.custom_html != blank and ignore_custom_html != true -%}
+                    <div class="banner__custom-html banner__custom-html--line-n3">{{ pages[block.settings.custom_html].content }}</div>
+                {%- endif -%}
+                {%- if block.settings.button_1 != blank or block.settings.button_2 != blank -%}
+                    <div class="banner__btns d-flex flex-center mw-100">
+                        {%- if block.settings.button_1 != blank -%}
+                            <a href="{{ block.settings.button_1_url | default: block.settings.url | default: '#' }}" class="banner__btn banner__btn--n1 btn">{{ block.settings.button_1 }}</a>
+                        {%- endif -%}
+                        {%- if block.settings.button_2 != blank -%}
+                            <a href="{{ block.settings.button_2_url | default: block.settings.url | default: '#' }}" class="banner__btn banner__btn--n2 btn">{{ block.settings.button_2 }}</a>
+                        {%- endif -%}
+                    </div>
+                {%- endif -%}
+            {%- endif -%}
+        </div>
+    </div>
+</div>
+{%- if banner_bg_type == 'image' and parallax_enable -%}
+    <script>
+        theme.AssetsLoader.require('scripts', 'parallax');
+    </script>
+{%- endif -%}

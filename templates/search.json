@@ -1,0 +1,135 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-search",
+      "blocks": {
+        "02aecce4-51e9-4ec0-ac9c-9ded1b5fa681": {
+          "type": "current_filters",
+          "settings": {
+            "title": "CURRENT FILTERS",
+            "default_state": "open",
+            "show_group": true
+          }
+        },
+        "48ad317a-ffbe-487b-b9b8-4db5add49b84": {
+          "type": "filters",
+          "settings": {
+            "default_state": "close",
+            "layout": "1_col",
+            "max_column_size": 8
+          }
+        },
+        "2180ec65-ff2f-45ac-aa0f-edb46937e54d": {
+          "type": "products",
+          "settings": {
+            "title": "FEATURED PRODUCTS",
+            "default_state": "fixed",
+            "collection": "picked-for-you",
+            "max_count": 3,
+            "product_type": "short"
+          }
+        },
+        "1d579a9a-34e3-41b6-91f6-69e755a1f034": {
+          "type": "custom_html",
+          "settings": {
+            "title": "MsDressly Promise",
+            "default_state": "fixed",
+            "page_content": ""
+          }
+        },
+        "b8f0b47b-2d12-47a4-853f-e5adae3a8071": {
+          "type": "promobox",
+          "disabled": true,
+          "settings": {
+            "title": "PROMOBOX",
+            "default_state": "without_title",
+            "url": "shopify://products/copy-of-cotton-blend-field-jacket",
+            "image_size": 900,
+            "color_image_mask": "",
+            "image_mask_opacity": 0.5,
+            "text_line_1": "NEW IN",
+            "text_line_2": "Spring/Summer 2021 Collection",
+            "text_line_3": "Text line #3",
+            "style": "1",
+            "button_1": "Button #1 text",
+            "button_1_url": "",
+            "color_button_type_1": "default-transparent",
+            "button_2": "Button #2 text",
+            "button_2_url": "",
+            "color_button_type_2": "default-transparent",
+            "list_1": "",
+            "custom_html": "",
+            "video_external_url": "",
+            "video_mp4_url": "",
+            "video_autoplay": true,
+            "video_controls": false,
+            "type": "type-3",
+            "animation_to": "none",
+            "animation_from": "none",
+            "animation_opacity": "none"
+          }
+        },
+        "filter_settings_77crGg": {
+          "type": "filter_settings",
+          "settings": {
+            "filter_name": "Price",
+            "title": "Price",
+            "default_state": "open",
+            "make_as_color": false,
+            "layout": "1_col",
+            "max_column_size": 8
+          }
+        }
+      },
+      "block_order": [
+        "02aecce4-51e9-4ec0-ac9c-9ded1b5fa681",
+        "48ad317a-ffbe-487b-b9b8-4db5add49b84",
+        "2180ec65-ff2f-45ac-aa0f-edb46937e54d",
+        "1d579a9a-34e3-41b6-91f6-69e755a1f034",
+        "b8f0b47b-2d12-47a4-853f-e5adae3a8071",
+        "filter_settings_77crGg"
+      ],
+      "settings": {
+        "container": "fullwidth",
+        "products_per_page": 12,
+        "search_show_only_products": false,
+        "enable_default_filtering": true,
+        "show_selected_filters_counter": false,
+        "show_filter_product_count": false,
+        "hide_disabled_filters": true,
+        "make_availability_as_rounded": true,
+        "price_filter_type": "slider",
+        "sort_by_visibility": "desktop",
+        "view_grid_visibility": "desktop_n_mobile",
+        "show_view_grid_1": true,
+        "show_view_grid_2": true,
+        "show_view_grid_3": true,
+        "show_view_grid_4": true,
+        "show_view_grid_6": false,
+        "show_view_grid_list": true,
+        "view_grid_list_design": "1",
+        "enable_grid_tooltip": true,
+        "default_view_grid_xl": "3",
+        "default_view_grid_lg": "3",
+        "default_view_grid_md": "3",
+        "default_view_grid_sm": "2",
+        "default_view_grid_xs": "2",
+        "current_filters_visibility": "mobile",
+        "uppercase_filter_title": true,
+        "show_filter_border": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

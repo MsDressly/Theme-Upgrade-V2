@@ -1,0 +1,58 @@
+<!-- snippets/product-get-button-cart.liquid -->
+{%- form 'product',
+    product,
+    id: product_form_id,
+    class: 'form m-0',
+    novalidate: 'novalidate',
+    data-type: 'add-to-cart-form',
+    data-js-product-form: ''
+  -%}
+    
+    {% capture cart_icon_name %}{{ settings.cart_icon | default: 'icon-theme-109' }}{% endcapture %}
+    <{% if enable_select_options_button %}a href="{{ url }}"{% else %}button type="submit" name="add"{% endif %} class="btn{% if button_colorize == 2 %} btn--secondary{% endif %} btn--status{% if settings.buttons_animation_icon_enable %} btn--animated{% endif %}{% if settings.cart_ajax and enable_select_options_button != true %} js-product-button-add-to-cart{% endif %}" data-js-product-button-add-to-cart{% unless current_variant.available %} disabled="disabled" data-button-status="sold-out"{% elsif variant_pre_order %} data-button-status="pre-order"{% else %}{% if enable_select_variant_button == true or enable_select_options_button %} data-button-status="select"{% if enable_select_options_button %} data-button-default-status="select"{% endif %}{% if button_select_disable %} data-button-select-disableHOLD{% endif %}{% endif %}{% endunless %}>
+        {%- if enable_select_options_button -%}
+            <span class="d-none d-sm-flex flex-center" data-button-content="select"><i class="btn__icon mr-5 mb-4">{% include cart_icon_name %}</i><span class="btn__text">{{ 'products.product.add_to_cart.select_options' | t }}</span></span>
+            <span class="d-flex d-sm-none flex-center" data-button-content="select"><i class="btn__icon mr-5 mb-4">{% include cart_icon_name %}</i><span class="btn__text">{{ 'products.product.add_to_cart.select_options_mobile' | t }}</span></span>
+        {%- else -%}
+            <span class="d-flex flex-center"><i class="btn__icon mr-5 mb-4">{% include cart_icon_name %}</i><span class="btn__text">{{ 'products.product.add_to_cart.title' | t }}</span></span>
+            <span class="d-flex flex-center" data-button-content="added"><i class="mr-5 mb-4">{% render 'icon-theme-110' %}</i>{{ 'products.product.add_to_cart.added' | t }}</span>
+            {%- if enable_select_variant_button -%}
+                <span class="d-none d-sm-flex flex-center" data-button-content="select"><i class="btn__icon mr-5 mb-4">{% include cart_icon_name %}</i><span class="btn__text">{{ 'products.product.add_to_cart.select_options' | t }}</span></span>
+                <span class="d-flex d-sm-none flex-center" data-button-content="select"><i class="btn__icon mr-5 mb-4">{% include cart_icon_name %}</i><span class="btn__text">{{ 'products.product.add_to_cart.select_options_mobile' | t }}</span></span>
+            {%- endif -%}
+        {%- endif -%}
+        <span class="d-flex flex-center" data-button-content="sold-out">{{ 'products.product.add_to_cart.sold_out' | t }}</span>
+        <span class="d-flex flex-center" data-button-content="pre-order"><i class="btn__icon mr-5 mb-4">{% include cart_icon_name %}</i><span class="btn__text">{{ 'products.product.add_to_cart.pre_order' | t }}</span></span>
+    </{% if enable_select_options_button %}a{% else %}button{% endif %}>
+    {%- assign enable_select_options_button = false -%}
+    {%- assign enable_select_variant_button = false -%}
+    {%- if show_button_dynamic_checkout -%}
+        <div class="one-product-info__button-dynamic-checkout">
+            <template class="template-dynamic-checkout">
+                <div class="product-page-info__dynamic-checkout mt-20{% if enable_select_variant_button or current_variant.available != true %} d-none{% endif %}" data-js-product-button-dynamic-checkout>
+                    <div class="dynamic-checkout js-dynamic-checkout">
+                        {%- if show_dynamic_checkout_confirmation -%}
+                            <div class="dynamic-checkout__confirmation mb-15 text-center text-md-left">
+                                <label class="input-checkbox position-relative d-inline-flex align-items-center mx-auto cursor-pointer">
+                                    <input type="checkbox" class="d-none" name="dynamic_checkout" data-js-dynamic-checkout-confirmation>
+                                    <span class="position-relative d-block mr-10 border"><i class="d-none">{% render 'icon-theme-146' %}</i></span>
+                                    <span>{{ 'products.product.dynamic_checkout.confirmation' | t }}</span>
+                                </label>
+                            </div>
+                        {%- endif -%}
+                        <div class="dynamic-checkout__button{% if styled_dynamic_checkout %} dynamic-checkout__button--styled{% endif %}{% if show_dynamic_checkout_confirmation %} disabled{% endif %}" data-js-dynamic-checkout-button-wrapper>
+                            {{ form | payment_button }}
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <script>
+                theme.AssetsLoader.onPageLoaded(function () {
+                    (function($){
+                        theme.dynamicCheckout.load(document.querySelector('[data-section-id="{{ section.id }}"] [data-js-product]'));
+                    })(jQueryTheme);
+                }, ['theme']);
+            </script>
+        </div>
+    {%- endif -%}
+{%- endform -%}

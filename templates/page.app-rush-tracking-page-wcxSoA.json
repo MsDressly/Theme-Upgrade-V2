@@ -1,0 +1,85 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "39399b58-ad57-48f3-85e9-06d0d209f962": {
+      "type": "app-rush-container-grid",
+      "settings": {
+        "visibility": "all_the_time",
+        "columns_mobile": 1,
+        "columns_tablet": 1,
+        "columns_desktop": 1,
+        "columns_large": 1,
+        "columns_xlarge": 1,
+        "columns_2xlarge": 1,
+        "cssStyle": ""
+      }
+    },
+    "e1f751e8-c851-4b32-ba88-956f9185db1b": {
+      "type": "app-rush-container-grid",
+      "settings": {
+        "visibility": "all_the_time",
+        "columns_mobile": 1,
+        "columns_tablet": 2,
+        "columns_desktop": 2,
+        "columns_large": 2,
+        "columns_xlarge": 2,
+        "columns_2xlarge": 2,
+        "cssStyle": ""
+      }
+    },
+    "d8a21e60-2aa2-4a2e-a2f8-4e648d405471": {
+      "type": "app-rush-container-grid",
+      "settings": {
+        "visibility": "all_the_time",
+        "columns_mobile": 1,
+        "columns_tablet": 2,
+        "columns_desktop": 2,
+        "columns_large": 2,
+        "columns_xlarge": 2,
+        "columns_2xlarge": 2,
+        "cssStyle": ""
+      }
+    },
+    "a494851f-3bc0-47d5-a8a7-8cad996b25b0": {
+      "type": "app-rush-container-grid",
+      "settings": {
+        "visibility": "all_the_time",
+        "columns_mobile": 1,
+        "columns_tablet": 2,
+        "columns_desktop": 2,
+        "columns_large": 2,
+        "columns_xlarge": 2,
+        "columns_2xlarge": 2,
+        "cssStyle": ""
+      }
+    },
+    "fc29e1c1-2024-4b77-932a-de5fcab4f6da": {
+      "type": "app-rush-container-grid",
+      "settings": {
+        "visibility": "all_the_time",
+        "columns_mobile": 1,
+        "columns_tablet": 2,
+        "columns_desktop": 2,
+        "columns_large": 2,
+        "columns_xlarge": 2,
+        "columns_2xlarge": 2,
+        "cssStyle": ""
+      }
+    }
+  },
+  "order": [
+    "39399b58-ad57-48f3-85e9-06d0d209f962",
+    "e1f751e8-c851-4b32-ba88-956f9185db1b",
+    "d8a21e60-2aa2-4a2e-a2f8-4e648d405471",
+    "a494851f-3bc0-47d5-a8a7-8cad996b25b0",
+    "fc29e1c1-2024-4b77-932a-de5fcab4f6da"
+  ]
+}

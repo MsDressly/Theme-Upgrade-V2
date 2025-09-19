@@ -1,0 +1,33 @@
+@media (max-width: 1024px) {
+  .promobox--modification-1 .promobox__content {
+    align-items: flex-start !important;
+  }
+}
+@media (max-width: 1024px) {
+  .promobox--modification-1 .promobox__content > * {
+    padding-top: 80px !important;
+  }
+}
+
+@media (max-width: 540px) {
+  .promobox--modification-2 .promobox__text-1 {
+    font-size: 36px;
+    line-height: 36px;
+  }
+}
+
+@media (max-width: 540px) {
+  .promobox--modification-3 .promobox__text-2 {
+    font-size: 36px;
+    line-height: 36px;
+  }
+}
+
+@media (max-width: 540px) {
+  .promobox--modification-4 .promobox__text-1,
+  .promobox--modification-4 .promobox__text-2,
+  .promobox--modification-4 .promobox__text-3,
+  .promobox--modification-4 .promobox__text-4 {
+    color: var(--theme2);
+  }
+}

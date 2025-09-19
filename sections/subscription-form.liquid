@@ -1,0 +1,221 @@
+{% capture style_base_html %}
+    <style>
+        :root {
+            {% if section.settings.style == '1' %}
+                --subscription-form-style-1-bg: var(--theme-body);
+                --subscription-form-style-1-bd-top: solid 1px var(--theme5);
+                --subscription-form-style-1-bd-bottom: solid 1px var(--theme5);
+                --subscription-form-style-1-title-c: var(--theme-head-c);
+                --subscription-form-style-1-paragraph-c: var(--theme-c);
+                --subscription-form-style-1-input-bg: var(--input-bg);
+                --subscription-form-style-1-input-bd: solid 1px var(--theme5);
+            {% elsif section.settings.style == '2' %}
+                --subscription-form-style-2-bg: var(--theme-body);
+                --subscription-form-style-2-bd-top: solid 1px var(--theme5);
+                --subscription-form-style-2-bd-bottom: none;
+                --subscription-form-style-2-title-c: var(--theme-head-c);
+                --subscription-form-style-2-paragraph-c: var(--theme-c);
+                --subscription-form-style-2-input-bg: var(--input-bg);
+                --subscription-form-style-2-input-bd: solid 1px var(--theme5);
+            {% elsif section.settings.style == '3' %}
+                --subscription-form-style-3-bg: var(--theme-body);
+                --subscription-form-style-3-bd-top: none;
+                --subscription-form-style-3-bd-bottom: none;
+                --subscription-form-style-3-title-c: var(--theme-head-c);
+                --subscription-form-style-3-paragraph-c: var(--theme-c);
+                --subscription-form-style-3-input-bg: var(--input-bg);
+                --subscription-form-style-3-input-bd: solid 1px var(--theme5);
+            {% elsif section.settings.style == '4' %}
+                --subscription-form-style-4-bg: var(--theme);
+                --subscription-form-style-4-bd-top: none;
+                --subscription-form-style-4-bd-bottom: none;
+                --subscription-form-style-4-title-c: var(--theme2);
+                --subscription-form-style-4-paragraph-c: var(--theme2);
+                --subscription-form-style-4-input-bg: var(--input-bg);
+                --subscription-form-style-4-input-bd: none;
+            {% elsif section.settings.style == '5' %}
+                --subscription-form-style-5-bg: var(--theme4);
+                --subscription-form-style-5-bd-top: none;
+                --subscription-form-style-5-bd-bottom: none;
+                --subscription-form-style-5-title-c: var(--theme-head-c);
+                --subscription-form-style-5-paragraph-c: var(--theme-c);
+                --subscription-form-style-5-input-bg: var(--input-bg);
+                --subscription-form-style-5-input-bd: solid 1px var(--theme2);
+            {% endif %}
+            {%- assign subscription_form_btn_type = 'default' -%}
+
+            {%- if settings.layout_settings_file == 'skin-10' -%}
+                --subscription-form-style-5-input-bg: var(--theme2);
+                --subscription-form-style-5-bd-bottom: solid 1px var(--theme5);
+                {%- assign subscription_form_btn_type = 'invert' -%}
+            {%- endif -%}
+        }
+
+        .subscription-form--style-{{ section.settings.style }} {
+            background-color: var(--subscription-form-style-{{ section.settings.style }}-bg);
+            border-top: var(--subscription-form-style-{{ section.settings.style }}-bd-top);
+            border-bottom: var(--subscription-form-style-{{ section.settings.style }}-bd-bottom);
+        }
+        .subscription-form--style-{{ section.settings.style }} h5 {
+            color: var(--subscription-form-style-{{ section.settings.style }}-title-c);
+        }
+        .subscription-form--style-{{ section.settings.style }} p {
+            color: var(--subscription-form-style-{{ section.settings.style }}-paragraph-c);
+        }
+        .subscription-form--style-{{ section.settings.style }} [type="email"] {
+            background-color: var(--subscription-form-style-{{ section.settings.style }}-input-bg);
+            border-top: var(--subscription-form-style-{{ section.settings.style }}-input-bd);
+        }
+        {% capture button_selector %}.subscription-form--style-{{ section.settings.style }} .subscription-form__form .btn{% endcapture %}
+        {% render 'css-style-button' with class: button_selector type: subscription_form_btn_type %}
+    </style>
+{% endcapture %}
+{%- if style_base_html -%}
+    {%- if request.design_mode -%}
+        {{ style_base_html }}
+    {%- else -%}
+        <template class="js-loader-inline-style" data-key="{{ style_base_html | hmac_sha1: 'secret_key' }}">{{ style_base_html }}</template>
+    {%- endif -%}
+{%- endif -%}
+<script>
+    theme.AssetsLoader.loadInlineStyles();
+</script>
+<div data-section-id="{{ section.id }}" data-section-type="subscription-form">
+    <div class="subscription-form subscription-form--style-{{ section.settings.style }}">
+        <div class="container py-20">
+            <div class="row">
+                {%- if section.settings.title != blank or section.settings.paragraph != blank -%}
+                    <div class="col-12 col-lg-6 d-lg-flex flex-lg-column justify-content-lg-center align-items-lg-stretch">
+                        <div class="subscription-form__info text-center text-lg-left">
+                            {%- if section.settings.title != blank -%}
+                                <h5 class="subscription-form__title mb-0">{{ section.settings.title }}</h5>
+                            {%- endif -%}
+                            {%- if section.settings.paragraph != blank -%}
+                                <p class="subscription-form__paragraph mb-0 mt-10 mt-lg-3">{{ section.settings.paragraph }}</p>
+                            {%- endif -%}
+                        </div>
+                    </div>
+                {%- endif -%}
+                <div class="col-12 d-lg-flex flex-lg-column justify-content-lg-center align-items-lg-stretch col-lg-6{% if section.settings.title != blank or section.settings.paragraph != blank %} mt-20 mt-lg-0{% else %} offset-lg-3{% endif %}">
+                    <div class="subscription-form__form">
+                        <div class="d-flex flex-column">
+                            {%- if settings.subscription_show_confirmation_checkbox -%}
+                                <input id="Section-Subscription-{{ section.id }}-checkbox" type="checkbox" class="d-none input-checkbox-disable-trigger" name="footer_subscription">
+                                <label for="Section-Subscription-{{ section.id }}-checkbox" class="footer__subscription-checkbox subscription-checkbox input-checkbox input-checkbox--input-out position-relative d-inline-flex align-items-start mt-20 cursor-pointer">
+                                    <span class="position-relative d-block mt-0 mr-10 border"><i class="d-none">{% render 'icon-theme-146' %}</i></span>
+                                    <span>{{ 'general.form.subscription.checkbox_html' | t }}</span>
+                                </label>
+                                <div class="input-checkbox-disable-trigger-error subscription-checkbox-error d-none mt-10">
+                                    <div class="note note--error mb-5">
+                                        <ul>
+                                            <li>{{ 'general.form.subscription.checkbox_error' | t }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            {%- endif -%}
+                            {%- if settings.subscription_method == 'shopify' -%}
+                                {% form 'customer', id: null, class: 'subscription-form form-group--type-inline d-flex d-flex flex-column flex-lg-row mb-0' %}
+                                    {% render 'form-get-check-error-popup' %}
+                                    <input type="hidden" name="contact[tags]" value="newsletter">
+                                    <input type="email" name="contact[email]" class="mb-10 mb-lg-0 mr-lg-10{% if form.errors %} input--error{% endif %}" placeholder="{{ section.settings.placeholder }}" required="required">
+                                    <input type="submit" class="input-checkbox-disable-body btn" name="commit" value="{{ section.settings.button_text }}">
+                                {% endform %}
+                            {%- elsif settings.subscription_method == 'mailchimp' -%}
+                                <form action="{{ settings.subscription_mailchimp_form_action }}" method="post" class="subscription-form form-group--type-inline d-flex d-flex flex-column flex-lg-row mb-30" target="_blank">
+                                    <input type="email" name="EMAIL" id="PopupSubscribe" class="mb-10 mb-lg-0 mr-lg-10" placeholder="{{ section.settings.placeholder }}" required="required">
+                                    <input type="submit" class="input-checkbox-disable-body btn" value="{{ section.settings.button_text }}">
+                                </form>
+                            {%- endif -%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {%- if section.settings.show_bottom_separator -%}
+            <div class="border-top"></div>
+        {%- endif -%}
+    </div>
+</div>
+
+
+{% schema %}
+{
+    "name": "Subscription form",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Content"
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "NEWSLETTER SUBSCRIPTION"
+        },
+        {
+            "type": "text",
+            "id": "paragraph",
+            "label": "Paragraph",
+            "default": "Sign up for Shella updates to receive information about new arrivals, future events and specials."
+        },
+        {
+            "type": "text",
+            "id": "placeholder",
+            "label": "Placeholder",
+            "default": "Enter Your Email Address"
+        },
+        {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button text",
+            "default": "SUBSCRIBE!"
+        },
+{
+"type": "select",
+"id": "style",
+"label": "Colorize style",
+"default": "1",
+"options": [
+{
+"value": "1",
+"label": "Style #1"
+},
+{
+"value": "2",
+"label": "Style #2"
+},
+{
+"value": "3",
+"label": "Style #3"
+},
+{
+"value": "4",
+"label": "Style #4"
+},
+{
+"value": "5",
+"label": "Style #5"
+}
+]
+},
+{
+"type": "header",
+"content": "Support"
+},
+{
+  "type": "paragraph",
+  "content": "[Watch video tutorials](https://www.youtube.com/watch?v=LbGgAxY1lRY&list=PLj-506KaR_vcQjwcpC6yII-1JY0bSj7df)"
+},
+{
+  "type": "paragraph",
+  "content": "[Read user manual](https://mpithemes.gitbook.io/shella-shopify-theme/)"
+}
+    ],
+    "presets": [
+        {
+            "name": "Subscription form",
+            "category": "3) Static content"
+        }
+    ]
+}
+{% endschema %}

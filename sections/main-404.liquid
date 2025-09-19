@@ -1,0 +1,22 @@
+{% include 'breadcrumbs' %}
+<div class="page-404">
+    <div class="container">
+        <div class="d-flex flex-column align-items-center py-40 py-md-100 my-100">
+            <h1 class="d-flex flex-column align-items-center mb-25">
+                {{ 'general.404.title_large' | t }}
+                <span class="h3 mt-20 mb-0">{{ 'general.404.title' | t }}</span>
+            </h1>
+            <p class="mb-30 text-center">{{ 'general.404.subtext_html' | t }}</p>
+            <a href="/collections/all" class="page-404__btn-empty empty-btn btn">{{ 'general.404.button' | t }}</a>
+        </div>
+    </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "404 page",
+  "settings": [
+  ]
+}
+{% endschema %}

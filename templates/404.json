@@ -1,0 +1,42 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-404",
+      "disabled": true,
+      "settings": {}
+    },
+    "ca013d22-5f5a-4b52-99da-5f3acbd6420c": {
+      "type": "sorting-collections",
+      "blocks": {
+        "bf8c33ce-ea9c-4381-be05-a9066089bf30": {
+          "type": "collection",
+          "settings": {
+            "title": "Picked for You",
+            "collection": "picked-for-you"
+          }
+        }
+      },
+      "block_order": [
+        "bf8c33ce-ea9c-4381-be05-a9066089bf30"
+      ],
+      "settings": {
+        "size_of_columns": "6",
+        "max_count": 24,
+        "show_btn_more_products": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "ca013d22-5f5a-4b52-99da-5f3acbd6420c"
+  ]
+}

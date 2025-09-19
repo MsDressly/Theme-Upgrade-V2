@@ -1,0 +1,34 @@
+{%- assign default_state = settings_block.settings.default_state -%}
+{%- if settings.collection_sidebar_position == 'top' and default_state != 'open' and default_state != 'close' -%}
+    {%- assign default_state = 'open' -%}
+{%- endif -%}
+{%- if default_state == 'open' or default_state == 'close' -%}
+    {%- assign is_accordion = true -%}
+{%- endif -%}
+<div class="collection-sidebar-section collection-sidebar-section--content-{{ content_type }}{% if show_border %} collection-sidebar-section--bordered{% endif %}{% if hide_section == true or hide_section == false %} js-collection-sidebar-section{% if hide_section %} d-none{% endif %}{% endif %}"{% if is_accordion %} data-js-accordion="all"{% if settings.collection_sidebar_position == 'top' %} data-accordion-name="sidebar-section" data-accordion-default-state="{{ default_state }}"{% endif %}{% endif %} data-index="{{ index }}">
+    {%- unless default_state == 'without_title' -%}
+        <div class="collection-sidebar-section__head{% if default_state == 'open' %} open{% endif %}"{% if is_accordion %} data-js-accordion-button{% endif %}>
+            <h5 class="d-flex align-items-center mb-0">
+                <span>
+                    {%- if section.settings.uppercase_filter_title -%}
+                        {{ title | upcase }}          
+                    {%- else -%}
+                        {{ title }}
+                    {%- endif -%}
+                </span>
+                {%- if is_accordion -%}
+                    <i class="collection-sidebar-section__arrow">{% render 'icon-theme-229' %}</i>
+                {%- endif -%}
+            </h5>
+        </div>
+    {%- else -%}
+        <div class="pt-20"></div>
+    {%- endunless -%}
+    <div class="collection-sidebar-section__accordion{% if default_state == 'close' %} d-none{% endif %}"{% if is_accordion %} data-js-accordion-content{% endif %}>
+        {%- if has_content -%}
+            {{ content }}
+        {%- else -%}
+            <p class="mb-8">No content</p>
+        {%- endif -%}
+    </div>
+</div>

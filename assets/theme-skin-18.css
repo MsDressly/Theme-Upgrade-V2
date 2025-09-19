@@ -1,0 +1,101 @@
+.home-section-title a[href^="https://"], .home-section-title a[href^="https://"]:visited, .home-section-title a[href^="https://"]:active, .home-section-title a[href^="https://"]:link {
+  color: #945023 !important;
+}
+
+@media (max-width: 1024px) {
+  .promobox--modification-1 > * {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.promobox--modification-2 > * {
+  max-width: 970px;
+}
+
+.builder--modification-1 {
+  background-color: var(--theme2);
+}
+
+.builder--modification-2 {
+  background-color: #FCD8BD;
+}
+
+.builder--modification-3 {
+  background-color: #FBEAAC;
+}
+
+.builder--modification-4 {
+  background-color: #C5DFE7;
+}
+
+.popup-subscription--layout-02 input[type=email] {
+  background-color: var(--theme2);
+  border: solid 1px var(--theme2) !important;
+}
+
+.product-collection__title {
+  margin-bottom: 8px !important;
+}
+
+.product-page-info__description,
+.one-product-info__description {
+  color: var(--theme);
+}
+
+.product-gallery__thumbnail.current::before {
+  border-color: #8FBAC7;
+}
+
+input[type=text],
+input[type=number],
+input[type=email],
+input[type=password],
+input[type=search],
+input[type=tel],
+input[type=date],
+textarea,
+select,
+.popup-subscription__close-text,
+.popup-subscription__text-line-04,
+.breadcrumbs,
+.collection-control,
+.product-collection__title > *,
+.product-page-info__details,
+.product-page-info__field,
+.one-product-info__field {
+  font-family: "Basic Commercial", sans-serif;
+}
+
+.footer,
+.footer h1, .footer h2, .footer h3, .footer h4, .footer h4, .footer h5, .footer h6,
+.product-page__tabs,
+.product-page__tabs h1,
+.product-page__tabs h2,
+.product-page__tabs h3,
+.product-page__tabs h4,
+.product-page__tabs h4,
+.product-page__tabs h5,
+.product-page__tabs h6 {
+  font-family: "Basic Commercial", sans-serif;
+}
+
+.builder-spacer .home-section-title {
+  font-size: 32px;
+  line-height: 40px;
+}
+
+.footer--style-2 .footer__section-content--custom-content .icon {
+  fill: var(--theme2);
+}
+.footer--style-2 .footer__section-content--custom-content a:not([href*=mailto]), .footer--style-2 .footer__section-content--custom-content a:not([href*=mailto]):visited, .footer--style-2 .footer__section-content--custom-content a:not([href*=mailto]):active, .footer--style-2 .footer__section-content--custom-content a:not([href*=mailto]):link {
+  color: var(--theme-c) !important;
+}
+.footer--style-2 .footer__copyright a, .footer--style-2 .footer__copyright a:visited, .footer--style-2 .footer__copyright a:active, .footer--style-2 .footer__copyright a:link {
+  color: var(--theme-c) !important;
+}
+
+.input-quantity--type-01 [data-control]:not(:hover),
+.input-quantity--type-05 [data-control]:not(:hover) {
+  border: solid 1px var(--theme2) !important;
+}

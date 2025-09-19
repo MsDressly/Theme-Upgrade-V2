@@ -1,0 +1,127 @@
+<header class="page-header">
+  <style>
+ h1:nth-child(2) {
+      text-align: center;
+      background-color: var(--header-color); /* Use custom property for header color */
+      background-blend-mode: normal;
+    }
+
+    .rte {
+      text-align: center; /* Aligning content in the center */
+    }
+
+    /* Additional style for columns */
+    .sitemap-column {
+      display: inline-block;
+      vertical-align: top;
+      width: 45%; /* Adjust width as needed */
+      margin-right: 5%; /* Adjust margin between columns */
+      overflow-y: auto; /* Add scrollbar */
+      max-height: calc(50 * 1.2em); /* Adjust the height for 50 lines */
+    }
+
+    .sitemap-column:last-child {
+      margin-right: 0; /* Remove margin for the last column */
+    }
+  </style>
+  <h1>{{ page.title }}</h1>
+</header>
+
+{% comment %}
+  Regular page content goes here.
+{% endcomment %}
+<div class="rte">
+  {{ page.content }}
+  {%- comment -%} Start of HTML SiteMap code {%- endcomment -%}
+  <div class="row">
+    <div class="sitemap-column" id="column1">
+      <h2>Collections Sitemap</h2>
+      <ul id="collection-sitemap">
+        {% for c in collections %}
+        <li>
+          <a href="{{ c.url }}">{{ c.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="sitemap-column" id="column2">
+      <h2>Products</h2>
+      <ul id="product-sitemap">
+
+        {% paginate collections.all.products by 1000 %}
+        {% for product in collections.all.products %}
+        <li>
+          <a href="{{ product.url }}">{{ product.title }}</a>
+        </li>
+        {% endfor %}
+        {% endpaginate %}
+
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="sitemap-column" id="column3">
+      <h2>Blogs Sitemap</h2>
+      <ul id="blog-sitemap">
+
+        {% assign blog_handles = "news" | split: "," %}
+
+        {% for handle in blog_handles %}
+
+        {% for article in blogs[handle].articles %}
+        <li>
+          <a href="{{ article.url }}">{{ article.title }}</a>
+        </li>
+        {% endfor %}
+
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="sitemap-column" id="column4">
+      <h2>Pages Sitemap</h2>
+      <ul id="page-sitemap">
+        {%- paginate pages by 30 -%}
+        {%- for p in pages -%}
+        <li><a href="{{ p.url }}">{{ p.title }}</a></li>
+        {%- endfor -%}
+        {{ paginate | default_pagination: next: 'Older', previous: 'Newer' }}
+        {%- endpaginate -%}
+      </ul>
+    </div>
+  </div>
+  {%- comment -%} End of HTML SiteMap of pages code {%- endcomment -%}
+
+  {%- comment -%}
+  End of HTML SiteMap code
+  {%- endcomment -%}
+</div>
+
+<script>
+  // Function to split content into two columns with 50 lines each
+  function splitContentIntoTwoColumns() {
+    var columns = document.querySelectorAll('.sitemap-column');
+    columns.forEach(function(column) {
+      var content = column.querySelector('ul');
+      var items = content.querySelectorAll('li');
+      var counter = 0;
+      var newContent = document.createElement('ul');
+      newContent.classList.add('split-content');
+      items.forEach(function(item) {
+        if (counter < 50) {
+          newContent.appendChild(item.cloneNode(true));
+          counter++;
+        } else {
+          columns.forEach(function(nextColumn) {
+            if (nextColumn !== column) {
+              nextColumn.querySelector('ul').appendChild(item.cloneNode(true));
+              return;
+            }
+          });
+        }
+      });
+      column.replaceChild(newContent, content);
+    });
+  }
+
+  window.onload = splitContentIntoTwoColumns;
+</script>

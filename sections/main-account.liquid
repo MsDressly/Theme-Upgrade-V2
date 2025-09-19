@@ -1,0 +1,185 @@
+{% include 'breadcrumbs' %}
+<div class="account pb-60">
+  <div class="container">
+    <h1 class="h3 mt-30 mb-40 text-center">{{ 'customer.account.title' | t }}</h1>
+    <tabs-element class="tabs" data-type="horizontal">
+      <div class="tabs__head" data-js-tabs-head>
+        <div class="tabs__slider justify-content-lg-center" data-js-tabs-slider>
+          <div class="tabs__btn active" data-js-tabs-btn data-active="true">{{ 'customer.orders.tab' | t }}</div>
+          <div class="tabs__btn" data-js-tabs-btn>{{ 'customer.account.details_tab' | t }}</div>
+        </div>
+        <div class="tabs__nav tabs__nav--prev" data-js-tabs-nav-prev><i>{% render 'icon-theme-006' %}</i></div>
+        <div class="tabs__nav tabs__nav--next" data-js-tabs-nav-next><i>{% render 'icon-theme-007' %}</i></div>
+      </div>
+      <div class="tabs__body">
+        <div class="active" data-js-tabs-tab>
+          <span data-js-tabs-btn-mobile>{{ 'customer.orders.tab' | t }} <i>{% render 'icon-theme-188' %}</i></span>
+          <div class="tabs__content rte overflow-hidden" data-js-tabs-content style="display: block;">
+            <h2 class="h4 mt-20 mb-30 text-center">{{ 'customer.orders.title' | t }}</h2>
+            {% paginate customer.orders by 20 %}
+              {%- if customer.orders.size != 0 -%}
+                {%- for order in customer.orders -%}
+                  <div class="d-lg-none">
+                    <div class="d-flex">
+                      <div>
+                        <h4>{{ 'customer.orders.order_number' | t }}</h4>
+                      </div>
+                      <div class="ml-auto">
+                        <a href="{{ order.customer_url }}" class="btn">{{ order.name }}</a>
+                      </div>
+                    </div>
+                    <div class="table-wrapper">
+                      <table class="table-account responsive-table {% if forloop.index0 > 0 %}mb-60{% else %}mb-30{% endif %}">
+                        <tr>
+                          <td>{{ 'customer.orders.date' | t }}</td>
+                          <td>{{ order.created_at | date: format: 'month_day_year' }}</td>
+                        </tr>
+                        <tr>
+                          <td>{{ 'customer.orders.payment_status' | t }}</td>
+                          <td>{{ order.financial_status_label }}</td>
+                        </tr>
+                        <tr>
+                          <td>{{ 'customer.orders.fulfillment_status' | t }}</td>
+                          <td>{{ order.fulfillment_status_label }}</td>
+                        </tr>
+                        <tr>
+                          <td>{{ 'customer.orders.total' | t }}</td>
+                          <td>{{ order.total_price | money }}</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                {%- endfor -%}
+                <div class="d-none d-lg-block">
+                  <div class="table-wrapper">
+                    <table class="table-account-history responsive-table mb-30">
+                      <thead>
+                      <tr class="responsive-table-row">
+                        <th>{{ 'customer.orders.order_number' | t }}</th>
+                        <th>{{ 'customer.orders.date' | t }}</th>
+                        <th>{{ 'customer.orders.payment_status' | t }}</th>
+                        <th>{{ 'customer.orders.fulfillment_status' | t }}</th>
+                        <th>{{ 'customer.orders.total' | t }}</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      {%- for order in customer.orders -%}
+                        <tr class="responsive-table-row">
+                          <td data-label="{{ 'customer.orders.order_number' | t }}">{{ order.name | link_to: order.customer_url }}</td>
+                          <td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | date: format: 'month_day_year' }}</td>
+                          <td data-label="{{ 'customer.orders.payment_status' | t }}">{{ order.financial_status_label }}</td>
+                          <td data-label="{{ 'customer.orders.fulfillment_status' | t }}">{{ order.fulfillment_status_label }}</td>
+                          <td data-label="{{ 'customer.orders.total' | t }}">{{ order.total_price | money }}</td>
+                        </tr>
+                      {%- endfor -%}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              {%- else -%}
+                <p class="text-center">{{ 'customer.orders.none' | t }}</p>
+              {%- endif -%}
+              {%- if paginate.pages > 1 -%}
+                {% render 'pagination', paginate: paginate %}
+              {%- endif -%}
+            {% endpaginate %}
+          </div>
+        </div>
+        <div data-js-tabs-tab>
+          <span data-js-tabs-btn-mobile>{{ 'customer.account.details_tab' | t }} <i>{% render 'icon-theme-188' %}</i></span>
+          <div class="tabs__content rte overflow-hidden" data-js-tabs-content>
+            <h2 class="h4 mt-20 mb-30 text-center">{{ 'customer.account.details' | t }}</h2>
+            {%- if customer.default_address != blank -%}
+              <div class="table-wrapper">
+                <table class="table-account responsive-table mb-30">
+                  {%- if customer.default_address.first_name != blank -%}
+                    <tr>
+                      <td>{{ 'customer.addresses.first_name' | t }}:</td>
+                      <td>{{ customer.default_address.first_name }}</td>
+                    </tr>
+                  {%- endif -%}
+                  {%- if customer.default_address.last_name != blank -%}
+                    <tr>
+                      <td>{{ 'customer.addresses.last_name' | t }}:</td>
+                      <td>{{ customer.default_address.last_name }}</td>
+                    </tr>
+                  {%- endif -%}
+                  {%- if customer.default_address.address1 != blank -%}
+                    <tr>
+                      <td>{{ 'customer.addresses.address1' | t }}:</td>
+                      <td>{{ customer.default_address.address1 }}</td>
+                    </tr>
+                  {%- endif -%}
+                  {%- if customer.default_address.address2 != blank -%}
+                    <tr>
+                      <td>{{ 'customer.addresses.address2' | t }}:</td>
+                      <td>{{ customer.default_address.address2 }}</td>
+                    </tr>
+                  {%- endif -%}
+                  {%- if customer.default_address.company != blank -%}
+                    <tr>
+                      <td>{{ 'customer.addresses.company' | t }}:</td>
+                      <td>{{ customer.default_address.company }}</td>
+                    </tr>
+                  {%- endif -%}
+                  {%- if customer.default_address.city != blank -%}
+                    <tr>
+                      <td>{{ 'customer.addresses.city' | t }}:</td>
+                      <td>{{ customer.default_address.city }}</td>
+                    </tr>
+                  {%- endif -%}
+                  {%- if customer.default_address.province != blank -%}
+                    <tr>
+                      <td>{{ 'customer.addresses.province' | t }}:</td>
+                      <td>{{ customer.default_address.province }}</td>
+                    </tr>
+                  {%- endif -%}
+                  {%- if customer.default_address.province_code != blank -%}
+                    <tr>
+                      <td>{{ 'customer.addresses.province_code' | t }}:</td>
+                      <td>{{ customer.default_address.province_code }}</td>
+                    </tr>
+                  {%- endif -%}
+                  {%- if customer.default_address.zip != blank -%}
+                    <tr>
+                      <td>{{ 'customer.addresses.zip' | t }}:</td>
+                      <td>{{ customer.default_address.zip }}</td>
+                    </tr>
+                  {%- endif -%}
+                  {%- if customer.default_address.country != blank -%}
+                    <tr>
+                      <td>{{ 'customer.addresses.country' | t }}:</td>
+                      <td>{{ customer.default_address.country }}</td>
+                    </tr>
+                  {%- endif -%}
+                  {%- if customer.default_address.phone != blank -%}
+                    <tr>
+                      <td>{{ 'customer.addresses.phone' | t }}:</td>
+                      <td>{{ customer.default_address.phone }}</td>
+                    </tr>
+                  {%- endif -%}
+                </table>
+              </div>
+            {%- endif -%}
+            <p class="text-center">
+              <a href="/account/addresses">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <script>
+        theme.AssetsLoader.onUserAction(function() {
+          theme.AssetsLoader.require('scripts', 'tabs');
+        });
+      </script>
+    </tabs-element>
+    <div class="d-flex justify-content-center justify-content-lg-end mt-60">
+      <a href="/account/logout" class="btn">{{ "general.popups.account.authorized.log_out" | t }}</a>
+    </div>
+  </div>
+</div>
+
+{% schema %}{
+    "name": "t:sections.account.name",
+    "settings": []
+}{% endschema %}

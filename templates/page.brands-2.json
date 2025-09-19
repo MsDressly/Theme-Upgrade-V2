@@ -1,0 +1,215 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "show_title": true,
+        "show_content": false
+      }
+    },
+    "163416549513daa6b7": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 60,
+        "margin_bottom": 0,
+        "margin_top_mobile": 0,
+        "margin_bottom_mobile": 0,
+        "container": "boxed",
+        "show_separator": false,
+        "title": ""
+      }
+    },
+    "1634165150d64bd05d": {
+      "type": "brands",
+      "blocks": {
+        "4171191c-233b-48a3-b306-b99c107f4156": {
+          "type": "brand",
+          "settings": {
+            "block_type": "сreate_new",
+            "brand_name": "Abo Shella",
+            "image": "shopify://shop_images/Abo_Shella.jpg",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Calvin%20Klein"
+          }
+        },
+        "fe7bb1b4-331b-4c90-b5cc-aaa77fc13e65": {
+          "type": "brand",
+          "settings": {
+            "block_type": "сreate_new",
+            "brand_name": "Ahella",
+            "image": "shopify://shop_images/Ahella.jpg",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Chanel"
+          }
+        },
+        "6122f2e4-a66c-43ee-8c45-3da0d0b5a239": {
+          "type": "brand",
+          "settings": {
+            "block_type": "сreate_new",
+            "brand_name": "Beautiful Shellawat",
+            "image": "shopify://shop_images/Beautiful_Shellawat.jpg",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Dior"
+          }
+        },
+        "cd8d4945-b350-4134-800c-0ec1d230ae98": {
+          "type": "brand",
+          "settings": {
+            "block_type": "сreate_new",
+            "brand_name": "Best Shellagua",
+            "image": "shopify://shop_images/Best_Shellagua.jpg",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Giorgio%20Armani"
+          }
+        },
+        "c3f69bc3-17fe-4994-9a10-99941fc9b84e": {
+          "type": "brand",
+          "settings": {
+            "block_type": "сreate_new",
+            "brand_name": "Bi Shella",
+            "image": "shopify://shop_images/Bi_Shella.jpg",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Lacoste"
+          }
+        },
+        "a58f419f-68a3-4088-9a98-f69b68274581": {
+          "type": "brand",
+          "settings": {
+            "block_type": "сreate_new",
+            "brand_name": "BST SHLL",
+            "image": "shopify://shop_images/BST_SHLL.jpg",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Levi%27s"
+          }
+        },
+        "2de7e34c-0814-4893-ba4b-cb80c5be2de3": {
+          "type": "brand",
+          "settings": {
+            "block_type": "сreate_new",
+            "brand_name": "Ca Shella",
+            "image": "shopify://shop_images/Ca_Shella.jpg",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Versace"
+          }
+        },
+        "9b580938-c191-4317-accb-db5a73369da1": {
+          "type": "brand",
+          "settings": {
+            "block_type": "сreate_new",
+            "brand_name": "De Shella",
+            "image": "shopify://shop_images/De_Shella.jpg",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Zara"
+          }
+        },
+        "dfe98e60-bcf0-4c6a-8345-7ed3f54671b3": {
+          "type": "brand",
+          "settings": {
+            "block_type": "сreate_new",
+            "brand_name": "Duet Shella",
+            "image": "shopify://shop_images/Duet_Shella.jpg",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Zara"
+          }
+        },
+        "541717ff-1e71-4939-8543-c7cfc10c6a86": {
+          "type": "brand",
+          "settings": {
+            "block_type": "сreate_new",
+            "brand_name": "Fashiohella",
+            "image": "shopify://shop_images/Fashiohella.jpg",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Prada"
+          }
+        },
+        "458b5ee9-da84-41d9-b3cb-cfd8490d6230": {
+          "type": "brand",
+          "settings": {
+            "block_type": "сreate_new",
+            "brand_name": "Fashion Shellakan",
+            "image": "shopify://shop_images/Fashion_Shellakan.jpg",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Prada"
+          }
+        },
+        "adf6bc32-1a1a-40b9-b0d2-ccf257dee515": {
+          "type": "brand",
+          "settings": {
+            "block_type": "сreate_new",
+            "brand_name": "Foo Shella",
+            "image": "shopify://shop_images/Foo_Shella.jpg",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Prada"
+          }
+        },
+        "2cb8ee07-0c4f-477a-9fa0-657cd5ebaf18": {
+          "type": "brand",
+          "settings": {
+            "block_type": "сreate_new",
+            "brand_name": "FSHN-SHLL",
+            "image": "shopify://shop_images/FSHN-SHLL.jpg",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Prada"
+          }
+        },
+        "e6e27d33-4ba6-4333-ba99-3b08375bbc0b": {
+          "type": "brand",
+          "settings": {
+            "block_type": "сreate_new",
+            "brand_name": "Future Shella Inc",
+            "image": "shopify://shop_images/Future_Shella_Inc.jpg",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Prada"
+          }
+        },
+        "f96aaa98-a93e-4cb9-97ec-6b37e8dd197c": {
+          "type": "brand",
+          "settings": {
+            "block_type": "сhange_existing",
+            "brand_name": "Zara",
+            "image": "shopify://shop_images/Idea_Shella.jpg",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Zara"
+          }
+        }
+      },
+      "block_order": [
+        "4171191c-233b-48a3-b306-b99c107f4156",
+        "fe7bb1b4-331b-4c90-b5cc-aaa77fc13e65",
+        "6122f2e4-a66c-43ee-8c45-3da0d0b5a239",
+        "cd8d4945-b350-4134-800c-0ec1d230ae98",
+        "c3f69bc3-17fe-4994-9a10-99941fc9b84e",
+        "a58f419f-68a3-4088-9a98-f69b68274581",
+        "2de7e34c-0814-4893-ba4b-cb80c5be2de3",
+        "9b580938-c191-4317-accb-db5a73369da1",
+        "dfe98e60-bcf0-4c6a-8345-7ed3f54671b3",
+        "541717ff-1e71-4939-8543-c7cfc10c6a86",
+        "458b5ee9-da84-41d9-b3cb-cfd8490d6230",
+        "adf6bc32-1a1a-40b9-b0d2-ccf257dee515",
+        "2cb8ee07-0c4f-477a-9fa0-657cd5ebaf18",
+        "e6e27d33-4ba6-4333-ba99-3b08375bbc0b",
+        "f96aaa98-a93e-4cb9-97ec-6b37e8dd197c"
+      ],
+      "settings": {
+        "title": "",
+        "section_type": "with_image",
+        "image_height": 100,
+        "image_format_pjpg": true,
+        "alphabet": "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,#",
+        "brands_list": "Zara"
+      }
+    },
+    "1634165155e71dd074": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 60,
+        "margin_bottom": 0,
+        "margin_top_mobile": 0,
+        "margin_bottom_mobile": 0,
+        "container": "boxed",
+        "show_separator": false,
+        "title": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "163416549513daa6b7",
+    "1634165150d64bd05d",
+    "1634165155e71dd074"
+  ]
+}

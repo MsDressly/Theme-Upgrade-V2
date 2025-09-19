@@ -1,0 +1,55 @@
+{% if get == 'css' %}
+<style>
+    .theme-spinner-02 {
+        transform:translate3d(0, 0, 0)
+    }
+    .theme-spinner-02,
+    .theme-spinner-02::before,
+    .theme-spinner-02::after {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        animation-fill-mode: both;
+    }
+    .theme-spinner-02::before,
+    .theme-spinner-02::after {
+        content:'';
+        position: absolute;
+        top: 0;
+    }
+    .theme-spinner-02:before {
+        left: -30px;
+    }
+    .theme-spinner-02:after {
+        left: 30px;
+    }
+    .theme-spinner-02 {
+        color: {{ settings.color_theme }};
+        animation-delay: -0.15s;
+    }
+    .theme-spinner-02,
+    .theme-spinner-02::before,
+    .theme-spinner-02::after {
+        background-color: {{ settings.color_theme }};
+        animation: preloader-spinner-02 1.4s infinite ease-in-out;
+    }
+    .theme-spinner-02::before {
+        animation-delay: -0.25s;
+    }
+    .theme-spinner-02::after {
+        animation-delay: 0.25s;
+    }
+    @keyframes preloader-spinner-02 {
+        0%,
+        80%,
+        100% {
+            transform: scale(0);
+        }
+        40% {
+            transform: scale(1);
+        }
+    }
+</style>
+{% elsif get == 'html' %}
+    <div class="theme-spinner-02"></div>
+{% endif %}

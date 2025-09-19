@@ -1,0 +1,30 @@
+{%- if settings.cart_free_shipping_value != blank and settings.cart_free_shipping_value contains '|' -%}
+    {%- assign cart_free_shipping_value_split = settings.cart_free_shipping_value | split: '|' -%}
+    {%- if shop.enabled_currencies.size > 1 -%}
+        {%- for currency in shop.enabled_currencies -%}
+            {%- if currency == cart.currency -%}
+                {%- assign cart_free_shipping_value = cart_free_shipping_value_split[forloop.index0] -%}
+                {%- break -%}
+            {%- endif -%}
+        {%- endfor -%}
+    {%- else -%}
+        {%- assign cart_free_shipping_value = cart_free_shipping_value_split[0] -%}
+    {%- endif -%}
+{%- else -%}
+    {%- assign cart_free_shipping_value = settings.cart_free_shipping_value -%}
+{%- endif -%}
+{%- assign free_shipping_range_quotient = cart_free_shipping_value | times: 1.0 | divided_by: 100 -%}
+{%- assign free_shipping_range_procent = cart.total_price | divided_by: free_shipping_range_quotient | at_most: 100 -%}
+<div class="free-shipping position-relative px-6 py-3{% if mobile_centered %} text-center{% endif %}{% if centered != true %} text-md-left{% endif %} js-free-shipping" data-value="{{ cart_free_shipping_value }}">
+    <div class="free-shipping__progress position-absolute top-0 left-0 h-100" data-js-progress style="width: {{ free_shipping_range_procent }}%;"></div>
+    <div class="free-shipping__text position-relative">
+        {%- assign free_shipping_spend = cart_free_shipping_value | minus: cart.total_price | at_least: 0 -%}
+        {% if free_shipping_spend > 0 %}
+            {% capture free_shipping_spend_html %}{{ free_shipping_spend | money }}{% endcapture %}
+            {% capture free_shipping_spend_html %}{{ 'cart.general.free_shipping_html' | t: value: free_shipping_spend_html }}{% endcapture %}
+        {% else %}
+            {% capture free_shipping_spend_html %}{{ 'cart.general.free_shipping_complete' | t }}{% endcapture %}
+        {% endif %}
+        <i class="mr-3">{% render 'icon-theme-127' %}</i> <span data-js-text>{{ free_shipping_spend_html }}</span>
+    </div>
+</div>

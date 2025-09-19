@@ -1,0 +1,43 @@
+.popup-subscription--layout-01 .popup-subscription__text-line-01 {
+  font-family: var(--heading-family) !important;
+  font-weight: bold !important;
+}
+
+.popup-subscription--layout-01 .popup-subscription__text-line-02 {
+  font-family: var(--heading-family) !important;
+  font-size: var(--body-lg-size) !important;
+  line-height: var(--body-lg-line-height) !important;
+}
+
+.promobox--modification-1 .promobox__text-wrap {
+  max-width: 634px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+@media (max-width: 540px) {
+  .promobox--modification-1 .promobox__text-2 {
+    font-size: 44px;
+    line-height: 52px;
+  }
+}
+
+@media (min-width: 768px) {
+  .promobox--modification-2 .promobox__content > * {
+    max-width: 420px;
+  }
+}
+@media (min-width: 1260px) {
+  .promobox--modification-2 .promobox__content > * {
+    margin: 0 130px;
+  }
+}
+@media (min-width: 1025px) and (max-width: 1259px) {
+  .promobox--modification-2 .promobox__content > * {
+    margin: 0 65px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .promobox--modification-2 .promobox__content > * {
+    margin: 0 30px;
+  }
+}

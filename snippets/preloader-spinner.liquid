@@ -1,0 +1,11 @@
+<div class="preloader{% if page %} preloader--page{% endif %} js-preloader">
+    <div class="preloader__bg" data-js-preloader-bg></div>
+    <div class="preloader__spinner" data-js-preloader-spinner>
+        {%- if settings.layout_preloader_image != blank -%}
+            {% capture image_size %}{{ settings.layout_preloader_image_size }}x{% endcapture %}
+            <img {% unless page %}src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=" data-{% endunless %}src="{{ settings.layout_preloader_image | img_url: image_size }}" alt="{{ settings.layout_preloader_image.alt | default: 'Pre-loader' }}">
+        {%- else -%}
+            <img {% unless page %}src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=" data-{% endunless %}src="{{ 'theme-preloader.svg' | asset_url }}" width="80" height="80" alt="Pre-loader">
+        {%- endif -%}
+    </div>
+</div>

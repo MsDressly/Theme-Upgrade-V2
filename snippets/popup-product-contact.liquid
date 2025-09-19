@@ -1,0 +1,60 @@
+{% include 'product-res-variables' %}
+<div class="popup-product-contact position-relative py-30 px-15" data-popup-content>
+    <i class="popup-product-contact__close position-absolute cursor-pointer" data-js-popup-close>{% render 'icon-theme-164' %}</i>
+    <div class="popup-product-contact__content mx-auto">
+        <h3>{{ 'contact.form.title' | t }}</h3>
+        <p class="fs-lg">{{ 'contact.form.paragraph' | t }}</p>
+        {% form 'contact' %}
+            {% render 'form-get-check-error-popup' %}
+            {%- if form.posted_successfully? -%}
+                <p class="form-success">{{ 'contact.form.post_success' | t }}</p>
+            {%- endif -%}
+            <input type="text"
+                   name="contact[product_url]"
+                   id="ContactFormProductUrl"
+                   value="{{ shop.domain }}{{ url }}?variant={{ current_variant_id }}"
+                   hidden="hidden"
+                   required="required">
+            <input type="text"
+                   name="contact[product_sku]"
+                   id="ContactFormProductSKU"
+                   value="{{ sku }}"
+                   hidden="hidden">
+            <input type="text"
+                   name="contact[name]"
+                   id="ContactFormName"
+                   placeholder="{{ 'contact.form.name_placeholder' | t }}"
+                   value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                   required="required">
+            <input type="email"
+                   name="contact[email]"
+                   id="ContactFormEmail"
+                   placeholder="{{ 'contact.form.email_placeholder' | t }}"
+                   value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                   spellcheck="false"
+                   autocomplete="off"
+                   autocapitalize="off"
+                   required="required">
+            <input type="tel"
+                   class="form-control"
+                   name="contact[phone]"
+                   id="ContactFormPhone"
+                   placeholder="{{ 'contact.form.phone_placeholder' | t }}"
+                   value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+                   required="required">
+            <textarea rows="8"
+                      name="contact[body]"
+                      id="ContactFormMessage"
+                      placeholder="{{ 'contact.form.message_placeholder' | t }}"
+                      required="required">
+              {%- if form.body -%}
+                  {{ form.body }}
+              {%- endif -%}
+            </textarea>
+            {% include 'form-get-message' %}
+            <div class="pt-10">
+                <button type="submit" class="btn"><i class="mr-5">{% render 'icon-theme-196' %}</i>{{ 'contact.form.send' | t }}</button>
+            </div>
+        {% endform %}
+    </div>
+</div>

@@ -1,0 +1,156 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "show_title": false,
+        "show_content": false
+      }
+    },
+    "162828402927bff6c5": {
+      "type": "gallery",
+      "blocks": {
+        "1538750989796": {
+          "type": "item",
+          "settings": {
+            "page_name": "",
+            "grid": 4,
+            "image": "shopify://shop_images/05_71b806d5-702b-4498-ae48-14c229dcaaa9.png",
+            "image_size": 500,
+            "text_line_01": "FASHION",
+            "text_line_02": "Lorem ipsum dolor sit amet"
+          }
+        },
+        "1538751247440": {
+          "type": "item",
+          "settings": {
+            "page_name": "",
+            "grid": 4,
+            "image": "shopify://shop_images/03_78c56899-2985-487c-bd85-d6e3469b2a22.png",
+            "image_size": 500,
+            "text_line_01": "TEXT LINE #1",
+            "text_line_02": "Text line #2"
+          }
+        },
+        "1538751255150": {
+          "type": "item",
+          "settings": {
+            "page_name": "",
+            "grid": 4,
+            "image": "shopify://shop_images/11_0ab758d9-cc13-462a-a3fe-37ef80a6f112.png",
+            "image_size": 500,
+            "text_line_01": "VINTAGE",
+            "text_line_02": "Lorem ipsum dolor sit amet"
+          }
+        },
+        "1538751296926": {
+          "type": "item",
+          "settings": {
+            "page_name": "",
+            "grid": 4,
+            "image": "shopify://shop_images/06_9aa1c1fb-c063-4057-81c5-4b298dba8f99.png",
+            "image_size": 500,
+            "text_line_01": "SUMMER",
+            "text_line_02": "Lorem ipsum dolor sit amet"
+          }
+        },
+        "1538751341984": {
+          "type": "item",
+          "settings": {
+            "page_name": "",
+            "grid": 4,
+            "image": "shopify://shop_images/01_9bd594a9-6a4b-457f-9553-62a1584d5291.png",
+            "image_size": 500,
+            "text_line_01": "BEACHWEAR",
+            "text_line_02": "Lorem ipsum dolor sit amet"
+          }
+        },
+        "1538751381554": {
+          "type": "item",
+          "settings": {
+            "page_name": "",
+            "grid": 4,
+            "image": "shopify://shop_images/15_b04f22c2-f16c-4ac3-aec6-f48d86fb3efa.png",
+            "image_size": 500,
+            "text_line_01": "SUNGLASSES",
+            "text_line_02": "Lorem ipsum dolor sit amet"
+          }
+        },
+        "1538751390330": {
+          "type": "item",
+          "settings": {
+            "page_name": "",
+            "grid": 4,
+            "image": "shopify://shop_images/02_148a0f31-c440-4e1d-a837-784c8e55bafe.png",
+            "image_size": 500,
+            "text_line_01": "WINTER",
+            "text_line_02": "Lorem ipsum dolor sit amet"
+          }
+        },
+        "1538751410356": {
+          "type": "item",
+          "settings": {
+            "page_name": "",
+            "grid": 4,
+            "image": "shopify://shop_images/09_4efe625d-9d5b-4f1e-a111-53c058b6204c.png",
+            "image_size": 500,
+            "text_line_01": "SHORTS",
+            "text_line_02": "Lorem ipsum dolor sit amet"
+          }
+        },
+        "1538751452219": {
+          "type": "item",
+          "settings": {
+            "page_name": "",
+            "grid": 4,
+            "image": "shopify://shop_images/07_7c8cdcee-f0b4-4bd6-8f99-0e1b55d144da.png",
+            "image_size": 500,
+            "text_line_01": "ACCESSORIES",
+            "text_line_02": "Lorem ipsum dolor sit amet"
+          }
+        }
+      },
+      "block_order": [
+        "1538750989796",
+        "1538751247440",
+        "1538751255150",
+        "1538751296926",
+        "1538751341984",
+        "1538751381554",
+        "1538751390330",
+        "1538751410356",
+        "1538751452219"
+      ],
+      "settings": {
+        "container": "fullwidth",
+        "masonry_enable": true
+      }
+    },
+    "1628284369dc32299f": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 60,
+        "margin_bottom": 60,
+        "margin_top_mobile": 0,
+        "margin_bottom_mobile": 0,
+        "container": "boxed",
+        "show_separator": false,
+        "title": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "162828402927bff6c5",
+    "1628284369dc32299f"
+  ]
+}

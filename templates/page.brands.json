@@ -1,0 +1,142 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "show_title": true,
+        "show_content": false
+      }
+    },
+    "16341651619cb89519": {
+      "type": "carousel-brands",
+      "blocks": {
+        "1586283438841": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/Group_2.1.png",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Calvin%20Klein"
+          }
+        },
+        "1586283440593": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/brand1_81ea27f2-5624-415f-aab1-3c2df96291d2.png",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Calvin%20Klein"
+          }
+        },
+        "1586283442261": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/Group_2.3.png",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Calvin%20Klein"
+          }
+        },
+        "1586283444209": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/Group_2.4.png",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Calvin%20Klein"
+          }
+        },
+        "1586283447563": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/brand2_6d31d9ee-ee7a-4ea9-8024-f7f0133b9d59.png",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Calvin%20Klein"
+          }
+        },
+        "1586283449137": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/Group_2.png",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Calvin%20Klein"
+          }
+        },
+        "1586283451048": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/Group_2.3_2ff74e96-f2fa-4969-87c2-eaf4c8cd9bee.png",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Calvin%20Klein"
+          }
+        },
+        "1586283452306": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/brand1_81ea27f2-5624-415f-aab1-3c2df96291d2.png",
+            "link": "https://shella-demo.myshopify.com/collections/vendors?q=Calvin%20Klein"
+          }
+        }
+      },
+      "block_order": [
+        "1586283438841",
+        "1586283440593",
+        "1586283442261",
+        "1586283444209",
+        "1586283447563",
+        "1586283449137",
+        "1586283451048",
+        "1586283452306"
+      ],
+      "settings": {
+        "title": "",
+        "layout": "slider",
+        "size_of_columns": "6",
+        "image_max_width": 0,
+        "bordered_links": true,
+        "border_radius": "",
+        "autoplay": true,
+        "speed": 5,
+        "infinite": true,
+        "arrows": true,
+        "bullets": false
+      }
+    },
+    "163416549513daa6b7": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 60,
+        "margin_bottom": 0,
+        "margin_top_mobile": 0,
+        "margin_bottom_mobile": 0,
+        "container": "boxed",
+        "show_separator": false,
+        "title": ""
+      }
+    },
+    "1634165150d64bd05d": {
+      "type": "brands",
+      "settings": {
+        "title": "",
+        "alphabet": "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,#"
+      }
+    },
+    "1634165155e71dd074": {
+      "type": "spacer",
+      "settings": {
+        "margin_top": 60,
+        "margin_bottom": 0,
+        "margin_top_mobile": 0,
+        "margin_bottom_mobile": 0,
+        "container": "boxed",
+        "show_separator": false,
+        "title": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "16341651619cb89519",
+    "163416549513daa6b7",
+    "1634165150d64bd05d",
+    "1634165155e71dd074"
+  ]
+}

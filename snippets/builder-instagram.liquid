@@ -1,0 +1,88 @@
+{%- case block.settings.size_of_images -%}
+    {%- when '1' -%}{%- assign inner_grid = 'col-12' -%}
+    {%- when '2' -%}{%- assign inner_grid = 'col-6' -%}
+    {%- when '3' -%}{%- assign inner_grid = 'col-4' -%}
+    {%- when '4' -%}{%- assign inner_grid = 'col-3' -%}
+    {%- when '5' -%}{%- assign inner_grid = 'col-2-5' -%}
+    {%- when '6' -%}{%- assign inner_grid = 'col-4 col-md-2' -%}
+    {%- when '6-4' -%}{%- assign inner_grid = 'col-3 col-lg-2' -%}
+    {%- when '12' -%}{%- assign inner_grid = 'col-3 col-md-2 col-lg-1' -%}
+{%- endcase -%}
+{%- assign fixed_height = block.settings.fixed_height -%}
+{%- for inner_block in section.blocks offset: forloop.index -%}
+    {%- if inner_block.type != 'instagram_block' -%}
+        {%- break -%}
+    {%- endif -%}
+    {% capture instagram_blocks %}
+        {{ instagram_blocks }}
+        <div class="instafeed__item {{ inner_grid }}{% unless block.settings.inner_disable_paddings %} mb-10 mb-lg-30{% endunless %}">
+            <a href="{{ inner_block.settings.url | default: '#' }}" class="d-block position-relative" target="_blank">
+                {%- if fixed_height > 0 -%}
+                    {% render 'rimage' with image: inner_block.settings.image format: 'pjpg' height_procent: fixed_height stretch_size: 'cover' disable_lazyload: block.settings.disable_lazyload %}
+                {%- else -%}
+                    {% render 'rimage' with image: inner_block.settings.image format: 'pjpg' stretch_size: 'cover' disable_lazyload: block.settings.disable_lazyload %}
+                {%- endif -%}
+                <div class="instafeed__curtain absolute-stretch d-none d-lg-flex flex-lg-center">
+                    {%- if block.settings.show_post_details -%}
+                        {% if inner_block.settings.likes != blank %}
+                            <div class="d-flex position-relative align-items-center mr-15">
+                                <i class="mr-5">{% render 'icon-theme-180' %}</i>
+                                <span class="mt-2">{{ inner_block.settings.likes }}</span>
+                            </div>
+                        {%- endif -%}
+                        {% if inner_block.settings.comments != blank %}
+                            <div class="d-flex position-relative align-items-center">
+                                <i class="mr-5">{% render 'icon-theme-176' %}</i>
+                                <span class="mt-2">{{ inner_block.settings.comments }}</span>
+                            </div>
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+            </a>
+        </div>
+    {% endcapture %}
+{%- endfor -%}
+{%- if instagram_blocks -%}
+    <div class="instafeed row{% if block.settings.inner_disable_paddings %} no-gutters{% endif %} position-relative">
+        {{ instagram_blocks }}
+    </div>
+{%- elsif block.settings.user_name != blank or block.settings.tag != blank -%}
+    <div id="instafeed"
+         class="instafeed d-none row justify-content-center{% if block.settings.inner_disable_paddings %} no-gutters{% endif %} position-relative"
+         {%- if block.settings.tag != blank %}
+         data-tag="{{ block.settings.tag }}"
+         {%- else -%}
+         data-username="{{ block.settings.user_name }}"
+         {%- endif %}
+         data-limit="{{ block.settings.limit }}"
+         data-size="{{ home_builder_instagram_image_size }}">
+        <template>
+            <div>
+                <div class="instafeed__item {{ inner_grid }}{% unless block.settings.inner_disable_paddings %} mb-10 mb-lg-30{% endunless %}">
+                    <a href="post-link" class="d-block position-relative" target="_blank">
+                        {%- if fixed_height > 0 -%}
+                            {% render 'rimage' with custom_src: 'post-image' height_procent: fixed_height stretch_size: 'cover' disable_lazyload: block.settings.disable_lazyload %}
+                        {%- else -%}
+                            <img src="" {% unless block.settings.disable_lazyload %}data-{% endunless %}srcset="post-image"{% unless block.settings.disable_lazyload %} class="lazyload"{% endunless %} alt="Instagram">
+                        {%- endif -%}
+                        <div class="instafeed__curtain absolute-stretch d-none d-lg-flex flex-lg-center">
+                            {%- if block.settings.show_post_details -%}
+                                <div class="d-flex position-relative align-items-center mr-15">
+                                    <i class="mr-5">{% render 'icon-theme-180' %}</i>
+                                    <span class="mt-2">post-likes</span>
+                                </div>
+                                <div class="d-flex position-relative align-items-center">
+                                    <i class="mr-5">{% render 'icon-theme-176' %}</i>
+                                    <span class="mt-2">post-comments</span>
+                                </div>
+                            {%- endif -%}
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </template>
+    </div>
+    <script>
+        theme.AssetsLoader.require('scripts', 'plugin_instafeed');
+    </script>
+{%- endif -%}

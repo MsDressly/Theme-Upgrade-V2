@@ -1,0 +1,231 @@
+{%- if section.blocks.size > 0 -%}
+    {% include 'global-variables' %}
+    <carousel-brands class="d-block" data-section-id="{{ section.id }}" data-section-type="carousel-brands">
+        <div class="container">
+            {%- if section.settings.layout == 'slider' -%}
+            <div class="carousel carousel--preload-spacer{% if section.settings.arrows %} carousel--arrows{% endif %} carousel-brands position-relative">
+                {%- if section.settings.title != blank -%}
+                    <h2 class="h4 carousel__title home-section-title mb-30 text-center">{{ section.settings.title }}</h2>
+                {%- endif -%}
+                <div class="carousel__slider position-relative invisible js-slider-tracking"
+                     data-js-carousel
+                     data-autoplay="{{ section.settings.autoplay }}"
+                     data-speed="{{ section.settings.speed | times: 1000 }}"
+                     data-count="{{ section.settings.size_of_columns }}"
+                     data-infinite="{{ section.settings.infinite }}"
+                     data-arrows="{{ section.settings.arrows }}"
+                     data-bullets="{{ section.settings.bullets }}">
+                    {%- if section.settings.arrows -%}
+                        <div class="carousel__prev-placeholder position-absolute cursor-pointer" data-js-carousel-prev></div>
+                        <div class="carousel__prev position-absolute pointer-events-none" data-js-carousel-arrow><i>{% render 'icon-theme-006' %}</i></div>
+                    {%- endif -%}
+                    <div class="carousel__items overflow-hidden">
+                        <div class="carousel__slick" data-js-carousel-slick>
+                            {%- for block in section.blocks -%}
+                                {%- assign link = block.settings.link -%}
+                                <{% if link != blank %}a href="{{ link }}"{% else %}div{% endif %} class="carousel__item promobox position-relative d-flex align-items-center justify-content-center">
+                                    <div class="w-100"{% if section.settings.image_max_width > 0 %} style="max-width: {{ section.settings.image_max_width }}px;"{% endif %}>
+                                        <div class="overflow-hidden"{% if section.settings.border_radius != blank %} style="border-radius: {{ section.settings.border_radius }}"{% endif %}>
+                                            {% render 'rimage' with image: block.settings.image size: '400x' image_class: 'w-100' disable_lazyload: carousel_brands_image_lazyload_disable scale: 2 %}
+                                        </div>
+                                    </div>
+                                    {%- if section.settings.bordered_links and link != blank -%}
+                                        <div class="promobox__border promobox__border--only-hover absolute-stretch"{% if section.settings.border_radius != blank %} style="border-radius: {{ section.settings.border_radius }}"{% endif %}></div>
+                                    {%- endif -%}
+                                </{% if link != blank %}a{% else %}div{% endif %}>
+                            {%- endfor -%}
+                        </div>
+                    </div>
+                    {%- if section.settings.arrows -%}
+                        <div class="carousel__next-placeholder position-absolute cursor-pointer" data-js-carousel-next></div>
+                        <div class="carousel__next position-absolute pointer-events-none" data-js-carousel-arrow><i>{% render 'icon-theme-007' %}</i></div>
+                    {%- endif -%}
+                </div>
+            </div>
+            {%- elsif section.settings.layout == 'grid' -%}
+                {%- if section.settings.title != blank -%}
+                    <h2 class="h4 carousel__title home-section-title mb-30 text-center">{{ section.settings.title }}</h2>
+                {%- endif -%}
+                <div class="row justify-content-center">
+                    {%- for block in section.blocks -%}
+                        <div class="col-4 col-sm-3 col-lg-2 mb-15 mb-lg-30">
+                            {%- assign link = block.settings.link -%}
+                            <{% if link != blank %}a href="{{ link }}"{% else %}div{% endif %} class="promobox w-100 position-relative">
+                                <div class="overflow-hidden"{% if section.settings.border_radius != blank %} style="border-radius: {{ section.settings.border_radius }}"{% endif %}>
+                                    {% render 'rimage' with image: block.settings.image size: '400x' image_class: 'w-100' disable_lazyload: carousel_brands_image_lazyload_disable scale: 2 %}
+                                </div>
+                                {%- if section.settings.bordered_links and link != blank -%}
+                                    <div class="promobox__border promobox__border--only-hover absolute-stretch"{% if section.settings.border_radius != blank %} style="border-radius: {{ section.settings.border_radius }}"{% endif %}></div>
+                                {%- endif -%}
+                            </{% if link != blank %}a{% else %}div{% endif %}>
+                        </div>
+                    {%- endfor -%}
+                </div>
+            {%- endif -%}
+        </div>
+    </carousel-brands>
+
+    <script>
+        theme.AssetsLoader.require('scripts', 'carousel_brands');
+    </script>
+{%- else -%}
+    {% render 'no-blocks' %}
+{%- endif -%}
+
+
+{% schema %}{
+    "name": "t:sections.brand_carousel.name",
+    "settings": [
+        {
+            "type": "textarea",
+            "id": "title",
+            "label": "t:sections.brand_carousel.settings.title.label"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.brand_carousel.settings.header__1.content"
+        },
+        {
+            "type": "select",
+            "id": "layout",
+            "label": "t:sections.brand_carousel.settings.layout.label",
+            "default": "slider",
+            "options": [
+                {
+                    "value": "slider",
+                    "label": "t:sections.brand_carousel.settings.layout.option__1.label"
+                },
+                {
+                    "value": "grid",
+                    "label": "t:sections.brand_carousel.settings.layout.option__2.label"
+                }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "size_of_columns",
+            "label": "t:sections.brand_carousel.settings.size_of_columns.label",
+            "info": "t:sections.brand_carousel.settings.size_of_columns.info",
+            "default": "6",
+            "options": [
+                {
+                    "value": "4",
+                    "label": "t:sections.brand_carousel.settings.size_of_columns.option__1.label"
+                },
+                {
+                    "value": "5",
+                    "label": "t:sections.brand_carousel.settings.size_of_columns.option__2.label"
+                },
+                {
+                    "value": "6",
+                    "label": "t:sections.brand_carousel.settings.size_of_columns.option__3.label"
+                },
+                {
+                    "value": "7",
+                    "label": "t:sections.brand_carousel.settings.size_of_columns.option__4.label"
+                },
+                {
+                    "value": "8",
+                    "label": "t:sections.brand_carousel.settings.size_of_columns.option__5.label"
+                }
+            ]
+        },
+        {
+            "type": "range",
+            "id": "image_max_width",
+            "min": 0,
+            "max": 200,
+            "step": 10,
+            "unit": "px",
+            "label": "t:sections.brand_carousel.settings.image_max_width.label",
+            "info": "t:sections.brand_carousel.settings.image_max_width.info",
+            "default": 0
+        },
+        {
+            "type": "checkbox",
+            "id": "bordered_links",
+            "label": "t:sections.brand_carousel.settings.bordered_links.label",
+            "default": true
+        },
+        {
+            "type": "text",
+            "id": "border_radius",
+            "label": "t:sections.brand_carousel.settings.border_radius.label",
+            "info": "t:sections.brand_carousel.settings.border_radius.info"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.brand_carousel.settings.header__2.content"
+        },
+        {
+            "type": "checkbox",
+            "id": "autoplay",
+            "label": "t:sections.brand_carousel.settings.autoplay.label",
+            "default": true
+        },
+        {
+            "type": "range",
+            "id": "speed",
+            "min": 2,
+            "max": 10,
+            "step": 1,
+            "label": "t:sections.brand_carousel.settings.speed.label",
+            "default": 5
+        },
+        {
+            "type": "checkbox",
+            "id": "infinite",
+            "label": "t:sections.brand_carousel.settings.infinite.label",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "arrows",
+            "label": "t:sections.brand_carousel.settings.arrows.label",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "bullets",
+            "label": "t:sections.brand_carousel.settings.bullets.label",
+            "default": false
+        },
+        {
+            "type": "header",
+            "content": "t:sections.brand_carousel.settings.header__3.content"
+        },
+        {
+            "type": "paragraph",
+            "content": "t:sections.brand_carousel.settings.paragraph__1.content"
+        },
+        {
+            "type": "paragraph",
+            "content": "t:sections.brand_carousel.settings.paragraph__2.content"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "brand",
+            "name": "t:sections.brand_carousel.blocks.brand.name",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "t:sections.brand_carousel.blocks.brand.settings.image.label"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "t:sections.brand_carousel.blocks.brand.settings.link.label",
+                    "info": "t:sections.brand_carousel.blocks.brand.settings.link.info"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Brand carousel",
+            "category": "2) Carousels"
+        }
+    ]
+}{% endschema %}

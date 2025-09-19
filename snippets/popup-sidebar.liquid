@@ -1,0 +1,19 @@
+<div class="popup-sidebar{% if template.name == 'collection' or template.name == 'search' %} popup-sidebar--width-md{% elsif template contains 'blog' or template contains 'article' %} popup-sidebar--width-lg{% endif %} py-30 px-20" data-popup-content>
+    <div class="popup-sidebar__head">
+        <div class="popup-sidebar__close d-flex align-items-center cursor-pointer" data-js-popup-close>
+            {%- if template.name == 'collection' or template.name == 'search' and settings.collection_sidebar_position == 'dropdown' -%}
+                <i class="mr-lg-5">{% render 'icon-theme-164' %}</i>
+                <span class="d-none d-lg-inline">{{ 'general.popups.sidebar.button_close' | t }}</span>
+            {%- elsif template.name == 'blog' and settings.blog_sidebar_position == 'dropdown' -%}
+                <i class="mr-lg-5">{% render 'icon-theme-164' %}</i>
+                <span class="d-none d-lg-inline">{{ 'general.popups.sidebar.button_close' | t }}</span>
+            {%- elsif template.name == 'article' and settings.article_sidebar_position == 'dropdown' -%}
+                <i class="mr-lg-5">{% render 'icon-theme-164' %}</i>
+                <span class="d-none d-lg-inline">{{ 'general.popups.sidebar.button_close' | t }}</span>
+            {%- else -%}
+                <i>{% render 'icon-theme-164' %}</i>
+            {%- endif -%}
+        </div>
+    </div>
+    <div class="popup-sidebar__content collection-sidebar-type-1 pt-20"{% if settings.collection_sidebar_position == 'dropdown' and template.name == 'collection' or template.name == 'search' %} data-js-position-all="sidebar"{% elsif template contains 'blog' and settings.blog_sidebar_position == 'dropdown' %} data-js-position-all="sidebar"{% elsif template contains 'article' and settings.article_sidebar_position == 'dropdown' %} data-js-position-all="sidebar"{% else %} data-js-position-mobile="sidebar"{% endif %}></div>
+</div>

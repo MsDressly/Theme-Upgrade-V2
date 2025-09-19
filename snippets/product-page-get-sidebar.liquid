@@ -1,0 +1,34 @@
+<!-- snippets/product-page-get-sidebar.liquid -->
+<div class="row mt-40 mt-md-60 mt-xl-0">
+    {%- for block in section.blocks -%}
+        {%- case block.type -%}
+            {%- when 'sidebar_custom_html' -%}
+                {% capture sidebar_custom_html %}{% include 'parse-page-html-content' with default_page: 'include-product-sidebar-custom-html' page_content: block.settings.page_content %}{% endcapture %}
+                {%- if sidebar_custom_html != blank -%}
+                    <div class="col-12 col-md-6 col-xl-12 pb-20 pb-xl-0{% if forloop.index0 > 0 %} mt-30{% endif %}">
+                        {{ sidebar_custom_html }}
+                    </div>
+                {%- endif -%}
+            {%- when 'sidebar_products' -%}
+                {%- assign products = collections[block.settings.collection].products -%}
+                {%- assign limit = block.settings.max_count -%}
+                {%- if limit == 0 -%}
+                    {%- assign limit = products.size -%}
+                {%- endif -%}
+                {%- if products.size > 0 -%}
+                    <div class="col-12 col-md-6 col-xl-12 pb-20 pb-xl-0{% if forloop.index0 > 0 %} mt-30{% endif %}">
+                        {%- if block.settings.title != blank -%}
+                            <h5 class="mb-10">{{ block.settings.title }}</h5>
+                        {%- endif -%}
+                        {%- for product in products limit: limit -%}
+                            {%- if block.settings.product_type == 'full' -%}
+                                {% include 'product-collection' %}
+                            {%- else -%}
+                                {% include 'product-featured' %}
+                            {%- endif -%}
+                        {%- endfor -%}
+                    </div>
+                {%- endif -%}
+        {%- endcase -%}
+    {%- endfor -%}
+</div>

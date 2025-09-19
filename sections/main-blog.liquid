@@ -1,0 +1,460 @@
+<div data-section-id="{{ section.id }}" data-section-type="blog">
+    <div class="blogs pb-1">
+        <div class="container">
+            <div class="row pb-60">
+                {%- if settings.blog_show_sidebar != 'hide' -%}
+                    {%- if settings.blog_sidebar_position == 'dropdown' -%}
+                        <div class="blogs__sidebar d-none">
+                            {% include 'blog-sidebar' with section as section %}
+                        </div>
+                    {%- else -%}
+                    <div class="blogs__sidebar blogs__sidebar--width-md blogs__sidebar--offset-bottom d-none d-lg-block col-auto{% if settings.blog_sidebar_position == 'right' %} order-2{% endif %}{% if settings.blog_enable_sticky %} sticky-sidebar-lg js-sticky-sidebar{% endif %}">
+                        {%- if settings.blog_enable_sticky -%}
+                        <div data-js-sticky-sidebar-body>
+                        {%- endif -%}
+                            <div data-js-position-desktop="sidebar">
+                                {% include 'blog-sidebar' with section as section %}
+                            </div>
+                        {%- if settings.blog_enable_sticky -%}
+                        </div>
+                        {%- endif -%}
+                    </div>
+                    {%- endif -%}
+                {%- endif -%}
+                <div class="blogs__body col">
+                    <div class="blog-body mt-30">
+                        {% paginate blog.articles by section.settings.max_posts %}
+                            {%- assign blog_title = blog.title -%}
+                            {%- if current_tags -%}
+                                {% capture blog_title %}{{ blog.title | link_to: blog.url }} &mdash; {{ current_tags.first }}{% endcapture %}
+                            {%- endif -%}
+                            {%- if  section.settings.show_title -%}
+                                <h1 class="h3 mb-40 text-center">{{ blog_title }}</h1>
+                            {%- endif -%}
+                            {%- if settings.blog_show_sidebar != 'hide' -%}
+                                {%- if settings.blog_show_sidebar != 'hide' and settings.blog_sidebar_position == 'dropdown' -%}
+                                    {%- assign desktop_need_button = true -%}
+                                {%- endif -%}
+                                {%- if settings.blog_show_sidebar == 'desktop_and_mobile' -%}
+                                    {%- assign mobile_need_button = true -%}
+                                {%- endif -%}
+                                <div class="{% if mobile_need_button == true %}d-flex{% else %}d-none{% endif %}{% if desktop_need_button == true %} d-lg-flex{% else %} d-lg-none{% endif %} mb-15">
+                                    <div class="blog-body__button-sidebar d-flex align-items-center cursor-pointer js-popup-button" data-js-popup-button="sidebar">
+                                        <i class="mr-5">{% render 'icon-theme-084' %}</i>
+                                        {{ 'blogs.general.button_sidebar' | t }}
+                                    </div>
+                                </div>
+                            {%- endif -%}
+                            {%- if blog.articles.size -%}
+                                {%- if section.settings.type == '1' -%}
+                                    {%- for article in blog.articles -%}
+                                        <div class="post post--limit-width mb-40 text-center">
+                                            {%- unless forloop.first -%}
+                                                <div class="border-top mb-35"></div>
+                                            {%- endunless -%}
+                                            {%- if section.settings.show_tags and article.tags.size > 0 -%}
+                                                <div class="mb-15">
+                                                    {%- for tag in article.tags -%}
+                                                        <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="link-revert text-underline-hover font-italic">{{ tag | upcase }}</a>
+                                                        {% unless forloop.last %}, {% endunless %}
+                                                    {%- endfor -%}
+                                                </div>
+                                            {%- endif -%}
+                                            <h3 class="mb-15"><a href="{{ article.url }}">{{ article.title }}</a></h3>
+                                            {%- if section.settings.show_information -%}
+                                                {% capture author %}{{ article.author | upcase }}{% endcapture %}
+                                                {% capture date %}{{ article.published_at | time_tag: format: 'month_day_year' }}{% endcapture %}
+                                                <p class="mb-0 font-italic">{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>
+                                            {%- endif -%}
+                                            {%- if section.settings.show_image and article.image -%}
+                                                <a href="{{ article.url }}" class="d-block mt-25 overflow-hidden">
+                                                    {% render 'rimage' with image: article.image size: '1024x' format: 'pjpg' alt: article.title image_class: 'w-100' %}
+                                                </a>
+                                            {%- endif -%}
+                                            {%- if section.settings.show_content -%}
+                                                {%- if article.excerpt.size > 0 or article.content.size > 0 -%}
+                                                    <div class="rte mt-30">
+                                                        {%- if article.excerpt.size > 0 -%}
+                                                            {{ article.excerpt }}
+                                                        {%- else -%}
+                                                            <p class="mb-0">{{ article.content | strip_html | truncatewords: section.settings.max_post_content_length }}</p>
+                                                        {%- endif -%}
+                                                    </div>
+                                                {%- endif -%}
+                                            {%- endif -%}
+                                            {%- if section.settings.show_button or section.settings.show_comments -%}
+                                                {%- unless section.settings.show_button != true and article.comments_count == 0 and section.settings.show_empty_comments != true -%}
+                                                    <div class="d-flex flex-column flex-lg-row flex-center position-relative mt-25">
+                                                        {%- if section.settings.show_button -%}
+                                                            <a href="{{ article.url }}" class="btn">{{ 'blogs.article.read_more' | t }}</a>
+                                                        {%- endif -%}
+                                                        {%- if section.settings.show_comments and blog.comments_enabled? -%}
+                                                            {%- unless article.comments_count == 0 and section.settings.show_empty_comments != true -%}
+                                                                <a href="{{ article.url }}#comments" class="d-flex flex-center position-lg-absolute mt-20 mt-lg-0 ml-lg-auto right-lg-0">
+                                                                    <i>{% render 'icon-theme-196' %}</i>
+                                                                    <span class="ml-8">{{ 'blogs.comments.with_count' | t: count: article.comments_count }}</span>
+                                                                </a>
+                                                            {%- endunless -%}
+                                                        {%- endif -%}
+                                                    </div>
+                                                {%- endunless -%}
+                                            {%- endif -%}
+                                        </div>
+                                    {%- endfor -%}
+                                {%- else -%}
+                                    <div class="row{% if section.settings.masonry_enable %} masonry invisible{% endif %}">
+                                        {%- for article in blog.articles -%}
+                                            <div class="col col-md-{{ section.settings.type }}">
+                                                <div class="post mb-55 text-center">
+                                                    {%- if section.settings.show_image and article.image -%}
+                                                        <a href="{{ article.url }}" class="d-block mb-15 overflow-hidden">
+                                                            {% render 'rimage' with image: article.image size: '1024x' format: 'pjpg' alt: article.title image_class: 'w-100' %}
+                                                        </a>
+                                                    {%- endif -%}
+                                                    <div class="post__hidden-info d-none position-relative">
+                                                        <div class="position-absolute top-0 left-0 right-0 pb-15">
+                                                            {%- if section.settings.show_tags and article.tags.size > 0 -%}
+                                                                <div class="mb-10">
+                                                                    {%- for tag in article.tags -%}
+                                                                        <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="link-revert text-underline-hover font-italic">{{ tag | upcase }}</a>
+                                                                        {% unless forloop.last %}, {% endunless %}
+                                                                    {%- endfor -%}
+                                                                </div>
+                                                            {%- endif -%}
+                                                            <h3 class="h4 mb-15"><a href="{{ article.url }}">{{ article.title }}</a></h3>
+                                                            {%- if section.settings.show_information -%}
+                                                                {% capture author %}{{ article.author | upcase }}{% endcapture %}
+                                                                {% capture date %}{{ article.published_at | time_tag: format: 'month_day_year' }}{% endcapture %}
+                                                                <p class="mb-0 font-italic">{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>
+                                                            {%- endif -%}
+                                                            {%- if section.settings.show_content -%}
+                                                                {%- if article.excerpt.size > 0 or article.content.size > 0 -%}
+                                                                    <div class="rte mt-15">
+                                                                        {%- if article.excerpt.size > 0 -%}
+                                                                            {{ article.excerpt }}
+                                                                        {%- else -%}
+                                                                            <p class="mb-0">{{ article.content | strip_html | truncatewords: section.settings.max_post_content_length }}</p>
+                                                                        {%- endif -%}
+                                                                    </div>
+                                                                {%- endif -%}
+                                                            {%- endif -%}
+                                                            {%- if section.settings.show_button or section.settings.show_comments -%}
+                                                                {%- unless section.settings.show_button != true and article.comments_count == 0 and section.settings.show_empty_comments != true -%}
+                                                                    <div class="d-flex flex-column align-items-center position-relative">
+                                                                        {%- if section.settings.show_button -%}
+                                                                            <a href="{{ article.url }}" class="btn mt-15">{{ 'blogs.article.read_more' | t }}</a>
+                                                                        {%- endif -%}
+                                                                        {%- if section.settings.show_comments and blog.comments_enabled? -%}
+                                                                            {%- unless article.comments_count == 0 and section.settings.show_empty_comments != true -%}
+                                                                                <a href="{{ article.url }}#comments" class="d-flex flex-center mt-30">
+                                                                                    <i>{% render 'icon-theme-196' %}</i>
+                                                                                    <span class="ml-8">{{ 'blogs.comments.with_count' | t: count: article.comments_count }}</span>
+                                                                                </a>
+                                                                            {%- endunless -%}
+                                                                        {%- endif -%}
+                                                                    </div>
+                                                                {%- endunless -%}
+                                                            {%- endif -%}
+                                                        </div>
+                                                    </div>
+                                                    <h3 class="h4 mb-15"><a href="{{ article.url }}">{{ article.title }}</a></h3>
+                                                    {%- if section.settings.show_information -%}
+                                                        {% capture author %}{{ article.author | upcase }}{% endcapture %}
+                                                        {% capture date %}{{ article.published_at | time_tag: format: 'month_day_year' }}{% endcapture %}
+                                                        <p class="mb-0 font-italic">{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>
+                                                    {%- endif -%}
+                                                </div>
+                                            </div>
+                                        {%- endfor -%}
+                                    </div>
+                                {%- endif -%}
+                                {%- if paginate.pages > 1 -%}
+                                    {% render 'pagination', paginate: paginate, pagination_margin: 'mt-0' %}
+                                {%- endif -%}
+                            {%- endif -%}
+                        {% endpaginate %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {%- if settings.blog_enable_sticky -%}
+        <script>
+            theme.AssetsLoader.require('scripts', 'sticky_sidebar');
+        </script>
+    {%- endif -%}
+</div>
+{%- if section.settings.masonry_enable -%}
+    <script>
+        theme.AssetsLoader.require('scripts', 'masonry');
+    </script>
+{%- endif -%}
+
+
+{% schema %}{
+    "name": "t:sections.content_and_sidebar.name",
+    "settings": [
+        {
+            "type": "header",
+            "content": "t:sections.content_and_sidebar.settings.header__1.content"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_title",
+            "label": "t:sections.content_and_sidebar.settings.show_title.label",
+            "default": false
+        },
+        {
+            "type": "select",
+            "id": "type",
+            "label": "t:sections.content_and_sidebar.settings.type.label",
+            "default": "1",
+            "options": [
+                {
+                    "value": "1",
+                    "label": "t:sections.content_and_sidebar.settings.type.option__1.label"
+                },
+                {
+                    "value": "6",
+                    "label": "t:sections.content_and_sidebar.settings.type.option__2.label"
+                },
+                {
+                    "value": "4",
+                    "label": "t:sections.content_and_sidebar.settings.type.option__3.label"
+                },
+                {
+                    "value": "3",
+                    "label": "t:sections.content_and_sidebar.settings.type.option__4.label"
+                },
+                {
+                    "value": "2",
+                    "label": "t:sections.content_and_sidebar.settings.type.option__5.label"
+                }
+            ]
+        },
+        {
+            "type": "checkbox",
+            "id": "masonry_enable",
+            "label": "t:sections.content_and_sidebar.settings.masonry_enable.label",
+            "info": "t:sections.content_and_sidebar.settings.masonry_enable.info",
+            "default": true
+        },
+        {
+            "type": "range",
+            "id": "max_posts",
+            "min": 3,
+            "max": 24,
+            "step": 1,
+            "default": 12,
+            "label": "t:sections.content_and_sidebar.settings.max_posts.label"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.content_and_sidebar.settings.header__2.content"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_image",
+            "label": "t:sections.content_and_sidebar.settings.show_image.label",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "show_information",
+            "label": "t:sections.content_and_sidebar.settings.show_information.label",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "show_tags",
+            "label": "t:sections.content_and_sidebar.settings.show_tags.label",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "show_content",
+            "label": "t:sections.content_and_sidebar.settings.show_content.label",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "show_button",
+            "label": "t:sections.content_and_sidebar.settings.show_button.label",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "show_comments",
+            "label": "t:sections.content_and_sidebar.settings.show_comments.label",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "show_empty_comments",
+            "label": "t:sections.content_and_sidebar.settings.show_empty_comments.label",
+            "default": true
+        },
+        {
+            "type": "range",
+            "id": "max_post_content_length",
+            "min": 10,
+            "max": 200,
+            "step": 10,
+            "default": 100,
+            "label": "t:sections.content_and_sidebar.settings.max_post_content_length.label"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.content_and_sidebar.settings.header__3.content"
+        },
+        {
+            "type": "paragraph",
+            "content": "t:sections.content_and_sidebar.settings.paragraph__1.content"
+        },
+        {
+            "type": "paragraph",
+            "content": "t:sections.content_and_sidebar.settings.paragraph__2.content"
+        },
+        {
+            "type": "paragraph",
+            "content": "t:sections.content_and_sidebar.settings.paragraph__3.content"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "categories",
+            "name": "t:sections.content_and_sidebar.blocks.categories.name",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "t:sections.content_and_sidebar.blocks.categories.settings.title.label",
+                    "default": "CATEGORIES"
+                },
+                {
+                    "type": "link_list",
+                    "id": "menu",
+                    "label": "t:sections.content_and_sidebar.blocks.categories.settings.menu.label"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "show_border",
+                    "label": "t:sections.content_and_sidebar.blocks.categories.settings.show_border.label",
+                    "default": true
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.content_and_sidebar.blocks.categories.settings.header__1.content"
+                },
+                {
+                    "type": "paragraph",
+                    "content": "t:sections.content_and_sidebar.blocks.categories.settings.paragraph__1.content"
+                }
+            ]
+        },
+        {
+            "type": "tags",
+            "name": "t:sections.content_and_sidebar.blocks.tags.name",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "t:sections.content_and_sidebar.blocks.tags.settings.title.label",
+                    "default": "TAGS"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "show_border",
+                    "label": "t:sections.content_and_sidebar.blocks.tags.settings.show_border.label",
+                    "default": true
+                }
+            ]
+        },
+        {
+            "type": "recents",
+            "name": "t:sections.content_and_sidebar.blocks.recents.name",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "t:sections.content_and_sidebar.blocks.recents.settings.title.label",
+                    "default": "RECENT POSTS"
+                },
+                {
+                    "type": "link_list",
+                    "id": "menu",
+                    "label": "t:sections.content_and_sidebar.blocks.recents.settings.menu.label"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "show_border",
+                    "label": "t:sections.content_and_sidebar.blocks.recents.settings.show_border.label",
+                    "default": true
+                }
+            ]
+        },
+        {
+            "type": "html",
+            "name": "t:sections.content_and_sidebar.blocks.html.name",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "t:sections.content_and_sidebar.blocks.html.settings.title.label",
+                    "default": "ABOUT"
+                },
+                {
+                    "type": "page",
+                    "id": "page_content",
+                    "label": "t:sections.content_and_sidebar.blocks.html.settings.page_content.label",
+                    "info": "t:sections.content_and_sidebar.blocks.html.settings.page_content.info"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "show_border",
+                    "label": "t:sections.content_and_sidebar.blocks.html.settings.show_border.label",
+                    "default": true
+                }
+            ]
+        },
+        {
+            "type": "subscription",
+            "name": "t:sections.content_and_sidebar.blocks.subscription.name",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "t:sections.content_and_sidebar.blocks.subscription.settings.title.label",
+                    "default": "NEWSLETTER SUBSCRIPTION"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "show_border",
+                    "label": "t:sections.content_and_sidebar.blocks.subscription.settings.show_border.label",
+                    "default": false
+                },
+                {
+                    "type": "text",
+                    "id": "paragraph",
+                    "label": "t:sections.content_and_sidebar.blocks.subscription.settings.paragraph.label",
+                    "default": "Sign up for Shella updates to receive information about new arrivals, future events and specials."
+                },
+                {
+                    "type": "text",
+                    "id": "button_text",
+                    "label": "t:sections.content_and_sidebar.blocks.subscription.settings.button_text.label",
+                    "default": "SUBSCRIBE!"
+                },
+                {
+                    "type": "text",
+                    "id": "placeholder",
+                    "label": "t:sections.content_and_sidebar.blocks.subscription.settings.placeholder.label",
+                    "default": "Enter your email address"
+                }
+            ]
+        }
+    ]
+}{% endschema %}
