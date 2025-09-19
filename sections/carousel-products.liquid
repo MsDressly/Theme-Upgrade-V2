@@ -1,5 +1,5 @@
 {%- if section.blocks.size > 0 -%}
-    {% include 'global-variables' %}
+    {% render 'global-variables' %}
     {%- assign get_carousel_products_async_ajax_loading = carousel_products_async_ajax_loading -%}
     {%- if request.design_mode -%}
         {%- assign is_design_mode = true -%}
@@ -51,13 +51,13 @@
                                                     <div class="carousel__item col-auto"{% if get_carousel_products_async_ajax_loading %} data-carousel-product-preload data-handle="{{ product.handle }}"{% endif %}>
                                                         {%- if get_carousel_products_async_ajax_loading == false -%}
                                                             {%- assign disable_lazyload = carousel_products_image_lazyload_disable -%}
-                                                            {% include 'product-collection' with url_without_collection: true %}
+                                                            {% render 'product-collection', url_without_collection: true %}
                                                         {%- endif -%}
                                                     </div>
                                                     {%- elsif forloop.index >= limit and forloop.last == true -%}
                                                     <div class="carousel__item col-auto" data-carousel-product-preload data-handle="{{ product.handle }}">
                                                         {%- assign disable_lazyload = carousel_products_image_lazyload_disable -%}
-                                                        {% include 'product-collection' with url_without_collection: true %}
+                                                        {% render 'product-collection', url_without_collection: true %}
                                                     </div>
                                                 {%- else -%}
                                                     <div class="carousel__item col-auto" data-handle="{{ product.handle }}"></div>
@@ -80,7 +80,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {% include 'preloader-spinner' %}
+                            {% render 'preloader-spinner' %}
                         {%- endif -%}
                     </div>
                 </div>
@@ -95,7 +95,8 @@
 {%- endif -%}
 
 
-{% schema %}{
+{% schema %}
+{
     "name": "t:sections.product_carousel.name",
     "settings": [
         {
@@ -228,4 +229,5 @@
             "category": "2) Carousels"
         }
     ]
-}{% endschema %}
+}
+{% endschema %}

@@ -18,9 +18,9 @@
         <div class="instafeed__item {{ inner_grid }}{% unless block.settings.inner_disable_paddings %} mb-10 mb-lg-30{% endunless %}">
             <a href="{{ inner_block.settings.url | default: '#' }}" class="d-block position-relative" target="_blank">
                 {%- if fixed_height > 0 -%}
-                    {% render 'rimage' with image: inner_block.settings.image format: 'pjpg' height_procent: fixed_height stretch_size: 'cover' disable_lazyload: block.settings.disable_lazyload %}
+                    {% render 'rimage', image: inner_block.settings.image, format: 'pjpg', height_procent: fixed_height, stretch_size: 'cover', disable_lazyload: block.settings.disable_lazyload %}
                 {%- else -%}
-                    {% render 'rimage' with image: inner_block.settings.image format: 'pjpg' stretch_size: 'cover' disable_lazyload: block.settings.disable_lazyload %}
+                    {% render 'rimage', image: inner_block.settings.image, format: 'pjpg', stretch_size: 'cover', disable_lazyload: block.settings.disable_lazyload %}
                 {%- endif -%}
                 <div class="instafeed__curtain absolute-stretch d-none d-lg-flex flex-lg-center">
                     {%- if block.settings.show_post_details -%}
@@ -61,7 +61,7 @@
                 <div class="instafeed__item {{ inner_grid }}{% unless block.settings.inner_disable_paddings %} mb-10 mb-lg-30{% endunless %}">
                     <a href="post-link" class="d-block position-relative" target="_blank">
                         {%- if fixed_height > 0 -%}
-                            {% render 'rimage' with custom_src: 'post-image' height_procent: fixed_height stretch_size: 'cover' disable_lazyload: block.settings.disable_lazyload %}
+                            {% render 'rimage', custom_src: 'post-image', height_procent: fixed_height, stretch_size: 'cover', disable_lazyload: block.settings.disable_lazyload %}
                         {%- else -%}
                             <img src="" {% unless block.settings.disable_lazyload %}data-{% endunless %}srcset="post-image"{% unless block.settings.disable_lazyload %} class="lazyload"{% endunless %} alt="Instagram">
                         {%- endif -%}

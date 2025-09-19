@@ -1,4 +1,4 @@
-{% include 'global-variables' %}
+{% render 'global-variables' %}
 {% capture content_html %}
     {%- case section.settings.size_of_columns_mobile -%}
         {%- when '1' -%}{%- assign grid_mobile = 'col-12' -%}
@@ -48,18 +48,18 @@
                     <div class="{{ block_id }}{% if precedence_arr %} order-{{ precedence_arr[forloop.index0] }} order-md-{{ forloop.index }}{% endif %} {% if block.type == 'vertical_menu_spacer' %}col-lg-3 d-none d-lg-block mt-lg-auto invisible pointer-events-none{% else %}{% if block.settings.size_of_column != blank and block.settings.size_of_column != 'auto' %}{{ grid_mobile }} col-md-{{ block.settings.size_of_column }}{% else %}{% if has_vertical_menu_spacer and forloop.index == 2 and section.settings.size_of_columns == '1' %}{{ grid_mobile }} col-lg-9{% else %}{{ grid }}{% endif %}{% endif %} {{ margins_for_columns }}{% if section.settings.align_of_columns contains 'stretch' %}{% if block.settings.visible != 'desktop' %} d-flex{% endif %} flex-column align-items-stretch justify-content-center{% endif %}{% if block.settings.visible != blank %} {% if block.settings.visible == 'desktop' %}d-none d-md-{% if section.settings.align_of_columns contains 'stretch' %}flex{% else %}block{% endif %}{% elsif block.settings.visible == 'mobile' %}d-md-none{% endif %}{% endif %}{% endif %}">
                         {%- case block.type -%}
                         {%- when 'instagram' -%}
-                            {% include 'builder-instagram' %}
+                            {% render 'builder-instagram' %}
                             {%- assign need_home_builder_script = true -%}
                         {%- when 'promobox' -%}
-                            {% render 'promobox' with block: block block_id: block_id promobox_curtain_opacity: promobox_curtain_opacity promobox_height_preset_1: promobox_height_preset_1 promobox_height_preset_2: promobox_height_preset_2 promobox_height_preset_3: promobox_height_preset_3 promobox_ultra_height_preset_1: promobox_ultra_height_preset_1 promobox_ultra_height_preset_3: promobox_ultra_height_preset_3 %}
+                            {% render 'promobox', block: block, block_id: block_id, promobox_curtain_opacity: promobox_curtain_opacity, promobox_height_preset_1: promobox_height_preset_1, promobox_height_preset_2: promobox_height_preset_2, promobox_height_preset_3: promobox_height_preset_3, promobox_ultra_height_preset_1: promobox_ultra_height_preset_1, promobox_ultra_height_preset_3: promobox_ultra_height_preset_3 %}
                             {%- if block.settings.parallax != 'disable' -%}
                                 {%- assign need_home_builder_script = true -%}
                             {%- endif -%}
                         {%- when 'slick_slider' -%}
-                            {% include 'builder-slider-slick' %}
+                            {% render 'builder-slider-slick' %}
                             {%- assign need_home_builder_script = true -%}
                         {%- when 'revolution_slider' -%}
-                            {% include 'builder-slider-revolution' %}
+                            {% render 'builder-slider-revolution' %}
                             {%- assign need_home_builder_script = true -%}
                         {%- when 'products' -%}
                             {%- if block.settings.title != blank -%}
@@ -68,12 +68,12 @@
                             {%- if block.settings.collection != blank -%}
                                 {%- assign products = collections[block.settings.collection].products -%}
                                 {%- for product in products limit: block.settings.max_products -%}
-                                    {% include 'product-featured' %}
+                                    {% render 'product-featured' %}
                                 {%- endfor -%}
                             {%- endif -%}
                         {%- when 'custom_html' -%}
                             <div class="rte">
-                                {% include 'parse-page-html-content' with page_content: block.settings.page_content %}
+                                {% render 'parse-page-html-content', page_content: block.settings.page_content %}
                                 {%- if block.settings.liquid != blank -%}
                                     {{ block.settings.liquid }}
                                 {%- endif -%}
@@ -93,7 +93,7 @@
     </div>
 {% endcapture %}
 <div{% if section.settings.customization_class != blank %} class="{{ section.settings.customization_class }}"{% endif %}>
-    <builder-section data-section-id="{{ section.id }}" data-section-type="home-builder"{% render 'layout-get-container-class' with custom_class: 'd-block' %}>
+    <builder-section data-section-id="{{ section.id }}" data-section-type="home-builder"{% render 'layout-get-container-class', custom_class: 'd-block' %}>
         {{ content_html }}
     </builder-section>
 </div>
@@ -105,7 +105,8 @@
 {%- endif -%}
 
 
-{% schema %}{
+{% schema %}
+{
     "name": "t:sections.builder.name",
     "settings": [
         {
@@ -3119,4 +3120,5 @@
             "category": "1) Main building sections"
         }
     ]
-}{% endschema %}
+}
+{% endschema %}

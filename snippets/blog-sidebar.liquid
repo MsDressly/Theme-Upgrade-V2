@@ -71,7 +71,7 @@
                 </div>
             {%- elsif block.type == 'html' -%}
                 <div class="rte pb-25">
-                    {% include 'parse-page-html-content' with default_page: 'include-blog-sidebar' page_content: block.settings.page_content %}
+                    {% render 'parse-page-html-content', default_page: 'include-blog-sidebar', page_content: block.settings.page_content %}
                 </div>
             {%- elsif block.type == 'subscription' -%}
                 {%- if block.settings.paragraph != blank -%}

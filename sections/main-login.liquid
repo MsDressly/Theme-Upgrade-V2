@@ -1,4 +1,4 @@
-{% include 'breadcrumbs' %}
+{% render 'breadcrumbs' %}
 <div class="login pb-60">
   <div class="container">
     <div id="CustomerLoginForm">
@@ -24,7 +24,7 @@
                  placeholder="{{ 'customer.login.password_placeholder' | t }}"
                  required="required">
         {%- endif -%}
-        {% include 'form-get-message' %}
+        {% render 'form-get-message' %}
         <div class="text-center">
           <input type="submit" class="btn btn--full btn--secondary" value="{{ 'customer.login.sign_in' | t }}">
           <div>
@@ -56,7 +56,7 @@
                required="required"
                autofocus
                data-block-visibility-focus>
-        {% include 'form-get-message' %}
+        {% render 'form-get-message' %}
         <input type="submit" class="btn btn--full" value="{{ 'customer.recover_password.submit' | t }}">
         <div class="mt-15 text-center">
           <span class="btn-link js-button-block-visibility" data-action="close" data-block-link="#recover">{{ 'customer.recover_password.cancel' | t }}</span>
@@ -71,7 +71,7 @@
     {%- endif -%}
     <div class="pt-35 mt-35 border-top">
       <h2 class="h3 text-center">{{ 'customer.login.sign_up_title' | t }}</h2>
-      {% include 'parse-page-html-content' with default_page: 'include-account-page' page_content: settings.account_page_sing_up_page_content %}
+      {% render 'parse-page-html-content', default_page: 'include-account-page', page_content: settings.account_page_sing_up_page_content %}
       <a href="/account/register" class="btn btn--full">{{ 'customer.login.create_account' | t }}</a>
     </div>
   </div>
@@ -82,7 +82,9 @@
 </script>
 
 
-{% schema %}{
+{% schema %}
+{
     "name": "t:sections.login.name",
     "settings": []
-}{% endschema %}
+}
+{% endschema %}

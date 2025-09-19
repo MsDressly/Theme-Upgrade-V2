@@ -1,7 +1,7 @@
-{% include 'breadcrumbs' %}
+{% render 'breadcrumbs' %}
 <div class="page-compare mb-40">
     {%- if customer -%}
-        {% include 'compare' %}
+        {% render 'compare' %}
     {%- else -%}
         <script>
             window.location.href = '/account/login';

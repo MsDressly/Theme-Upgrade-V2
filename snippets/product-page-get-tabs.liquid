@@ -3,7 +3,7 @@
     {% capture reviews_html %}
         
         {%- if settings.reviews_type == 'growave' and settings.app_growave_enable == true -%}
-            {% capture the_snippet_reviews %}{% render 'socialshopwave-widget-recommends' with 1 %}{% endcapture %}
+            {% capture the_snippet_reviews %}{% render 'socialshopwave-widget-recommends', 1 %}{% endcapture %}
             {%- unless the_snippet_reviews contains 'Liquid error' -%}
                 {{ the_snippet_reviews }}
             {%- endunless -%}
@@ -24,7 +24,7 @@
                 <div{% if active_tab %} class="active"{% endif %} data-js-tabs-tab>
                     <span data-js-tabs-btn-mobile>{{ 'products.product.tabs.description' | t }} <i>{% render 'icon-theme-188' %}</i></span>
                     <div class="tabs__content rte overflow-hidden" data-js-tabs-content{% if active_tab %} style="display: block;"{% assign active_tab = null %}{% endif %}>
-                        {% include 'parse-for-icons' content: description %}
+                        {% render 'parse-for-icons', content: description %}
                     </div>
                 </div>
             {% endcapture %}
@@ -43,7 +43,7 @@
                 <div{% if active_tab %} class="active"{% endif %} data-js-tabs-tab>
                     <span data-js-tabs-btn-mobile>{{ block.settings.title }} <i>{% render 'icon-theme-188' %}</i></span>
                     <div class="tabs__content rte overflow-hidden" data-js-tabs-content{% if active_tab %} style="display: block;"{% assign active_tab = null %}{% endif %}>
-                        {% include 'parse-page-html-content' with default_page: custom_tab_default_page page_content: block.settings.page_content html: block.settings.content %}
+                        {% render 'parse-page-html-content', default_page: custom_tab_default_page, page_content: block.settings.page_content, html: block.settings.content %}
                     </div>
                 </div>
             {% endcapture %}
@@ -90,7 +90,7 @@
                 <div{% if active_tab %} class="active"{% endif %} data-js-tabs-tab>
                     <span data-js-tabs-btn-mobile>{{ metafields[ns].title }} <i>{% render 'icon-theme-188' %}</i></span>
                     <div class="tabs__content rte overflow-hidden" data-js-tabs-content{% if active_tab %} style="display: block;"{% assign active_tab = null %}{% endif %}>
-                        {% include 'parse-for-icons' content: metafields[ns].content %}
+                        {% render 'parse-for-icons', content: metafields[ns].content %}
                     </div>
                 </div>
             {% endcapture %}
@@ -141,7 +141,7 @@
         {%- if description != blank -%}
             <div class="pt-10 mt-40 mt-lg-{% if settings.product_info_layout == '2' %}40{% else %}100{% endif %}">
                 <div class="rte overflow-hidden">
-                    {% include 'parse-for-icons' content: description %}
+                    {% render 'parse-for-icons', content: description %}
                 </div>
             </div>
             {%- assign has_tab_description = true -%}

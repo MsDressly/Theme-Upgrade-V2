@@ -17,14 +17,14 @@
     <!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js supports-no-cookies" lang="{{ shop.locale }}"{% if settings.layout_enable_rtl %} dir="rtl"{% endif %}> <!--<![endif]-->
     <head>
     {% capture get_content_for_header %}{{ content_for_header }}{% endcapture %}
-    {% include 'head' %}
+    {% render 'head' %}
     </head>
     <body{% render 'layout-get-body-attributes' %}>
-    {% include 'layout-get-includes-start' %}
+    {% render 'layout-get-includes-start' %}
     {%- if settings.product_show_custom_options and settings.product_enable_variants_section -%}
     {% section 'product-variants' %}
     {%- endif -%}
-    {% include 'popups' with quick_view_content: content %}
+    {% render 'popups', quick_view_content: content %}
     </body>
     </html>
 {%- else -%}

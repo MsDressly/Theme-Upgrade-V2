@@ -1,6 +1,6 @@
 {% capture column_left_n_right %}
-    {% render 'header-get-menu-column-type' with type: megamenu.column_left_type size: megamenu.column_left_size %}
-    |||{% render 'header-get-menu-column-type' with type: megamenu.column_right_type size: megamenu.column_right_size right_side: true %}
+    {% render 'header-get-menu-column-type', type: megamenu.column_left_type, size: megamenu.column_left_size %}
+    |||{% render 'header-get-menu-column-type', type: megamenu.column_right_type, size: megamenu.column_right_size, right_side: true %}
 {% endcapture %}
 {%- assign content_types = 'megamenu_promobox,megamenu_brands,megamenu_products,megamenu_custom_html,megamenu_subscription' | split: ',' -%}
 {%- assign content_index = 1 -%}
@@ -11,7 +11,7 @@
     {% capture content_html %}
         {%- if block.type == 'megamenu_custom_html' -%}
             <div class="rte">
-                {% include 'parse-page-html-content' with page_content: block.settings.page_content %}
+                {% render 'parse-page-html-content', page_content: block.settings.page_content %}
             </div>
         {%- elsif block.type == 'megamenu_products' -%}
             {%- assign title_url = collections[block.settings.collection].url -%}
@@ -21,13 +21,13 @@
                     {%- assign limit = block.settings.products_per_row | times: block.settings.products_rows -%}
                     {%- for product in products limit: limit -%}
                         <div class="col-lg-{{ 12 | divided_by: block.settings.products_per_row }}">
-                            {% include 'product-search' %}
+                            {% render 'product-search' %}
                         </div>
                     {%- endfor -%}
                 {%- endif -%}
             </div>
         {%- elsif block.type == 'megamenu_promobox' -%}
-            {% render 'promobox' with block: block %}
+            {% render 'promobox', block: block %}
         {%- elsif block.type == 'megamenu_brands' -%}
             {%- case block.settings.size_of_images -%}
                 {%- when '1' -%}{%- assign grid = 'col-12' -%}
@@ -50,7 +50,7 @@
                     {%- assign brand_image_size = block.settings[prop_image_size_name] -%}
                     {%- assign brand_url = block.settings[prop_url_name] | default: null -%}
                     <div class="{{ grid }} d-none d-lg-block px-lg-5 mb-lg-10">
-                        {% render 'promobox' with type: 'clean-bordered' image: brand_image image_size: brand_image_size url: brand_url %}
+                        {% render 'promobox', type: 'clean-bordered', image: brand_image, image_size: brand_image_size, url: brand_url %}
                     </div>
                 {%- endfor -%}
             </div>

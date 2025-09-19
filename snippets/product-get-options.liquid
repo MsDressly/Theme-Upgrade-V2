@@ -51,12 +51,12 @@
                         {%- assign enable_select_variant_button = true -%}
                     {%- endif -%}
                     {%- if options_type_circle_color contains clear_name -%}
-                        <div class="product-options__section d-flex flex-wrap px-2" data-style="color" data-property="{% render 'product-get-options-strip-symbols' with value: option.name %}"{% if disable_auto_select %} data-disable-auto-select{% endif %}>
+                        <div class="product-options__section d-flex flex-wrap px-2" data-style="color" data-property="{% render 'product-get-options-strip-symbols', value: option.name %}"{% if disable_auto_select %} data-disable-auto-select{% endif %}>
                             {%- for value in option.values -%}
-                                {% include 'product-get-options-res-status' with option_index0: option_index0 %}
+                                {% render 'product-get-options-res-status', option_index0: option_index0 %}
                                 <div class="product-options__value product-options__value--circle standard-color-{{ value | handleize }} rounded-circle text-hide cursor-pointer{% if disabled_value %} disabled{% elsif hidden_value %} disabled-hidden{% endif %}{% if active_value %} active{% endif %}"
                                     data-js-option-value
-                                    data-value="{% render 'product-get-options-strip-symbols' with value: value %}"
+                                    data-value="{% render 'product-get-options-strip-symbols', value: value %}"
                                     {{ trigger_attr }}
                                      data-scale="2"
                                     {%- if settings.tooltips_enable and product_option_enable_tooltips %}
@@ -69,13 +69,13 @@
                             {%- endfor -%}
                         </div>
                     {%- elsif options_type_circle_image contains clear_name -%}
-                        <div class="product-options__section d-flex flex-wrap px-2" data-style="circle-image" data-property="{% render 'product-get-options-strip-symbols' with value: option.name %}"{% if disable_auto_select %} data-disable-auto-select{% endif %}>
+                        <div class="product-options__section d-flex flex-wrap px-2" data-style="circle-image" data-property="{% render 'product-get-options-strip-symbols', value: option.name %}"{% if disable_auto_select %} data-disable-auto-select{% endif %}>
                             {%- for value in option.values -%}
-                                {% include 'product-get-options-res-status' with option_index0: option_index0 %}
-                                {% include 'product-get-options-res-image' %}
+                                {% render 'product-get-options-res-status', option_index0: option_index0 %}
+                                {% render 'product-get-options-res-image' %}
                                 <div class="product-options__value product-options__value--circle rounded-circle text-hide cursor-pointer{% if disabled_value %} disabled{% elsif hidden_value %} disabled-hidden{% endif %}{% if active_value %} active{% endif %} lazyload"
                                      data-js-option-value
-                                     data-value="{% render 'product-get-options-strip-symbols' with value: value %}"
+                                     data-value="{% render 'product-get-options-strip-symbols', value: value %}"
                                      {{ trigger_attr }}
                                     {%- if settings.product_format_pjpg -%}
                                         data-master="{{ option_image | img_url: '1x1', format: 'pjpg' | replace: '_1x1.', image_size_placeholder }}"
@@ -95,12 +95,12 @@
                             {%- endfor -%}
                         </div>
                     {%- elsif options_type_square_color contains clear_name -%}
-                        <div class="product-options__section d-flex flex-wrap" data-style="image" data-property="{% render 'product-get-options-strip-symbols' with value: option.name %}"{% if disable_auto_select %} data-disable-auto-select{% endif %}>
+                        <div class="product-options__section d-flex flex-wrap" data-style="image" data-property="{% render 'product-get-options-strip-symbols', value: option.name %}"{% if disable_auto_select %} data-disable-auto-select{% endif %}>
                             {%- for value in option.values -%}
-                                {% include 'product-get-options-res-status' with option_index0: option_index0 %}
+                                {% render 'product-get-options-res-status', option_index0: option_index0 %}
                                 <div class="product-options__value product-options__value--square standard-color-{{ value | handleize }} text-hide cursor-pointer{% if disabled_value %} disabled{% elsif hidden_value %} disabled-hidden{% endif %}{% if active_value %} active{% endif %}"
                                      data-js-option-value
-                                     data-value="{% render 'product-get-options-strip-symbols' with value: value %}"
+                                     data-value="{% render 'product-get-options-strip-symbols', value: value %}"
                                     {{ trigger_attr }}
                                      data-scale="2"
                                     {%- if settings.tooltips_enable and product_option_enable_tooltips %}
@@ -113,13 +113,13 @@
                             {%- endfor -%}
                         </div>
                     {%- elsif options_type_square_image contains clear_name -%}
-                        <div class="product-options__section d-flex flex-wrap" data-style="image" data-property="{% render 'product-get-options-strip-symbols' with value: option.name %}"{% if disable_auto_select %} data-disable-auto-select{% endif %}>
+                        <div class="product-options__section d-flex flex-wrap" data-style="image" data-property="{% render 'product-get-options-strip-symbols', value: option.name %}"{% if disable_auto_select %} data-disable-auto-select{% endif %}>
                             {%- for value in option.values -%}
-                                {% include 'product-get-options-res-status' with option_index0: option_index0 %}
-                                {% include 'product-get-options-res-image' %}
+                                {% render 'product-get-options-res-status', option_index0: option_index0 %}
+                                {% render 'product-get-options-res-image' %}
                                 <div class="product-options__value product-options__value--square text-hide cursor-pointer{% if disabled_value %} disabled{% elsif hidden_value %} disabled-hidden{% endif %}{% if active_value %} active{% endif %} lazyload"
                                      data-js-option-value
-                                     data-value="{% render 'product-get-options-strip-symbols' with value: value %}"
+                                     data-value="{% render 'product-get-options-strip-symbols', value: value %}"
                                      {{ trigger_attr }}
                                         {%- if settings.product_format_pjpg -%}
                                             data-master="{{ option_image | img_url: '1x1', format: 'pjpg' | replace: '_1x1.', image_size_placeholder }}"
@@ -139,12 +139,12 @@
                             {%- endfor -%}
                         </div>
                     {%- elsif options_type_large_text contains clear_name -%}
-                        <div class="product-options__section d-flex flex-wrap" data-style="large-text" data-property="{% render 'product-get-options-strip-symbols' with value: option.name %}"{% if disable_auto_select %} data-disable-auto-select{% endif %}>
+                        <div class="product-options__section d-flex flex-wrap" data-style="large-text" data-property="{% render 'product-get-options-strip-symbols', value: option.name %}"{% if disable_auto_select %} data-disable-auto-select{% endif %}>
                             {%- for value in option.values -%}
-                                {% include 'product-get-options-res-status' with option_index0: option_index0 %}
+                                {% render 'product-get-options-res-status', option_index0: option_index0 %}
                                 <div class="product-options__value product-options__value--large-text d-flex flex-center border cursor-pointer{% if disabled_value %} disabled{% elsif hidden_value %} disabled-hidden{% endif %}{% if active_value %} active{% endif %}"
                                      data-js-option-value
-                                     data-value="{% render 'product-get-options-strip-symbols' with value: value %}"
+                                     data-value="{% render 'product-get-options-strip-symbols', value: value %}"
                                      {{ trigger_attr }}
                                      data-scale="2"
                                 >{{ value | replace: '<', '&lt;' | replace: '>', '&gt;' }}<span></span></div>
@@ -154,16 +154,16 @@
                         <div class="select position-relative js-dropdown js-select">
                             {%- assign select_dropdown_html = '' -%}
                             <div data-js-dropdown-button>
-                                <select class="product-options__section" data-style="select" data-property="{% render 'product-get-options-strip-symbols' with value: option.name %}" data-js-option-select{% if disable_auto_select %} data-disable-auto-select{% endif %}>
+                                <select class="product-options__section" data-style="select" data-property="{% render 'product-get-options-strip-symbols', value: option.name %}" data-js-option-select{% if disable_auto_select %} data-disable-auto-select{% endif %}>
                                     {%- if enable_select_options_button -%}
                                         <option selected="selected" disabled="disabled">{{ default_title }}</option>
                                     {%- endif -%}
                                     {%- for value in option.values -%}
-                                        {% include 'product-get-options-res-status' with option_index0: option_index0 %}
-                                        <option{% if active_value and enable_select_options_button != true %} selected="selected"{% endif %} data-value="{% render 'product-get-options-strip-symbols' with value: value %}" value="{% render 'product-get-options-strip-symbols' with value: value %}"{% if disabled_value %} disabled="disabled"{% elsif hidden_value %} data-disabled-hidden="disabled"{% endif %}>{{ value | replace: '<', '&lt;' | replace: '>', '&gt;' }}</option>
+                                        {% render 'product-get-options-res-status', option_index0: option_index0 %}
+                                        <option{% if active_value and enable_select_options_button != true %} selected="selected"{% endif %} data-value="{% render 'product-get-options-strip-symbols', value: value %}" value="{% render 'product-get-options-strip-symbols', value: value %}"{% if disabled_value %} disabled="disabled"{% elsif hidden_value %} data-disabled-hidden="disabled"{% endif %}>{{ value | replace: '<', '&lt;' | replace: '>', '&gt;' }}</option>
                                         {% capture select_dropdown_html %}
                                             {{ select_dropdown_html }}
-                                            <span{% if active_value and enable_select_options_button != true %} class="selected"{% endif %} data-value="{% render 'product-get-options-strip-symbols' with value: value %}"{% if disabled_value %} disabled="disabled"{% elsif hidden_value %} data-disabled-hidden="disabled"{% endif %} {{ trigger_attr }}>{{ value | replace: '<', '&lt;' | replace: '>', '&gt;' }}</span>
+                                            <span{% if active_value and enable_select_options_button != true %} class="selected"{% endif %} data-value="{% render 'product-get-options-strip-symbols', value: value %}"{% if disabled_value %} disabled="disabled"{% elsif hidden_value %} data-disabled-hidden="disabled"{% endif %} {{ trigger_attr }}>{{ value | replace: '<', '&lt;' | replace: '>', '&gt;' }}</span>
                                         {% endcapture %}
                                     {%- endfor -%}
                                 </select>
@@ -176,12 +176,12 @@
                             </div>
                         </div>
                     {%- else -%}
-                        <div class="product-options__section d-flex flex-wrap" data-style="text" data-property="{% render 'product-get-options-strip-symbols' with value: option.name %}"{% if disable_auto_select %} data-disable-auto-select{% endif %}>
+                        <div class="product-options__section d-flex flex-wrap" data-style="text" data-property="{% render 'product-get-options-strip-symbols', value: option.name %}"{% if disable_auto_select %} data-disable-auto-select{% endif %}>
                             {%- for value in option.values -%}
-                                {% include 'product-get-options-res-status' with option_index0: option_index0 %}
+                                {% render 'product-get-options-res-status', option_index0: option_index0 %}
                                 <div class="product-options__value product-options__value--text d-flex flex-center border cursor-pointer{% if disabled_value %} disabled{% elsif hidden_value %} disabled-hidden{% endif %}{% if active_value %} active{% endif %}"
                                      data-js-option-value
-                                     data-value="{% render 'product-get-options-strip-symbols' with value: value %}"
+                                     data-value="{% render 'product-get-options-strip-symbols', value: value %}"
                                      {{ trigger_attr }}
                                      data-scale="2"
                                 >{{ value | replace: '<', '&lt;' | replace: '>', '&gt;' }}<span></span></div>

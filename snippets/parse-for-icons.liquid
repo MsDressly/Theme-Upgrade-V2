@@ -5,7 +5,7 @@
         {%- assign fragment_split = fragment | split: ']' -%}
         {%- assign icon_shortcode = '[icon:' | append: fragment_split[0] | append: ']' -%}
         {%- assign icon_name = 'icon-' | append: fragment_split[0] -%}
-        {% capture icon_html %}{% include icon_name %}{% endcapture %}
+        {% capture icon_html %}{% render icon_name %}{% endcapture %}
         {%- assign contenr_html = contenr_html | replace: icon_shortcode, icon_html -%}
     {%- endfor -%}
     {{ contenr_html }}

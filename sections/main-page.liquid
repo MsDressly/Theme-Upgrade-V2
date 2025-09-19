@@ -1,4 +1,4 @@
-{% include 'global-variables' %}
+{% render 'global-variables' %}
 <div class="page">
   <div class="container pt-30{% if offset_pages_margin_top_d > 0 %} pt-lg-{{ offset_pages_margin_top_d }}{% endif %}">
     {%- if section.settings.show_title -%}
@@ -13,14 +13,15 @@
     {%- endif -%}
     {%- if section.settings.show_content -%}
       <div class="rte mb-50{% if offset_pages_margin_bottom_d > 0 %} mb-lg-{{ offset_pages_margin_bottom_d }}{% endif %}">
-        {% include 'parse-for-icons' content: page.content %}
+        {% render 'parse-for-icons', content: page.content %}
       </div>
     {%- endif -%}
   </div>
 </div>
 
 
-{% schema %}{
+{% schema %}
+{
     "name": "t:sections.page.name",
     "settings": [
         {
@@ -36,4 +37,5 @@
             "default": true
         }
     ]
-}{% endschema %}
+}
+{% endschema %}

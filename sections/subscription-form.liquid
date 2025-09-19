@@ -67,7 +67,7 @@
             border-top: var(--subscription-form-style-{{ section.settings.style }}-input-bd);
         }
         {% capture button_selector %}.subscription-form--style-{{ section.settings.style }} .subscription-form__form .btn{% endcapture %}
-        {% render 'css-style-button' with class: button_selector type: subscription_form_btn_type %}
+        {% render 'css-style-button', class: button_selector, type: subscription_form_btn_type %}
     </style>
 {% endcapture %}
 {%- if style_base_html -%}

@@ -44,7 +44,7 @@
           <ul id="predictive-search-results-products-list" class="predictive-search__results-list list-unstyled" role="group" aria-labelledby="predictive-search-products">
             {%- for product in predictive_search.resources.products -%}
               <li id="predictive-search-option-product-{{ forloop.index }}" class="predictive-search__list-item" role="option" aria-selected="false">
-                {% include 'product-search-2' %}
+                {% render 'product-search-2' %}
               </li>
             {%- endfor -%}
           </ul>

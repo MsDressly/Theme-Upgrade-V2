@@ -30,10 +30,11 @@
     </form>
 </div>
 
-{% include 'collection-product-grid' %}
+{% render 'collection-product-grid' %}
 
 
-{% schema %}{
+{% schema %}
+{
     "name": "t:sections.search_page.name",
     "settings": [
         {
@@ -1502,4 +1503,5 @@
             ]
         }
     ]
-}{% endschema %}
+}
+{% endschema %}

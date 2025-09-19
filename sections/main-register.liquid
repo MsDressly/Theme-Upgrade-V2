@@ -1,4 +1,4 @@
-{% include 'breadcrumbs' %}
+{% render 'breadcrumbs' %}
 <div class="register pb-60">
   <div class="container">
     <h1 class="h3 mt-30 mb-40 text-center">{{ 'customer.register.title' | t }}</h1>
@@ -36,7 +36,7 @@
              class="{% if form.errors contains 'password' %}input-error{% endif %}"
              placeholder="{{ 'customer.register.password_placeholder' | t }}"
              required="required">
-      {% include 'form-get-message' %}
+      {% render 'form-get-message' %}
       <div class="text-center">
         <input type="submit" value="{{ 'customer.register.submit' | t }}" class="btn btn--full btn--secondary">
         <a href="{{ shop.url }}" class="h6 btn-link mt-20 mb-0">{{ 'customer.register.cancel' | t }}</a>
@@ -46,7 +46,9 @@
 </div>
 
 
-{% schema %}{
+{% schema %}
+{
     "name": "t:sections.register.name",
     "settings": []
-}{% endschema %}
+}
+{% endschema %}

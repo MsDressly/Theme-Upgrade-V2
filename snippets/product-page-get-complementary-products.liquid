@@ -11,7 +11,7 @@
             <div class="col-12 mb-10 mb-sm-15 p-0">
                 <label class="mb-6">{{ 'products.product.complementary_products_title' | t }}</label>
                 {%- for product in recommendations.products -%}
-                    {% include 'product-featured' with show_button: true, show_type_collections_vendor: false %}
+                    {% render 'product-featured', show_button: true, show_type_collections_vendor: false %}
                 {%- endfor -%}
             </div>
             {%- endif -%}

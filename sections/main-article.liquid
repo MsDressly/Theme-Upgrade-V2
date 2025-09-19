@@ -9,7 +9,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
               {%- if settings.article_show_sidebar != 'hide' -%}
                   {%- if settings.article_sidebar_position == 'dropdown' -%}
                       <div class="article__sidebar d-none">
-                        {% include 'blog-sidebar' with section as section %}
+                        {% render 'blog-sidebar', section as section %}
                       </div>
                   {%- else -%}
                       <div class="article__sidebar article__sidebar--width-md article__sidebar--offset-bottom d-none d-lg-block col{% if settings.article_show_sidebar != 'hide' and settings.article_sidebar_position != 'dropdown' %} col-lg-4{% endif %}{% if settings.article_sidebar_position == 'right' %} order-2{% endif %}{% if settings.article_enable_sticky %} sticky-sidebar-lg js-sticky-sidebar{% endif %}">
@@ -17,7 +17,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
                               <div data-js-sticky-sidebar-body>
                           {%- endif -%}
                                   <div data-js-position-desktop="sidebar">
-                                    {% include 'blog-sidebar' with section as section %}
+                                    {% render 'blog-sidebar', section as section %}
                                   </div>
                           {%- if settings.article_enable_sticky -%}
                               </div>
@@ -56,12 +56,12 @@ You can learn more about this (and learn how to cleanly revert these changes) at
                     {%- endif -%}
                     {%- if section.settings.show_image and article.image != blank -%}
                       <div class="text-center mb-40">
-                        {% render 'rimage' with image: article.image size: '1024x1024' format: 'pjpg' alt: article.title image_class: 'w-100' %}
+                        {% render 'rimage', image: article.image, size: '1024x1024', format: 'pjpg', alt: article.title, image_class: 'w-100' %}
                       </div>
                     {%- endif -%}
                     {%- if section.settings.show_content -%}
                       <div class="rte">
-                        {% include 'parse-for-icons' content: article.content %}
+                        {% render 'parse-for-icons', content: article.content %}
                       </div>
                     {%- endif -%}
                     {%- if section.settings.show_tags or section.settings.show_social_share_buttons -%}
@@ -90,7 +90,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
                               <p class="mt-5 mb-0">{{ 'blogs.article.share' | t }}</p>
                             </div>
                             <div class="col-12 mb-20">
-                              {% render 'social-share' share_type: section.settings.social_share_buttons_type share_title: article.title share_permalink: article.url share_image: article.image %}
+                              {% render 'social-share', share_type: section.settings.social_share_buttons_type, share_title: article.title, share_permalink: article.url, share_image: article.image %}
                             </div>
                           </div>
                         {%- endif -%}
@@ -201,7 +201,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
                           {%- if blog.moderated? -%}
                             <p>{{ 'blogs.comments.moderated' | t }}</p>
                           {%- endif -%}
-                          {% include 'form-get-message' %}
+                          {% render 'form-get-message' %}
                           <div class="pt-10">
                             <button type="submit" class="btn btn--secondary"><i class="mr-5">{% render 'icon-theme-196' %}</i>{{ 'blogs.comments.post' | t }}</button>
                           </div>
@@ -220,7 +220,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
                               {%- assign sliders_length = sliders_length | plus: 1 -%}
                               <div>
                                 {%- assign image_alt = block.settings.image.alt | default: block.settings.title -%}
-                                {% render 'rimage' image: block.settings.image size: '770x' alt: image_alt %}
+                                {% render 'rimage', image: block.settings.image, size: '770x', alt: image_alt %}
                                 {%- if block.settings.title != blank -%}
                                   <div class="mt-10 text-center">{{ block.settings.title }}</div>
                                 {%- endif -%}
@@ -299,7 +299,8 @@ You can learn more about this (and learn how to cleanly revert these changes) at
 {%- endif -%}
 
 
-{% schema %}{
+{% schema %}
+{
     "name": "t:sections.content_and_sidebar.name",
     "settings": [
         {
@@ -565,4 +566,5 @@ You can learn more about this (and learn how to cleanly revert these changes) at
             ]
         }
     ]
-}{% endschema %}
+}
+{% endschema %}

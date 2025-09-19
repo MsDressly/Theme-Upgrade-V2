@@ -1,5 +1,5 @@
 {%- if section.blocks.size > 0 -%}
-    {% include 'global-variables' %}
+    {% render 'global-variables' %}
     {%- assign get_sorting_collections_async_ajax_loading = sorting_collections_async_ajax_loading -%}
     {%- if get_sorting_collections_async_ajax_loading == true -%}
         {%- if request.design_mode -%}
@@ -21,7 +21,7 @@
                                 {%- assign first_collection = collections[block.settings.collection] -%}
                             {%- endif -%}
                         {%- elsif forloop.index0 == 0 -%}
-                            {% render 'no-blocks' with message: 'homepage.onboarding.no_content_message.sorting_collections' %}
+                            {% render 'no-blocks', message: 'homepage.onboarding.no_content_message.sorting_collections' %}
                         {%- endif -%}
                     {%- endfor -%}
                 </div>
@@ -34,7 +34,7 @@
                                 {%- for product in products limit: section.settings.max_count -%}
                                     <div class="{{ grid }}">
                                         {%- assign disable_lazyload = sorting_collections_image_lazyload_disable -%}
-                                        {% include 'product-collection' with url_without_collection: true product_margin_bottom: offset_collection_page_product_margin_bottom_d %}
+                                        {% render 'product-collection', url_without_collection: true, product_margin_bottom: offset_collection_page_product_margin_bottom_d %}
                                     </div>
                                 {%- endfor -%}
                             {%- endif -%}

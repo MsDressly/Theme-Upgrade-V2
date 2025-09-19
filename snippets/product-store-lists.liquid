@@ -1,5 +1,5 @@
-{% include 'global-variables' %}
-{% include 'product-cart-res-variables' %}
+{% render 'global-variables' %}
+{% render 'product-cart-res-variables' %}
 {%- assign image_size = '100x' -%}
 {%- assign show_title = show_title | default: true -%}
 {%- assign show_variant = show_variant | default: true -%}
@@ -8,7 +8,11 @@
 <div class="product-store-lists d-flex flex-row align-items-start mb-20" data-js-product data-product-handle="{{ product.handle }}" data-product-variant-id="{{ id }}">
     <div class="product-store-lists__image mr-15">
         <a href="{{ url }}" class="d-block">
-            <img>
+            {%- if image -%}
+                {% render 'rimage', image: image, size: image_size, alt: title %}
+            {%- else -%}
+                {{ 'product-apparel-2' | placeholder_svg_tag: 'product-store-lists__placeholder' }}
+            {%- endif -%}
         </a>
     </div>
     <div class="product-store-lists__content d-flex flex-column align-items-start">
@@ -25,7 +29,7 @@
         {%- endif -%}
         {%- if show_price -%}
             <div class="product-store-lists__price mt-10 mb-10">
-                {% include 'product-get-price' %}
+                {% render 'product-get-price' %}
             </div>
         {%- endif -%}
         {%- if show_button_remove -%}

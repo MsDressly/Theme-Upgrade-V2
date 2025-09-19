@@ -1,10 +1,10 @@
-{% include 'global-variables' %}
-{% include 'product-cart-res-variables' %}
+{% render 'global-variables' %}
+{% render 'product-cart-res-variables' %}
 {%- assign image_size = '100x' -%}
 <div class="product-cart mb-20" data-js-product data-product-variant-id="{{ id }}" data-product-cart-line="{{ forloop.index }}">
     <div class="d-flex flex-row align-items-center">
         <div class="product-cart__image mr-15">
-            {% render 'product-get-images' with url: url image: image image_size: image_size title: title disable_lazyload: disable_lazyload %}
+            {% render 'product-get-images', url: url, image: image, image_size: image_size, title: title, disable_lazyload: disable_lazyload %}
         </div>
         <div class="product-cart__content d-flex flex-column align-items-start">
             <div class="product-cart__title">
@@ -54,7 +54,7 @@
         </div>
         <div class="product-cart__sidebar ml-auto mb-auto mb-lg-0 d-flex flex-column align-items-end">
             <div class="product-cart__price d-none d-lg-block">
-                <span class="product-cart__quantity">{{ quantity }}</span> <span>{{ 'layout.cart.quantity_and_price_separator' | t }}</span> <span class="product-cart__price-value">{% include 'product-get-price' %}</span>
+                <span class="product-cart__quantity">{{ quantity }}</span> <span>{{ 'layout.cart.quantity_and_price_separator' | t }}</span> <span class="product-cart__price-value">{% render 'product-get-price' %}</span>
             </div>
             {%- if settings.cart_popup_show_quantity_input -%}
                 <div class="product-cart__sidebar-quantity input-quantity input-quantity--type-05 d-none d-lg-flex js-product-quantity mt-10">
@@ -64,7 +64,7 @@
                 </div>
             {%- endif -%}
             <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="product-cart__remove btn-link js-product-button-remove-from-cart mt-10 d-none d-lg-block">{{ 'products.product.remove' | t }}</a>
-            <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="product-cart__remove btn-link js-product-button-remove-from-cart d-lg-none">{% render 'icon-theme-165'  %}</a>
+            <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="product-cart__remove btn-link js-product-button-remove-from-cart d-lg-none">{% render 'icon-theme-165' %}</a>
         </div>
     </div>
     <div class="product-cart__mobile-footer mt-20 align-items-center d-flex d-lg-none">
@@ -76,7 +76,7 @@
             </div>
         {%- endif -%}
         <div class="product-cart__price ml-auto">
-            <span class="product-cart__quantity">{{ quantity }}</span> <span>{{ 'layout.cart.quantity_and_price_separator' | t }}</span> <span class="product-cart__price-value">{% include 'product-get-price' %}</span>
+            <span class="product-cart__quantity">{{ quantity }}</span> <span>{{ 'layout.cart.quantity_and_price_separator' | t }}</span> <span class="product-cart__price-value">{% render 'product-get-price' %}</span>
         </div>
     </div>
 </div>

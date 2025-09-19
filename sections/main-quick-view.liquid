@@ -1,4 +1,4 @@
-{% include 'global-variables' %}
+{% render 'global-variables' %}
 {%- assign template_layout = settings.product_info_layout -%}
 {%- if product.tags contains 'gallery-layout-1' -%}
     {%- assign template_layout = '1' -%}
@@ -14,15 +14,16 @@
 {%- unless request.design_mode -%}
 	{%- assign is_quick_view = true -%}
 {%- endunless -%}
-{% include 'product-res-variables' %}
+{% render 'product-res-variables' %}
 {%- assign sidebar = 'off' -%}
 {%- if settings.product_quick_view_layout != 'inherit' -%}
 	{%- assign template_layout = settings.product_quick_view_layout -%}
 {%- endif -%}
-{% include 'product-page-get-main' %}
+{% render 'product-page-get-main' %}
 
 
-{% schema %}{
+{% schema %}
+{
     "name": "t:sections.quick_view.name",
     "settings": [
         {
@@ -492,4 +493,5 @@
             }
         ]
     }
-}{% endschema %}
+}
+{% endschema %}

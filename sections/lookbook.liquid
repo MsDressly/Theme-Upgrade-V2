@@ -1,4 +1,4 @@
-{% include 'global-variables' %}
+{% render 'global-variables' %}
 <lookbook-section data-section-id="{{ section.id }}" data-section-type="lookbook" class="container d-block">
     {%- if section.settings.grid_responsive != blank -%}
         {%- assign grid_responsive = section.settings.grid_responsive | split: ',' -%}
@@ -22,7 +22,7 @@
                         <div class="lookbook__item">
                             <div class="position-relative">
                                 {% capture image_size %}{{ section.settings.image_size }}x{% endcapture %}
-                                {% render 'rimage' with image: block.settings.image size: image_size image_class: 'w-100' %}
+                                {% render 'rimage', image: block.settings.image, size: image_size, image_class: 'w-100' %}
                                 {%- assign products_from_index = image_index | plus: 1 -%}
                                 {%- for block in section.blocks offset: products_from_index -%}
                                     {%- if block.type != 'product' -%}
@@ -36,7 +36,7 @@
                                         {%- endunless -%}
                                         {%- if product_detect_id <= 20 -%}
                                             {%- assign product = all_products[block.settings.product] -%}
-                                            {% include 'product-res-variables' %}
+                                            {% render 'product-res-variables' %}
                                         {%- endif -%}
                                         {%- if block.settings.title != blank -%}
                                             {%- assign title = block.settings.title -%}
@@ -52,7 +52,7 @@
                                         {%- endif -%}
                                         {% capture pickers_text_html %}
                                             {{ pickers_text_html }}
-                                            <p class="{% if section.settings.layout == '1' %}d-lg-none {% endif %}mb-0"><a href="{{ routes.root_url }}{% if routes.root_url != '/' %}/{% endif %}products/{{ block.settings.product }}">{{ title | default: 'Product Title' }}</a> <span class="lookbook__price ml-5">{% include 'product-get-price' %}</span></p>
+                                            <p class="{% if section.settings.layout == '1' %}d-lg-none {% endif %}mb-0"><a href="{{ routes.root_url }}{% if routes.root_url != '/' %}/{% endif %}products/{{ block.settings.product }}">{{ title | default: 'Product Title' }}</a> <span class="lookbook__price ml-5">{% render 'product-get-price' %}</span></p>
                                         {% endcapture %}
                                         {%- if section.settings.layout == '1' -%}
                                             {% capture pickers_html %}
@@ -63,14 +63,14 @@
                                                         <div class="lookbook__product d-none position-absolute bottom-0 left-0" data-lookbook-product>
                                                             <a href="{{ routes.root_url }}{% if routes.root_url != '/' %}/{% endif %}products/{{ block.settings.product }}" class="d-block">
                                                                 {%- capture image_id -%} data-image-id="{{ image.id }}"{%- endcapture -%}
-                                                                {% render 'rimage' with image: image size: '160x' alt: title image_class: 'w-100' disable_lazyload: lookbook_image_lazyload_disable %}
+                                                                {% render 'rimage', image: image, size: '160x', alt: title, image_class: 'w-100', disable_lazyload: lookbook_image_lazyload_disable %}
                                                             </a>
                                                             <div class="position-absolute top-0 right-0 mt-6 mr-4 cursor-pointer" data-lookbook-product-close>
                                                                 <i>{% render 'icon-theme-164' %}</i>
                                                             </div>
                                                             <div class="p-10">
                                                                 <p class="mb-0"><a href="{{ routes.root_url }}{% if routes.root_url != '/' %}/{% endif %}products/{{ block.settings.product }}">{{ title | default: 'Product Title' }}</a></p>
-                                                                <p class="mb-0">{% include 'product-get-price' %}</p>
+                                                                <p class="mb-0">{% render 'product-get-price' %}</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -101,12 +101,12 @@
             </div>
             {%- unless blocks_size > 0 -%}
                 <div class="col text-center">
-                    {% include 'no-blocks' %}
+                    {% render 'no-blocks' %}
                 </div>
             {%- endunless -%}
         {%- else -%}
             <div class="col text-center">
-                {% include 'no-blocks' %}
+                {% render 'no-blocks' %}
             </div>
         {%- endif -%}
     </div>
@@ -118,7 +118,8 @@
 </lookbook-section>
 
 
-{% schema %}{
+{% schema %}
+{
     "name": "t:sections.lookbook.name",
     "settings": [
         {
@@ -252,4 +253,5 @@
             "category": "4) Collections"
         }
     ]
-}{% endschema %}
+}
+{% endschema %}

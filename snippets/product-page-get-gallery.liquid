@@ -115,14 +115,14 @@
                             {%- assign hold_lazyload = true -%}
                             {%- assign donothide = false -%}
                         {%- endif -%}
-                        {% render 'rimage' with image: media size: main_image_size disable_lazyload: false format: image_format hold_lazyload: hold_lazyload donothide: donothide alt: title %}
+                        {% render 'rimage', image: media, size: main_image_size, disable_lazyload: false, format: image_format, hold_lazyload: hold_lazyload, donothide: donothide, alt: title %}
                     {% when 'video' %}
                         {%- assign gallery_has_video = true -%}
                         {%- assign video = media.sources | where: 'format', 'mp4' | first -%}
-                        {% render 'rvideo' with video: video aspect_ratio: media.aspect_ratio poster: media.preview_image.src poster_size: main_image_size autoplay: main_video_autoplay controls: true lazyload: video_lazyload %}
+                        {% render 'rvideo', video: video, aspect_ratio: media.aspect_ratio, poster: media.preview_image.src, poster_size: main_image_size, autoplay: main_video_autoplay, controls: true, lazyload: video_lazyload %}
                     {% when 'external_video' %}
                         {%- assign gallery_has_video = true -%}
-                        {% render 'video-external' video_url: media.external_id autoplay: main_video_autoplay controls: true enablejsapi: true lazyload: video_lazyload media: media %}
+                        {% render 'video-external', video_url: media.external_id, autoplay: main_video_autoplay, controls: true, enablejsapi: true, lazyload: video_lazyload, media: media %}
                     {% when 'model' %}
                         {%- assign gallery_has_model = true -%}
                         <div class="model-viewer-wrapper" data-model3d-id="{{ media.id }}">
@@ -135,7 +135,7 @@
                                      data-shopify-xr
                                      data-shopify-model3d-id="{{ media.id }}"
                                      data-shopify-title="{{ product.title | escape }}"
-                                     data-shopify-xr-hidden><i class="mr-1">{% include 'icon-theme-328' %}</i>{{ 'products.product.view_in_space' | t }}</div>
+                                     data-shopify-xr-hidden><i class="mr-1">{% render 'icon-theme-328' %}</i>{{ 'products.product.view_in_space' | t }}</div>
                             {% endcapture %}
                         {%- endunless -%}
                 {%- endcase -%}
@@ -225,10 +225,10 @@
     <div class="product-gallery__main_spacer">
         {%- if first_load_group == blank and current_image.media_type == 'image' -%}
             <div class="product-gallery__main_spacer_inner product-gallery__main_spacer_inner--img d-none d-md-block">
-                {% render 'rimage' with custom_src: 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=' size: main_image_size height_procent: desktop_spacer_height_percent stretch_size: gallery_stretch_size disable_lazyload: false format: image_format alt: title %}
+                {% render 'rimage', custom_src: 'data:image/gif;base64, R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=', size: main_image_size, height_procent: desktop_spacer_height_percent, stretch_size: gallery_stretch_size, disable_lazyload: false, format: image_format, alt: title %}
             </div>
             <div class="product-gallery__main_spacer_inner product-gallery__main_spacer_inner--img d-md-none">
-                {% render 'rimage' with custom_src: 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=' size: main_image_size height_procent: mobile_spacer_height_percent stretch_size: gallery_stretch_size disable_lazyload: false format: image_format alt: title %}
+                {% render 'rimage', custom_src: 'data:image/gif;base64, R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=', size: main_image_size, height_procent: mobile_spacer_height_percent, stretch_size: gallery_stretch_size, disable_lazyload: false, format: image_format, alt: title %}
             </div>
         {%- else -%}
             <div class="product-gallery__main_spacer_inner d-none d-md-block" style="padding-top: {{ desktop_spacer_height_percent }}%;"></div>
@@ -253,7 +253,7 @@
         {%- endif -%}
         {{ spacer_html }}
         {% comment %}
-        {% include 'preloader-spinner' %}
+        {% render 'preloader-spinner' %}
         {% endcomment %}
     </div>
 {% endcapture %}
@@ -272,12 +272,12 @@
                     <div class="product-gallery__sheet_item_inner">
                         {%- case media.media_type -%}
                             {% when 'image' %}
-                                {% render 'rimage' with image: media size: main_image_size disable_lazyload: false format: image_format alt: title %}
+                                {% render 'rimage', image: media, size: main_image_size, disable_lazyload: false, format: image_format, alt: title %}
                             {% when 'video' %}
                                 {%- assign video = media.sources | where: 'format', 'mp4' | first -%}
-                                {% render 'rvideo' with video: video aspect_ratio: media.aspect_ratio poster: media.preview_image.src poster_size: main_image_size controls: true autoplay: sheet_video_autoplay %}
+                                {% render 'rvideo', video: video, aspect_ratio: media.aspect_ratio, poster: media.preview_image.src, poster_size: main_image_size, controls: true, autoplay: sheet_video_autoplay %}
                             {% when 'external_video' %}
-                                {% render 'video-external' video_url: media.external_id enablejsapi: enablejsapi_enable controls: true autoplay: sheet_video_autoplay media: media %}
+                                {% render 'video-external', video_url: media.external_id, enablejsapi: enablejsapi_enable, controls: true, autoplay: sheet_video_autoplay, media: media %}
                             {% when 'model' %}
                                 <div class="model-viewer-wrapper">
                                     {{ media | model_viewer_tag }}
@@ -300,7 +300,7 @@
     {% capture thumbnail_mobile_html %}
         <div class="product-gallery__thumbnail product-gallery__thumbnail--slider d-md-none position-relative mt-10" data-js-product-gallery-thumbnail>
             <div class="product-gallery__thumbnail_slider d-none-important js-slider-tracking" data-js-product-gallery-thumbnail-slider>
-                {% include 'product-page-get-gallery-thumbnails' %}
+                {% render 'product-page-get-gallery-thumbnails' %}
             </div>
         </div>
     {% endcapture %}
@@ -322,7 +322,7 @@
                     </div>
                 </div>
             </div>
-            <div class="product-gallery__fullscreen_close position-absolute d-flex flex-center top-0 right-0 mt-10 mt-md-30 mr-10 mr-md-30 cursor-pointer" data-js-product-gallery-control-fullscreen><i class="position-relative">{% include 'icon-theme-164' %}</i></div>
+            <div class="product-gallery__fullscreen_close position-absolute d-flex flex-center top-0 right-0 mt-10 mt-md-30 mr-10 mr-md-30 cursor-pointer" data-js-product-gallery-control-fullscreen><i class="position-relative">{% render 'icon-theme-164' %}</i></div>
             {{ fullscreen_zoom_html }}
         </div>
     {% endcapture %}
@@ -366,7 +366,7 @@
                 </div>
                 <div class="product-gallery__thumbnail product-gallery__thumbnail--slider {% if settings.product_info_show_mobile_thumbnails %}pr-md-0 mt-10 mt-md-0{% else %}d-none d-md-block{% endif %} position-relative mr-md-10" data-js-product-gallery-thumbnail>
                     <div class="product-gallery__thumbnail_slider h-100 d-none-important js-slider-tracking" data-js-product-gallery-thumbnail-slider>
-                        {% include 'product-page-get-gallery-thumbnails' %}
+                        {% render 'product-page-get-gallery-thumbnails' %}
                     </div>
                     <div class="product-gallery__thumbnail_arrows position-md-absolute bottom-0 w-100 d-none d-md-flex flex-md-center">
                         <div class="product-gallery__thumbnail_arrow product-gallery__thumbnail_arrow--type-prev d-flex px-1 cursor-lg-pointer" data-js-product-gallery-thumbnail-arrow-prev><i>{% render 'icon-theme-230' %}</i></div>
@@ -404,7 +404,7 @@
                 {{ thumbnail_mobile_html }}
                 <div class="product-gallery__thumbnail product-gallery__thumbnail--collage d-none d-md-block" data-js-product-gallery-collage>
                     <div class="row">
-                        {% include 'product-page-get-gallery-thumbnails' with thumbnails_type: 'collage' %}
+                        {% render 'product-page-get-gallery-thumbnails', thumbnails_type: 'collage' %}
                     </div>
                 </div>
             </div>
@@ -561,7 +561,7 @@
                 
             </div>
             <div class="gallery-mobile-zoom__close">
-                <i class="position-relative">{% include 'icon-theme-164' %}</i>
+                <i class="position-relative">{% render 'icon-theme-164' %}</i>
             </div>
         </gallery-mobile-zoom>
     {%- endif -%}

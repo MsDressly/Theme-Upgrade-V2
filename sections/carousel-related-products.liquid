@@ -1,6 +1,6 @@
 {%- if section.settings.show_section -%}
     {% assign carousel_related_products_async_ajax_loading = false %}
-    {% include 'global-variables' %}
+    {% render 'global-variables' %}
     {%- assign size_of_columns = section.settings.size_of_columns | abs -%}
     {%- if section.settings.type == 'related' -%}
         {%- assign same_vendor = false -%}
@@ -60,12 +60,12 @@
                                                             {%- if carousel_related_products_async_ajax_loading == false or forloop.index0 < limit -%}
                                                                 <div class="carousel__item col-auto">
                                                                     {%- assign disable_lazyload = carousel_related_products_image_lazyload_carousel_disable -%}
-                                                                    {% include 'product-collection' with url_without_collection: true %}
+                                                                    {% render 'product-collection', url_without_collection: true %}
                                                                 </div>
                                                             {%- elsif carousel_related_products_async_ajax_loading and forloop.index >= limit and forloop.last == true -%}
                                                                 <div class="carousel__item col-auto">
                                                                     {%- assign disable_lazyload = carousel_related_products_image_lazyload_carousel_disable -%}
-                                                                    {% include 'product-collection' with url_without_collection: true %}
+                                                                    {% render 'product-collection', url_without_collection: true %}
                                                                 </div>
                                                             {%- else -%}
                                                                 <div class="carousel__item col-auto" data-handle="{{ product.handle }}"></div>
@@ -85,7 +85,7 @@
                                         <div class="carousel__next position-absolute pointer-events-none" data-js-carousel-arrow><i>{% render 'icon-theme-007' %}</i></div>
                                     {%- endif -%}
                                 </div>
-                                {% include 'preloader-spinner' %}
+                                {% render 'preloader-spinner' %}
                             </div>
                         </div>
                     </div>
@@ -134,12 +134,12 @@
                                                 {%- if carousel_related_products_async_ajax_loading == false or forloop.index0 < limit -%}
                                                     <div class="carousel__item col-auto">
                                                         {%- assign disable_lazyload = carousel_related_products_image_lazyload_carousel_disable -%}
-                                                        {% include 'product-collection' with url_without_collection: true %}
+                                                        {% render 'product-collection', url_without_collection: true %}
                                                     </div>
                                                 {%- elsif carousel_related_products_async_ajax_loading and forloop.index >= limit and forloop.last == true -%}
                                                     <div class="carousel__item col-auto">
                                                         {%- assign disable_lazyload = carousel_related_products_image_lazyload_carousel_disable -%}
-                                                        {% include 'product-collection' with url_without_collection: true %}
+                                                        {% render 'product-collection', url_without_collection: true %}
                                                     </div>
                                                 {%- else -%}
                                                     <div class="carousel__item col-auto" data-handle="{{ product.handle }}"></div>
@@ -152,7 +152,7 @@
                                         <div class="carousel__next position-absolute pointer-events-none" data-js-carousel-arrow><i>{% render 'icon-theme-007' %}</i></div>
                                     {%- endif -%}
                                 </div>
-                                {% include 'preloader-spinner' %}
+                                {% render 'preloader-spinner' %}
                             </div>
                         </div>
                     </div>
@@ -167,7 +167,8 @@
 {%- endif -%}
 
 
-{% schema %}{
+{% schema %}
+{
     "name": "t:sections.related_product_carousel.name",
     "settings": [
         {
@@ -256,4 +257,5 @@
             "default": true
         }
     ]
-}{% endschema %}
+}
+{% endschema %}

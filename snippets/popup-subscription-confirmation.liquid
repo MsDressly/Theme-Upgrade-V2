@@ -10,7 +10,7 @@
         {%- assign popup_subscription_confirmation_btn_type = 'default' -%}
     }
 
-    {% render 'css-style-button' with class: '.popup-subscription-confirmation__btn' type: popup_subscription_confirmation_btn_type %}
+    {% render 'css-style-button', class: '.popup-subscription-confirmation__btn', type: popup_subscription_confirmation_btn_type %}
 {% endcapture %}
 <div class="popup-subscription-confirmation position-relative py-30 px-15" data-popup-content>
     <i class="popup-subscription-confirmation__close position-absolute cursor-pointer" data-js-popup-close>{% render 'icon-theme-164' %}</i>

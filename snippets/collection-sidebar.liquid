@@ -1,4 +1,4 @@
-{% include 'global-variables' %}
+{% render 'global-variables' %}
 <aside id="CollectionSidebar" class="collection-sidebar collection-sidebar--{{ settings.collection_sidebar_position }} js-position" data-js-position-name="sidebar" {% if settings.collection_sidebar_position == 'dropdown' %} data-js-position-onload{% endif %}>        
     <div class="collection-sidebar__wrapper">
         {%- assign filters_block = section.blocks | where: 'type', 'filters' -%}
@@ -32,7 +32,7 @@
                 {%- assign show_border = section.settings.show_filter_border -%}
                 {%- capture sidebar_section_content -%}
                     <div id="CollectionCurrentFilters">
-                        {% include 'collection-current-filters' %}
+                        {% render 'collection-current-filters' %}
                     </div>
                 {%- endcapture -%}
                 {%- assign has_content = true -%}
@@ -190,7 +190,7 @@
                                                                 id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
                                                                 {% if value.active %}checked{% endif %}
                                                                 {% if disable_checkbox %}disabled{% endif %}>
-                                                                <span class="position-relative {% if make_as_rounded %}d-flex border{% else %}d-block{% endif %}{% if make_as_color %}{% if settings_block.settings.layout contains 'col' %} mr-8{% endif %} rounded-circle standard-color-default standard-color-{% render 'product-get-options-strip-symbols' with value: value.label %}{% else %} mr-8 border{% endif %}"{% if make_as_color %} data-value="{% render 'product-get-options-strip-symbols' with value: value.label %}"{% endif %}>
+                                                                <span class="position-relative {% if make_as_rounded %}d-flex border{% else %}d-block{% endif %}{% if make_as_color %}{% if settings_block.settings.layout contains 'col' %} mr-8{% endif %} rounded-circle standard-color-default standard-color-{% render 'product-get-options-strip-symbols', value: value.label %}{% else %} mr-8 border{% endif %}"{% if make_as_color %} data-value="{% render 'product-get-options-strip-symbols', value: value.label %}"{% endif %}>
                                                                     {% if make_as_rounded %}
                                                                         <span class="position-absolute d-block border"></span>
                                                                     {% else %}
@@ -383,7 +383,7 @@
                                                         {%- if make_as_color -%}
                                                             {%- assign tag_standart_color = tag_url | split: '/' | last | split: '?' | first | downcase -%}
                                                         {%- endif -%}
-                                                        <span class="{% unless block.settings.show_checkbox %}d-none-important {% endunless %}position-relative d-block{% if make_as_color %}{% if block.settings.layout contains 'col' %} mr-8{% endif %} rounded-circle standard-color-default standard-color-{% render 'product-get-options-strip-symbols' with value: tag_standart_color %}{% else %} mr-8 border{% endif %}"{% if make_as_color %} data-value="{% render 'product-get-options-strip-symbols' with value: tag_standart_color %}"{% endif %}>
+                                                        <span class="{% unless block.settings.show_checkbox %}d-none-important {% endunless %}position-relative d-block{% if make_as_color %}{% if block.settings.layout contains 'col' %} mr-8{% endif %} rounded-circle standard-color-default standard-color-{% render 'product-get-options-strip-symbols', value: tag_standart_color %}{% else %} mr-8 border{% endif %}"{% if make_as_color %} data-value="{% render 'product-get-options-strip-symbols', value: tag_standart_color %}"{% endif %}>
                                                             <i class="d-none{% if make_as_color %} standard-color-arrow{% endif %}">{% render 'icon-theme-146' %}</i>
                                                         </span>
                                                         {%- if make_as_color != true or block.settings.layout contains 'col' and block.settings.show_checkbox != false -%}
@@ -428,9 +428,9 @@
                     {%- if products.size > 0 -%}
                         {%- for product in products limit: products_limit -%}
                             {%- if block.settings.product_type == 'full' -%}
-                                {% include 'product-collection' %}
+                                {% render 'product-collection' %}
                             {%- else -%}
-                                {% include 'product-featured' %}
+                                {% render 'product-featured' %}
                             {%- endif -%}
                         {%- endfor -%}
                         {%- assign has_content = true -%}
@@ -441,7 +441,7 @@
                 {%- assign show_border = false -%}
                 {%- capture sidebar_section_content -%}
                     {% capture custom_html %}
-                        {% include 'parse-page-html-content' with default_page: 'include-collections-sidebar' page_content: block.settings.page_content %}
+                        {% render 'parse-page-html-content', default_page: 'include-collections-sidebar', page_content: block.settings.page_content %}
                     {% endcapture %}
                     {%- if custom_html != blank -%}
                         <div class="rte">
@@ -454,7 +454,7 @@
                 {%- assign content_type = 'info' -%}
                 {%- assign show_border = false -%}
                 {%- capture sidebar_section_content -%}
-                    {% render 'promobox' with block: block promobox_curtain_opacity: promobox_curtain_opacity promobox_height_preset_1: promobox_height_preset_1 promobox_height_preset_2: promobox_height_preset_2 promobox_height_preset_3: promobox_height_preset_3 promobox_ultra_height_preset_1: promobox_ultra_height_preset_1 promobox_ultra_height_preset_3: promobox_ultra_height_preset_3 %}
+                    {% render 'promobox', block: block, promobox_curtain_opacity: promobox_curtain_opacity, promobox_height_preset_1: promobox_height_preset_1, promobox_height_preset_2: promobox_height_preset_2, promobox_height_preset_3: promobox_height_preset_3, promobox_ultra_height_preset_1: promobox_ultra_height_preset_1, promobox_ultra_height_preset_3: promobox_ultra_height_preset_3 %}
                     {%- assign has_content = true -%}
                 {%- endcapture -%}
             {%- when 'subscription' -%}

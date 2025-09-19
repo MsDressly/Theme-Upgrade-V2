@@ -15,12 +15,12 @@
         {%- assign popup_account_subscription_btn_type = 'secondary' -%}
     {%- endif -%}
     
-    {% render 'css-style-button' with class: '.popup-account__btn-login' type: popup_account_login_btn_type %}
-    {% render 'css-style-button' with class: '.popup-account__btn-signup' type: popup_account_signup_btn_type %}
-    {% render 'css-style-button' with class: '.popup-account__btn-register' type: popup_account_register_btn_type %}
-    {% render 'css-style-button' with class: '.popup-account__btn-account' type: popup_account_account_btn_type %}
-    {% render 'css-style-button' with class: '.popup-account__btn-checkout' type: popup_account_checkout_btn_type %}
-    {% render 'css-style-button' with class: '.popup-account__btn-subscription' type: popup_account_subscription_btn_type %}
+    {% render 'css-style-button', class: '.popup-account__btn-login', type: popup_account_login_btn_type %}
+    {% render 'css-style-button', class: '.popup-account__btn-signup', type: popup_account_signup_btn_type %}
+    {% render 'css-style-button', class: '.popup-account__btn-register', type: popup_account_register_btn_type %}
+    {% render 'css-style-button', class: '.popup-account__btn-account', type: popup_account_account_btn_type %}
+    {% render 'css-style-button', class: '.popup-account__btn-checkout', type: popup_account_checkout_btn_type %}
+    {% render 'css-style-button', class: '.popup-account__btn-subscription', type: popup_account_subscription_btn_type %}
 {% endcapture %}
 <div class="popup-account py-25 px-20 js-popup-account" data-popup-content>
     {%- if customer -%}
@@ -93,7 +93,7 @@
                         <input type="password" name="customer[password]" autocomplete="on" id="PopupCustomerPassword" class="{% if form.errors contains 'password' %}input-error{% endif %}" placeholder="{{ 'general.popups.account.login.password.placeholder' | t }}" required="required">
                     </div>
                 {%- endif -%}
-                {% include 'form-get-message' %}
+                {% render 'form-get-message' %}
                 <input type="submit" class="popup-account__btn-login btn btn--full mb-20" value="{{ 'general.popups.account.login.button' | t }}">
                 <div class="mb-15">
                     <span class="popup-account__return-to-store btn-link" data-js-popup-close>{{ 'general.popups.account.return_to_store' | t }}</span>
@@ -109,7 +109,7 @@
                 <h5 class="m-0">{{ 'general.popups.account.sign-up.title' | t }}</h5>
             </div>
             <div>
-                {% include 'parse-page-html-content' with default_page: 'include-popup-account' page_content: settings.account_popup_sign_up_info_page_content %}
+                {% render 'parse-page-html-content', default_page: 'include-popup-account', page_content: settings.account_popup_sign_up_info_page_content %}
             </div>
             <a href="/account/register" class="popup-account__btn-register btn btn--full mb-20 js-popup-account-show-sign-up" data-js-trigger-id="popup-button-sign-up">{{ 'general.popups.account.sign-up.button' | t }}</a>
         </div>

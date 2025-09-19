@@ -17,7 +17,7 @@
                         {%- endif -%}
                         {%- assign icon_name = icon_name | prepend: 'theme-' -%}
                         {%- assign icon_snippet = icon_name | prepend: 'icon-' -%}
-                        <td><i>{% include icon_snippet %}</i></td>
+                        <td><i>{% render icon_snippet %}</i></td>
                         <td>{{ icon_snippet }}</td>
                         <td>[icon:{{ icon_name }}]</td>
                     </tr>
@@ -32,7 +32,7 @@
                         {%- endif -%}
                         {%- assign icon_name = icon_name | prepend: 'theme-' -%}
                         {%- assign icon_snippet = icon_name | prepend: 'icon-' -%}
-                        <td><i>{% include icon_snippet %}</i></td>
+                        <td><i>{% render icon_snippet %}</i></td>
                         <td>{{ icon_snippet }}</td>
                         <td>[icon:{{ icon_name }}]</td>
                     </tr>
@@ -53,7 +53,7 @@
                         {%- endif -%}
                         {%- assign icon_name = icon_name | prepend: 'dry-' -%}
                         {%- assign icon_snippet = icon_name | prepend: 'icon-' -%}
-                        <td><i class="icon-fs-26">{% include icon_snippet %}</i></td>
+                        <td><i class="icon-fs-26">{% render icon_snippet %}</i></td>
                         <td>{{ icon_snippet }}</td>
                         <td>[icon:{{ icon_name }}]</td>
                     </tr>
@@ -69,7 +69,7 @@
                 {%- assign payment_icons = 'icon-payment-afterpay,icon-payment-american-express,icon-payment-apple-pay,icon-payment-bitcoin,icon-payment-dankort,icon-payment-diners-club,icon-payment-discover,icon-payment-dogecoin,icon-payment-dwolla,icon-payment-forbrugsforeningen,icon-payment-google-pay,icon-payment-ideal,icon-payment-jcb,icon-payment-klarna,icon-payment-klarna-pay-later,icon-payment-litecoin,icon-payment-maestro,icon-payment-master,icon-payment-paypal,icon-payment-shopify-pay,icon-payment-sofort,icon-payment-visa' | split: ',' -%}
                 {%- for icon_snippet in payment_icons -%}
                     <tr>
-                        <td><i class="icon-fs-40">{% include icon_snippet %}</i></td>
+                        <td><i class="icon-fs-40">{% render icon_snippet %}</i></td>
                         <td>{{ icon_snippet }}</td>
                         <td>[icon:{{ icon_snippet | remove_first: 'icon-' }}]</td>
                     </tr>

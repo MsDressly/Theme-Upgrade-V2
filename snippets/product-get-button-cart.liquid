@@ -11,18 +11,18 @@
     {% capture cart_icon_name %}{{ settings.cart_icon | default: 'icon-theme-109' }}{% endcapture %}
     <{% if enable_select_options_button %}a href="{{ url }}"{% else %}button type="submit" name="add"{% endif %} class="btn{% if button_colorize == 2 %} btn--secondary{% endif %} btn--status{% if settings.buttons_animation_icon_enable %} btn--animated{% endif %}{% if settings.cart_ajax and enable_select_options_button != true %} js-product-button-add-to-cart{% endif %}" data-js-product-button-add-to-cart{% unless current_variant.available %} disabled="disabled" data-button-status="sold-out"{% elsif variant_pre_order %} data-button-status="pre-order"{% else %}{% if enable_select_variant_button == true or enable_select_options_button %} data-button-status="select"{% if enable_select_options_button %} data-button-default-status="select"{% endif %}{% if button_select_disable %} data-button-select-disableHOLD{% endif %}{% endif %}{% endunless %}>
         {%- if enable_select_options_button -%}
-            <span class="d-none d-sm-flex flex-center" data-button-content="select"><i class="btn__icon mr-5 mb-4">{% include cart_icon_name %}</i><span class="btn__text">{{ 'products.product.add_to_cart.select_options' | t }}</span></span>
-            <span class="d-flex d-sm-none flex-center" data-button-content="select"><i class="btn__icon mr-5 mb-4">{% include cart_icon_name %}</i><span class="btn__text">{{ 'products.product.add_to_cart.select_options_mobile' | t }}</span></span>
+            <span class="d-none d-sm-flex flex-center" data-button-content="select"><i class="btn__icon mr-5 mb-4">{% render cart_icon_name %}</i><span class="btn__text">{{ 'products.product.add_to_cart.select_options' | t }}</span></span>
+            <span class="d-flex d-sm-none flex-center" data-button-content="select"><i class="btn__icon mr-5 mb-4">{% render cart_icon_name %}</i><span class="btn__text">{{ 'products.product.add_to_cart.select_options_mobile' | t }}</span></span>
         {%- else -%}
-            <span class="d-flex flex-center"><i class="btn__icon mr-5 mb-4">{% include cart_icon_name %}</i><span class="btn__text">{{ 'products.product.add_to_cart.title' | t }}</span></span>
+            <span class="d-flex flex-center"><i class="btn__icon mr-5 mb-4">{% render cart_icon_name %}</i><span class="btn__text">{{ 'products.product.add_to_cart.title' | t }}</span></span>
             <span class="d-flex flex-center" data-button-content="added"><i class="mr-5 mb-4">{% render 'icon-theme-110' %}</i>{{ 'products.product.add_to_cart.added' | t }}</span>
             {%- if enable_select_variant_button -%}
-                <span class="d-none d-sm-flex flex-center" data-button-content="select"><i class="btn__icon mr-5 mb-4">{% include cart_icon_name %}</i><span class="btn__text">{{ 'products.product.add_to_cart.select_options' | t }}</span></span>
-                <span class="d-flex d-sm-none flex-center" data-button-content="select"><i class="btn__icon mr-5 mb-4">{% include cart_icon_name %}</i><span class="btn__text">{{ 'products.product.add_to_cart.select_options_mobile' | t }}</span></span>
+                <span class="d-none d-sm-flex flex-center" data-button-content="select"><i class="btn__icon mr-5 mb-4">{% render cart_icon_name %}</i><span class="btn__text">{{ 'products.product.add_to_cart.select_options' | t }}</span></span>
+                <span class="d-flex d-sm-none flex-center" data-button-content="select"><i class="btn__icon mr-5 mb-4">{% render cart_icon_name %}</i><span class="btn__text">{{ 'products.product.add_to_cart.select_options_mobile' | t }}</span></span>
             {%- endif -%}
         {%- endif -%}
         <span class="d-flex flex-center" data-button-content="sold-out">{{ 'products.product.add_to_cart.sold_out' | t }}</span>
-        <span class="d-flex flex-center" data-button-content="pre-order"><i class="btn__icon mr-5 mb-4">{% include cart_icon_name %}</i><span class="btn__text">{{ 'products.product.add_to_cart.pre_order' | t }}</span></span>
+        <span class="d-flex flex-center" data-button-content="pre-order"><i class="btn__icon mr-5 mb-4">{% render cart_icon_name %}</i><span class="btn__text">{{ 'products.product.add_to_cart.pre_order' | t }}</span></span>
     </{% if enable_select_options_button %}a{% else %}button{% endif %}>
     {%- assign enable_select_options_button = false -%}
     {%- assign enable_select_variant_button = false -%}

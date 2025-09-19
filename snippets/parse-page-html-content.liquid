@@ -9,7 +9,7 @@
     {%- if ignore_icons -%}
         {{ get_content }}
     {%- else -%}
-        {% include 'parse-for-icons' content: get_content %}
+        {% render 'parse-for-icons', content: get_content %}
     {%- endif -%}
 {%- endif -%}
 {%- assign get_content = null -%}

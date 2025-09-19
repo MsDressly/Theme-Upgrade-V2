@@ -10,7 +10,7 @@
                             {%- when 3 %}{% assign faqs_default_page = 'include-faqs-answer-3' -%}
                             {%- else %}{% assign faqs_default_page = 'include-faqs-answer' -%}
                         {%- endcase -%}
-                        {% include 'parse-page-html-content' with default_page: faqs_default_page page_content: block.settings.page_content html: block.settings.answer %}
+                        {% render 'parse-page-html-content', default_page: faqs_default_page, page_content: block.settings.page_content, html: block.settings.answer %}
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-{% include 'breadcrumbs' %}
+{% render 'breadcrumbs' %}
 <div class="account pb-60">
   <div class="container">
     <h1 class="h3 mt-30 mb-40 text-center">{{ 'customer.account.title' | t }}</h1>
@@ -179,7 +179,9 @@
   </div>
 </div>
 
-{% schema %}{
+{% schema %}
+{
     "name": "t:sections.account.name",
     "settings": []
-}{% endschema %}
+}
+{% endschema %}

@@ -1,44 +1,48 @@
-{%- comment -%}
-This file has been modified by the Yoast SEO for Shopify app.
-You can learn more about this (and learn how to cleanly revert these changes) at https://yoa.st/removing-theme-changes.
-{%- endcomment -%}
-{%- comment -%}Yoast SEO schema control block: start.{%- endcomment -%}
-{%- assign yoast_seo_settings = shop.metafields.yoast_seo.settings.value | default: shop.metafields.yoast_seo.settings -%}
-{%- if disabled_by_yoast_seo or yoast_seo_settings.schema.useTheme.schema or yoast_seo_settings.schema.useTheme.product -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org/",
   "@type": "Product",
   "name": {{ product.title | json }},
-  "image": {{ product.featured_image | img_url: 'master' | json }},
+  "url": {{ shop.url | append: product.url | json }},
+  {%- if product.images.size > 0 -%}
+  "image": [
+    {%- for image in product.images limit:5 -%}
+      {{ image | img_url: 'master' | prepend: 'https:' | json }}{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ],
+  {%- endif -%}
   "description": {{ product.description | strip_html | json }},
+  {%- if product.variants.first.sku != blank -%}
   "sku": {{ product.variants.first.sku | json }},
+  {%- endif -%}
   "brand": {
     "@type": "Brand",
     "name": "MsDressly"
   },
   "offers": [
-    {% for variant in product.variants %}
+    {%- for variant in product.variants -%}
     {
       "@type": "Offer",
+      {%- if variant.sku != blank -%}
       "sku": {{ variant.sku | json }},
-      "priceCurrency": {{ shop.currency | json }},
+      {%- endif -%}
+      "availability": "https://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
       "price": {{ variant.price | divided_by: 100.0 | json }},
-      "availability": {{ variant.available ? "https://schema.org/InStock" : "https://schema.org/OutOfStock" | json }}
+      "priceCurrency": {{ shop.currency | json }},
+      "itemCondition": "https://schema.org/NewCondition",
+      "url": {{ shop.url | append: variant.url | json }}
     }{% unless forloop.last %},{% endunless %}
-    {% endfor %}
-  ],
+    {%- endfor -%}
+  ]
+  {%- assign rating = product.metafields.judgeme.rating -%}
+  {%- assign rating_count = product.metafields.judgeme.review_count -%}
+  {%- if rating and rating_count -%}
+  ,
   "aggregateRating": {
     "@type": "AggregateRating",
-    {% if product.metafields.judgeme.rating %}
-    "ratingValue": {{ product.metafields.judgeme.rating | json }},
-    "reviewCount": {{ product.metafields.judgeme.review_count | json }}
-    {% else %}
-    "ratingValue": "4.7",
-    "reviewCount": "147"
-    {% endif %}
+    "ratingValue": {{ rating | json }},
+    "reviewCount": {{ rating_count | json }}
   }
+  {%- endif -%}
 }
-{%- comment -%}Yoast SEO schema control block: end.{%- endcomment -%}
 </script>
-{%- endif -%} 

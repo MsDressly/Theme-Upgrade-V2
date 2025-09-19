@@ -20,13 +20,12 @@
                         {% capture notification_text_02 %}{{ 'general.notifications.purchase.text_line_02' | t }}{% endcapture %}
                         {%- assign notification_text_02 = notification_text_02 | replace: '{time}', time | replace: '{place}', place -%}
                         <div class="d-none" data-js-notification-products-item>
-                            {% include 'product-notification' %}
+                            {% render 'product-notification' %}
                         </div>
                     {%- endfor -%}
                 </div>
             </div>
         </div>
-        {% include 'product-res-variables-clear' %}
         <script>
             theme.AssetsLoader.onUserAction(function() {
 				theme.AssetsLoader.require('scripts', 'notifications');
@@ -64,11 +63,11 @@
         </script>
     {%- endif -%}
     {% comment %}
-    {% include 'footbar-get-development' %}
+    {% render 'footbar-get-development' %}
     {% endcomment %}
     {%- if template.name == 'product' and settings.product_footbar_enable -%}
         {% capture cart_icon_name %}{{ settings.cart_icon | default: 'icon-theme-109' }}{% endcapture %}
-        {% include 'product-res-variables' %}
+        {% render 'product-res-variables' %}
         {%- assign image_size = '60x' -%}
         <div class="footbar-product w-100 js-footbar-product pointer-events-all" data-product-handle="{{ product.handle }}" data-js-product-clone="footbar">
             <div class="container d-flex">
@@ -76,7 +75,7 @@
                     <div class="footbar-product__image mr-20 mr-lg-15">
                         <div data-js-product-image>
                             {%- capture image_id -%} data-image-id="{{ image.id }}"{%- endcapture -%}
-                            {% render 'rimage' with image: image size: image_size alt: title attr: image_id %}
+                            {% render 'rimage', image: image, size: image_size, alt: title, attr: image_id %}
                         </div>
                     </div>
                     <div class="d-flex flex-column py-4 mr-15">
@@ -87,14 +86,14 @@
                         {%- endif -%}
                         {%- if settings.product_footbar_show_price -%}
                             <div class="footbar-product__price">
-                                {% include 'product-get-price' %}
+                                {% render 'product-get-price' %}
                             </div>
                         {%- endif -%}
                         {%- if settings.reviews_type != 'disable' -%}
                             {%- if settings.product_footbar_show_reviews -%}
                                 <div class="footbar-product__reviews d-none d-lg-block">
                                     {%- if settings.reviews_type == 'default' -%}
-                                        {% render 'product-get-review' with product: product hide_counter: settings.product_info_hide_reviews_counter %}
+                                        {% render 'product-get-review', product: product, hide_counter: settings.product_info_hide_reviews_counter %}
                                     {%- elsif settings.reviews_type == 'growave' and settings.app_growave_enable == true -%}
                                         {% capture the_snippet_review_avg %}{% render 'ssw-widget-avg-rate-listing', product: product %}{% endcapture %}
                                         {%- unless the_snippet_review_avg contains 'Liquid error' or product.metafields.ssw['review'].avg == 0 -%}
@@ -116,18 +115,18 @@
                     <div class="footbar-product__controls w-100 d-flex flex-column flex-lg-row align-items-lg-center py-4 ml-auto">
                         {%- if settings.product_footbar_show_options and settings.product_show_custom_options -%}
                             <div class="footbar-product__options{% if product.variants.size == 1 and product.variants.first.title contains 'Default' %} d-none{% endif %}{% if settings.product_footbar_options_type == 'default' %} d-lg-none{% endif %} py-4 ml-auto mx-lg-auto mr-lg-15">
-                                {% render 'product-get-variants' with product: product current_variant: current_variant show_options: settings.product_footbar_show_options show_custom_options: false %}
+                                {% render 'product-get-variants', product: product, current_variant: current_variant, show_options: settings.product_footbar_show_options, show_custom_options: false %}
                             </div>
                             {%- if settings.product_footbar_options_type == 'default' -%}
                                 <div class="footbar-product__options d-none d-lg-block py-4 mx-lg-auto mr-lg-15">
-                                    {% include 'product-get-options' with options_type: 3 select_dropdown_position: 'top' options_show_title: true trigger: 'footbar' %}
+                                    {% render 'product-get-options', options_type: 3, select_dropdown_position: 'top', options_show_title: true, trigger: 'footbar' %}
                                 </div>
                             {%- endif -%}
                         {%- endif -%}
                         <div class="d-flex align-items-center py-4 ml-auto">
                             {%- if settings.product_footbar_show_quantity -%}
                                 <div class="footbar-product__quantity d-none d-lg-block ml-auto mr-15">
-                                    {% render 'product-get-quantity' with quantity_type: 2 quantity_connect: 'footbar' %}
+                                    {% render 'product-get-quantity', quantity_type: 2, quantity_connect: 'footbar' %}
                                 </div>
                             {%- endif -%}
                             {%- if settings.product_footbar_show_button_add_to_cart -%}
@@ -139,7 +138,7 @@
                                             <span class="d-flex flex-center" data-button-content="select">{{ 'products.product.add_to_cart.select_options' | t }}</span>
                                         {%- endif -%}
                                         <span class="d-flex flex-center text-nowrap" data-button-content="sold-out">{{ 'products.product.add_to_cart.sold_out' | t }}</span>
-                                        <span class="d-flex flex-center" data-button-content="pre-order"><i class="btn__icon mr-5 mb-4">{% include cart_icon_name %}</i><span class="btn__text">{{ 'products.product.add_to_cart.pre_order' | t }}</span></span>
+                                        <span class="d-flex flex-center" data-button-content="pre-order"><i class="btn__icon mr-5 mb-4">{% render cart_icon_name %}</i><span class="btn__text">{{ 'products.product.add_to_cart.pre_order' | t }}</span></span>
                                     </button>
                                 </div>
                             {%- endif -%}
@@ -148,7 +147,6 @@
                 </div>
             </div>
         </div>
-        {% include 'product-res-variables-clear' %}
         <script>
             theme.AssetsLoader.onUserAction(function() {
 				theme.AssetsLoader.require('scripts', 'product_footbar');

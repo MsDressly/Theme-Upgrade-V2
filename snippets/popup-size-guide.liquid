@@ -5,7 +5,7 @@
             {%- if product.metafields.sizeguide.html and product.metafields.sizeguide.html != 'hide' -%}
                 {{ product.metafields.sizeguide.html }}
             {%- else -%}
-                {% include 'parse-page-html-content' with default_page: 'include-popup-size-guide' page_content: settings.product_info_size_guide_page_content %}
+                {% render 'parse-page-html-content', default_page: 'include-popup-size-guide', page_content: settings.product_info_size_guide_page_content %}
             {%- endif -%}
         </div>
     </div>

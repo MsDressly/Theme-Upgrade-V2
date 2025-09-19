@@ -5,52 +5,52 @@
 {%- endif -%}
 {%- assign gallery_size = section.settings.gallery_size | default: '6' | abs -%}
 {%- if template_layout == '1' -%}
-    <single-product class="product-page-main d-block"{% include 'product-get-attributes' %} data-js-product-clone-id="footbar">
+    <single-product class="product-page-main d-block"{% render 'product-get-attributes' %} data-js-product-clone-id="footbar">
         <div class="row">
             <div class="col-12 col-md-{{ gallery_size }}{% if reverse %} order-md-1{% endif %}{% if enable_sticky_gallery %} index-10 sticky-sidebar js-sticky-sidebar{% endif %}">
                 {%- if enable_sticky_gallery -%}
                     <div data-js-sticky-sidebar-body{% if is_quick_view %} data-js-disable-offsets{% endif %}>
                 {%- endif -%}
-                        {% include 'product-page-get-gallery' %}
+                        {% render 'product-page-get-gallery' %}
                 {%- if enable_sticky_gallery -%}
                     </div>
                 {%- endif -%}
             </div>
             <div class="col-12 col-md-{{ 12 | minus: gallery_size }}">
-                {% include 'product-page-get-info' with product_form_id: product_form_id %}
+                {% render 'product-page-get-info', product_form_id: product_form_id %}
             </div>
         </div>
     </single-product>
 {%- elsif template_layout == '2' -%}
-    <single-product class="product-page-main d-block"{% include 'product-get-attributes' %} data-js-product-clone-id="footbar">
+    <single-product class="product-page-main d-block"{% render 'product-get-attributes' %} data-js-product-clone-id="footbar">
         <div class="row">
             <div class="col-12 col-md-{{ gallery_size }}{% if enable_sticky_gallery %} index-10 sticky-sidebar js-sticky-sidebar{% endif %}">
                 {%- if enable_sticky_gallery -%}
                     <div data-js-sticky-sidebar-body{% if is_quick_view %} data-js-disable-offsets{% endif %}>
                 {%- endif -%}
-                        {% include 'product-page-get-gallery' %}
+                        {% render 'product-page-get-gallery' %}
                 {%- if enable_sticky_gallery -%}
                     </div>
                 {%- endif -%}
             </div>
             <div class="col-12 col-md-{{ 12 | minus: gallery_size }}">
-                {% include 'product-page-get-info' with product_form_id: product_form_id %}
+                {% render 'product-page-get-info', product_form_id: product_form_id %}
                 {%- if section.settings.show_tabs -%}
                     <div class="product-page__tabs mt-30 mb-40">
-                        {% include 'product-page-get-tabs' %}
+                        {% render 'product-page-get-tabs' %}
                     </div>
                 {%- endif -%}
             </div>
         </div>
     </single-product>
 {%- elsif template_layout == '3' -%}
-    <single-product class="product-page-main d-block"{% include 'product-get-attributes' %} data-js-product-clone-id="footbar">
+    <single-product class="product-page-main d-block"{% render 'product-get-attributes' %} data-js-product-clone-id="footbar">
         <div class="row">
             <div class="col-12 col-md-{{ gallery_size }}{% if enable_sticky_gallery %} index-10 sticky-sidebar js-sticky-sidebar{% endif %}">
                 {%- if enable_sticky_gallery -%}
                     <div data-js-sticky-sidebar-body{% if is_quick_view %} data-js-disable-offsets{% endif %}>
                 {%- endif -%}
-                        {% include 'product-page-get-gallery' %}
+                        {% render 'product-page-get-gallery' %}
                 {%- if enable_sticky_gallery -%}
                     </div>
                 {%- endif -%}
@@ -59,10 +59,10 @@
                 {%- if enable_sticky_gallery -%}
                     <div data-js-sticky-sidebar-body{% if is_quick_view %} data-js-disable-offsets{% endif %}>
                 {%- endif -%}
-                        {% include 'product-page-get-info' with product_form_id: product_form_id %}
+                        {% render 'product-page-get-info', product_form_id: product_form_id %}
                         {%- if section.settings.show_tabs -%}
                             <div class="product-page__tabs mt-30 pb-40">
-                                {% include 'product-page-get-tabs' %}
+                                {% render 'product-page-get-tabs' %}
                             </div>
                         {%- endif -%}
                 {%- if enable_sticky_gallery -%}
@@ -72,13 +72,13 @@
         </div>
     </single-product>
 {%- elsif template_layout == '4' -%}
-    <single-product class="product-page-main d-block"{% include 'product-get-attributes' %} data-js-product-clone-id="footbar">
+    <single-product class="product-page-main d-block"{% render 'product-get-attributes' %} data-js-product-clone-id="footbar">
         <div class="row">
             <div class="col-12 col-md-{{ gallery_size }}{% if enable_sticky_gallery %} index-10 sticky-sidebar js-sticky-sidebar{% endif %}">
                 {%- if enable_sticky_gallery -%}
                     <div data-js-sticky-sidebar-body{% if is_quick_view %} data-js-disable-offsets{% endif %}>
                 {%- endif -%}
-                        {% include 'product-page-get-gallery' %}
+                        {% render 'product-page-get-gallery' %}
                 {%- if enable_sticky_gallery -%}
                     </div>
                 {%- endif -%}
@@ -87,10 +87,10 @@
                 {%- if enable_sticky_gallery -%}
                     <div data-js-sticky-sidebar-body{% if is_quick_view %} data-js-disable-offsets{% endif %}>
                 {%- endif -%}
-                        {% include 'product-page-get-info' with product_form_id: product_form_id %}
+                        {% render 'product-page-get-info', product_form_id: product_form_id %}
                         {%- if section.settings.show_tabs -%}
                             <div class="product-page__tabs mt-30 pb-40">
-                                {% include 'product-page-get-tabs' %}
+                                {% render 'product-page-get-tabs' %}
                             </div>
                         {%- endif -%}
                 {%- if enable_sticky_gallery -%}
@@ -100,9 +100,9 @@
         </div>
     </single-product>
 {%- elsif template_layout == '5' -%}
-    <single-product class="product-page-main d-block"{% include 'product-get-attributes' %} data-js-product-clone-id="footbar">
-        {% include 'product-page-get-gallery' %}
-        {% include 'product-page-get-info' with product_form_id: product_form_id %}
+    <single-product class="product-page-main d-block"{% render 'product-get-attributes' %} data-js-product-clone-id="footbar">
+        {% render 'product-page-get-gallery' %}
+        {% render 'product-page-get-info', product_form_id: product_form_id %}
     </single-product>
 {%- endif -%}
 {%- if enable_sticky_gallery -%}

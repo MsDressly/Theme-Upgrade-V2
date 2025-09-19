@@ -4,7 +4,7 @@
     <div class="row pb-60">
         {%- for product in collections['all'].products limit: 4 -%}
             <div class="col-6 col-md-4 col-lg-3">
-                {% include 'product-collection' %}
+                {% render 'product-collection' %}
             </div>
         {%- endfor -%}
     </div>
@@ -12,7 +12,7 @@
     <div class="row pb-60 collection-grid-centered-xs collection-grid-centered-sm">
         {%- for product in collections['all'].products limit: 4 -%}
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                {% include 'product-collection' %}
+                {% render 'product-collection' %}
             </div>
         {%- endfor -%}
     </div>
@@ -20,7 +20,7 @@
     <div class="row pb-60 collection-grid-list-lg collection-grid-list-xl">
         {%- for product in collections['all'].products limit: 4 -%}
             <div class="col-6 col-md-4 col-lg-12">
-                {% include 'product-collection' %}
+                {% render 'product-collection' %}
             </div>
         {%- endfor -%}
     </div>
@@ -28,7 +28,7 @@
     <div class="row pb-60 collection-grid-centered-xs collection-grid-centered-sm collection-grid-list-lg collection-grid-list-xl">
         {%- for product in collections['all'].products limit: 4 -%}
             <div class="col-12 col-sm-6 col-md-4 col-lg-12">
-                {% include 'product-collection' %}
+                {% render 'product-collection' %}
             </div>
         {%- endfor -%}
     </div>
@@ -36,7 +36,7 @@
     <div class="row pb-60">
         {%- for product in collections['all'].products limit: 6 -%}
             <div class="col-12 col-lg-2">
-                {% include 'product-search' %}
+                {% render 'product-search' %}
             </div>
         {%- endfor -%}
     </div>
@@ -44,7 +44,7 @@
     <div class="row pb-60">
         {%- for product in collections['all'].products limit: 6 -%}
             <div class="col-12 col-lg-2">
-                {% include 'product-search-2' %}
+                {% render 'product-search-2' %}
             </div>
         {%- endfor -%}
     </div>
@@ -53,7 +53,7 @@
     <div class="row pb-60">
         {%- for item in cart.items limit: 6 -%}
             <div class="col-12">
-                {% include 'product-cart' %}
+                {% render 'product-cart' %}
             </div>
         {%- endfor -%}
     </div>
@@ -62,7 +62,7 @@
     <div class="row pb-60">
         {%- for product in collections['all'].products limit: 4 -%}
             <div class="col-12">
-                {% include 'product-featured' %}
+                {% render 'product-featured' %}
             </div>
         {%- endfor -%}
     </div>

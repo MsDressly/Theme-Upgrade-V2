@@ -24,9 +24,9 @@
                                     {%- assign megamenu = block.settings -%}
                                     {%- assign megamenu_index = forloop.index | plus: megamenu_index -%}
                                     {%- if longer_menu -%}
-                                        {% include 'header-get-menu-megamenu' with output_link: longer_menu %}
+                                        {% render 'header-get-menu-megamenu', output_link: longer_menu %}
                                     {%- else -%}
-                                        {% include 'header-get-menu-megamenu' with output_link: link %}
+                                        {% render 'header-get-menu-megamenu', output_link: link %}
                                     {%- endif -%}
                                     {%- break -%}
                                 {%- endif -%}
@@ -35,14 +35,14 @@
                     {%- endif -%}
                     {%- if megamenu == null -%}
                         {%- if longer_menu -%}
-                            {% render 'header-get-menu-dropdown' with output_link: longer_menu label_html: label_html preview_image_html: preview_image_html preview_link_substitution: preview_link_substitution %}
+                            {% render 'header-get-menu-dropdown', output_link: longer_menu, label_html: label_html, preview_image_html: preview_image_html, preview_link_substitution: preview_link_substitution %}
                         {%- else -%}
-                            {% render 'header-get-menu-dropdown' with output_link: link label_html: label_html preview_image_html: preview_image_html preview_link_substitution: preview_link_substitution %}
+                            {% render 'header-get-menu-dropdown', output_link: link, label_html: label_html, preview_image_html: preview_image_html, preview_link_substitution: preview_link_substitution %}
                         {%- endif -%}
                     {%- endif -%}
                 {% endcapture %}
                 <div class="menu__item {% if link.levels > 0 or longer_menu %}menu__item--has-children{% if megamenu == null %} position-lg-relative{% endif %}{% endif %}">
-                    <a href="{% render 'header-get-menu-link-substitution' with preview_link_substitution: preview_link_substitution default_link: link.url link: link %}" class="d-flex align-items-center{% if section.settings.show_menu_hover_underline %} text-underline-hover{% endif %}">{% include 'header-get-menu-icons' with link: link %}<span>{{ link.title }}</span>{% render 'header-get-menu-labels' with label_html: label_html link: link %}{% if link.levels > 0 or megamenu != null or longer_menu.levels > 0 %} {% if section.settings.show_menu_arrows %}<i class="menu__item_arrow d-none d-lg-flex position-lg-relative mr-0">{% render 'icon-theme-229' %}</i>{% endif %}{% if link.levels > 0 or longer_menu.levels > 0 %}<i class="menu__item_arrow d-lg-none ml-auto">{% render 'icon-theme-231' %}</i>{% endif %}{% endif %}</a>
+                    <a href="{% render 'header-get-menu-link-substitution', preview_link_substitution: preview_link_substitution, default_link: link.url, link: link %}" class="d-flex align-items-center{% if section.settings.show_menu_hover_underline %} text-underline-hover{% endif %}">{% render 'header-get-menu-icons', link: link %}<span>{{ link.title }}</span>{% render 'header-get-menu-labels', label_html: label_html, link: link %}{% if link.levels > 0 or megamenu != null or longer_menu.levels > 0 %} {% if section.settings.show_menu_arrows %}<i class="menu__item_arrow d-none d-lg-flex position-lg-relative mr-0">{% render 'icon-theme-229' %}</i>{% endif %}{% if link.levels > 0 or longer_menu.levels > 0 %}<i class="menu__item_arrow d-lg-none ml-auto">{% render 'icon-theme-231' %}</i>{% endif %}{% endif %}</a>
                     {%- if link.levels > 0 or megamenu != null or longer_menu.levels > 0 -%}
                         {{ childrens }}
                     {%- endif -%}

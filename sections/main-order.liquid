@@ -1,4 +1,4 @@
-{% include 'breadcrumbs' %}
+{% render 'breadcrumbs' %}
 <div class="container pb-60">
   <h1 class="h3 mt-30 mb-40 text-center">{{ 'customer.orders.title' | t }}</h1>
   <a href="/account" class="btn-link my-30">{{ 'customer.account.return' | t }}</a>
@@ -92,7 +92,9 @@
 </div>
 
 
-{% schema %}{
+{% schema %}
+{
     "name": "t:sections.order.name",
     "settings": []
-}{% endschema %}
+}
+{% endschema %}

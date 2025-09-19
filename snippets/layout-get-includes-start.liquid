@@ -21,7 +21,7 @@
 {%- endif -%}
 {%- if settings.layout_enable_page_preloader -%}
 	<div id="page-preloader">
-        {% render 'preloader-spinner' with page: true %}
+        {% render 'preloader-spinner', page: true %}
     </div>
 {%- endif -%}
 <script>

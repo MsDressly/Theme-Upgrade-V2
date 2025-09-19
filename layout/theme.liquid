@@ -1,11 +1,8 @@
-{%- comment -%}
-This file has been modified by the Yoast SEO for Shopify app.
-You can learn more about this (and learn how to cleanly revert these changes) at https://yoa.st/removing-theme-changes.
-{%- endcomment -%}
 <!doctype html>
 <html class="no-js supports-no-cookies" lang="{{ shop.locale }}"{% if shop.locale == 'ar' or shop.locale == 'he' or settings.layout_enable_rtl %} dir="rtl"{% endif %}>
 
-<head>{% render 'yoast-seo' %}
+<head>
+  {%- assign disabled_by_yoast_seo = true -%}
   <!-- DNS prefetch for external domains -->
   <link rel="dns-prefetch" href="//fonts.googleapis.com">
   <link rel="dns-prefetch" href="//www.googletagmanager.com">
@@ -44,28 +41,21 @@ You can learn more about this (and learn how to cleanly revert these changes) at
     <script>
       window.addEventListener('DOMContentLoaded', function() {
         var script = document.createElement('script');
-        script.innerHTML = '{% include "SEOAnt-SpeedUp" %}';
+        script.innerHTML = '{% render "SEOAnt-SpeedUp" %}';
         document.head.appendChild(script);
       });
     </script>
   {%- endif -%}
   {%- endcomment -%}
 
-  {% include 'autoketing-seo' %}
-
   <!-- Standard Shopify head content -->
   {{ content_for_header }}
-  {% include 'head' %}
+  {% render 'head' %}
   {%- comment -%} DISABLED - Feed Army app no longer in use
-  {% include 'feedarmy322' %}
+  {% render 'feedarmy322' %}
   {%- endcomment -%}
 
-  {% comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
-  {%- assign yoast_seo_settings = shop.metafields.yoast_seo.settings.value | default: shop.metafields.yoast_seo.settings -%}
-  {%- if disabled_by_yoast_seo or yoast_seo_settings.integrations.webmasterVerification.google == blank or yoast_seo_settings.integrations.webmasterVerification.google == null -%}
-    <meta name="google-site-verification" content="NeMJo4pLZqU6IJyez5HR1fHuZ08pEqb-_awCFv8PNvI" />
-  {%- comment -%} End Yoast auto-disable. {%- endcomment -%}
-  {%- endif -%}
+  <meta name="google-site-verification" content="NeMJo4pLZqU6IJyez5HR1fHuZ08pEqb-_awCFv8PNvI" />
 
   <script>
     // Non-critical redirect script - defer execution
@@ -81,10 +71,8 @@ You can learn more about this (and learn how to cleanly revert these changes) at
   <!-- Defer non-critical CSS -->
   <noscript><link rel="stylesheet" href="{{ 'theme-d.s.min.css' | asset_url }}"></noscript>
 
-  {% include 'autoketing-end-head-seo' %}
-
   {%- if template contains 'product' -%}
-    {%- include 'json-ld-product' -%}
+    {%- render 'json-ld-product' -%}
   {%- endif -%}
 </head>
 
@@ -92,31 +80,31 @@ You can learn more about this (and learn how to cleanly revert these changes) at
   <!-- Performance marker -->
   <script>window.performance && window.performance.mark && window.performance.mark('theme:body:start');</script>
   
-  {% include 'layout-get-includes-start' %}
+  {% render 'layout-get-includes-start' %}
   {%- if settings.product_show_custom_options and settings.product_enable_variants_section -%}
     {% section 'product-variants' %}
   {%- endif -%}
   {% sections 'header-group' %}
   <main id="MainContent">
     {%- if request.page_type == 'page' or request.page_type == 'product' or request.page_type == 'cart' or request.page_type == 'list-collections' or request.page_type == 'article' or request.page_type == 'blog' -%}
-      {% include 'breadcrumbs' %}
+      {% render 'breadcrumbs' %}
     {%- elsif request.page_type == 'collection' -%}
       <div id="CollectionBreadcrumbs">
-        {% include 'breadcrumbs' %}
+        {% render 'breadcrumbs' %}
       </div>
     {%- endif -%}
     {{ content_for_layout }}
   </main>
   {% sections 'footer-group' %}
-  {% include 'popups' %}
-  {% include 'footbar' %}
+  {% render 'popups' %}
+  {% render 'footbar' %}
 
   {%- if settings.presentation_enable or template == 'product' and settings.product_info_page_show_usage_info_sidebar -%}
-    {% include 'fixed-sidebar' %}
+    {% render 'fixed-sidebar' %}
   {%- endif -%}
 
-  {% include 'templates' %}
-  {% include 'layout-get-includes-end' %}
+  {% render 'templates' %}
+  {% render 'layout-get-includes-end' %}
 
   <!-- Performance marker -->
   <script>window.performance && window.performance.mark && window.performance.mark('theme:DOM:loaded');</script>
@@ -248,7 +236,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
   </script>
 
   {%- comment -%} DISABLED - Store Credit Launcher app no longer in use
-  {% include 'store-credit-launcher' %}
+  {% render 'store-credit-launcher' %}
   {%- endcomment -%}
 </body>
 </html>

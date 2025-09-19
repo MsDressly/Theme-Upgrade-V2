@@ -36,7 +36,7 @@
                         {%- else -%}
                             {%- for payment_name in payment_names -%}
                                 {%- if payment_name == payment_type -%}
-                                    {% include payment_default_snippets[forloop.index0] %}
+                                    {% render payment_default_snippets[forloop.index0] %}
                                     {%- break -%}
                                 {%- endif -%}
                             {%- endfor -%}

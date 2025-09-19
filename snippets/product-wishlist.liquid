@@ -1,5 +1,5 @@
-{% include 'global-variables' %}
-{% include 'product-res-variables' %}
+{% render 'global-variables' %}
+{% render 'product-res-variables' %}
 {%- assign image_size = image_size | default: '200x' -%}
 {%- assign show_label_in_stock = show_label_in_stock | default: settings.product_collection_show_label_in_stock -%}
 {%- assign show_label_pre_order = show_label_pre_order | default: settings.product_collection_show_label_pre_order -%}
@@ -17,8 +17,11 @@
     <product-item class="product-wishlist{% if settings.product_collection_centered_info %} product-wishlist--centered{% endif %} d-flex flex-column mb-30" data-js-product data-js-store-lists-product-wishlist data-product-handle="{{ product.handle }}" data-product-variant-id="{{ current_variant_id }}">
         <div class="d-flex flex-column">
             <a href="#" class="product-wishlist__image product-image product-image--hover-{{ settings.product_hover_animation_type }} position-relative w-100 js-product-images-navigation js-product-images-hovered-end">
-                <img>
-                
+                {%- if image -%}
+                    {% render 'rimage', image: image, size: image_size, alt: title %}
+                {%- else -%}
+                    {{ 'product-apparel-1' | placeholder_svg_tag: 'product-wishlist__placeholder' }}
+                {%- endif -%}
             </a>
             <div class="product-wishlist__content d-flex flex-column align-items-start mt-15">
                 {%- case settings.product_collection_more_info_type -%}
@@ -31,7 +34,7 @@
                     {% when 'collections' %}
                         {%- if product.collections.size > 0 -%}
                             <div class="product-collection__more-info mb-3">
-                                {% render 'product-get-collections' with product: product %}
+                                {% render 'product-get-collections', product: product %}
                             </div>
                         {%- endif -%}
                     {% when 'vendor' %}
@@ -52,13 +55,13 @@
                 {%- endif -%}
                 {%- if show_price -%}
                     <div class="product-wishlist__price mb-10">
-                        {% include 'product-get-price' %}
+                        {% render 'product-get-price' %}
                     </div>
                 {%- endif -%}
                 <div class="d-flex flex-column">
                     {%- if show_button_add_to_cart -%}
                         <div class="product-wishlist__variants d-none">
-                            {% render 'product-get-variants' with product: product current_variant: current_variant show_options: show_options show_custom_options: show_custom_options, product_form_id: product_form_id %}
+                            {% render 'product-get-variants', product: product, current_variant: current_variant, show_options: show_options, show_custom_options: show_custom_options, product_form_id: product_form_id %}
                         </div>
                     {%- endif -%}
                     {%- if show_button_add_to_cart or show_button_quick_view -%}
@@ -67,7 +70,7 @@
                             {%- if show_button_quick_view -%}
                                 <div class="product-collection__buttons-section d-flex d-lg-none px-lg-10">
                                     <div class="product-wishlist__button-quick-view-mobile mb-10">
-                                        {% render 'product-get-button-quick-view' with type: 'btn-text' product_enable_tooltips: product_enable_tooltips %}
+                                        {% render 'product-get-button-quick-view', type: 'btn-text', product_enable_tooltips: product_enable_tooltips %}
                                     </div>
                                 </div>
                             {%- endif -%}

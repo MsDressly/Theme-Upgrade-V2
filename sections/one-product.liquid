@@ -1,7 +1,7 @@
 {%- if section.settings.product != blank -%}
-  {% include 'global-variables' %}
+  {% render 'global-variables' %}
   {%- assign product = all_products[section.settings.product] -%}
-  {% include 'product-res-variables' %}
+  {% render 'product-res-variables' %}
   {%- assign image_size = image_size | default: '470x' -%}
   {%- assign reverse = reverse | default: section.settings.reverse -%}
   {%- assign show_arrows = show_arrows | default: section.settings.show_arrows -%}
@@ -55,7 +55,7 @@
   <div data-section-id="{{ section.id }}" data-section-type="one-product">
     {% capture container_html %}
       <div class="container{% if section.settings.bg_image != blank %} position-relative py-40 py-md-0{% endif %}">
-        <div class="one-product"{% include 'product-get-attributes' %}>
+        <div class="one-product"{% render 'product-get-attributes' %}>
           <div class="row align-items-md-center">
             {%- if section.settings.show_gallery -%}
               <div class="col-12 col-md-6 d-flex justify-content-center{% if reverse %} justify-content-md-end order-md-1{% else %} justify-content-md-start{% endif %}">
@@ -68,12 +68,12 @@
                     {%- endif -%}
                     <a href="{{ url }}" class="d-block">
                       {%- capture image_id -%} data-image-id="{{ image.id }}"{%- endcapture -%}
-                      {% render 'rimage' with image: section.settings.image size: image_size format: image_format %}
+                      {% render 'rimage', image: section.settings.image, size: image_size, format: image_format %}
                     </a>
                   {%- else -%}
                     {%- assign img_hover_url = hover_image | img_url: '1x1', format: image_format | replace: '_1x1.', image_size_placeholder -%}
                     <div class="product-image product-image--hover-{{ settings.product_hover_animation_type }} position-relative w-100 js-product-images-navigation js-product-images-hovered-end{% if settings.product_replace_images_hover %} js-product-images-hover{% endif %}"{% if settings.product_replace_images_hover and hover_image != blank %} data-js-product-image-hover="{{ img_hover_url }}" data-js-product-image-hover-id="{{ hover_image.id }}"{% endif %}>
-                      {% render 'product-get-images' with url: url image: image image_size: image_size title: title %}
+                      {% render 'product-get-images', url: url, image: image, image_size: image_size, title: title %}
                       {%- if show_arrows and product.images.size > 1 -%}
                         <div class="one-product__image-navigation absolute-stretch d-flex align-items-center z-index-1 pointer-events-none">
                           <div class="product-images-navigation position-absolute left-0 ml-10 pointer-events-all">
@@ -94,34 +94,34 @@
                 {%- if show_label_in_stock or show_label_pre_order or show_label_out_stock or show_label_sale or show_label_new or show_label_hot -%}
                   <div class="one-product-info__labels d-flex{% if section.settings.layout == '1' %} justify-content-center justify-content-md-start{% endif %} mb-15">
                     {%- if show_label_hot -%}
-                      {% include 'product-get-label-hot' %}
+                      {% render 'product-get-label-hot' %}
                     {%- endif -%}
                     {%- if show_label_new -%}
-                      {% include 'product-get-label-new' %}
+                      {% render 'product-get-label-new' %}
                     {%- endif -%}
                     {%- if show_label_sale -%}
-                      {% include 'product-get-label-sale' %}
+                      {% render 'product-get-label-sale' %}
                     {%- endif -%}
                     {%- if show_label_in_stock -%}
-                      {% include 'product-get-label-in-stock' %}
+                      {% render 'product-get-label-in-stock' %}
                     {%- endif -%}
                     {%- if show_label_pre_order -%}
-                      {% include 'product-get-label-pre-order' %}
+                      {% render 'product-get-label-pre-order' %}
                     {%- endif -%}
                     {%- if show_label_out_stock -%}
-                      {% include 'product-get-label-out-stock' %}
+                      {% render 'product-get-label-out-stock' %}
                     {%- endif -%}
                   </div>
                 {%- endif -%}
                 {%- if show_countdown -%}
                   <div class="one-product-info__countdown mt-25 mb-15">
                     {% capture countdown_title %}{{ 'products.product.countdown.title' | t }}{% endcapture %}
-                    {% render 'product-get-countdown' with countdown_date: countdown_date, countdown_type: 2, countdown_title: countdown_title, centered: centered mobile_centered: mobile_centered %}
+                    {% render 'product-get-countdown', countdown_date: countdown_date, countdown_type: 2, countdown_title: countdown_title, centered: centered, mobile_centered: mobile_centered %}
                   </div>
                 {%- endif -%}
                 {%- if show_collections and product.collections.size > 0 -%}
                   <div class="one-product-info__collections mb-3{% if section.settings.layout == '1' %} text-center text-md-left{% endif %}">
-                    {% render 'product-get-collections' with product: product %}
+                    {% render 'product-get-collections', product: product %}
                   </div>
                 {%- endif -%}
                 <div class="one-product-info__title mb-15{% if section.settings.layout == '1' %} text-center text-md-left{% endif %}">
@@ -130,7 +130,7 @@
                 {%- if show_reviews -%}
                   <div class="one-product-info__reviews{% if section.settings.layout == '1' %} text-center text-md-left{% endif %}">
                     {%- if settings.reviews_type == 'default' -%}
-                      {% render 'product-get-review' with product: product type: 2 hide_counter: hide_reviews_counter hide_mobile_counter: hide_reviews_mobile_counter %}
+                      {% render 'product-get-review', product: product, type: 2, hide_counter: hide_reviews_counter, hide_mobile_counter: hide_reviews_mobile_counter %}
                     {%- elsif settings.reviews_type == 'growave' and settings.app_growave_enable == true -%}
                       {% capture the_snippet_review_avg %}{% render 'ssw-widget-avg-rate-listing', product: product %}{% endcapture %}
                       {%- unless the_snippet_review_avg contains 'Liquid error' or product.metafields.ssw['review'].avg == 0 -%}
@@ -186,7 +186,7 @@
                 {%- if show_price -%}
                   <div class="mb-20">
                     <div class="one-product-info__price{% if section.settings.layout == '1' %} text-center text-md-left{% endif %}">
-                      {% include 'product-get-price' %}
+                      {% render 'product-get-price' %}
                     </div>
                     {%- if show_sale_details -%}
                       <p class="one-product-info__price-sale-details mt-5{% if section.settings.layout == '1' %} text-center text-md-left{% endif %}{% unless compare_at_price > price %} d-none-important{% endunless %}"
@@ -211,7 +211,7 @@
                     {%- if show_options and show_custom_options -%}
                       {%- unless product.has_only_default_variant -%}
                         <div class="one-product-info__options mb-15">
-                          {% include 'product-get-options' with options_type: 2 options_show_title: true mobile_start: mobile_start %}
+                          {% render 'product-get-options', options_type: 2, options_show_title: true, mobile_start: mobile_start %}
                         </div>
                       {%- endunless -%}
                     {%- else -%}
@@ -222,7 +222,7 @@
                     {%- endif -%}
                     {%- if show_button_add_to_cart or show_options -%}
                       <div class="one-product-info__variants mb-15{% if show_options == false or show_custom_options %} d-none{% endif %}">
-                        {% render 'product-get-variants' with product: product current_variant: current_variant show_options: show_options show_custom_options: show_custom_options, product_form_id: product_form_id %}
+                        {% render 'product-get-variants', product: product, current_variant: current_variant, show_options: show_options, show_custom_options: show_custom_options, product_form_id: product_form_id %}
                       </div>
                     {%- endif -%}
                     {%- if show_size_guide and product.metafields.sizeguide.html != 'hide' or show_delivery_return -%}
@@ -230,12 +230,12 @@
                         <div class="row{% if section.settings.layout == '1' %} justify-content-center justify-content-md-start{% endif %}">
                           {%- if show_size_guide and product.metafields.sizeguide.html != 'hide' -%}
                             <div class="col-auto">
-                              <div class="btn-link h6 d-flex align-items-center mb-10 js-popup-button" data-js-popup-button="size-guide">{% if product_popup_buttons_show_icon %}<i class="mr-8">{% include 'icon-theme-091' %}</i> {% endif %}{{ 'products.product.size_guide' | t }}</div>
+                              <div class="btn-link h6 d-flex align-items-center mb-10 js-popup-button" data-js-popup-button="size-guide">{% if product_popup_buttons_show_icon %}<i class="mr-8">{% render 'icon-theme-091' %}</i> {% endif %}{{ 'products.product.size_guide' | t }}</div>
                             </div>
                           {%- endif -%}
                           {%- if show_delivery_return -%}
                             <div class="col-auto">
-                              <div class="btn-link h6 d-flex align-items-center mb-10 js-popup-button" data-js-popup-button="delivery-return">{% if product_popup_buttons_show_icon %}<i class="mr-8">{% include 'icon-theme-135' %}</i> {% endif %}{{ 'products.product.delivery_return' | t }}</div>
+                              <div class="btn-link h6 d-flex align-items-center mb-10 js-popup-button" data-js-popup-button="delivery-return">{% if product_popup_buttons_show_icon %}<i class="mr-8">{% render 'icon-theme-135' %}</i> {% endif %}{{ 'products.product.delivery_return' | t }}</div>
                             </div>
                           {%- endif -%}
                         </div>
@@ -244,14 +244,14 @@
                     {%- if section.settings.button_layout == '1' -%}
                       {%- if show_quantity -%}
                         <div class="one-product-info__field one-product-info__quantity d-flex flex-column{% if section.settings.layout == '1' %} align-items-center align-items-md-start{% endif %} mb-20">
-                          {% render 'product-get-quantity' with quantity_show_title: true quantity_type: 3, product_form_id: product_form_id %}
+                          {% render 'product-get-quantity', quantity_show_title: true, quantity_type: 3, product_form_id: product_form_id %}
                         </div>
                       {%- endif -%}
                       {%- if show_button_add_to_cart or show_button_add_to_wishlist or show_button_add_to_compare -%}
                         <div class="one-product-info__buttons d-flex flex-column{% if section.settings.layout == '1' %} align-items-center align-items-md-start{% endif %} mt-5 mt-md-10 overflow-hidden">
                           {%- if show_button_add_to_cart -%}
                             <div class="one-product-info__button-add-to-cart">
-                              {% include 'product-get-button-cart', show_button_dynamic_checkout: show_button_dynamic_checkout, show_dynamic_checkout_confirmation: show_dynamic_checkout_confirmation %}
+                              {% render 'product-get-button-cart', show_button_dynamic_checkout: show_button_dynamic_checkout, show_dynamic_checkout_confirmation: show_dynamic_checkout_confirmation %}
                             </div>
                           {%- endif -%}
                           {%- if show_button_add_to_wishlist or show_button_add_to_compare -%}
@@ -259,9 +259,9 @@
                               {%- if show_button_add_to_wishlist -%}
                                 <div class="one-product-info__button-add-to-wishlist mt-15">
                                   {%- if settings.wishlist_type == 'default' -%}
-                                    {% include 'product-get-button-wishlist' %}
+                                    {% render 'product-get-button-wishlist' %}
                                   {%- elsif settings.wishlist_type == 'growave' and settings.app_growave_enable == true -%}
-                                    {% capture the_snippet_fave_icon %}{% render 'ssw-widget-faveicon' with product.id %}{% endcapture %}
+                                    {% capture the_snippet_fave_icon %}{% render 'ssw-widget-faveicon', product.id %}{% endcapture %}
                                     {%- unless the_snippet_fave_icon contains 'Liquid error' -%}
                                       {{ the_snippet_fave_icon }}
                                     {%- endunless -%}
@@ -270,7 +270,7 @@
                               {%- endif -%}
                               {%- if show_button_add_to_compare -%}
                                 <div class="one-product-info__button-add-to-compare mt-15">
-                                  {% include 'product-get-button-compare' %}
+                                  {% render 'product-get-button-compare' %}
                                 </div>
                               {%- endif -%}
                             </div>
@@ -284,12 +284,12 @@
                             <div class="d-flex align-items-end">
                               {%- if show_quantity -%}
                                 <div class="one-product-info__field one-product-info__quantity">
-                                  {% render 'product-get-quantity' with quantity_show_title: true quantity_type: 3, product_form_id: product_form_id %}
+                                  {% render 'product-get-quantity', quantity_show_title: true, quantity_type: 3, product_form_id: product_form_id %}
                                 </div>
                               {%- endif -%}
                               {%- if show_button_add_to_cart -%}
                                 <div class="one-product-info__button-add-to-cart">
-                                  {% include 'product-get-button-cart' with button_select_disable: true %}
+                                  {% render 'product-get-button-cart', button_select_disable: true %}
                                 </div>
                               {%- endif -%}
                             </div>
@@ -299,9 +299,9 @@
                               {%- if show_button_add_to_wishlist -%}
                                 <div class="one-product-info__button-add-to-wishlist mt-15">
                                   {%- if settings.wishlist_type == 'default' -%}
-                                    {% include 'product-get-button-wishlist' %}
+                                    {% render 'product-get-button-wishlist' %}
                                   {%- elsif settings.wishlist_type == 'growave' and settings.app_growave_enable == true -%}
-                                    {% capture the_snippet_fave_icon %}{% render 'ssw-widget-faveicon' with product.id %}{% endcapture %}
+                                    {% capture the_snippet_fave_icon %}{% render 'ssw-widget-faveicon', product.id %}{% endcapture %}
                                     {%- unless the_snippet_fave_icon contains 'Liquid error' -%}
                                       {{ the_snippet_fave_icon }}
                                     {%- endunless -%}
@@ -310,7 +310,7 @@
                               {%- endif -%}
                               {%- if show_button_add_to_compare -%}
                                 <div class="one-product-info__button-add-to-compare mt-15">
-                                  {% include 'product-get-button-compare' %}
+                                  {% render 'product-get-button-compare' %}
                                 </div>
                               {%- endif -%}
                             </div>
@@ -350,7 +350,7 @@
     {%- endif -%}
   </div>
 {%- else -%}
-  {% render 'no-blocks' with message: 'homepage.onboarding.no_content_message.one_product' %}
+  {% render 'no-blocks', message: 'homepage.onboarding.no_content_message.one_product' %}
 {%- endif -%}
 
 

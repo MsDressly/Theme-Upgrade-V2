@@ -64,7 +64,7 @@
                             {%- endif -%}
                             {%- assign button_1 = matches_block.settings.button_1 -%}
                             <div class="{{ grid }} mb-20 mb-lg-30">
-                                {% render 'promobox' with block: section image: image url: url text_line_1: text_line_1 text_line_2: text_line_2 button_1: button_1 style: section.settings.style %}
+                                {% render 'promobox', block: section, image: image, url: url, text_line_1: text_line_1, text_line_2: text_line_2, button_1: button_1, style: section.settings.style %}
                             </div>
                     {%- endunless -%}
                 {%- endfor -%}
@@ -80,7 +80,8 @@
 {%- endif -%}
 
 
-{% schema %}{
+{% schema %}
+{
     "name": "t:sections.list_collections.name",
     "settings": [
         {
@@ -503,4 +504,5 @@
             ]
         }
     ]
-}{% endschema %}
+}
+{% endschema %}

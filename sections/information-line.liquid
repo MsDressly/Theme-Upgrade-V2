@@ -109,7 +109,7 @@
     {%- endif -%}
 {%- endif -%}
 {%- if section.blocks.size > 0 -%}
-    {% include 'global-variables' %}
+    {% render 'global-variables' %}
     <div data-section-id="{{ section.id }}" data-section-type="information-line">
         {%- if section.settings.title != blank -%}
             <h2 class="h4 information-line-title home-section-title mb-30 text-center">{{ section.settings.title }}</h2>
@@ -121,7 +121,7 @@
                         <{% if block.settings.url != blank %}a href="{{ block.settings.url }}"{% else %}div{% endif %} class="col-12 col-lg-{{ 12 | divided_by: section.blocks.size }}">
                             {%- if section.settings.type == '1' -%}
                                 <div class="d-flex align-items-center justify-content-start justify-content-lg-start py-10">
-                                    <i class="mr-15">{% include 'load-icon' with name: block.settings.icon %}</i>
+                                    <i class="mr-15">{% render 'load-icon', name: block.settings.icon %}</i>
                                     <div>
                                         {%- if block.settings.title != blank -%}
                                             <h6 class="information-line__title d-inline">{{ block.settings.title }} </h6>
@@ -133,7 +133,7 @@
                                 </div>
                             {%- else -%}
                                 <div class="d-flex align-items-start justify-content-start py-10">
-                                    <i class="mr-15">{% include 'load-icon' with name: block.settings.icon %}</i>
+                                    <i class="mr-15">{% render 'load-icon', name: block.settings.icon %}</i>
                                     <div>
                                         {%- if block.settings.title != blank -%}
                                             <h6 class="information-line__title mb-0">{{ block.settings.title }} </h6>
@@ -155,7 +155,8 @@
 {%- endif -%}
 
 
-{% schema %}{
+{% schema %}
+{
     "name": "t:sections.information_line.name",
     "settings": [
         {
@@ -284,4 +285,5 @@
             ]
         }
     ]
-}{% endschema %}
+}
+{% endschema %}

@@ -1,8 +1,8 @@
-{% include 'global-variables' %}
+{% render 'global-variables' %}
 <style>
     {% render 'css-inline-style-start-type' %}
 </style>
-{% include 'css-variables' %}
+{% render 'css-variables' %}
 <style>
     {{ settings.font_base | font_face: font_display: 'swap' }}
     {%- if settings.font_base_type == 'all' or settings.font_base_type == 'semi_bold_n_italic' or settings.font_base_type == 'semi_bold' -%}
@@ -201,14 +201,14 @@
         opacity: {{ settings.layout_preloader_opacity }};
     }
     
-    {% render 'css-style-button' with class: '.product-collection__button-add-to-cart .btn' type: product_collection_add_to_cart_btn_type %}
-    {% render 'css-style-button' with class: '.product-page-info__button-add-to-cart .btn' type: product_page_add_to_cart_btn_type %}
-    {% render 'css-style-button' with class: '.product-page-info__button-add-to-wishlist .btn' type: product_page_wishlist_btn_type %}
-    {% render 'css-style-button' with class: '.product-page-info__button-add-to-compare .btn' type: product_page_compare_btn_type %}
-    {% render 'css-style-button' with class: '.one-product-info__button-add-to-cart .btn' type: one_product_add_to_cart_btn_type %}
-    {% render 'css-style-button' with class: '.carousel-articles .btn' type: article_carousel_btn_type %}
-    {% render 'css-style-button' with class: '.pagination .btn' type: pagination_btn_type %}
-    {% render 'css-style-button' with class: '.empty-btn' type: empty_btn_type %}
+    {% render 'css-style-button', class: '.product-collection__button-add-to-cart .btn', type: product_collection_add_to_cart_btn_type %}
+    {% render 'css-style-button', class: '.product-page-info__button-add-to-cart .btn', type: product_page_add_to_cart_btn_type %}
+    {% render 'css-style-button', class: '.product-page-info__button-add-to-wishlist .btn', type: product_page_wishlist_btn_type %}
+    {% render 'css-style-button', class: '.product-page-info__button-add-to-compare .btn', type: product_page_compare_btn_type %}
+    {% render 'css-style-button', class: '.one-product-info__button-add-to-cart .btn', type: one_product_add_to_cart_btn_type %}
+    {% render 'css-style-button', class: '.carousel-articles .btn', type: article_carousel_btn_type %}
+    {% render 'css-style-button', class: '.pagination .btn', type: pagination_btn_type %}
+    {% render 'css-style-button', class: '.empty-btn', type: empty_btn_type %}
 
     @media (min-width: 1025px) {
         .btn,

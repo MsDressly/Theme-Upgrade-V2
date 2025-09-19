@@ -41,7 +41,7 @@
                                                         <div class="mt-25">
                                                             {%- if block.settings.user_image != blank -%}
                                                                 <div class="carousel-reviews__item_image overflow-hidden rounded-circle mx-auto mx-lg-0">
-                                                                    {% render 'rimage' with image: block.settings.user_image size: '164x' %}
+                                                                    {% render 'rimage', image: block.settings.user_image, size: '164x' %}
                                                                 </div>
                                                             {%- endif -%}
                                                             {%- if block.settings.user_text_line_1 != blank or block.settings.user_text_line_2 != blank -%}
@@ -110,7 +110,7 @@
                                                             <div class="mt-25">
                                                                 {%- if block.settings.user_image != blank -%}
                                                                     <div class="carousel-reviews__item_image overflow-hidden rounded-circle mx-auto">
-                                                                        {% render 'rimage' with image: block.settings.user_image size: '164x' %}
+                                                                        {% render 'rimage', image: block.settings.user_image, size: '164x' %}
                                                                     </div>
                                                                 {%- endif -%}
                                                                 {%- if block.settings.user_text_line_1 != blank or block.settings.user_text_line_2 != blank -%}
@@ -148,7 +148,8 @@
     {% render 'no-blocks' %}
 {%- endif -%}
 
-{% schema %}{
+{% schema %}
+{
     "name": "t:sections.review_carousel.name",
     "settings": [
         {
@@ -306,4 +307,5 @@
             "category": "2) Carousels"
         }
     ]
-}{% endschema %}
+}
+{% endschema %}

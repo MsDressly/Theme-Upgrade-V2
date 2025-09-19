@@ -1,4 +1,4 @@
-{% include 'global-variables' %}
+{% render 'global-variables' %}
 {%- assign main_object = collection | default: search -%}
 {%- assign terms = search.terms | escape -%}
 {%- assign sort_by = main_object.sort_by | default: main_object.default_sort_by -%}
@@ -34,7 +34,7 @@
         {%- if collection != blank -%}
             <div class="d-none">
                 <div id="DynamicCollectionBreadcrumbs">
-                    {% include 'breadcrumbs' %}
+                    {% render 'breadcrumbs' %}
                 </div>
             </div>
             <div id="CollectionHeadingTop"></div>
@@ -45,7 +45,7 @@
                     {%- if settings.collection_show_sidebar != 'hide' -%}
                         {%- if settings.collection_sidebar_position == 'dropdown' -%}
                             <div class="collections__sidebar collection-sidebar-type-1 collections__sidebar--dropdown d-none">
-                                {% include 'collection-sidebar' %}
+                                {% render 'collection-sidebar' %}
                             </div>
                         {%- elsif settings.collection_sidebar_position == 'left' or settings.collection_sidebar_position == 'right' -%}
                             <div class="collections__sidebar collection-sidebar-type-1 collections__sidebar--width-md d-none col-auto d-lg-block collections__sidebar--{% if settings.collection_sidebar_position == 'right' %}right order-2{% else %}left{% endif %}{% if settings.collection_enable_sticky %} sticky-sidebar-lg js-sticky-sidebar{% endif %}">
@@ -53,7 +53,7 @@
                                     <div data-js-sticky-sidebar-body>
                                 {%- endif -%}
                                         <div data-js-position-desktop="sidebar">
-                                            {% include 'collection-sidebar' %}
+                                            {% render 'collection-sidebar' %}
                                         </div>
                                 {%- if settings.collection_enable_sticky -%}
                                     </div>
@@ -62,7 +62,7 @@
                         {%- endif -%}
                     {%- else -%}
                         <div class="d-none">
-                            {% include 'collection-sidebar' %}
+                            {% render 'collection-sidebar' %}
                         </div>
                     {%- endif -%}
                     <div class="collections__body col pb-25">
@@ -221,13 +221,13 @@
                                         {%- if settings.collection_sidebar_position == 'top' and settings.collection_show_sidebar != 'hide' -%}
                                             <div class="col-12 d-none d-lg-block mt-20 mb-10">
                                                 <div class="collections__sidebar collections__sidebar--top collection-sidebar-type-2 position-relative invisible" data-js-position-desktop="sidebar" data-accordion-desktop-as-dropdown="sidebar-section">
-                                                    {% include 'collection-sidebar' %}
+                                                    {% render 'collection-sidebar' %}
                                                 </div>
                                             </div>
                                         {%- endif -%}
                                         {%- if section.settings.current_filters_visibility != 'hide' or settings.collection_sidebar_position == 'top' -%}
                                             {% capture current_filters_html %}
-                                                {% include 'collection-current-filters', type: '2' %}
+                                                {% render 'collection-current-filters', type: '2' %}
                                             {% endcapture %}
                                             <div id="CollectionCurrentFiltersClone" class="col-12 collections__sidebar__current-filters{% if section.settings.current_filters_visibility == 'mobile' and settings.collection_sidebar_position != 'top' %} d-lg-none{% elsif section.settings.current_filters_visibility == 'desktop' %} d-none d-lg-block{% endif %}">
                                                 <div class="mt-25 mt-lg-15{% unless has_current_filters %} d-none{% endunless %}">
@@ -255,7 +255,7 @@
                                                 {%- else -%}
                                                     {%- for product in collection.products -%}
                                                         <div class="{{ grid_classes }}">
-                                                        {% include 'product-collection' product_margin_bottom: offset_collection_page_product_margin_bottom_d %}
+                                                        {% render 'product-collection', product_margin_bottom: offset_collection_page_product_margin_bottom_d %}
                                                         </div>
                                                     {%- endfor -%}
                                                 {%- endif -%}
@@ -286,14 +286,14 @@
                                                         {%- for item in search.results -%}
                                                             {%- if item.object_type == 'product' -%}
                                                                 <div class="{{ grid_classes }}">
-                                                                    {% include 'product-collection' product: item, product_margin_bottom: offset_collection_page_product_margin_bottom_d, show_first_product_image: true %}
+                                                                    {% render 'product-collection', product: item, product_margin_bottom: offset_collection_page_product_margin_bottom_d, show_first_product_image: true %}
                                                                 </div>
                                                             {%- elsif section.settings.search_show_only_products != true -%}
                                                                 <div class="{{ grid_classes }}">
                                                                     <div>
                                                                         {%- if item.image -%}
                                                                             <a href="{{ item.url }}" class="d-block mb-20" title="{{ item.title | escape }}">
-                                                                                {% render 'rimage' with image: item.image alt: item.image.alt %}
+                                                                                {% render 'rimage', image: item.image, alt: item.image.alt %}
                                                                             </a>
                                                                         {%- endif -%}
                                                                     </div>

@@ -28,9 +28,9 @@
                                     {%- assign megamenu = block.settings -%}
                                     {%- assign megamenu_index = forloop.index | plus: megamenu_index -%}
                                     {%- if longer_menu -%}
-                                        {% include 'header-get-menu-megamenu' with output_link: longer_menu vertical_menu: true %}
+                                        {% render 'header-get-menu-megamenu', output_link: longer_menu, vertical_menu: true %}
                                     {%- else -%}
-                                        {% include 'header-get-menu-megamenu' with output_link: link vertical_menu: true %}
+                                        {% render 'header-get-menu-megamenu', output_link: link, vertical_menu: true %}
                                     {%- endif -%}
                                     {%- break -%}
                                 {%- endif -%}
@@ -39,9 +39,9 @@
                     {%- endif -%}
                     {%- if megamenu == null -%}
                         {%- if longer_menu -%}
-                            {% render 'header-get-menu-dropdown' with output_link: longer_menu label_html: label_html preview_image_html: preview_image_html preview_link_substitution: preview_link_substitution %}
+                            {% render 'header-get-menu-dropdown', output_link: longer_menu, label_html: label_html, preview_image_html: preview_image_html, preview_link_substitution: preview_link_substitution %}
                         {%- else -%}
-                            {% render 'header-get-menu-dropdown' with output_link: link label_html: label_html preview_image_html: preview_image_html preview_link_substitution: preview_link_substitution %}
+                            {% render 'header-get-menu-dropdown', output_link: link, label_html: label_html, preview_image_html: preview_image_html, preview_link_substitution: preview_link_substitution %}
                         {%- endif -%}
                     {%- endif -%}
                 {% endcapture %}
@@ -49,7 +49,7 @@
                     {%- assign is_hidden_items = true -%}
                 {%- endif -%}
                 <div class="menu__item{% if link.levels > 0 %} menu__item--has-children{% if megamenu == null %} position-lg-relative{% endif %}{% endif %}" data-js-menu-vertical-item{% if is_hidden_items %}="hidden"{% endif %}>
-                    <a href="{% render 'header-get-menu-link-substitution' with preview_link_substitution: preview_link_substitution default_link: link.url link: link %}" class="d-flex align-items-center position-lg-relative{% if forloop.index0 > 0 %} border-top{% endif %}">{% include 'header-get-menu-icons' with link: link vertical_menu: true %}<span>{{ link.title }}</span>{% render 'header-get-menu-labels' with label_html: label_html link: link %}{% if link.levels > 0 or megamenu != null or longer_menu.levels > 0 %} <i class="menu__item_arrow ml-auto">{% render 'icon-theme-231' %}</i>{% endif %}</a>
+                    <a href="{% render 'header-get-menu-link-substitution', preview_link_substitution: preview_link_substitution, default_link: link.url, link: link %}" class="d-flex align-items-center position-lg-relative{% if forloop.index0 > 0 %} border-top{% endif %}">{% render 'header-get-menu-icons', link: link, vertical_menu: true %}<span>{{ link.title }}</span>{% render 'header-get-menu-labels', label_html: label_html, link: link %}{% if link.levels > 0 or megamenu != null or longer_menu.levels > 0 %} <i class="menu__item_arrow ml-auto">{% render 'icon-theme-231' %}</i>{% endif %}</a>
                     {%- if link.levels > 0 or megamenu != null or longer_menu.levels > 0 -%}
                         {{ childrens }}
                     {%- endif -%}

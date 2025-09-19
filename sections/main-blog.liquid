@@ -5,7 +5,7 @@
                 {%- if settings.blog_show_sidebar != 'hide' -%}
                     {%- if settings.blog_sidebar_position == 'dropdown' -%}
                         <div class="blogs__sidebar d-none">
-                            {% include 'blog-sidebar' with section as section %}
+                            {% render 'blog-sidebar', section as section %}
                         </div>
                     {%- else -%}
                     <div class="blogs__sidebar blogs__sidebar--width-md blogs__sidebar--offset-bottom d-none d-lg-block col-auto{% if settings.blog_sidebar_position == 'right' %} order-2{% endif %}{% if settings.blog_enable_sticky %} sticky-sidebar-lg js-sticky-sidebar{% endif %}">
@@ -13,7 +13,7 @@
                         <div data-js-sticky-sidebar-body>
                         {%- endif -%}
                             <div data-js-position-desktop="sidebar">
-                                {% include 'blog-sidebar' with section as section %}
+                                {% render 'blog-sidebar', section as section %}
                             </div>
                         {%- if settings.blog_enable_sticky -%}
                         </div>
@@ -68,7 +68,7 @@
                                             {%- endif -%}
                                             {%- if section.settings.show_image and article.image -%}
                                                 <a href="{{ article.url }}" class="d-block mt-25 overflow-hidden">
-                                                    {% render 'rimage' with image: article.image size: '1024x' format: 'pjpg' alt: article.title image_class: 'w-100' %}
+                                                    {% render 'rimage', image: article.image, size: '1024x', format: 'pjpg', alt: article.title, image_class: 'w-100' %}
                                                 </a>
                                             {%- endif -%}
                                             {%- if section.settings.show_content -%}
@@ -108,7 +108,7 @@
                                                 <div class="post mb-55 text-center">
                                                     {%- if section.settings.show_image and article.image -%}
                                                         <a href="{{ article.url }}" class="d-block mb-15 overflow-hidden">
-                                                            {% render 'rimage' with image: article.image size: '1024x' format: 'pjpg' alt: article.title image_class: 'w-100' %}
+                                                            {% render 'rimage', image: article.image, size: '1024x', format: 'pjpg', alt: article.title, image_class: 'w-100' %}
                                                         </a>
                                                     {%- endif -%}
                                                     <div class="post__hidden-info d-none position-relative">
@@ -191,7 +191,8 @@
 {%- endif -%}
 
 
-{% schema %}{
+{% schema %}
+{
     "name": "t:sections.content_and_sidebar.name",
     "settings": [
         {
@@ -457,4 +458,5 @@
             ]
         }
     ]
-}{% endschema %}
+}
+{% endschema %}

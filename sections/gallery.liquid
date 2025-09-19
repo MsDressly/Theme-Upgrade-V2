@@ -1,4 +1,4 @@
-<gallery-section data-section-id="{{ section.id }}" data-section-type="main-page-gallery"{% render 'layout-get-container-class' with boxed_without_paddings: true custom_class: 'd-block' %}>
+<gallery-section data-section-id="{{ section.id }}" data-section-type="main-page-gallery"{% render 'layout-get-container-class', boxed_without_paddings: true, custom_class: 'd-block' %}>
     <div class="gallery align-items-start overflow-hidden">
         {%- if section.blocks.size > 0 -%}
             {%- assign blocks_size = 0 -%}
@@ -9,7 +9,7 @@
                         <div class="col-sm-{{ block.settings.grid }} px-5 mb-10">
                             <div class="gallery__item position-relative cursor-pointer" data-index="{{ forloop.index0 }}">
                                 {% capture image_size %}{{ block.settings.image_size }}x{% endcapture %}
-                                {% render 'rimage' with image: block.settings.image size: image_size format: 'pjpg' image_class: 'w-100' %}
+                                {% render 'rimage', image: block.settings.image, size: image_size, format: 'pjpg', image_class: 'w-100' %}
                                 <div class="gallery__item-layer absolute-stretch d-flex flex-center">
                                     <div class="gallery__item-bg absolute-stretch"></div>
                                     <div class="gallery__item-text position-relative text-center">
@@ -47,12 +47,12 @@
             </div>
             {%- unless blocks_size > 0 -%}
                 <div class="col text-center">
-                    {% include 'no-blocks' %}
+                    {% render 'no-blocks' %}
                 </div>
             {%- endunless -%}
         {%- else -%}
             <div class="col text-center">
-                {% include 'no-blocks' %}
+                {% render 'no-blocks' %}
             </div>
         {%- endif -%}
     </div>

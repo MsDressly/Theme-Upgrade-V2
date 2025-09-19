@@ -1,4 +1,4 @@
-{% include 'global-variables' %}
+{% render 'global-variables' %}
 {%- if template.name == 'collection' -%}
     <template class="collection-page-heading-template collection-page-heading-template--position-{{ section.settings.position }} d-none">
         <div class="collection-page-heading">
@@ -28,12 +28,12 @@
                                 <div class="{{ block_id }} col-12 col-md-{{ block.settings.size_of_column }} {{ margins_for_columns }}{% if block.settings.visible != blank %} {% if block.settings.visible == 'desktop' %}d-none d-md-{% if section.settings.vertical_align == 'stretch' %}flex{% else %}block{% endif %}{% elsif block.settings.visible == 'mobile' %}d-md-none{% endif %}{% endif %}">
                                     {%- if block.settings.type == 'description' and collection.description != blank -%}
                                         <div class="rte fs">
-                                            {% include 'parse-for-icons' content: collection.description %}
+                                            {% render 'parse-for-icons', content: collection.description %}
                                         </div>
                                     {%- elsif is_content -%}
-                                        {% render 'promobox' with block: block block_id: block_id promobox_curtain_opacity: promobox_curtain_opacity promobox_height_preset_1: promobox_height_preset_1 promobox_height_preset_2: promobox_height_preset_2 promobox_height_preset_3: promobox_height_preset_3 promobox_ultra_height_preset_1: promobox_ultra_height_preset_1 promobox_ultra_height_preset_3: promobox_ultra_height_preset_3 %}
+                                        {% render 'promobox', block: block, block_id: block_id, promobox_curtain_opacity: promobox_curtain_opacity, promobox_height_preset_1: promobox_height_preset_1, promobox_height_preset_2: promobox_height_preset_2, promobox_height_preset_3: promobox_height_preset_3, promobox_ultra_height_preset_1: promobox_ultra_height_preset_1, promobox_ultra_height_preset_3: promobox_ultra_height_preset_3 %}
                                     {%- elsif is_slider -%}
-                                        {% include 'builder-slider-slick' %}
+                                        {% render 'builder-slider-slick' %}
                                     {%- endif -%}
                                 </div>
                             {%- endcapture -%}
@@ -72,7 +72,7 @@
                             {% capture description_class %}{% if mobile_need_description != true %} d-none{% endif %}{% if desktop_need_description %} d-lg-block{% else %} d-lg-none{% endif %}{% endcapture %}
                             {%- if collection.description != blank -%}
                                 <div class="{% if section.settings.position contains 'fullwidth' %}px-15 {% endif %}rte fs{{ description_class }}">
-                                    {% include 'parse-for-icons' content: collection.description %}
+                                    {% render 'parse-for-icons', content: collection.description %}
                                 </div>
                                 {%- assign has_heading = true -%}
                             {%- endif -%}

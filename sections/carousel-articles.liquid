@@ -1,5 +1,5 @@
 {%- if section.settings.blog != blank -%}
-    {% include 'global-variables' %}
+    {% render 'global-variables' %}
     {%- assign size_of_columns = section.settings.size_of_columns | abs -%}
     <carousel-articles class="d-block" data-section-id="{{ section.id }}" data-section-type="carousel-articles">
         <div class="container">
@@ -29,7 +29,7 @@
                                 {%- if section.settings.layout == '1' -%}
                                     <div class="carousel__item carousel-articles__item carousel-articles__item--layout-01 col-auto d-flex flex-column flex-xl-row align-items-center text-center text-xl-left">
                                         <a href="{{ article.url }}" class="carousel-articles__image d-block mr-xl-20 w-100">
-                                            {% render 'rimage' with image: article.image size: '270x' format: 'pjpg' alt: article.title disable_lazyload: carousel_articles_image_lazyload_disable %}
+                                            {% render 'rimage', image: article.image, size: '270x', format: 'pjpg', alt: article.title, disable_lazyload: carousel_articles_image_lazyload_disable %}
                                         </a>
                                         <div class="mt-20 mt-xl-0">
                                             <h3 class="carousel-articles__title mb-0"><a href="{{ article.url }}">{{ article.title | truncate: 66 }}</a></h3>
@@ -43,7 +43,7 @@
                                 {%- elsif section.settings.layout == '2' -%}
                                     <div class="carousel__item carousel-articles__item carousel-articles__item--layout-02 col-auto d-flex flex-column">
                                         <a href="{{ article.url }}" class="carousel-articles__image d-block w-100">
-                                            {% render 'rimage' with image: article.image size: '270x' format: 'pjpg' alt: article.title disable_lazyload: carousel_articles_image_lazyload_disable %}
+                                            {% render 'rimage', image: article.image, size: '270x', format: 'pjpg', alt: article.title, disable_lazyload: carousel_articles_image_lazyload_disable %}
                                         </a>
                                         <h3 class="carousel-articles__title mt-20 mb-0"><a href="{{ article.url }}">{{ article.title | truncate: 66 }}</a></h3>
                                         {%- if article.excerpt.size > 0 or article.content.size > 0 -%}
@@ -69,7 +69,7 @@
                                     {%- elsif section.settings.layout == '3' -%}
                                     <div class="carousel__item carousel-articles__item carousel-articles__item--layout-03 col-auto d-flex flex-column text-center">
                                         <a href="{{ article.url }}" class="carousel-articles__image d-block w-100">
-                                            {% render 'rimage' with image: article.image size: '270x' format: 'pjpg' alt: article.title disable_lazyload: carousel_articles_image_lazyload_disable %}
+                                            {% render 'rimage', image: article.image, size: '270x', format: 'pjpg', alt: article.title, disable_lazyload: carousel_articles_image_lazyload_disable %}
                                         </a>
                                         <h3 class="carousel-articles__title mt-20 mb-0"><a href="{{ article.url }}">{{ article.title | truncate: 66 }}</a></h3>
                                         {%- if article.excerpt.size > 0 or article.content.size > 0 -%}
@@ -109,10 +109,11 @@
         theme.AssetsLoader.require('scripts', 'carousel_articles');
     </script>
 {%- else -%}
-    {% render 'no-blocks' with message: 'homepage.onboarding.no_content_message.carousel_articles' %}
+    {% render 'no-blocks', message: 'homepage.onboarding.no_content_message.carousel_articles' %}
 {%- endif -%}
 
-{% schema %}{
+{% schema %}
+{
     "name": "t:sections.article_carousel.name",
     "settings": [
         {
@@ -256,4 +257,5 @@
             "category": "2) Carousels"
         }
     ]
-}{% endschema %}
+}
+{% endschema %}

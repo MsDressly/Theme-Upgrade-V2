@@ -49,4 +49,4 @@
         {%- endif -%}
     {%- endif -%}
 {%- endunless -%}
-{% capture trigger_attr %}{% if trigger %} data-js-trigger="{{ trigger }}-{% render 'product-get-options-strip-symbols' with value: option.name %}-{% render 'product-get-options-strip-symbols' with value: value %}"{% elsif trigger_id %} data-js-trigger-id="{{ trigger_id }}-{% render 'product-get-options-strip-symbols' with value: option.name %}-{% render 'product-get-options-strip-symbols' with value: value %}"{% endif %}{% endcapture %}
+{% capture trigger_attr %}{% if trigger %} data-js-trigger="{{ trigger }}-{% render 'product-get-options-strip-symbols', value: option.name %}-{% render 'product-get-options-strip-symbols', value: value %}"{% elsif trigger_id %} data-js-trigger-id="{{ trigger_id }}-{% render 'product-get-options-strip-symbols', value: option.name %}-{% render 'product-get-options-strip-symbols', value: value %}"{% endif %}{% endcapture %}

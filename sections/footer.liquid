@@ -1,4 +1,4 @@
-{% include 'global-variables' %}
+{% render 'global-variables' %}
 {%- assign menus = null -%}
 {%- assign selected_blocks_colorize = section.blocks | where: 'type', 'colorize' -%}
 
@@ -221,7 +221,7 @@
             {%- endfor -%}
         }
 
-        {% render 'css-style-button' with class: '.footer__subscription .btn' type: footer_subscription_btn_type %}
+        {% render 'css-style-button', class: '.footer__subscription .btn', type: footer_subscription_btn_type %}
     </style>  
 {%- endcapture -%}
 {%- if style_base_html -%}
@@ -270,11 +270,11 @@
         {%- capture logo -%}
             {%- if need_mobile_logo -%}
                 <div class="footer__logo d-lg-none m-auto" style="width: {{ settings.logo_footer_mobile_width }}px;">
-                    {% include 'logo' svg: settings.logo_footer_mobile_svg_file image: settings.logo_footer_mobile_image width: settings.logo_footer_mobile_width %}
+                    {% render 'logo', svg: settings.logo_footer_mobile_svg_file, image: settings.logo_footer_mobile_image, width: settings.logo_footer_mobile_width %}
                 </div>
             {%- endif -%}
             <div class="footer__logo m-auto ml-lg-0 mr-lg-{{ footer_logo_margin_horizontal }}{% if need_mobile_logo %} d-none d-lg-block{% endif %}" style="width: {{ logo_footer_width }}px;">
-                {% include 'logo' svg: logo_footer_svg_file image: logo_footer_image width: logo_footer_width %}
+                {% render 'logo', svg: logo_footer_svg_file, image: logo_footer_image, width: logo_footer_width %}
             </div>
         {%- endcapture -%}
     {%- endif -%}
@@ -335,7 +335,7 @@
                             {%- when '6' %}{% assign custom_html_default_page = 'include-footer-custom-html-3' -%}
                             {%- else %}{% assign custom_html_default_page = 'include-footer-custom-html' -%}
                         {%- endcase -%}
-                        {% include 'parse-page-html-content' with default_page: custom_html_default_page page_content: block.settings.page_content %}
+                        {% render 'parse-page-html-content', default_page: custom_html_default_page, page_content: block.settings.page_content %}
                     </div>
                 </div>
             </div>
@@ -351,9 +351,9 @@
                     {%- endif -%}
                 {%- endif -%}
                 {%- if section.settings.type == '1' -%}
-                    {% render 'social-media' with block: block type: 'column' %}
+                    {% render 'social-media', block: block, type: 'column' %}
                 {%- else -%}
-                    {% render 'social-media' with block: block type: 'row' size: footer_social_media_size social_enable_tooltip: footer_social_enable_tooltips %}
+                    {% render 'social-media', block: block, type: 'row', size: footer_social_media_size, social_enable_tooltip: footer_social_enable_tooltips %}
                 {%- endif -%}
                 {%- if follow_on_shop -%}
                     <div class="mt-6">
@@ -364,7 +364,7 @@
         {%- endcapture -%}
         {%- capture social_mobile -%}
             <div class="footer__social-media-mobile">
-                {% render 'social-media' with block: block type: 'row' %}
+                {% render 'social-media', block: block, type: 'row' %}
                 {%- if follow_on_shop -%}
                     <div class="mt-10">
                         {{ follow_on_shop }}
@@ -480,7 +480,7 @@
                         {%- when '6' %}{% assign copyright_default_page = 'include-footer-copyright-2' -%}
                         {%- else %}{% assign copyright_default_page = 'include-footer-copyright' -%}
                     {%- endcase -%}
-                    {% capture copyright_page_content %}{% include 'parse-page-html-content' with default_page: copyright_default_page page_content: block.settings.page_content ignore_icons: true %}{% endcapture %}
+                    {% capture copyright_page_content %}{% render 'parse-page-html-content', default_page: copyright_default_page, page_content: block.settings.page_content, ignore_icons: true %}{% endcapture %}
                     {%- if copyright_page_content != blank -%}
                         {{ copyright_page_content }}
                     {%- else -%}
@@ -492,7 +492,7 @@
     {%- when 'payments' -%}
         {%- capture payments -%}
             <div class="footer__payments justify-content-center pt-5{% if section.settings.type != '3' and section.settings.type != '7' %} ml-lg-auto{% endif %}">
-                {% include 'payments' with size: 2 payments_sequence: settings.payment_sequence_footer %}
+                {% render 'payments', size: 2, payments_sequence: settings.payment_sequence_footer %}
             </div>
         {%- endcapture -%}
     {%- endcase -%}
@@ -511,7 +511,7 @@
 {%- endif -%}
 
 {% capture fixed_attr %}{% if section.settings.enable_fixed %} data-js-footer-fixed{% endif %}{% endcapture %}
-<footer-section data-section-id="{{ section.id }}" data-section-type="footer"{% render 'layout-get-container-class' with container: footer_container custom_class: 'd-block' %}>
+<footer-section data-section-id="{{ section.id }}" data-section-type="footer"{% render 'layout-get-container-class', container: footer_container, custom_class: 'd-block' %}>
     {%- case section.settings.type -%}
     {%- when '1' -%}
         <footer id="footer" class="footer footer--type-{{ section.settings.type }} footer--style-{{ section.settings.style }}{% if template != 'index' %} {{ footer_other_page_margins }}{% endif %}{% if section.settings.enable_fixed %} pt-1{% endif %} text-center text-lg-left js-footer"{{ fixed_attr }}>
@@ -821,7 +821,8 @@
     theme.AssetsLoader.require('scripts', 'footer');
 </script>
 
-{% schema %}{
+{% schema %}
+{
     "name": "t:sections.footer.name",
     "settings": [
         {
@@ -1170,5 +1171,6 @@
             ]
         }
     ]
-}{% endschema %}
+}
+{% endschema %}
 

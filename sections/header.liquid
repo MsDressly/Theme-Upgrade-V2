@@ -2,16 +2,16 @@
 This file has been modified by the Yoast SEO for Shopify app.
 You can learn more about this (and learn how to cleanly revert these changes) at https://yoa.st/removing-theme-changes.
 {%- endcomment -%}
-{% include 'global-variables' %}
+{% render 'global-variables' %}
 {%- if section.settings.menu != blank or section.settings.vertical_menu != blank -%}
     {%- if request.design_mode or canonical_url contains 'challenge' -%}
         {%- assign is_design_mode = true -%}
     {%- endif -%}
     
     {%- if settings.presentation_enable and request.host contains 'shella-' -%}
-        {% include 'header-res-link-substitution' %}
+        {% render 'header-res-link-substitution' %}
         {%- if is_design_mode != true -%}
-            {% include 'header-res-preview-images' %}
+            {% render 'header-res-preview-images' %}
         {%- endif -%}
     {%- endif -%}
     
@@ -62,7 +62,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
                         {{ title_image_html }}|||{{ block.settings[prop_for_item_name] | handleize }}|||
                         <a href="[link_url]" class="d-none d-lg-block mb-10">
                             {%- capture image_size -%}{{ block.settings[prop_image_size_name] }}x{%- endcapture -%}
-                            {% render 'rimage' with image: block.settings[prop_image_name] size: image_size format: 'pjpg' %}
+                            {% render 'rimage', image: block.settings[prop_image_name], size: image_size, format: 'pjpg' %}
                         </a>
                     {% endcapture %}
                 {%- endfor -%}
@@ -75,7 +75,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
                     {%- endif -%}
                     {% capture icons_html %}
                         {{ icons_html }}|||{% if block.settings.for_vertical %}vertical-{% endif %}{{ block.settings[prop_for_item_name] | handleize }}|||
-                        <i class="menu__item_icon mr-10">{% include block.settings[prop_icon_name] %}</i>
+                        <i class="menu__item_icon mr-10">{% render block.settings[prop_icon_name] %}</i>
                     {% endcapture %}
                 {%- endfor -%}
         {%- endcase -%}
@@ -852,7 +852,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
             {%- endfor -%}
         }
 
-        {% render 'css-style-button' with class: '.header__search-form .btn' type: header_search_btn_type %}
+        {% render 'css-style-button', class: '.header__search-form .btn', type: header_search_btn_type %}
 
         @media (min-width: 1025px) {
             .header__line-additional {
@@ -1007,7 +1007,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
 <script>
     theme.AssetsLoader.loadInlineStyles();
 </script>
-<header-section data-section-id="{{ section.id }}" data-section-type="header"{% render 'layout-get-container-class' with container: header_container custom_class: 'd-block' %}>
+<header-section data-section-id="{{ section.id }}" data-section-type="header"{% render 'layout-get-container-class', container: header_container, custom_class: 'd-block' %}>
     <header id="header" class="header header--type-{{ section.settings.type }} header--style-{{ section.settings.style }}{% if template contains 'index' and section.settings.transparent_bg contains 'transparent' or header_enable_transparent %} header--transparent position-absolute top-0 w-100{% else %} position-lg-relative{% endif %}">
         {%- if section.settings.sticky != 'disable' -%}
             <sticky-header class="header--sticky-type-{{ section.settings.desktop_sticky_type }} d-block" data-sticky-type="{{ section.settings.sticky }}" data-desktop-sticky-sidebar="{% if need_sticky_sidebar %}true{% else %}false{% endif %}" data-hide-when-scroll-down="{{ section.settings.hide_sticky_when_scroll_down }}">
@@ -1036,11 +1036,11 @@ You can learn more about this (and learn how to cleanly revert these changes) at
                 <div class="header__line-info header__line-info--style-{{ block.settings.style }} {% if block.settings.show_on_mobile %}d-flex{% else %}d-none d-lg-flex{% endif %} align-items-lg-center px-10 px-lg-0 pt-15 pb-10 py-lg-2">
                     <div class="{% if section.settings.type == '4' %}w-100 px-10 px-lg-20{% else %}container{% endif %} d-flex flex-column flex-lg-row align-items-center">
                         <div class="text-center text-lg-left">
-                            {% include 'parse-page-html-content' with default_page: 'include-header-info-line' page_content: block.settings.page_content %}
+                            {% render 'parse-page-html-content', default_page: 'include-header-info-line', page_content: block.settings.page_content %}
                         </div>
                         {%- if block.settings.show_social_media -%}
                             <div class="header__social-media d-flex align-items-center{% if block.settings.page_content != blank %} mt-10 mt-lg-0{% endif %} ml-lg-auto">
-                                {% render 'social-media' with block: block type: 'row' social_enable_tooltip: header_enable_tooltips %}
+                                {% render 'social-media', block: block, type: 'row', social_enable_tooltip: header_enable_tooltips %}
                             </div>
                         {%- endif -%}
                     </div>
@@ -1061,7 +1061,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
         {%- capture logo_html -%}
             {%- if need_mobile_logo -%}
                 <div class="header__logo header__logo--mobile d-flex d-lg-none align-items-center" style="width: {{ settings.logo_mobile_width }}px;">
-                    {% include 'logo' svg: settings.logo_mobile_svg_file image: settings.logo_mobile_image width: settings.logo_mobile_width %}
+                    {% render 'logo', svg: settings.logo_mobile_svg_file, image: settings.logo_mobile_image, width: settings.logo_mobile_width %}
                 </div>
             {%- endif -%}
             <div class="header__logo align-items-center {% if need_mobile_logo %}d-none d-lg-flex{% else %}d-flex{% endif %}{% if section.settings.type == '3' %} mr-lg-25{% elsif section.settings.type == '2' %} header__logo--center mx-lg-auto{% elsif section.settings.type == '4' %} header__logo--center position-lg-absolute h-100 top-lg-0{% endif %}{% if need_sticky_logo or need_sticky_logo_type_3_4 %} header__logo--sticky-hidden{% else %}{% endif %}" style="width: {{ settings.logo_width }}px;"{% if section.settings.type == '4' %} data-js-header-width-limit-edge="nav"{% endif %}>
@@ -1070,24 +1070,24 @@ You can learn more about this (and learn how to cleanly revert these changes) at
                 {%- endif -%}
                 {%- if template contains 'index' and section.settings.transparent_bg contains 'transparent' or header_enable_transparent -%}
               		{%- if settings.logo_transparent_svg_file != blank or settings.logo_transparent_image != blank -%}
-              			{% include 'logo' svg: settings.logo_transparent_svg_file image: settings.logo_transparent_image width: settings.logo_transparent_width tag: main_logo_tag %}
+              			{% render 'logo', svg: settings.logo_transparent_svg_file, image: settings.logo_transparent_image, width: settings.logo_transparent_width, tag: main_logo_tag %}
                         {%- assign added_transparent_header_logo = true -%}
                   	{%- endif -%}
                 {%- endif -%}
               	{%- if added_transparent_header_logo == blank -%}
-              		{% include 'logo' svg: settings.logo_svg_file image: settings.logo_image width: settings.logo_width tag: main_logo_tag %}
+              		{% render 'logo', svg: settings.logo_svg_file, image: settings.logo_image, width: settings.logo_width, tag: main_logo_tag %}
               	{%- endif -%}
             </div>
             {%- if need_sticky_logo_type_3_4 -%}
                 <div class="header__sticky-logo-replace align-items-center d-none{% if section.settings.type == '3' %} mr-lg-25{% elsif section.settings.type == '4' %} header__logo--center position-lg-absolute h-100 top-lg-0{% endif %}" style="width: {{ settings.logo_sticky_width }}px;">
-                    {% include 'logo' svg: settings.logo_sticky_svg_file image: settings.logo_sticky_image width: settings.logo_sticky_width %}
+                    {% render 'logo', svg: settings.logo_sticky_svg_file, image: settings.logo_sticky_image, width: settings.logo_sticky_width %}
                 </div>
             {%- endif -%}
         {%- endcapture -%}
         {%- if need_sticky_logo -%}
             {%- capture sticky_logo_html -%}
                 <div class="header__sticky-logo d-none align-items-lg-center h-100{% if section.settings.type == '3' %} header__sticky-logo--containerized mr-25{% else %} header__sticky-logo--displaced position-absolute top-0 left-0 py-6 ml-15{% endif %}" style="width: {{ settings.logo_sticky_width }}px;">
-                    {% include 'logo' svg: settings.logo_sticky_svg_file image: settings.logo_sticky_image width: settings.logo_sticky_width %}
+                    {% render 'logo', svg: settings.logo_sticky_svg_file, image: settings.logo_sticky_image, width: settings.logo_sticky_width %}
                 </div>
             {%- endcapture -%}
         {%- endif -%}
@@ -1144,7 +1144,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
                 </div>
             {%- elsif settings.wishlist_type == 'growave' and settings.app_growave_enable == true -%}
                 <div class="ml-25 ml-lg-15 mb-2">
-                    {% capture the_snippet_fave_icon_menu %}{% render 'ssw-widget-faveicon-menu' with product.id %}{% endcapture %}
+                    {% capture the_snippet_fave_icon_menu %}{% render 'ssw-widget-faveicon-menu', product.id %}{% endcapture %}
                     {%- unless the_snippet_fave_icon_menu contains 'Liquid error' -%}
                         {{ the_snippet_fave_icon_menu }}
                     {%- endunless -%}
@@ -1174,7 +1174,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
                 <div class="ml-25 ml-lg-15">
                     <a href="/cart" class="header__btn-cart position-relative d-flex align-items-center text-nowrap js-popup-button" data-js-popup-button="cart"{% if need_sticky_sidebar %} data-js-sticky-replace-element="cart"{% endif %}>
                         {% capture cart_icon_name %}{{ settings.cart_icon | default: 'icon-theme-109' }}{% endcapture %}
-                        <i class="mr-lg-7">{% include cart_icon_name %}</i>
+                        <i class="mr-lg-7">{% render cart_icon_name %}</i>
                         <span class="d-none d-lg-inline mt-lg-4" data-js-cart-count-desktop="{{ cart.item_count }}">{{ 'layout.header.cart_count' | t: count: cart.item_count }}</span>
                         <span class="header__counter d-lg-none" data-js-cart-count-mobile="{{ cart.item_count }}">{{ cart.item_count }}</span>
                     </a>
@@ -1353,7 +1353,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
                 {%- if section.settings.type != '5' and section.settings.type != '7' -%}
                     {%- assign is_main_menu = true -%}
                 {%- endif -%}
-                {% include 'header-get-menu' with is_main_menu: is_main_menu centered: menu_centered %}
+                {% render 'header-get-menu', is_main_menu: is_main_menu, centered: menu_centered %}
             </div>
         {%- endcapture -%}
         {%- capture services_html -%}
@@ -1495,7 +1495,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
                 <div class="header__line-additional position-relative {% if section.settings.additional_line_info_page_content != blank %}d-flex px-10{% else %}d-none d-lg-flex{% endif %} px-lg-0">
                     <div class="container d-lg-flex align-items-lg-center">
                         <div>
-                            {% include 'parse-page-html-content' with default_page: 'include-header-info-line-4' page_content: section.settings.additional_line_info_page_content %}
+                            {% render 'parse-page-html-content', default_page: 'include-header-info-line-4', page_content: section.settings.additional_line_info_page_content %}
                         </div>
                         <div class="header__line-additional_sidebar d-none d-lg-flex align-items-center ml-auto">
                             {%- if settings.services_show_header_button or settings.account_show_header_button and shop.customer_accounts_enabled -%}
@@ -1613,7 +1613,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
                                     <div class="col-lg-3">
                                         <div class="header__vertical-nav d-lg-flex">
                                             <div class="position-lg-relative d-lg-flex w-100" data-js-position-desktop="vertical-menu">
-                                                {% include 'header-get-vertical-menu' %}
+                                                {% render 'header-get-vertical-menu' %}
                                             </div>
                                         </div>
                                     </div>
@@ -1634,7 +1634,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
                 <div class="header__line-additional position-relative {% if section.settings.additional_line_info_page_content != blank %}d-flex px-10{% else %}d-none d-lg-flex{% endif %} px-lg-0">
                     <div class="container d-lg-flex align-items-lg-center">
                         <div>
-                            {% include 'parse-page-html-content' with default_page: 'include-header-info-line-4' page_content: section.settings.additional_line_info_page_content %}
+                            {% render 'parse-page-html-content', default_page: 'include-header-info-line-4', page_content: section.settings.additional_line_info_page_content %}
                         </div>
                         <div class="header__line-additional_sidebar d-none d-lg-flex align-items-center ml-auto">
                             {%- if settings.services_show_header_button or settings.account_show_header_button and shop.customer_accounts_enabled -%}
@@ -1759,7 +1759,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
                 <div class="header__line-additional position-relative {% if section.settings.additional_line_info_page_content != blank %}d-flex px-10{% else %}d-none d-lg-flex{% endif %} px-lg-0">
                     <div class="container d-lg-flex align-items-lg-center">
                         <div>
-                            {% include 'parse-page-html-content' with default_page: 'include-header-info-line-4' page_content: section.settings.additional_line_info_page_content %}
+                            {% render 'parse-page-html-content', default_page: 'include-header-info-line-4', page_content: section.settings.additional_line_info_page_content %}
                         </div>
                         <div class="header__line-additional_sidebar d-none d-lg-flex align-items-center ml-auto">
                             {%- if settings.services_show_header_button or settings.account_show_header_button and shop.customer_accounts_enabled -%}
@@ -1879,7 +1879,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
                                     <div class="col-lg-3">
                                         <div class="header__vertical-nav d-lg-flex">
                                             <div class="position-lg-relative d-lg-flex w-100" data-js-position-desktop="vertical-menu">
-                                                {% include 'header-get-vertical-menu' %}
+                                                {% render 'header-get-vertical-menu' %}
                                             </div>
                                         </div>
                                     </div>
@@ -1960,7 +1960,8 @@ You can learn more about this (and learn how to cleanly revert these changes) at
 {% endif %}
 
 
-{% schema %}{
+{% schema %}
+{
     "name": "t:sections.header.name",
     "settings": [
         {
@@ -4369,4 +4370,5 @@ You can learn more about this (and learn how to cleanly revert these changes) at
             ]
         }
     ]
-}{% endschema %}
+}
+{% endschema %}

@@ -1,8 +1,4 @@
-{%- comment -%}
-This file has been modified by the Yoast SEO for Shopify app.
-You can learn more about this (and learn how to cleanly revert these changes) at https://yoa.st/removing-theme-changes.
-{%- endcomment -%}
-{% include 'global-variables' %}
+{% render 'global-variables' %}
 {%- assign template_layout = settings.product_info_layout -%}
 {%- if product.tags contains 'gallery-layout-1' -%}
     {%- assign template_layout = '1' -%}
@@ -30,7 +26,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
 				<div data-js-sticky-sidebar-body>
 			{%- endif -%}
 				<div data-js-position-desktop="sidebar">
-					{% include 'product-page-get-sidebar' %}
+					{% render 'product-page-get-sidebar' %}
 				</div>
 			{%- if enable_sticky_sidebar -%}
 				</div>
@@ -38,18 +34,18 @@ You can learn more about this (and learn how to cleanly revert these changes) at
 			</div>
 	{%- endif -%}
 {% endcapture %}
-{% include 'product-res-variables' %}
+{% render 'product-res-variables' %}
 {% capture content_margins %}pt-{{ offset_product_page_content_margin_top_d }} pb-{{ offset_product_page_content_margin_bottom_d }}{% endcapture %}
 <div class="product-page {{ content_margins }}">
 	<div class="container{% if sidebar != 'off' %} d-xl-flex{% endif %}">
 		{%- if template_layout == '1' or template_layout == '5' -%}
 			<div class="product-page__container{{ container_class }}">
 				<div class="product-page__main">
-					{% include 'product-page-get-main' %}
+					{% render 'product-page-get-main' %}
 				</div>
 				{%- if section.settings.show_tabs -%}
 					<div class="product-page__tabs mt-30">
-						{% include 'product-page-get-tabs' %}
+						{% render 'product-page-get-tabs' %}
 					</div>
 				{%- endif -%}
 			</div>
@@ -57,7 +53,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
 		{%- else -%}
 			<div class="product-page__container{{ container_class }}">
 				<div class="product-page__main">
-					{% include 'product-page-get-main' %}
+					{% render 'product-page-get-main' %}
 				</div>
 			</div>
 			{{ sidebar_html }}
@@ -76,88 +72,6 @@ You can learn more about this (and learn how to cleanly revert these changes) at
 			theme.AssetsLoader.require('scripts', 'tabs');
 		});
 	</script>
-{%- endif -%}
-
-{%- comment -%}Yoast SEO schema control block: start.{%- endcomment -%}
-{%- assign yoast_seo_settings = shop.metafields.yoast_seo.settings.value | default: shop.metafields.yoast_seo.settings -%}
-{%- if disabled_by_yoast_seo or yoast_seo_settings.schema.useTheme.schema or yoast_seo_settings.schema.useTheme.product -%}
-
-  
-  
-  
-  
-  
-  
-  
-  
-
-  
-<script type="application/ld+json">
-{
-"@context": "http://schema.org/",
-"@type": "Product",
-"name": {{ product.title | json }},
-"url": {{ shop.url | append: product.url | json }},
-{%- if product.featured_media -%}
-	{%- assign media_size = product.featured_media.preview_image.width | append: 'x' -%}
-	"image": [
-	{{ product.featured_media | img_url: media_size | prepend: "https:" | json }}
-	],
-{%- endif -%}
-"description": {{ product.description | strip_html | json }},
-{%- if current_variant.sku != blank -%}
-	"sku": {{ current_variant.sku | json }},
-{%- endif -%}
-"brand": {
-	"@type": "Thing",
-	"name": {{ product.vendor | json }}
-},
-"offers": [
-	{%- for variant in product.variants -%}
-		{%- if prices -%}
-			{%- assign prices = prices -%}
-			{%- if prices contains variant.price -%}
-				{%- continue -%}
-			{%- endif -%}
-		,
-		{%- endif -%}
-		{
-			"@type" : "Offer",
-			{%- if variant.sku != blank -%}
-			"sku": {{ variant.sku | json }},
-			{%- endif -%}
-			"availability" : "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
-			"price" : {{ variant.price | divided_by: 100.00 | json }},
-			"priceCurrency" : {{ cart.currency.iso_code | json }},
-			"url" : {{ shop.url | append: variant.url | json }}
-		}
-		{% capture prices %}{{ prices }}{% if prices %}|{% endif %}{{ variant.price }}{% endcapture %}
-	{%- endfor -%}
-]
-}
-
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
 {%- endif -%}
 
 

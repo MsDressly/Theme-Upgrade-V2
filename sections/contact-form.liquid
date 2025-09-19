@@ -10,12 +10,12 @@
                         {%- if section.settings.show_info_column -%}
                             {%- if section.settings.page_content != blank -%}
                                 <div class="rte">
-                                    {% include 'parse-page-html-content' with default_page: 'include-contact-form' page_content: section.settings.page_content %}
+                                    {% render 'parse-page-html-content', default_page: 'include-contact-form', page_content: section.settings.page_content %}
                                 </div>
                                 {%- assign has_content = true -%}
                             {%- elsif page.content -%}
                                 <div class="rte">
-                                    {% include 'parse-for-icons' content: page.content %}
+                                    {% render 'parse-for-icons', content: page.content %}
                                 </div>
                                 {%- assign has_content = true -%}
                             {%- endif -%}
@@ -79,7 +79,7 @@
                               {{ form.body }}
                           {%- endif -%}
                         </textarea>
-                        {% include 'form-get-message' %}
+                        {% render 'form-get-message' %}
                         <div class="pt-10">
                             <button type="submit" class="btn{% if section.settings.button_type == 'default' %} btn--secondary{% endif %}"><i class="mr-5">{% render 'icon-theme-196' %}</i>{{ 'contact.form.send' | t }}</button>
                         </div>

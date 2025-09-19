@@ -511,29 +511,29 @@
     <div class="banner__media position-relative">
         {%- if block.settings.video_external_url != blank -%}
             <div class="banner__video-external">
-                {% render 'video-external' video_url: block.settings.video_external_url.id video_url_type: block.settings.video_external_url.type autoplay: video_autoplay controls: video_controls lazyload: video_lazyload height_custom: media_height_custom_enable height: media_height %}
+                {% render 'video-external', video_url: block.settings.video_external_url.id, video_url_type: block.settings.video_external_url.type, autoplay: video_autoplay, controls: video_controls, lazyload: video_lazyload, height_custom: media_height_custom_enable, height: media_height %}
             </div>
         {%- elsif block.settings.video_mp4_url != blank -%}
             <div class="banner__video">
-                {% render 'rvideo' with video: block.settings.video_mp4_url autoplay: video_autoplay controls: video_controls lazyload: video_lazyload poster: block.settings.image poster_size: image_size height_custom: media_height_custom_enable height: media_height %}
+                {% render 'rvideo', video: block.settings.video_mp4_url, autoplay: video_autoplay, controls: video_controls, lazyload: video_lazyload, poster: block.settings.image, poster_size: image_size, height_custom: media_height_custom_enable, height: media_height %}
             </div>
         {%- elsif block.settings.image != blank -%}
             {%- assign banner_bg_type = 'image' -%}
             {% capture parallax_attrs %}{% if parallax_enable %} js-parallax parallax" data-direction="{{ block.settings.parallax }}{% endif %}{% endcapture %}
             <div class="banner__image">
                 <div class="banner__image_bp banner__image_bp--n0{{ parallax_attrs }}">
-                    {{ tag_div_or_link_open }}{% render 'rimage' image: block.settings.image size: image_size height: media_height height_custom: media_height_custom_enable stretch_size: 'cover' is_parallax: parallax_enable %}{{ tag_div_or_link_close }}
+                    {{ tag_div_or_link_open }}{% render 'rimage', image: block.settings.image, size: image_size, height: media_height, height_custom: media_height_custom_enable, stretch_size: 'cover', is_parallax: parallax_enable %}{{ tag_div_or_link_close }}
                 </div>
                 {%- if block.settings.image_bp1 != blank -%}
                     {%- capture image_size_bp1 -%}{{ image_width_resolution_bps[1] | default: 1024 }}x{%- endcapture -%}
                     <div class="banner__image_bp banner__image_bp--n1{{ parallax_attrs }}">
-                        {{ tag_div_or_link_open }}{% render 'rimage' image: block.settings.image_bp1 size: image_size_bp1 height: media_height height_custom: media_height_custom_enable stretch_size: 'cover' is_parallax: parallax_enable %}{{ tag_div_or_link_close }}
+                        {{ tag_div_or_link_open }}{% render 'rimage', image: block.settings.image_bp1, size: image_size_bp1, height: media_height, height_custom: media_height_custom_enable, stretch_size: 'cover', is_parallax: parallax_enable %}{{ tag_div_or_link_close }}
                     </div>
                 {%- endif -%}
                 {%- if block.settings.image_bp2 != blank -%}
                     {%- capture image_size_bp2 -%}{{ image_width_resolution_bps[2] | default: 540 }}x{%- endcapture -%}
                     <div class="banner__image_bp banner__image_bp--n2{{ parallax_attrs }}">
-                        {{ tag_div_or_link_open }}{% render 'rimage' image: block.settings.image_bp2 size: image_size_bp2 height: media_height height_custom: media_height_custom_enable stretch_size: 'cover' is_parallax: parallax_enable %}{{ tag_div_or_link_close }}
+                        {{ tag_div_or_link_open }}{% render 'rimage', image: block.settings.image_bp2, size: image_size_bp2, height: media_height, height_custom: media_height_custom_enable, stretch_size: 'cover', is_parallax: parallax_enable %}{{ tag_div_or_link_close }}
                     </div>
                 {%- endif -%}
             </div>

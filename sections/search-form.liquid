@@ -1,4 +1,4 @@
-<div data-section-id="{{ section.id }}" data-section-type="search-form"{% render 'layout-get-container-class' custom_class: 'd-block' %}>
+<div data-section-id="{{ section.id }}" data-section-type="search-form"{% render 'layout-get-container-class', custom_class: 'd-block' %}>
     <div class="search-form py-55 text-center">
         {%- if section.settings.title != blank -%}
             <h3 class="search-form__title mb-10">{{ section.settings.title }}</h3>

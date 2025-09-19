@@ -109,7 +109,7 @@
                                         {% capture vendor_link %}{% if vendor_block_link != null %}{{ vendor_block_link }}{% else %}{{ vendor | link_to_vendor | split: 'href="' | last | split: '"' | first }}{% endif %}{% endcapture %}
                                         <div class="col-4 col-sm-4 col-md-3 col-lg-3 col-xl-2 text-center">
                                             <a href="{{ vendor_link }}" class="d-block mb-15" title="{{ vendor_title }}">
-                                                {% render 'rimage' with image: vendor_image format: image_format size: '400x' height_procent: section.settings.image_height stretch_size: 'contain' alt: vendor_title %}
+                                                {% render 'rimage', image: vendor_image, format: image_format, size: '400x', height_procent: section.settings.image_height, stretch_size: 'contain', alt: vendor_title %}
                                             </a>
                                             <a href="{{ vendor_link }}" class="h5 mb-15 text-underline-hover" title="{{ vendor_title }}">{{ vendor | strip_html | upcase }}</a>
                                         </div>

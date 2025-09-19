@@ -3,7 +3,7 @@
     {%- for block in section.blocks -%}
         {%- case block.type -%}
             {%- when 'sidebar_custom_html' -%}
-                {% capture sidebar_custom_html %}{% include 'parse-page-html-content' with default_page: 'include-product-sidebar-custom-html' page_content: block.settings.page_content %}{% endcapture %}
+                {% capture sidebar_custom_html %}{% render 'parse-page-html-content', default_page: 'include-product-sidebar-custom-html', page_content: block.settings.page_content %}{% endcapture %}
                 {%- if sidebar_custom_html != blank -%}
                     <div class="col-12 col-md-6 col-xl-12 pb-20 pb-xl-0{% if forloop.index0 > 0 %} mt-30{% endif %}">
                         {{ sidebar_custom_html }}
@@ -22,9 +22,9 @@
                         {%- endif -%}
                         {%- for product in products limit: limit -%}
                             {%- if block.settings.product_type == 'full' -%}
-                                {% include 'product-collection' %}
+                                {% render 'product-collection' %}
                             {%- else -%}
-                                {% include 'product-featured' %}
+                                {% render 'product-featured' %}
                             {%- endif -%}
                         {%- endfor -%}
                     </div>

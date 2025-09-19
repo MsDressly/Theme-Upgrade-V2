@@ -9,11 +9,11 @@
                     {%- assign assign_to_product = false -%}
                     {%- if block.settings.assign_to == 'all' or block.settings.assign_to == 'products' -%}
                         {%- assign assign_to_product = true -%}
-                        {% if block.settings.product != blank %}[data-product-handle="{{ block.settings.product }}"] {% endif %}.product-options__section[data-property="{% render 'product-get-options-strip-symbols' with value: block.settings.property %}"] [data-value="{% render 'product-get-options-strip-symbols' with value: block.settings.value %}"]
+                        {% if block.settings.product != blank %}[data-product-handle="{{ block.settings.product }}"] {% endif %}.product-options__section[data-property="{% render 'product-get-options-strip-symbols', value: block.settings.property %}"] [data-value="{% render 'product-get-options-strip-symbols', value: block.settings.value %}"]
                     {%- endif -%}
                     {%- if block.settings.product == blank -%}
                         {%- if block.settings.assign_to == 'all' or block.settings.assign_to == 'filters' -%}
-                            {% if assign_to_product %}, {% endif %}.collection-filters__content[data-property="color"] [data-value="{% render 'product-get-options-strip-symbols' with value: block.settings.value %}"]
+                            {% if assign_to_product %}, {% endif %}.collection-filters__content[data-property="color"] [data-value="{% render 'product-get-options-strip-symbols', value: block.settings.value %}"]
                         {%- endif -%}
                     {%- endif -%}
                         {
@@ -26,11 +26,11 @@
                     {%- assign assign_to_product = false -%}
                     {%- if block.settings.assign_to == 'all' or block.settings.assign_to == 'products' -%}
                         {%- assign assign_to_product = true -%}
-                        {% if block.settings.product != blank %}[data-product-handle="{{ block.settings.product }}"] {% endif %}.product-options__section[data-property="{% render 'product-get-options-strip-symbols' with value: block.settings.property %}"] [data-value="{% render 'product-get-options-strip-symbols' with value: block.settings.value %}"]
+                        {% if block.settings.product != blank %}[data-product-handle="{{ block.settings.product }}"] {% endif %}.product-options__section[data-property="{% render 'product-get-options-strip-symbols', value: block.settings.property %}"] [data-value="{% render 'product-get-options-strip-symbols', value: block.settings.value %}"]
                     {%- endif -%}
                     {%- if block.settings.product == blank -%}
                         {%- if block.settings.assign_to == 'all' or block.settings.assign_to == 'filters' -%}
-                            {% if assign_to_product %}, {% endif %}.collection-filters__content[data-property="color"] [data-value="{% render 'product-get-options-strip-symbols' with value: block.settings.value %}"]
+                            {% if assign_to_product %}, {% endif %}.collection-filters__content[data-property="color"] [data-value="{% render 'product-get-options-strip-symbols', value: block.settings.value %}"]
                         {%- endif -%}
                     {%- endif -%}
                         {
@@ -53,9 +53,9 @@
                             {%- assign property = property_value_split[0] -%}
                             {%- assign value = property_value_split[1] -%}
                             {%- assign image = block.settings[prop_image_name] -%}
-                            {% if block.settings.product != blank %}[data-product-handle="{{ block.settings.product }}"] {% endif %}.product-options__section[data-property="{% render 'product-get-options-strip-symbols' with value: property %}"] [data-value="{% render 'product-get-options-strip-symbols' with value: value %}"]
+                            {% if block.settings.product != blank %}[data-product-handle="{{ block.settings.product }}"] {% endif %}.product-options__section[data-property="{% render 'product-get-options-strip-symbols', value: property %}"] [data-value="{% render 'product-get-options-strip-symbols', value: value %}"]
                             {%- if block.settings.product == blank -%}
-                                , .collection-filters__content[data-property="color"] [data-value="{% render 'product-get-options-strip-symbols' with value: value %}"]
+                                , .collection-filters__content[data-property="color"] [data-value="{% render 'product-get-options-strip-symbols', value: value %}"]
                             {%- endif -%}
                                 {
                                     {%- if settings.product_format_pjpg -%}
@@ -77,9 +77,9 @@
                             {%- assign property = property_value_split[0] -%}
                             {%- assign value = property_value_split[1] -%}
                             {%- assign color = block.settings[prop_color_name] -%}
-                            {% if block.settings.product != blank %}[data-product-handle="{{ block.settings.product }}"] {% endif %}.product-options__section[data-property="{% render 'product-get-options-strip-symbols' with value: property %}"] [data-value="{% render 'product-get-options-strip-symbols' with value: value %}"]
+                            {% if block.settings.product != blank %}[data-product-handle="{{ block.settings.product }}"] {% endif %}.product-options__section[data-property="{% render 'product-get-options-strip-symbols', value: property %}"] [data-value="{% render 'product-get-options-strip-symbols', value: value %}"]
                             {%- if block.settings.product == blank -%}
-                                , .collection-filters__content[data-property="color"] [data-value="{% render 'product-get-options-strip-symbols' with value: value %}"]
+                                , .collection-filters__content[data-property="color"] [data-value="{% render 'product-get-options-strip-symbols', value: value %}"]
                             {%- endif -%}
                                 {
                                     background-color: {{ color }} !important;
@@ -103,7 +103,8 @@
 {%- endif -%}
 
 
-{% schema %}{
+{% schema %}
+{
     "name": "t:sections.product_variants.name",
     "settings": [
         {
@@ -411,4 +412,5 @@
             ]
         }
     ]
-}{% endschema %}
+}
+{% endschema %}

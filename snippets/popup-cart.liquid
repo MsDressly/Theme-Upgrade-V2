@@ -8,7 +8,7 @@
             <form action="/cart" method="post" novalidate>
                 <div class="popup-cart__items mt-15">
                     {%- for item in cart.items -%}
-                        {% include 'product-cart' with disable_lazyload: disable_lazyload %}
+                        {% render 'product-cart', disable_lazyload: disable_lazyload %}
                     {%- endfor -%}
                 </div>
                 <div class="popup-cart__footer position-sticky bottom-0 border-top pt-20 pb-25">
@@ -23,10 +23,10 @@
                                     {%- for discount_application in cart.cart_level_discount_applications -%}
                                         <div class="popup-cart__discount h6 d-flex align-items-center mb-5">
                                             <span class="d-flex align-items-center mr-10">
-                                                <i class="mt-2 mr-6">{% include 'icon-theme-137' %}</i> <span>{{ discount_application.title | upcase }}</span>
+                                                <i class="mt-2 mr-6">{% render 'icon-theme-137' %}</i> <span>{{ discount_application.title | upcase }}</span>
                                             </span>
                                             <span class="h5 d-flex align-items-center mb-0 ml-auto">
-                                                <span class="mb-2">-</span><span>{% include 'product-get-price' with price: discount_application.total_allocated_amount %}</span>
+                                                <span class="mb-2">-</span><span>{% render 'product-get-price', price: discount_application.total_allocated_amount %}</span>
                                             </span>
                                         </div>
                                     {%- endfor -%}
@@ -50,14 +50,14 @@
                                             {{ 'cart.general.savings' | t }}
                                         </span>
                                         <span class="h5 d-flex align-items-center mb-0 ml-auto">
-                                            {% include 'product-get-price' with price: cart.total_discounts %}
+                                            {% render 'product-get-price', price: cart.total_discounts %}
                                         </span>
                                     </div>
                                 </div>
                             {%- endif -%}
                             <div class="mb-15">
                                 <div class="popup-cart__subtotal h3 d-flex align-items-center mb-0">
-                                    <p class="m-0">{{ 'general.popups.cart.subtotal' | t }}: {% include 'product-get-price' with price: cart.total_price %}</p>
+                                    <p class="m-0">{{ 'general.popups.cart.subtotal' | t }}: {% render 'product-get-price', price: cart.total_price %}</p>
                                 </div>
                                 {%- if settings.cart_popup_show_taxes_and_shipping_information -%}
                                     {% capture taxes_and_shipping_information %}{{ 'general.popups.cart.taxes_and_shipping_information' | t }}{% endcapture %}

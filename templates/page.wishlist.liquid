@@ -1,7 +1,7 @@
-{% include 'breadcrumbs' %}
+{% render 'breadcrumbs' %}
 <div class="page-wishlist mb-40">
     {%- if customer -%}
-        {% include 'wishlist' %}
+        {% render 'wishlist' %}
     {%- else -%}
         <script>
             window.location.href = '/account/login';
