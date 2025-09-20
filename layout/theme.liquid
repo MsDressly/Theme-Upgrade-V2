@@ -35,25 +35,12 @@
     .loaded{opacity:1}
   </style>
 
-  {%- comment -%} DISABLED - SEOAnt app no longer in use
-  <!-- SEOAnt Speed Up Script - Defer to avoid render blocking -->
-  {%- if shop.metafields.seoantAppSiteSpeedUpV2.switch == 1 -%}
-    <script>
-      window.addEventListener('DOMContentLoaded', function() {
-        var script = document.createElement('script');
-        script.innerHTML = '{% render "SEOAnt-SpeedUp" %}';
-        document.head.appendChild(script);
-      });
-    </script>
-  {%- endif -%}
-  {%- endcomment -%}
+
 
   <!-- Standard Shopify head content -->
   {{ content_for_header }}
   {% render 'head' %}
-  {%- comment -%} DISABLED - Feed Army app no longer in use
-  {% render 'feedarmy322' %}
-  {%- endcomment -%}
+
 
   <meta name="google-site-verification" content="NeMJo4pLZqU6IJyez5HR1fHuZ08pEqb-_awCFv8PNvI" />
 
@@ -132,7 +119,6 @@
       // Load remaining CSS after critical rendering
       var cssFiles = [
         '{{ "theme-m.s.min.css" | asset_url }}'
-        // '{{ "socialshopwave-custom.s.min.css.liquid" | asset_url }}' - DISABLED: Growave no longer in use
       ];
       
       cssFiles.forEach(function(url) {
@@ -168,75 +154,6 @@
   </script>
 
   <!-- Deferred app scripts -->
-  {%- comment -%} DISABLED - Klarna app no longer in use
-  {%- if settings.app_klarna_enable -%}
-    <script>
-      window.addEventListener('load', function() {
-        window.KlarnaThemeGlobals={};
-        {%case template.name%} 
-        {%when"product"%} 
-          window.KlarnaThemeGlobals.data_purchase_amount={{product.first_available_variant.price}};
-          window.KlarnaThemeGlobals.productVariants={{product.variants|json}};
-          window.KlarnaThemeGlobals.documentCopy=document.cloneNode(true);
-        {%when"cart"%} 
-          window.KlarnaThemeGlobals.data_purchase_amount={{cart.total_price}};
-          window.KlarnaThemeGlobals.documentCopy=document.cloneNode(true);
-        {%endcase%}
-      });
-    </script>
-  {%- endif -%}
-  {%- endcomment -%}
 
-  {%- comment -%} DISABLED - Growave/SocialShopWave app no longer in use
-  {%- if settings.app_growave_enable -%}
-    <script>
-      window.addEventListener('load', function() {
-        // Check if Growave/SocialShopWave is available before initializing
-        if (typeof sswRun === 'function') {
-          sswRun(function(){
-            var intervalId = setInterval(function() {
-              if(ssw('.ssw-stars.ssw-stars-large').length) {
-                ssw('.ssw-stars.ssw-stars-large').on('click', function() {
-                  ssw('.product-page__tabs .tabs__btn[data-tab="reviews"]').click();
-                  ssw('html, body').animate({
-                    scrollTop: ssw("#ssw-widget-recommends-html").offset().top - 200
-                  }, 100);
-                });
-                clearInterval(intervalId);
-              }
-            }, 1000);
-          });
-        }
-      });
-    </script>
-  {%- endif -%}
-  {%- endcomment -%}
-
-  {%- comment -%} DISABLED - Loox Reviews app no longer in use
-  {%- if settings.reviews_type == 'loox' -%}
-    <script>
-      window.addEventListener('load', function() {
-        // Load Loox styles asynchronously
-        var looxStyle = document.createElement('style');
-        looxStyle.textContent = '.loox-rating .loox-icon{font-size:1.22em}.loox-rating .loox-icon:not(:last-child){margin-right:5px}.loox-rating span{margin-left:2px;vertical-align:2px}';
-        document.head.appendChild(looxStyle);
-      });
-    </script>
-    {{ shop.metafields.loox["global_html_body"] }}
-  {%- endif -%}
-  {%- endcomment -%}
-
-  <!-- Remove loading class when page is ready -->
-  <script>
-    window.addEventListener('load', function() {
-      document.body.classList.remove('loading');
-      document.body.classList.add('loaded');
-      window.performance && window.performance.mark && window.performance.mark('theme:fully:loaded');
-    });
-  </script>
-
-  {%- comment -%} DISABLED - Store Credit Launcher app no longer in use
-  {% render 'store-credit-launcher' %}
-  {%- endcomment -%}
 </body>
 </html>

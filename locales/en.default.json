@@ -10,6 +10,7 @@
 {
   "general": {
     "accessibility": {
+      "loading": "Loading...",
       "skip_to_content": "Skip to content",
       "unit_price_separator": "per",
       "total_reviews": {
@@ -62,6 +63,7 @@
       }
     },
     "search": {
+      "search": "Search",
       "no_results_html": "Your search for \"{{ terms }}\" did not yield any results.",
       "results_for_html": "Your search for \"{{ terms }}\" revealed the following:",
       "view_all_products": "View all products",
@@ -633,7 +635,7 @@
       "tabs": {
         "description": "PRODUCT INFORMATION",
         "reviews": "CUSTOMER REVIEWS",
-        "klarna": "KLARNA"
+        "klarna": "Klarna"
       },
       "tooltip": {
         "quick_view": "Quick View",

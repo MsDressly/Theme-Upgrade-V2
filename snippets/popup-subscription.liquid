@@ -392,14 +392,22 @@
         {%- if settings.subscription_popup_image != blank -%}
             <div class="popup-subscription__width-col col-sm-6 d-none d-md-block">
                 <div class="popup-subscription__image">
-                    <{% if settings.subscription_popup_link != blank %}a href="{{ settings.subscription_popup_link }}"{% else %}div{% endif %} class="d-block">
+                    {%- if settings.subscription_popup_link != blank -%}
+                        <a href="{{ settings.subscription_popup_link }}" class="d-block">
+                    {%- else -%}
+                        <div class="d-block">
+                    {%- endif -%}
                         {%- if settings.subscription_popup_image_format_pjpg -%}
                             {%- assign image_format = 'pjpg' -%}
                         {%- else -%}
                             {%- assign image_format = null -%}
                         {%- endif -%}
                         {% render 'rimage', image: settings.subscription_popup_image, size: settings.subscription_popup_image_width, format: image_format, stretch_size: 'cover' %}
-                    </{% if settings.subscription_popup_link != blank %}a{% else %}div{% endif %}>
+                    {%- if settings.subscription_popup_link != blank -%}
+                        </a>
+                    {%- else -%}
+                        </div>
+                    {%- endif -%}
                 </div>
             </div>
             <div class="col-12 col-md-6 d-flex align-items-center">
@@ -473,17 +481,24 @@
     <div class="row no-gutters">
         {%- if settings.subscription_popup_image != blank -%}
             <div class="popup-subscription__width-col col-sm-6 d-none d-md-block">
-                <div class="popup-subscription__image">
-                    <{% if settings.subscription_popup_link != blank %}a href="{{ settings.subscription_popup_link }}"{% else %}div{% endif %} class="d-block">
-                        {%- if settings.subscription_popup_image_format_pjpg -%}
-                            {%- assign image_format = 'pjpg' -%}
-                        {%- else -%}
-                            {%- assign image_format = null -%}
-                        {%- endif -%}
-                        {% render 'rimage', image: settings.subscription_popup_image, size: settings.subscription_popup_image_width, format: image_format, stretch_size: 'cover' %}
-                        </{% if settings.subscription_popup_link != blank %}a{% else %}div{% endif %}>
-                </div>
-            </div>
+                                <div class="popup-subscription__image">
+                                    {%- if settings.subscription_popup_link != blank -%}
+                                        <a href="{{ settings.subscription_popup_link }}" class="d-block">
+                                    {%- else -%}
+                                        <div class="d-block">
+                                    {%- endif -%}
+                                        {%- if settings.subscription_popup_image_format_pjpg -%}
+                                            {%- assign image_format = 'pjpg' -%}
+                                        {%- else -%}
+                                            {%- assign image_format = null -%}
+                                        {%- endif -%}
+                                        {% render 'rimage', image: settings.subscription_popup_image, size: settings.subscription_popup_image_width, format: image_format, stretch_size: 'cover' %}
+                                    {%- if settings.subscription_popup_link != blank -%}
+                                        </a>
+                                    {%- else -%}
+                                        </div>
+                                    {%- endif -%}
+                                </div>            </div>
             <div class="col-12 col-md-6 d-flex align-items-center">
         {%- else -%}
             <div class="col-12">
@@ -559,15 +574,31 @@
             {%- assign image_format = null -%}
         {%- endif -%}
         <div class="popup-subscription__image{% if settings.subscription_popup_image_mobile != blank %} d-none d-md-block{% endif %}">
-            <{% if settings.subscription_popup_link != blank %}a href="{{ settings.subscription_popup_link }}"{% else %}div{% endif %} class="d-block">
+            {%- if settings.subscription_popup_link != blank -%}
+                <a href="{{ settings.subscription_popup_link }}" class="d-block">
+            {%- else -%}
+                <div class="d-block">
+            {%- endif -%}
                 {% render 'rimage', image: settings.subscription_popup_image, size: settings.subscription_popup_image_width, format: image_format %}
-            </{% if settings.subscription_popup_link != blank %}a{% else %}div{% endif %}>
+            {%- if settings.subscription_popup_link != blank -%}
+                </a>
+            {%- else -%}
+                </div>
+            {%- endif -%}
         </div>
         {%- if settings.subscription_popup_image_mobile != blank -%}
             <div class="popup-subscription__image d-md-none">
-                <{% if settings.subscription_popup_link != blank %}a href="{{ settings.subscription_popup_link }}"{% else %}div{% endif %} class="d-block">
+                {%- if settings.subscription_popup_link != blank -%}
+                    <a href="{{ settings.subscription_popup_link }}" class="d-block">
+                {%- else -%}
+                    <div class="d-block">
+                {%- endif -%}
                     {% render 'rimage', image: settings.subscription_popup_image_mobile, size: settings.subscription_popup_image_width, format: image_format %}
-                </{% if settings.subscription_popup_link != blank %}a{% else %}div{% endif %}>
+                {%- if settings.subscription_popup_link != blank -%}
+                    </a>
+                {%- else -%}
+                    </div>
+                {%- endif -%}
             </div>
         {%- endif -%}
     {%- else -%}
@@ -637,7 +668,11 @@
 <div class="popup-subscription popup-subscription--layout-05 position-relative d-flex justify-content-center py-15 py-lg-30"{{ popup_attrs }}>
     {%- if settings.subscription_popup_image != blank -%}
         {% capture subscription_image_size %}{{ settings.subscription_popup_image_width }}x{% endcapture %}
-        <{% if settings.subscription_popup_link != blank %}a href="{{ settings.subscription_popup_link }}"{% else %}div{% endif %} class="popup-subscription__image lazyload absolute-stretch"
+        {%- if settings.subscription_popup_link != blank -%}
+            <a href="{{ settings.subscription_popup_link }}" class="popup-subscription__image lazyload absolute-stretch"
+        {%- else -%}
+            <div class="popup-subscription__image lazyload absolute-stretch"
+        {%- endif -%}
             {%- if settings.subscription_popup_image_format_pjpg -%}
                 data-master="{{ settings.subscription_popup_image | img_url: '1x1', format: 'pjpg' | replace: '_1x1.', image_size_placeholder }}"
                 data-bg="{{ settings.subscription_popup_image | img_url: subscription_image_size, format: 'pjpg' }}"
@@ -647,7 +682,11 @@
             {%- endif -%}
                 data-scale="3"
         >
-        </{% if settings.subscription_popup_link != blank %}a{% else %}div{% endif %}>
+        {%- if settings.subscription_popup_link != blank -%}
+            </a>
+        {%- else -%}
+            </div>
+        {%- endif -%}
     {%- endif -%}
     <div class="popup-subscription__content position-relative d-inline-flex flex-column flex-center h-100 pb-40 px-15 text-center">
         <i class="popup-subscription__close position-absolute cursor-pointer" data-js-popup-close>{% render 'icon-theme-164' %}</i>

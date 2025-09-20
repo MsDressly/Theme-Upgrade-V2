@@ -2764,10 +2764,6 @@
           {
             "value": "default",
             "label": "t:settings_schema.wishlist_and_compare.settings.wishlist_type.option__2.label"
-          },
-          {
-            "value": "growave",
-            "label": "t:settings_schema.wishlist_and_compare.settings.wishlist_type.option__3.label"
           }
         ]
       },
@@ -3517,16 +3513,7 @@
         "type": "header",
         "content": "t:settings_schema.account.settings.header__4.content"
       },
-      {
-        "type": "checkbox",
-        "id": "account_growave_social_login_enable",
-        "label": "t:settings_schema.account.settings.account_growave_social_login_enable.label",
-        "default": true
-      },
-      {
-        "type": "paragraph",
-        "content": "t:settings_schema.account.settings.paragraph__1.content"
-      },
+
       {
         "type": "header",
         "content": "t:settings_schema.account.settings.header__5.content"
@@ -3549,21 +3536,12 @@
         "id": "reviews_type",
         "label": "t:settings_schema.reviews.settings.reviews_type.label",
         "default": "disable",
-        "options": [
-          {
-            "value": "disable",
-            "label": "t:settings_schema.reviews.settings.reviews_type.option__1.label"
-          },
-          {
-            "value": "growave",
-            "label": "t:settings_schema.reviews.settings.reviews_type.option__2.label"
-          },
-          {
-            "value": "loox",
-            "label": "t:settings_schema.reviews.settings.reviews_type.option__3.label"
-          }
-        ]
-      }
+                  "options": [
+                    {
+                      "value": "disable",
+                      "label": "t:settings_schema.reviews.settings.reviews_type.option__1.label"
+                    }
+                  ]      }
     ]
   },
   {
@@ -3633,31 +3611,7 @@
         "id": "app_language_link_list",
         "label": "t:settings_schema.apps_and_language.settings.app_language_link_list.label"
       },
-      {
-        "type": "header",
-        "content": "t:settings_schema.apps_and_language.settings.header__2.content"
-      },
-      {
-        "type": "checkbox",
-        "id": "app_klarna_enable",
-        "label": "t:settings_schema.apps_and_language.settings.app_klarna_enable.label",
-        "info": "t:settings_schema.apps_and_language.settings.app_klarna_enable.info",
-        "default": false
-      },
-      {
-        "type": "header",
-        "content": "t:settings_schema.apps_and_language.settings.header__3.content"
-      },
-      {
-        "type": "checkbox",
-        "id": "app_growave_enable",
-        "label": "t:settings_schema.apps_and_language.settings.app_growave_enable.label",
-        "default": false
-      },
-      {
-        "type": "paragraph",
-        "content": "t:settings_schema.apps_and_language.settings.paragraph__1.content"
-      },
+
       {
         "type": "header",
         "content": "t:settings_schema.apps_and_language.settings.header__4.content"
