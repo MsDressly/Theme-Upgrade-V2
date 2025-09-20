@@ -7,7 +7,7 @@
         {%- endif -%}
     {%- endfor -%}
 {%- endif -%}
-<a href="/account" class="btn btn--text btn--status px-lg-6 js-store-lists-add-compare"
+<a href="{{ routes.account_url }}" class="btn btn--text btn--status px-lg-6 js-store-lists-add-compare"
     {% if present_in_compare %} data-button-status="added"{% endif %}
     {%- if settings.tooltips_enable and product_enable_tooltips %}
         data-js-tooltip

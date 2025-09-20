@@ -1,0 +1,217 @@
+/* MsDressly Custom Styles - Brand Specific Customizations */
+/* ========================================================= */
+
+:root {
+  /* MsDressly Brand Colors */
+  --msdressly-primary: #5a31f4;
+  --msdressly-primary-hover: #4925d3;
+  --msdressly-secondary: #17344A;
+  --msdressly-accent: #ff6b6b;
+  --msdressly-text-dark: #2c3e50;
+  --msdressly-text-light: #7f8c8d;
+  --msdressly-bg-light: #f8f9fa;
+  --msdressly-border: #e1e8ed;
+}
+
+/* Brand Typography Enhancements */
+.site-header__logo img {
+  transition: transform 0.3s ease;
+}
+
+.site-header__logo:hover img {
+  transform: scale(1.05);
+}
+
+/* Enhanced Product Cards */
+.product-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.product-card:hover {
+  box-shadow: 0 10px 30px rgba(90, 49, 244, 0.1);
+  transform: translateY(-4px);
+}
+
+/* MsDressly Button Styles */
+.btn--msdressly {
+  background: linear-gradient(135deg, var(--msdressly-primary) 0%, var(--msdressly-primary-hover) 100%);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 25px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(90, 49, 244, 0.2);
+}
+
+.btn--msdressly:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(90, 49, 244, 0.3);
+}
+
+/* Enhanced Shopping Experience */
+.price {
+  font-weight: 700;
+  color: var(--msdressly-primary);
+}
+
+.price--on-sale {
+  color: var(--msdressly-accent);
+}
+
+/* Improved Header Styling */
+.header__content {
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+/* Product Badge Enhancements */
+.product-label--new {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.product-label--sale {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+/* Enhanced Form Inputs */
+.form-input,
+.form-select {
+  border: 1px solid var(--msdressly-border);
+  border-radius: 8px;
+  padding: 10px 15px;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus,
+.form-select:focus {
+  border-color: var(--msdressly-primary);
+  box-shadow: 0 0 0 3px rgba(90, 49, 244, 0.1);
+  outline: none;
+}
+
+/* Newsletter Section Enhancement */
+.newsletter-section {
+  background: linear-gradient(135deg, var(--msdressly-bg-light) 0%, white 100%);
+  padding: 60px 0;
+  position: relative;
+}
+
+.newsletter-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--msdressly-primary), transparent);
+}
+
+/* Cart Drawer Improvements */
+.cart-drawer {
+  box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+}
+
+.cart-drawer__header {
+  background: var(--msdressly-bg-light);
+  border-bottom: 2px solid var(--msdressly-primary);
+}
+
+/* Quick View Modal */
+.quick-view-modal {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Loading Animation Enhancement */
+@keyframes msdresslyPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(0.95);
+  }
+}
+
+.loading--msdressly {
+  animation: msdresslyPulse 1.5s ease-in-out infinite;
+}
+
+/* Mobile Optimizations */
+@media screen and (max-width: 768px) {
+  .btn--msdressly {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .product-card {
+    margin-bottom: 15px;
+  }
+
+  .site-header__logo img {
+    max-height: 40px;
+  }
+}
+
+/* Accessibility Improvements */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Focus Styles for Accessibility */
+*:focus-visible {
+  outline: 2px solid var(--msdressly-primary);
+  outline-offset: 2px;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Performance Optimizations */
+.lazy-image {
+  background-color: var(--msdressly-bg-light);
+  filter: blur(5px);
+  transition: filter 0.3s ease;
+}
+
+.lazy-image--loaded {
+  filter: blur(0);
+}

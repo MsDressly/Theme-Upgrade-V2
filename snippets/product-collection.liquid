@@ -61,7 +61,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
 {%- else -%}
     {%- assign current_image = image -%}
 {%- endif -%}
-{%- assign img_hover_url = hover_image | img_url: '1x1', format: image_format | replace: '_1x1.', '_{width}x.' -%}
+{%- assign img_hover_url = hover_image | image_url: '1x1', format: image_format | replace: '_1x1.', '_{width}x.' -%}
 {%- assign product_form_id = 'quick-add-' | append: section.id | append: product.id -%}
 <product-item class="product-collection{% if settings.product_collection_centered_info %} product-collection--centered{% endif %} d-block"{% render 'product-get-attributes' %} data-qv-check-change>
     <div class="product-collection__wrapper mb-30 mb-lg-{{ product_margin_bottom }}">
@@ -383,7 +383,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
             {%- if product.featured_media -%}
                 {%- assign media_size = product.featured_media.preview_image.width | append: 'x' -%}
                 "image": [
-                    {{ product.featured_media | img_url: media_size | prepend: "https:" | json }}
+                    {{ product.featured_media | image_url: width: product.featured_media.preview_image.width | prepend: "https:" | json }}
                 ],
             {%- endif -%}
             "description": {{ product.description | strip_html | json }},

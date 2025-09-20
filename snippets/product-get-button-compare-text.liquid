@@ -7,7 +7,7 @@
         {%- endif -%}
     {%- endfor -%}
 {%- endif -%}
-<a href="/account" class="btn btn--text btn--status px-md-0 js-store-lists-add-compare"
+<a href="{{ routes.account_url }}" class="btn btn--text btn--status px-md-0 js-store-lists-add-compare"
     {% if present_in_compare %} data-button-status="added"{% endif %}>
     <span class="d-flex flex-center"><i class="mr-5 mb-1">{% render 'icon-theme-039' %}</i>{{ 'products.product.add_to_compare.title' | t }}</span>
     <span class="d-flex flex-center" data-button-content="added"><i class="mr-5 mb-1">{% render 'icon-theme-235' %}</i>{{ 'products.product.add_to_compare.added' | t }}</span>

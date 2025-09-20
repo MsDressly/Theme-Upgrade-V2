@@ -2,7 +2,7 @@
 {%- if build_variant == 'all' or build_variant == 'json' -%}
     {%- capture json_images -%}
         {%- for image in product.images -%}
-            {"id":"{{ image.id }}","src":"{{ image.src | img_url: 'master' }}"}{% if forloop.last != true %},{% endif %}
+            {"id":"{{ image.id }}","src":"{{ image.src | image_url: 'master' }}"}{% if forloop.last != true %},{% endif %}
         {%- endfor -%}
     {%- endcapture -%}
     {%- capture json_media -%}

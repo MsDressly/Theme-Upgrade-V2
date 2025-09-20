@@ -63,8 +63,8 @@
                     <div class="d-flex flex-center border cursor-pointer" data-control="+"><i>{% render 'icon-theme-188' %}</i></div>
                 </div>
             {%- endif -%}
-            <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="product-cart__remove btn-link js-product-button-remove-from-cart mt-10 d-none d-lg-block">{{ 'products.product.remove' | t }}</a>
-            <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="product-cart__remove btn-link js-product-button-remove-from-cart d-lg-none">{% render 'icon-theme-165' %}</a>
+            <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0" class="product-cart__remove btn-link js-product-button-remove-from-cart mt-10 d-none d-lg-block">{{ 'products.product.remove' | t }}</a>
+            <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0" class="product-cart__remove btn-link js-product-button-remove-from-cart d-lg-none">{% render 'icon-theme-165' %}</a>
         </div>
     </div>
     <div class="product-cart__mobile-footer mt-20 align-items-center d-flex d-lg-none">

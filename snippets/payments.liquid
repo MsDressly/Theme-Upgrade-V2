@@ -1,5 +1,5 @@
 {%- assign payment_names = 'afterpay,american_express,apple_pay,bitcoin,dankort,diners_club,discover,dogecoin,dwolla,forbrugsforeningen,google_pay,ideal,jcb,klarna,klarna-pay-later,litecoin,maestro,master,paypal,shopify_pay,sofort,visa,custom_1,custom_2,custom_3,custom_4,custom_5' | split: ',' -%}
-{%- assign payment_default_snippets = 'icon-payment-afterpay,icon-payment-american-express,icon-payment-apple-pay,icon-payment-bitcoin,icon-payment-dankort,icon-payment-diners-club,icon-payment-discover,icon-payment-dogecoin,icon-payment-dwolla,icon-payment-forbrugsforeningen,icon-payment-google-pay,icon-payment-ideal,icon-payment-jcb,icon-payment-klarna,icon-payment-klarna-pay-later,icon-payment-litecoin,icon-payment-maestro,icon-payment-master,icon-payment-paypal,icon-payment-shopify-pay,icon-payment-sofort,icon-payment-visa,icon-payment-custom-1,icon-payment-custom-2,icon-payment-custom-3,icon-payment-custom-4,icon-payment-custom-5' | split: ',' -%}
+
 {%- if settings.payment_images != blank -%}
     {%- assign payment_images = settings.payment_images | remove: ' ' | split: ',' -%}
 {%- endif -%}
@@ -28,7 +28,7 @@
                 <div class="col-auto px-5 {% if size == 2 %}pb-5{% else %}pb-10{% endif %}">
                     {%- if icon_image -%}
                         <div class="payments__image">
-                            {{ icon_image | img_tag }}
+                            {{ icon_image | image_tag }}
                         </div>
                     {%- else -%}
                         {%- if settings.payment_design == 'shopify' -%}

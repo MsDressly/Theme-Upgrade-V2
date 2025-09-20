@@ -28,7 +28,7 @@
 {% endcapture %}
 <div class="popup-age-confirmation position-relative" data-popup-content>
     <i class="popup-age-confirmation__close position-absolute cursor-pointer" data-js-popup-age-confirmation-close-website>{% render 'icon-theme-164' %}</i>
-    <div class="popup-age-confirmation__content position-relative d-flex flex-column flex-center pt-100 pb-95 px-30 mx-auto text-center" style="background-image: url({{ settings.layout_age_confirmation_image | img_url: 'master' }});">
+    <div class="popup-age-confirmation__content position-relative d-flex flex-column flex-center pt-100 pb-95 px-30 mx-auto text-center" style="background-image: url({{ settings.layout_age_confirmation_image | image_url: 'master' }});">
         <p class="popup-age-confirmation__text-line-01 h3 mt-5 mb-5">{{ 'general.popups.age_confirmation.title_html' | t }}</p>
         <div class="popup-age-confirmation__btns w-100 px-sm-0 mt-25">
             <div class="row">

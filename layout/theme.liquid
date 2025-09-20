@@ -58,6 +58,10 @@
   <!-- Defer non-critical CSS -->
   <noscript><link rel="stylesheet" href="{{ 'theme-d.s.min.css' | asset_url }}"></noscript>
 
+  <!-- MsDressly Custom Styles -->
+  <link rel="preload" href="{{ 'msdressly-custom.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{ 'msdressly-custom.css' | asset_url }}"></noscript>
+
   {%- if template contains 'product' -%}
     {%- render 'json-ld-product' -%}
   {%- endif -%}
@@ -98,6 +102,9 @@
 
   <!-- Load main JavaScript with optimized loading -->
   <script src="{{ 'theme.s.min.js' | asset_url }}" defer></script>
+
+  <!-- MsDressly Performance Optimizations -->
+  <script src="{{ 'msdressly-performance.js' | asset_url }}" defer></script>
 
   <!-- Optimized third-party scripts loading -->
   <script>

@@ -90,7 +90,7 @@
                                         {%- endif -%}
                                     {%- endfor -%}
                                 {%- endif -%}
-                                <a href="/account" class="btn btn--full btn--status{% if settings.buttons_animation_icon_enable %} btn--animated{% endif %} js-store-lists-add-wishlist"{% if present_in_wishlist %} data-button-status="added"{% endif %}>
+                                <a href="{{ routes.account_url }}" class="btn btn--full btn--status{% if settings.buttons_animation_icon_enable %} btn--animated{% endif %} js-store-lists-add-wishlist"{% if present_in_wishlist %} data-button-status="added"{% endif %}>
                                     <span class="d-flex flex-center"><i class="btn__icon mr-5 mb-2">{% render 'icon-theme-180' %}</i><span class="btn__text">{{ 'products.product.add_to_widhlist.title' | t }}</span></span>
                                     <span class="d-flex flex-center" data-button-content="added"><i class="mr-5 mb-2">{% render 'icon-theme-181' %}</i>{{ 'products.product.add_to_widhlist.added' | t }}</span>
                                 </a>
@@ -118,7 +118,7 @@
                                     {%- endif -%}
                                 {%- endfor -%}
                             {%- endif -%}
-                            <a href="/account" class="btn btn--full btn--status{% if settings.buttons_animation_icon_enable %} btn--animated{% endif %} js-store-lists-add-compare"{% if present_in_compare %} data-button-status="added"{% endif %}>
+                            <a href="{{ routes.account_url }}" class="btn btn--full btn--status{% if settings.buttons_animation_icon_enable %} btn--animated{% endif %} js-store-lists-add-compare"{% if present_in_compare %} data-button-status="added"{% endif %}>
                                 <span class="d-flex flex-center"><i class="btn__icon mr-5 mb-6">{% render 'icon-theme-039' %}</i><span class="btn__text">{{ 'products.product.add_to_compare.title' | t }}</span></span>
                                 <span class="d-flex flex-center" data-button-content="added"><i class="mr-5 mb-6">{% render 'icon-theme-235' %}</i>{{ 'products.product.add_to_compare.added' | t }}</span>
                             </a>
@@ -172,7 +172,7 @@
                                     {%- endif -%}
                                 {%- endfor -%}
                             {%- endif -%}
-                            <a href="/account" class="btn btn--full btn--status{% if settings.buttons_animation_icon_enable %} btn--animated{% endif %} js-store-lists-add-wishlist"{% if present_in_wishlist %} data-button-status="added"{% endif %}>
+                            <a href="{{ routes.account_url }}"{% if present_in_wishlist %} data-button-status="added"{% endif %}>
                                 <span class="d-flex flex-center"><i class="btn__icon mr-5 mb-2">{% render 'icon-theme-180' %}</i><span class="btn__text">{{ 'products.product.add_to_widhlist.title' | t }}</span></span>
                                 <span class="d-flex flex-center" data-button-content="added"><i class="mr-5 mb-2">{% render 'icon-theme-181' %}</i>{{ 'products.product.add_to_widhlist.added' | t }}</span>
                             </a>
@@ -196,7 +196,7 @@
                                 {%- endif -%}
                             {%- endfor -%}
                         {%- endif -%}
-                        <a href="/account" class="btn btn--full btn--status{% if settings.buttons_animation_icon_enable %} btn--animated{% endif %} js-store-lists-add-compare"{% if present_in_compare %} data-button-status="added"{% endif %}>
+                        <a href="{{ routes.account_url }}" class="btn btn--full btn--status{% if settings.buttons_animation_icon_enable %} btn--animated{% endif %} js-store-lists-add-compare"{% if present_in_compare %} data-button-status="added"{% endif %}>
                             <span class="d-flex flex-center"><i class="btn__icon mr-5 mb-6">{% render 'icon-theme-039' %}</i><span class="btn__text">{{ 'products.product.add_to_compare.title' | t }}</span></span>
                             <span class="d-flex flex-center" data-button-content="added"><i class="mr-5 mb-6">{% render 'icon-theme-235' %}</i>{{ 'products.product.add_to_compare.added' | t }}</span>
                         </a>

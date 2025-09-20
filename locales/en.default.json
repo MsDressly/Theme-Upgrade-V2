@@ -543,6 +543,8 @@
   },
   "products": {
     "product": {
+      "unavailable": "Unavailable",
+      "sold_out": "Sold Out",
       "complementary_products_title": "Pair it with",
       "related_products_title": "Related products",
       "recommended_products_title": "Recommended products",

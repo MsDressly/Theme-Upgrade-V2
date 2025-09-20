@@ -5,7 +5,7 @@
     </div>
     {%- if cart.items.size > 0 -%}
         <div class="popup-cart__content">
-            <form action="/cart" method="post" novalidate>
+            <form action="{{ routes.cart_url }}" method="post" novalidate>
                 <div class="popup-cart__items mt-15">
                     {%- for item in cart.items -%}
                         {% render 'product-cart', disable_lazyload: disable_lazyload %}

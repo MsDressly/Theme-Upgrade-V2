@@ -20,7 +20,7 @@
 {%- assign enable_quick_view = enable_quick_view | default: settings.product_collection_show_button_quick_view -%}
 {%- assign add_to_cart = add_to_cart | default: settings.product_info_complementary_products_add_to_cart -%}
 {%- assign show_type_collections_vendor = show_type_collections_vendor | default: true -%}
-{%- assign img_hover_url = hover_image | img_url: '1x1', format: image_format | replace: '_1x1.', '_{width}x.' -%}
+{%- assign img_hover_url = hover_image | image_url: '1x1', format: image_format | replace: '_1x1.', '_{width}x.' -%}
 {%- if settings.reviews_type == 'disable' -%}
     {%- assign show_reviews = false -%}
 {%- endif -%}
