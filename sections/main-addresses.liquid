@@ -6,7 +6,7 @@
           <h1 class="h3 mt-30 mb-40 text-center">{{ 'customer.addresses.title' | t }}</h1>
           <div class="d-flex align-items-center align-items-lg-end">
             <button type="button" class="btn" data-js-accordion-button>{{ 'customer.addresses.add_new' | t }}</button>
-            <a href="/account" class="btn-link ml-auto">{{ 'customer.account.return' | t }}</a>
+            <a href="{{ routes.account_url }}" class="btn-link ml-auto">{{ 'customer.account.return' | t }}</a>
           </div>
         </header>
         <div id="AddressNewForm" class="d-none pb-10" data-js-accordion-content>

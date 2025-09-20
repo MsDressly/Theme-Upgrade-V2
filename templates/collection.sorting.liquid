@@ -1,8 +1,8 @@
 {% layout none %}
 {% render 'global-variables' %}
-{%- assign pageUrl = request.query_string -%}
-{%- if pageUrl contains '?' -%}
-    {%- assign params = pageUrl | remove: '?' | split: '&#38;' -%}
+{%- assign page_url = request.query_string -%}
+{%- if page_url contains '?' -%}
+    {%- assign params = page_url | remove: '?' | split: '&#38;' -%}
     {%- for param in params -%}
         {%- assign prop_n_value = param | split: '=' -%}
         {%- if prop_n_value[0] == 'count_limit' -%}

@@ -484,7 +484,7 @@
                     {%- if copyright_page_content != blank -%}
                         {{ copyright_page_content }}
                     {%- else -%}
-                        {{ 'layout.footer.copyright' | t }} &copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: '/' }}. {{ powered_by_link }}
+                        {{ 'layout.footer.copyright' | t }} &copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: routes.root_url }}. {{ powered_by_link }}
                     {%- endif -%}
                 </div>
             </div>

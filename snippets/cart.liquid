@@ -10,7 +10,7 @@
         <div class="cart pb-60 pb-lg-70">
             <div class="container">
                 {%- if cart.item_count > 0 -%}
-                    <form action="/cart" method="post" novalidate>
+                    <form action="{{ routes.cart_url }}" method="post" novalidate>
                         <div class="row">
                             <div class="col-lg-8 col-xl-9">
                                 <div class="cart__items">
@@ -30,7 +30,7 @@
                                         <div class="py-20 border-bottom" data-js-product data-product-cart-line="{{ forloop.index }}">
                                             <div class="row d-flex align-items-center flex-column flex-sm-row">
                                                 <div class="col-sm-5 col-lg-4 col-xl-6 d-flex align-items-center mb-20 mb-sm-0">
-                                                    <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="mr-20 js-product-button-remove-from-cart">
+                                                    <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0" class="mr-20 js-product-button-remove-from-cart">
                                                         <i>{% render 'icon-theme-165' %}</i>
                                                     </a>
                                                     <div class="d-flex align-items-center align-items-sm-start align-items-xl-center flex-sm-column flex-xl-row w-100">

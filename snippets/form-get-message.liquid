@@ -1,14 +1,14 @@
-{%- assign default-message-text = 'general.form.default.success' | t -%}
-{%- assign loc-message-text = set-message-text | default: default-message-text -%}
+{%- assign default_message_text = 'general.form.default.success' | t -%}
+{%- assign loc_message_text = set-message-text | default: default_message_text -%}
 {%- if form.errors -%}
-    {%- assign res-error-fields = null -%}
+    {%- assign res_error_fields = null -%}
     <div class="note note--error">
         <ul>
             {%- for field in form.errors -%}
                 {%- if forloop.first != true -%}
-                    {%- assign res-error-fields = res-error-fields | append: '|' -%}
+                    {%- assign res_error_fields = res_error_fields | append: '|' -%}
                 {%- endif -%}
-                {%- assign res-error-fields = res-error-fields | append: field -%}
+                {%- assign res_error_fields = res_error_fields | append: field -%}
                 <li>
                     {%- if field == 'form' -%}
                         {{ form.errors.messages[field] }}
@@ -20,7 +20,7 @@
         </ul>
     </div>
 {%- endif -%}
-{%- assign res-error-fields = res-error-fields | split: '|' -%}
+{%- assign res_error_fields = res_error_fields | split: '|' -%}
 {%- if form.posted_successfully? -%}
-    <div class="note note--success mt-20" id="ResetSuccess">{{ loc-message-text }}</div>
+    <div class="note note--success mt-20" id="ResetSuccess">{{ loc_message_text }}</div>
 {%- endif -%}

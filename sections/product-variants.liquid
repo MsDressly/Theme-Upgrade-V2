@@ -1,7 +1,6 @@
 {%- if section.blocks.size > 0 -%}
     {%- if settings.layout_images_lazyload == false -%}
-        {%- assign disable_lazyload = true -%}
-    {%- endif -%}
+            {%- endif -%}
     {% capture styles_tags %}
         <style>
             {%- for block in section.blocks -%}

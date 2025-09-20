@@ -35,7 +35,6 @@
                                             {% capture product_detects %}{{ product_detects }}{{ product_detect }}{% endcapture %}
                                         {%- endunless -%}
                                         {%- if product_detect_id <= 20 -%}
-                                            {%- assign product = all_products[block.settings.product] -%}
                                             {% render 'product-res-variables' %}
                                         {%- endif -%}
                                         {%- if block.settings.title != blank -%}
@@ -43,12 +42,6 @@
                                         {%- endif -%}
                                         {%- if block.settings.image != blank -%}
                                             {%- assign image = block.settings.image -%}
-                                        {%- endif -%}
-                                        {%- if block.settings.price != blank -%}
-                                            {%- assign price = block.settings.price | times: 100 -%}
-                                        {%- endif -%}
-                                        {%- if block.settings.compare_at_price != blank -%}
-                                            {%- assign compare_at_price = block.settings.compare_at_price | times: 100 -%}
                                         {%- endif -%}
                                         {% capture pickers_text_html %}
                                             {{ pickers_text_html }}

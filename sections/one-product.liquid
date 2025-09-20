@@ -331,12 +331,12 @@
         {%- if section.settings.height != 'auto' -%}
             <div class="one-product__bg_spacer d-none d-md-block {% if section.settings.height == 'fullscreen' %} lazyload-fullscreen{% elsif section.settings.height == 'fullscreen_header' %} lazyload-fullscreen-header{% endif %}"></div>
         {%- endif -%}
-        <div class="one-product__bg_image absolute-stretch lazyload{% if section.settings.bg_image_mobile != blank %} d-none d-sm-block{% endif %}" 
+        <div class="one-product__bg_image absolute-stretch{% if section.settings.bg_image_mobile != blank %} d-none d-sm-block{% endif %}" 
             data-master="{{ section.settings.bg_image | image_url: '1x1', format: 'pjpg' | replace: '_1x1.', image_size_placeholder }}"
             data-bg="{{ section.settings.bg_image | image_url: '2000x', format: 'pjpg' }}">
         </div>
         {%- if section.settings.bg_image_mobile != blank -%}
-          <div class="one-product__bg_image absolute-stretch d-sm-none lazyload"
+          <div class="one-product__bg_image absolute-stretch d-sm-none"
               data-master="{{ section.settings.bg_image_mobile | image_url: '1x1', format: 'pjpg' | replace: '_1x1.', image_size_placeholder }}"
               data-bg="{{ section.settings.bg_image_mobile | image_url: '2000x', format: 'pjpg' }}">
           </div>

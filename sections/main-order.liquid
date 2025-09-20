@@ -1,7 +1,7 @@
 {% render 'breadcrumbs' %}
 <div class="container pb-60">
   <h1 class="h3 mt-30 mb-40 text-center">{{ 'customer.orders.title' | t }}</h1>
-  <a href="/account" class="btn-link my-30">{{ 'customer.account.return' | t }}</a>
+  <a href="{{ routes.account_url }}" class="btn-link my-30">{{ 'customer.account.return' | t }}</a>
   <h2 class="h4">{{ 'customer.order.title' | t: name: order.name | upcase  }}</h2>
   <p>{{ 'customer.order.date' | t: date: order.created_at | date: "%B %d, %Y %I:%M%p" }}</p>
   {%- if order.cancelled -%}

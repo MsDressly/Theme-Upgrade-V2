@@ -72,7 +72,7 @@
     <div class="pt-35 mt-35 border-top">
       <h2 class="h3 text-center">{{ 'customer.login.sign_up_title' | t }}</h2>
       {% render 'parse-page-html-content', default_page: 'include-account-page', page_content: settings.account_page_sing_up_page_content %}
-      <a href="/account/register" class="btn btn--full">{{ 'customer.login.create_account' | t }}</a>
+      <a href="{{ routes.account_register_url }}" class="btn btn--full">{{ 'customer.login.create_account' | t }}</a>
     </div>
   </div>
 </div>

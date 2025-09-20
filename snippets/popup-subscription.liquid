@@ -669,9 +669,9 @@
     {%- if settings.subscription_popup_image != blank -%}
         {% capture subscription_image_size %}{{ settings.subscription_popup_image_width }}x{% endcapture %}
         {%- if settings.subscription_popup_link != blank -%}
-            <a href="{{ settings.subscription_popup_link }}" class="popup-subscription__image lazyload absolute-stretch"
+            <a href="{{ settings.subscription_popup_link }}" class="popup-subscription__image absolute-stretch"
         {%- else -%}
-            <div class="popup-subscription__image lazyload absolute-stretch"
+            <div class="popup-subscription__image absolute-stretch"
         {%- endif -%}
             {%- if settings.subscription_popup_image_format_pjpg -%}
                 data-master="{{ settings.subscription_popup_image | image_url: '1x1', format: 'pjpg' | replace: '_1x1.', image_size_placeholder }}"

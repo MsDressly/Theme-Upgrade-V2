@@ -162,7 +162,7 @@
               </div>
             {%- endif -%}
             <p class="text-center">
-              <a href="/account/addresses">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a>
+              <a href="{{ routes.account_addresses_url }}">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a>
             </p>
           </div>
         </div>
@@ -174,7 +174,7 @@
       </script>
     </tabs-element>
     <div class="d-flex justify-content-center justify-content-lg-end mt-60">
-      <a href="/account/logout" class="btn">{{ "general.popups.account.authorized.log_out" | t }}</a>
+      <a href="{{ routes.account_logout_url }}" class="btn">{{ "general.popups.account.authorized.log_out" | t }}</a>
     </div>
   </div>
 </div>

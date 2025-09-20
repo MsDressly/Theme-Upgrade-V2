@@ -3,7 +3,7 @@
         <div class="breadcrumbs pt-15">
             <div {% if template.name == 'collection' and section.settings.container != blank %}{% render 'layout-get-container-class', fullwidth_need_paddings: true %}{% else %}class="container"{% endif %}>
                 <ul class="list-unstyled d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <li><a href="/" >{{ 'layout.breadcrumbs.home' | t }}</a></li>
+                    <li><a href="{{ routes.root_url }}" >{{ 'layout.breadcrumbs.home' | t }}</a></li>
                     {%- if template contains 'page' -%}
                         <li><span>{{ page.title }}</span></li>
                     {%- elsif template contains 'product' -%}
