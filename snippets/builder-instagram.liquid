@@ -63,7 +63,7 @@
                         {%- if fixed_height > 0 -%}
                             {% render 'rimage', custom_src: 'post-image', height_procent: fixed_height, stretch_size: 'cover', disable_lazyload: block.settings.disable_lazyload %}
                         {%- else -%}
-                            <img src="" {% unless block.settings.disable_lazyload %}data-{% endunless %}srcset="post-image"{% unless block.settings.disable_lazyload %} class="lazyload"{% endunless %} alt="Instagram">
+                            <img src="" {% unless block.settings.disable_lazyload %}data-{% endunless %}srcset="post-image"{% unless block.settings.disable_lazyload %} class="lazyload"{% endunless %} alt="Instagram" width="300" height="300" loading="lazy">
                         {%- endif -%}
                         <div class="instafeed__curtain absolute-stretch d-none d-lg-flex flex-lg-center">
                             {%- if block.settings.show_post_details -%}

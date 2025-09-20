@@ -57,7 +57,6 @@ You can learn more about this (and learn how to cleanly revert these changes) at
                     {%- endif -%}
                     {% capture prop_image_name %}image{% if i > 1 %}_{{ i }}{% endif %}{% endcapture %}
                     {% capture prop_image_size_name %}image_size{% if i > 1 %}_{{ i }}{% endif %}{% endcapture %}
-                    {% capture prop_url_name %}url{% if i > 1 %}_{{ i }}{% endif %}{% endcapture %}
                     {% capture title_image_html %}
                         {{ title_image_html }}|||{{ block.settings[prop_for_item_name] | handleize }}|||
                         <a href="[link_url]" class="d-none d-lg-block mb-10">

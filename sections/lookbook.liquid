@@ -62,7 +62,6 @@
                                                     <div class="d-none d-lg-block">
                                                         <div class="lookbook__product d-none position-absolute bottom-0 left-0" data-lookbook-product>
                                                             <a href="{{ routes.root_url }}{% if routes.root_url != '/' %}/{% endif %}products/{{ block.settings.product }}" class="d-block">
-                                                                {%- capture image_id -%} data-image-id="{{ image.id }}"{%- endcapture -%}
                                                                 {% render 'rimage', image: image, size: '160x', alt: title, image_class: 'w-100', disable_lazyload: lookbook_image_lazyload_disable %}
                                                             </a>
                                                             <div class="position-absolute top-0 right-0 mt-6 mr-4 cursor-pointer" data-lookbook-product-close>
@@ -79,8 +78,6 @@
                                         {%- endif -%}
                                         {%- assign title = null -%}
                                         {%- assign image = null -%}
-                                        {%- assign price = null -%}
-                                        {%- assign compare_at_price = null -%}
                                     {%- endif -%}
                                 {%- endfor -%}
                                 {%- if pickers_html != null -%}

@@ -17,9 +17,9 @@
 <meta name="theme-color" content="{{ settings.color_theme }}">
 {%- assign get_canonical_url = canonical_url -%}
 {%- if template.name == 'collection' -%}
-  {%- assign collectionURLEnd = 'collections/' | append: collection.handle -%}
-  {%- assign canonical_url_split = get_canonical_url | split: collectionURLEnd -%}
-  {%- assign get_canonical_url = canonical_url_split[0] | append: collectionURLEnd -%}
+  {%- assign collection_url_end = 'collections/' | append: collection.handle -%}
+  {%- assign canonical_url_split = get_canonical_url | split: collection_url_end -%}
+  {%- assign get_canonical_url = canonical_url_split[0] | append: collection_url_end -%}
 {%- endif -%}
 <link rel="canonical" href="{{ get_canonical_url }}">
 {%- assign page_title_downcase = page.title | downcase -%}

@@ -10,7 +10,6 @@
         {%- endif -%}
     </h1>
     <div class="rte mb-50{% if offset_pages_margin_bottom_d > 0 %} mb-lg-{{ offset_pages_margin_bottom_d }}{% endif %}">
-        {%- assign page_title_downcase = page.title | downcase -%}
         {%- if section.settings.page_type == 'privacy_policy' -%}
             {{ shop.privacy_policy | replace: '<h1>', '<h2 class="h5 text-uppercase">' | replace: '</h1>', '</h2>' | replace: '<h2>', '<h2 class="h5 text-uppercase">' | replace: '<ul>', '<ul class="mb-20">' | replace: '<table>', '<table class="mb-20">'}}
         {%- elsif section.settings.page_type == 'refund_policy' -%}

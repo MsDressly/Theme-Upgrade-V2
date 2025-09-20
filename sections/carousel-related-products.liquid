@@ -133,12 +133,10 @@
                                             {%- for product in recommendations.products limit: section.settings.max_count -%}
                                                 {%- if carousel_related_products_async_ajax_loading == false or forloop.index0 < limit -%}
                                                     <div class="carousel__item col-auto">
-                                                        {%- assign disable_lazyload = carousel_related_products_image_lazyload_carousel_disable -%}
                                                         {% render 'product-collection', url_without_collection: true %}
                                                     </div>
                                                 {%- elsif carousel_related_products_async_ajax_loading and forloop.index >= limit and forloop.last == true -%}
                                                     <div class="carousel__item col-auto">
-                                                        {%- assign disable_lazyload = carousel_related_products_image_lazyload_carousel_disable -%}
                                                         {% render 'product-collection', url_without_collection: true %}
                                                     </div>
                                                 {%- else -%}

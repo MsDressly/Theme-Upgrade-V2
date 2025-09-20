@@ -50,13 +50,11 @@
                                                 {%- if forloop.index0 < limit -%}
                                                     <div class="carousel__item col-auto"{% if get_carousel_products_async_ajax_loading %} data-carousel-product-preload data-handle="{{ product.handle }}"{% endif %}>
                                                         {%- if get_carousel_products_async_ajax_loading == false -%}
-                                                            {%- assign disable_lazyload = carousel_products_image_lazyload_disable -%}
-                                                            {% render 'product-collection', url_without_collection: true %}
+                                                                {% render 'product-collection', url_without_collection: true %}
                                                         {%- endif -%}
                                                     </div>
                                                     {%- elsif forloop.index >= limit and forloop.last == true -%}
                                                     <div class="carousel__item col-auto" data-carousel-product-preload data-handle="{{ product.handle }}">
-                                                        {%- assign disable_lazyload = carousel_products_image_lazyload_disable -%}
                                                         {% render 'product-collection', url_without_collection: true %}
                                                     </div>
                                                 {%- else -%}

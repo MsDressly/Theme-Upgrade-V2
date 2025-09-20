@@ -41,7 +41,6 @@
                     {% if block.settings.url != blank %}data-link="{{ block.settings.url }}" data-target="_blank"{% endif %} class="{{ inner_block_id }}">
                     {%- if block.settings.video_mp4_url != blank or block.settings.video_external_url != blank -%}
                         {%- if block.settings.video_mp4_url != blank -%}
-                            {%- assign audio = block.settings.video_mp4_url -%}
                             {%- assign video_data = 'data-videomp4="' | append: block.settings.video_mp4_url | append: '"' -%}
                         {%- elsif block.settings.video_external_url != blank -%}
                             {%- if block.settings.video_external_url.type == 'youtube' -%}
@@ -51,6 +50,7 @@
                                 <img src="{{ img_src }}"
                                      alt="Ocean"
                                      class="rev-slidebg"
+                                     width="1200" height="675"
                                      data-bgposition="{{ block.settings.image_position_x }}% 50%"
                                      data-bgfit="cover"
                                      data-bgrepeat="no-repeat">
@@ -87,6 +87,7 @@
                              srcset="{{ block.settings.image | image_url: slide_image_size, format: 'pjpg' }} 1x, {{ block.settings.image | image_url: slide_image_size, format: 'pjpg', scale: 2 }} 2x"
                              alt="{{ block.settings.image.alt }}"
                              class="rev-slidebg"
+                             width="1200" height="675"
                              data-bgposition="{{ block.settings.image_position_x }}% 50%"
                              data-bgfit="cover"
                              data-bgrepeat="no-repeat"

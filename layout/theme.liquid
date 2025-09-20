@@ -6,6 +6,10 @@
   <link rel="dns-prefetch" href="//fonts.googleapis.com">
   <link rel="dns-prefetch" href="//www.googletagmanager.com">
   <link rel="dns-prefetch" href="//www.google-analytics.com">
+  <link rel="dns-prefetch" href="//cdn.shopify.com">
+  <link rel="dns-prefetch" href="//fonts.shopifycdn.com">
+  <link rel="dns-prefetch" href="//monorail-edge.shopifysvc.com">
+  <link rel="dns-prefetch" href="//shopify-trekkie.global.ssl.fastly.net">
   
   <!-- Preconnect to external domains -->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
@@ -126,7 +130,7 @@
       var cssFiles = [
         '{{ "theme-m.s.min.css" | asset_url }}'
       ];
-      
+
       cssFiles.forEach(function(url) {
         var link = document.createElement('link');
         link.rel = 'stylesheet';
@@ -135,6 +139,38 @@
         link.onload = function() { this.media = 'all'; };
         document.head.appendChild(link);
       });
+
+      // Conditional loading of heavy libraries
+      {%- comment -%}
+      // Fotorama and Revolution Slider assets removed - commenting out to prevent MissingAsset errors
+      {%- if template contains 'product' -%}
+      // Load Fotorama only on product pages
+      if (document.querySelector('.product__photos, .fotorama')) {
+        var fotoramaCSS = document.createElement('link');
+        fotoramaCSS.rel = 'stylesheet';
+        fotoramaCSS.href = '{{ "plugin.fotorama.css" | asset_url }}';
+        document.head.appendChild(fotoramaCSS);
+
+        var fotoramaJS = document.createElement('script');
+        fotoramaJS.src = '{{ "plugin.fotorama.js" | asset_url }}';
+        fotoramaJS.async = true;
+        document.body.appendChild(fotoramaJS);
+      }
+      {%- endif -%}
+
+      // Load Revolution Slider only if present
+      if (document.querySelector('.rev_slider')) {
+        var revolutionCSS = document.createElement('link');
+        revolutionCSS.rel = 'stylesheet';
+        revolutionCSS.href = '{{ "plugin.revolution.css" | asset_url }}';
+        document.head.appendChild(revolutionCSS);
+
+        var revolutionJS = document.createElement('script');
+        revolutionJS.src = '{{ "plugin.revolution.s.min.js" | asset_url }}';
+        revolutionJS.async = true;
+        document.body.appendChild(revolutionJS);
+      }
+      {%- endcomment -%}
     }
 
     // Load third-party scripts after user interaction or page load

@@ -3,9 +3,9 @@
         <ul class="m-0">
             {%- for field in form.errors -%}
                 {%- if forloop.first != true -%}
-                    {%- assign res-error-fields = res-error-fields | append: '|' -%}
+                    {%- assign res_error_fields = res_error_fields | append: '|' -%}
                 {%- endif -%}
-                {%- assign res-error-fields = res-error-fields | append: field -%}
+                {%- assign res_error_fields = res_error_fields | append: field -%}
                 <li>
                     {%- if field == 'form' -%}
                         {{ form.errors.messages[field] }}

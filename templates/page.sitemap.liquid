@@ -48,7 +48,7 @@
       <h2>Products</h2>
       <ul id="product-sitemap">
 
-        {% paginate collections.all.products by 1000 %}
+        {% paginate collections.all.products by 250 %}
         {% for product in collections.all.products %}
         <li>
           <a href="{{ product.url }}">{{ product.title }}</a>

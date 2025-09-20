@@ -178,6 +178,8 @@
                             <img srcset="{{ block.settings[icon_image_property] | image_url: img_size }} 1x, {{ block.settings[icon_image_property] | image_url: img_size, scale: 2 }} 2x"
                                 src="{{ block.settings[icon_image_property] | image_url: img_size }}"
                                 loading="lazy"
+                                width="{% if block.settings.style == 'inline' %}24{% else %}40{% endif %}"
+                                height="{% if block.settings.style == 'inline' %}24{% else %}40{% endif %}"
                                 alt="{{ block.settings[icon_image_property].alt | default: shop.name | escape }}"
                                 style="object-position: {{ block.settings[icon_image_property].presentation.focal_point }};"
                             >

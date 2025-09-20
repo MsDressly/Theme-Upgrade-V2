@@ -55,7 +55,7 @@
                         {%- if megamenu == null -%} position-lg-relative{%- endif -%}
                     {%- endif -%}
                 {%- endcapture -%}
-                <div class="{{ menu_item_classes | strip }}" data-js-menu-vertical-item{% if is_hidden_items %}="hidden"{% endif %}>
+                <div class="{{ menu_item_classes | strip }}"{% if is_hidden_items %} data-js-menu-vertical-item="hidden"{% else %} data-js-menu-vertical-item{% endif %}>
                     <a href="{% render 'header-get-menu-link-substitution', preview_link_substitution: preview_link_substitution, default_link: link.url, link: link %}" class="d-flex align-items-center position-lg-relative{% if forloop.index0 > 0 %} border-top{% endif %}">{% render 'header-get-menu-icons', link: link, vertical_menu: true %}<span>{{ link.title }}</span>{% render 'header-get-menu-labels', label_html: label_html, link: link %}{% if link.levels > 0 or megamenu != null or longer_menu.levels > 0 %} <i class="menu__item_arrow ml-auto">{% render 'icon-theme-231' %}</i>{% endif %}</a>
                     {%- if link.levels > 0 or megamenu != null or longer_menu.levels > 0 -%}
                         {{ childrens }}
