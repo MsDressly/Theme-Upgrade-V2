@@ -2,7 +2,6 @@
 <html class="no-js supports-no-cookies" lang="{{ shop.locale }}"{% if shop.locale == 'ar' or shop.locale == 'he' or settings.layout_enable_rtl %} dir="rtl"{% endif %}>
 
 <head>
-  {%- assign disabled_by_yoast_seo = true -%}
   <!-- DNS prefetch for external domains -->
   <link rel="dns-prefetch" href="//fonts.googleapis.com">
   <link rel="dns-prefetch" href="//www.googletagmanager.com">
@@ -15,8 +14,8 @@
   
 
   <!-- Preload critical resources with high priority -->
-  <link rel="preload" href="{{ 'theme-d.s.min.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="{{ 'theme.s.min.js' | asset_url }}" as="script">
+  {{ 'theme-d.s.min.css' | asset_url | stylesheet_tag: preload: true }}
+  {{ 'theme.s.min.js' | asset_url | preload_tag: as: 'script' }}
   
   <!-- Optimized Critical inline CSS for above-the-fold content -->
   <style>
@@ -59,7 +58,7 @@
   <noscript><link rel="stylesheet" href="{{ 'theme-d.s.min.css' | asset_url }}"></noscript>
 
   <!-- MsDressly Custom Styles -->
-  <link rel="preload" href="{{ 'msdressly-custom.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  {{ 'msdressly-custom.css' | asset_url | stylesheet_tag: preload: true }}
   <noscript><link rel="stylesheet" href="{{ 'msdressly-custom.css' | asset_url }}"></noscript>
 
   {%- if template contains 'product' -%}

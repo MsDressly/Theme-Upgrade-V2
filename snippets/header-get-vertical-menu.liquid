@@ -48,7 +48,14 @@
                 {%- if header_vertical_menu_items_limit != 0 and forloop.index > header_vertical_menu_items_limit -%}
                     {%- assign is_hidden_items = true -%}
                 {%- endif -%}
-                <div class="menu__item{% if link.levels > 0 %} menu__item--has-children{% if megamenu == null %} position-lg-relative{% endif %}{% endif %}" data-js-menu-vertical-item{% if is_hidden_items %}="hidden"{% endif %}>
+                {%- capture menu_item_classes -%}
+                    menu__item
+                    {%- if link.levels > 0 -%}
+                        menu__item--has-children
+                        {%- if megamenu == null -%} position-lg-relative{%- endif -%}
+                    {%- endif -%}
+                {%- endcapture -%}
+                <div class="{{ menu_item_classes | strip }}" data-js-menu-vertical-item{% if is_hidden_items %}="hidden"{% endif %}>
                     <a href="{% render 'header-get-menu-link-substitution', preview_link_substitution: preview_link_substitution, default_link: link.url, link: link %}" class="d-flex align-items-center position-lg-relative{% if forloop.index0 > 0 %} border-top{% endif %}">{% render 'header-get-menu-icons', link: link, vertical_menu: true %}<span>{{ link.title }}</span>{% render 'header-get-menu-labels', label_html: label_html, link: link %}{% if link.levels > 0 or megamenu != null or longer_menu.levels > 0 %} <i class="menu__item_arrow ml-auto">{% render 'icon-theme-231' %}</i>{% endif %}</a>
                     {%- if link.levels > 0 or megamenu != null or longer_menu.levels > 0 -%}
                         {{ childrens }}

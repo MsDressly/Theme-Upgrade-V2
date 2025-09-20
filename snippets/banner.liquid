@@ -1,8 +1,8 @@
 {%- assign id_class = 'banner--id-' | append: id -%}
-{% capture tag_div_or_link_open %}{% if block.settings.url != blank %}<a href="{{ block.settings.url }}" class="d-block"{% else %}div{% endif %}>{% endcapture %}
-{% capture tag_div_or_link_close %}</{% if block.settings.url != blank %}a{% else %}div{% endif %}>{% endcapture %}
-{% capture tag_span_or_link_open %}{% if block.settings.url != blank %}<a href="{{ block.settings.url }}" class="d-block"{% else %}span{% endif %}>{% endcapture %}
-{% capture tag_span_or_link_close %}</{% if block.settings.url != blank %}a{% else %}span{% endif %}>{% endcapture %}
+{% capture tag_div_or_link_open %}{% if block.settings.url != blank %}<a href="{{ block.settings.url }}" class="d-block">{% else %}<div>{% endif %}{% endcapture %}
+{% capture tag_div_or_link_close %}{% if block.settings.url != blank %}</a>{% else %}</div>{% endif %}{% endcapture %}
+{% capture tag_span_or_link_open %}{% if block.settings.url != blank %}<a href="{{ block.settings.url }}" class="d-block">{% else %}<span>{% endif %}{% endcapture %}
+{% capture tag_span_or_link_close %}{% if block.settings.url != blank %}</a>{% else %}</span>{% endif %}{% endcapture %}
 {% capture text1_tag_type %}{% if block.settings.text_1_type contains 'h1' %}h1{% elsif block.settings.text_1_type contains 'h2' %}h2{% elsif block.settings.text_1_type contains 'h3' %}h3{% else %}p{% endif %}{% endcapture %}
 {% capture text2_tag_type %}{% if block.settings.text_2_type contains 'h1' %}h1{% elsif block.settings.text_2_type contains 'h2' %}h2{% elsif block.settings.text_2_type contains 'h3' %}h3{% else %}p{% endif %}{% endcapture %}
 {% capture text3_tag_type %}{% if block.settings.text_3_type contains 'h1' %}h1{% elsif block.settings.text_3_type contains 'h2' %}h2{% elsif block.settings.text_3_type contains 'h3' %}h3{% else %}p{% endif %}{% endcapture %}

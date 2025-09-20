@@ -1,6 +1,6 @@
 {% layout none %}
 {% render 'global-variables' %}
-{%- assign pageUrl = content_for_header | split:'"pageurl":"' | last | split:'"' | first | replace:'\/','/' | prepend: 'https://' | remove: canonical_url | url_decode | replace:'\u0026', '&#38;' | replace:'%20', ' ' -%}
+{%- assign pageUrl = request.query_string -%}
 {%- if pageUrl contains '?' -%}
     {%- assign params = pageUrl | remove: '?' | split: '&#38;' -%}
     {%- for param in params -%}

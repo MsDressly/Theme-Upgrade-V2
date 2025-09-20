@@ -175,8 +175,8 @@
                     {%- if block.settings[icon_image_property] != blank -%}
                         {% capture img_size %}{% if block.settings.style == 'inline' %}24x{% else %}40x{% endif %}{% endcapture %}
                         {% capture icon %}
-                            <img srcset="{{ block.settings[icon_image_property] | img_url: img_size }} 1x, {{ block.settings[icon_image_property] | img_url: img_size, scale: 2 }} 2x"
-                                src="{{ block.settings[icon_image_property] | img_url: img_size }}"
+                            <img srcset="{{ block.settings[icon_image_property] | image_url: img_size }} 1x, {{ block.settings[icon_image_property] | image_url: img_size, scale: 2 }} 2x"
+                                src="{{ block.settings[icon_image_property] | image_url: img_size }}"
                                 loading="lazy"
                                 alt="{{ block.settings[icon_image_property].alt | default: shop.name | escape }}"
                                 style="object-position: {{ block.settings[icon_image_property].presentation.focal_point }};"

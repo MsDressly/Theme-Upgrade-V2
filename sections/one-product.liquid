@@ -71,7 +71,7 @@
                       {% render 'rimage', image: section.settings.image, size: image_size, format: image_format %}
                     </a>
                   {%- else -%}
-                    {%- assign img_hover_url = hover_image | img_url: '1x1', format: image_format | replace: '_1x1.', image_size_placeholder -%}
+                    {%- assign img_hover_url = hover_image | image_url: '1x1', format: image_format | replace: '_1x1.', image_size_placeholder -%}
                     <div class="product-image product-image--hover-{{ settings.product_hover_animation_type }} position-relative w-100 js-product-images-navigation js-product-images-hovered-end{% if settings.product_replace_images_hover %} js-product-images-hover{% endif %}"{% if settings.product_replace_images_hover and hover_image != blank %} data-js-product-image-hover="{{ img_hover_url }}" data-js-product-image-hover-id="{{ hover_image.id }}"{% endif %}>
                       {% render 'product-get-images', url: url, image: image, image_size: image_size, title: title %}
                       {%- if show_arrows and product.images.size > 1 -%}
@@ -332,13 +332,13 @@
             <div class="one-product__bg_spacer d-none d-md-block {% if section.settings.height == 'fullscreen' %} lazyload-fullscreen{% elsif section.settings.height == 'fullscreen_header' %} lazyload-fullscreen-header{% endif %}"></div>
         {%- endif -%}
         <div class="one-product__bg_image absolute-stretch lazyload{% if section.settings.bg_image_mobile != blank %} d-none d-sm-block{% endif %}" 
-            data-master="{{ section.settings.bg_image | img_url: '1x1', format: 'pjpg' | replace: '_1x1.', image_size_placeholder }}"
-            data-bg="{{ section.settings.bg_image | img_url: '2000x', format: 'pjpg' }}">
+            data-master="{{ section.settings.bg_image | image_url: '1x1', format: 'pjpg' | replace: '_1x1.', image_size_placeholder }}"
+            data-bg="{{ section.settings.bg_image | image_url: '2000x', format: 'pjpg' }}">
         </div>
         {%- if section.settings.bg_image_mobile != blank -%}
           <div class="one-product__bg_image absolute-stretch d-sm-none lazyload"
-              data-master="{{ section.settings.bg_image_mobile | img_url: '1x1', format: 'pjpg' | replace: '_1x1.', image_size_placeholder }}"
-              data-bg="{{ section.settings.bg_image_mobile | img_url: '2000x', format: 'pjpg' }}">
+              data-master="{{ section.settings.bg_image_mobile | image_url: '1x1', format: 'pjpg' | replace: '_1x1.', image_size_placeholder }}"
+              data-bg="{{ section.settings.bg_image_mobile | image_url: '2000x', format: 'pjpg' }}">
           </div>
         {%- endif -%}
         <div class="one-product__content{% if section.settings.height != 'auto' %} absolute-md-stretch position-md-relative d-md-flex align-items-md-center{% endif %}">

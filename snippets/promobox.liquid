@@ -112,7 +112,7 @@
         {%- if responsive_height != blank or min_height > 0 -%}
             {% render 'rvideo', video: video_mp4_url, poster: image, poster_size: res_image_size, responsive_height: responsive_height, min_height: min_height, autoplay: video_autoplay, controls: video_controls, lazyload: video_lazyload %}
         {%- else -%}
-            <video src="{{ video_mp4_url }}" muted playsinline{% if video_controls %} controls{% endif %}{% if video_autoplay %} autoplay loop{% endif %}{% if image != blank %} {% if video_lazyload %}data-{% endif %}poster="{{ image | img_url: image_size }}"{% endif %} preload="auto" loading="eager" class="w-100"></video>
+            <video src="{{ video_mp4_url }}" muted playsinline{% if video_controls %} controls{% endif %}{% if video_autoplay %} autoplay loop{% endif %}{% if image != blank %} {% if video_lazyload %}data-{% endif %}poster="{{ image | image_url: image_size }}"{% endif %} preload="auto" loading="eager" class="w-100"></video>
         {%- endif -%}
     {%- elsif video_external_url != blank -%}
         {% render 'video-external', video_url: video_external_url.id, autoplay: video_autoplay, controls: video_controls, lazyload: video_lazyload, media: video_external_url %}

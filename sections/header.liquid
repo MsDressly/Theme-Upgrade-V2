@@ -1172,7 +1172,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
         {%- capture btn_cart_html -%}
             {%- if settings.cart_show_header_button -%}
                 <div class="ml-25 ml-lg-15">
-                    <a href="/cart" class="header__btn-cart position-relative d-flex align-items-center text-nowrap js-popup-button" data-js-popup-button="cart"{% if need_sticky_sidebar %} data-js-sticky-replace-element="cart"{% endif %}>
+                    <a href="{{ routes.cart_url }}" class="header__btn-cart position-relative d-flex align-items-center text-nowrap js-popup-button" data-js-popup-button="cart"{% if need_sticky_sidebar %} data-js-sticky-replace-element="cart"{% endif %}>
                         {% capture cart_icon_name %}{{ settings.cart_icon | default: 'icon-theme-109' }}{% endcapture %}
                         <i class="mr-lg-7">{% render cart_icon_name %}</i>
                         <span class="d-none d-lg-inline mt-lg-4" data-js-cart-count-desktop="{{ cart.item_count }}">{{ 'layout.header.cart_count' | t: count: cart.item_count }}</span>
@@ -1562,7 +1562,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
                             {{ logo_html }}
                             <div class="header__search-form search-ajax d-none d-lg-block position-lg-absolute" data-js-max-products="5">
                                 {%- if settings.search_predictive_enabled -%}
-                                    <predictive-search class="search-modal__form" data-loading-text="{{ 'accessibility.loading' | t }}">
+                                    <predictive-search class="search-modal__form" data-loading-text="{{ 'general.accessibility.loading' | t }}">
                                 {%- else -%}
                                     <search-form class="search-modal__form">
                                 {%- endif -%}
@@ -1701,7 +1701,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
                             {{ logo_html }}
                             <div class="header__search-form search-ajax d-none d-lg-block position-lg-absolute" data-js-max-products="5">
                                 {%- if settings.search_predictive_enabled -%}
-                                    <predictive-search class="search-modal__form" data-loading-text="{{ 'accessibility.loading' | t }}">
+                                    <predictive-search class="search-modal__form" data-loading-text="{{ 'general.accessibility.loading' | t }}">
                                 {%- else -%}
                                     <search-form class="search-modal__form">
                                 {%- endif -%}
@@ -1827,7 +1827,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
                             <div class="d-flex ml-auto">
                                 <div class="header__search-form search-ajax d-none d-lg-block" data-js-max-products="5">
                                     {%- if settings.search_predictive_enabled -%}
-                                        <predictive-search class="search-modal__form" data-loading-text="{{ 'accessibility.loading' | t }}">
+                                        <predictive-search class="search-modal__form" data-loading-text="{{ 'general.accessibility.loading' | t }}">
                                     {%- else -%}
                                         <search-form class="search-modal__form">
                                     {%- endif -%}
@@ -1922,7 +1922,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
   "name": {{ shop.name | json }},
   {% if section.settings.logo %}
     {% assign image_size = section.settings.logo.width | append:'x' %}
-    "logo": {{ section.settings.logo | img_url: image_size | prepend: "https:" | json }},
+    "logo": {{ section.settings.logo | image_url: image_size | prepend: "https:" | json }},
   {% endif %}
   "sameAs": [
     {{ settings.social_twitter | json }},

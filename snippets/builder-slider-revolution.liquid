@@ -83,8 +83,8 @@
                                 {{ video_attr }}
                         ></div>
                     {%- else -%}
-                        <img src="{{ block.settings.image | img_url: slide_image_size, format: 'pjpg' }}"
-                             srcset="{{ block.settings.image | img_url: slide_image_size, format: 'pjpg' }} 1x, {{ block.settings.image | img_url: slide_image_size, format: 'pjpg', scale: 2 }} 2x"
+                        <img src="{{ block.settings.image | image_url: slide_image_size, format: 'pjpg' }}"
+                             srcset="{{ block.settings.image | image_url: slide_image_size, format: 'pjpg' }} 1x, {{ block.settings.image | image_url: slide_image_size, format: 'pjpg', scale: 2 }} 2x"
                              alt="{{ block.settings.image.alt }}"
                              class="rev-slidebg"
                              data-bgposition="{{ block.settings.image_position_x }}% 50%"
@@ -155,7 +155,7 @@
                         <div class="d-none d-lg-block d-xl-none" style="padding-top: {{ responsive_height_arr[1] }}px;"></div>
                         <div class="d-none d-xl-block" style="padding-top: {{ responsive_height_arr[0] }}px;"></div>
                     {%- endif -%}
-                    <div class="responsive-block__bg absolute-stretch" style="background-image: url('{{ first_image | img_url: 'x550', format: 'pjpg' }}');"></div>
+                    <div class="responsive-block__bg absolute-stretch" style="background-image: url('{{ first_image | image_url: 'x550', format: 'pjpg' }}');"></div>
                 </div>
             {%- endif -%}
         </div>

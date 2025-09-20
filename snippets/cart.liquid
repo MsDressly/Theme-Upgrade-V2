@@ -98,7 +98,7 @@
                                     </div>
                                 {%- endif -%}
                                 <div class="d-flex pt-25">
-                                    <a href="/collections/all" class="btn btn--text text-left">
+                                    <a href="{{ routes.all_products_collection_url }}" class="btn btn--text text-left">
                                         <i class="mb-4 mr-4">{% render 'icon-theme-012' %}</i>{{ 'cart.general.continue_shopping' | t }}
                                     </a>
                                     <button type="submit" class="btn btn--text text-left ml-auto" name="update">
@@ -213,7 +213,7 @@
         <div class="cart d-flex flex-column align-items-center py-40 py-md-100 my-100">
             <h1 class="h3">{{ 'cart.general.empty_title' | t }}</h1>
             <p>{{ 'cart.general.empty_paragraph' | t }}</p>
-            <a href="/collections/all" class="cart__btn-empty empty-btn btn mt-20">{{ 'cart.general.empty_button' | t }}</a>
+            <a href="{{ routes.all_products_collection_url }}" class="cart__btn-empty empty-btn btn mt-20">{{ 'cart.general.empty_button' | t }}</a>
         </div>
     {%- endif -%}
     </div>

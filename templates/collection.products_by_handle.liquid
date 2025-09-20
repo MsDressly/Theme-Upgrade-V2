@@ -1,13 +1,6 @@
 {% layout none %}
 
-{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
-{%- assign params = contentForQuerystring
-    | split: '"pageurl":"'
-    | last
-    | split: '"'
-    | first
-    | split: '.myshopify.com'
-    | last
+{%- assign params = request.path
     | replace: '\/', '/'
     | replace: '%20', ' '
     | replace: '\u0026', '&'

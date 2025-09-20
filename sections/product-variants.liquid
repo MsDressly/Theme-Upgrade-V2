@@ -36,9 +36,9 @@
                         {
                             {%- if block.settings.image != blank -%}
                                 {%- if settings.product_format_pjpg -%}
-                                    background-image: url({{ block.settings.image | img_url: '92x', format: 'pjpg' }}) !important;
+                                    background-image: url({{ block.settings.image | image_url: '92x', format: 'pjpg' }}) !important;
                                 {%- else -%}
-                                    background-image: url({{ block.settings.image | img_url: '92x' }}) !important;
+                                    background-image: url({{ block.settings.image | image_url: '92x' }}) !important;
                                 {%- endif -%}
                             {%- elsif block.settings.disable_default_image -%}
                                 background-image: none !important;
@@ -59,9 +59,9 @@
                             {%- endif -%}
                                 {
                                     {%- if settings.product_format_pjpg -%}
-                                        background-image: url({{ image | img_url: '92x', format: 'pjpg' }}) !important;
+                                        background-image: url({{ image | image_url: '92x', format: 'pjpg' }}) !important;
                                     {%- else -%}
-                                        background-image: url({{ image | img_url: '92x' }}) !important;
+                                        background-image: url({{ image | image_url: '92x' }}) !important;
                                     {%- endif -%}
                                 }
                         {%- else -%}

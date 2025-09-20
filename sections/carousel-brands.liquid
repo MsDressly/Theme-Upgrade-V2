@@ -23,7 +23,11 @@
                         <div class="carousel__slick" data-js-carousel-slick>
                             {%- for block in section.blocks -%}
                                 {%- assign link = block.settings.link -%}
-                                <{% if link != blank %}a href="{{ link }}"{% else %}div{% endif %} class="carousel__item promobox position-relative d-flex align-items-center justify-content-center">
+                                {%- if link != blank -%}
+                                <a href="{{ link }}" class="carousel__item promobox position-relative d-flex align-items-center justify-content-center">
+                                {%- else -%}
+                                <div class="carousel__item promobox position-relative d-flex align-items-center justify-content-center">
+                                {%- endif -%}
                                     <div class="w-100"{% if section.settings.image_max_width > 0 %} style="max-width: {{ section.settings.image_max_width }}px;"{% endif %}>
                                         <div class="overflow-hidden"{% if section.settings.border_radius != blank %} style="border-radius: {{ section.settings.border_radius }}"{% endif %}>
                                             {% render 'rimage', image: block.settings.image, size: '400x', image_class: 'w-100', disable_lazyload: carousel_brands_image_lazyload_disable, scale: 2 %}
@@ -32,7 +36,11 @@
                                     {%- if section.settings.bordered_links and link != blank -%}
                                         <div class="promobox__border promobox__border--only-hover absolute-stretch"{% if section.settings.border_radius != blank %} style="border-radius: {{ section.settings.border_radius }}"{% endif %}></div>
                                     {%- endif -%}
-                                </{% if link != blank %}a{% else %}div{% endif %}>
+                                {%- if link != blank -%}
+                                </a>
+                                {%- else -%}
+                                </div>
+                                {%- endif -%}
                             {%- endfor -%}
                         </div>
                     </div>
@@ -50,14 +58,22 @@
                     {%- for block in section.blocks -%}
                         <div class="col-4 col-sm-3 col-lg-2 mb-15 mb-lg-30">
                             {%- assign link = block.settings.link -%}
-                            <{% if link != blank %}a href="{{ link }}"{% else %}div{% endif %} class="promobox w-100 position-relative">
+                            {%- if link != blank -%}
+                                <a href="{{ link }}" class="promobox w-100 position-relative">
+                            {%- else -%}
+                                <div class="promobox w-100 position-relative">
+                            {%- endif -%}
                                 <div class="overflow-hidden"{% if section.settings.border_radius != blank %} style="border-radius: {{ section.settings.border_radius }}"{% endif %}>
                                     {% render 'rimage', image: block.settings.image, size: '400x', image_class: 'w-100', disable_lazyload: carousel_brands_image_lazyload_disable, scale: 2 %}
                                 </div>
                                 {%- if section.settings.bordered_links and link != blank -%}
                                     <div class="promobox__border promobox__border--only-hover absolute-stretch"{% if section.settings.border_radius != blank %} style="border-radius: {{ section.settings.border_radius }}"{% endif %}></div>
                                 {%- endif -%}
-                            </{% if link != blank %}a{% else %}div{% endif %}>
+                            {%- if link != blank -%}
+                                </a>
+                            {%- else -%}
+                                </div>
+                            {%- endif -%}
                         </div>
                     {%- endfor -%}
                 </div>

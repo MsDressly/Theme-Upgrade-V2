@@ -15,7 +15,7 @@
                     <i class="search__close ml-auto cursor-pointer" data-js-popup-close>{% render 'icon-theme-164' %}</i>
                 </div>
                 {%- if settings.search_predictive_enabled -%}
-                    <predictive-search class="search-modal__form" data-loading-text="{{ 'accessibility.loading' | t }}">
+                    <predictive-search class="search-modal__form" data-loading-text="{{ 'general.accessibility.loading' | t }}">
                 {%- else -%}
                     <search-form class="search-modal__form">
                 {%- endif -%}

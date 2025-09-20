@@ -19,10 +19,19 @@
                 {%- assign video_lazyload = true -%}
             {%- endif -%}
             {% capture inner_block_id %}{{ block_id }}-{{ forloop.index }}{% endcapture %}
-            <{% if block.settings.link != blank %}a href="{{ block.settings.link }}" data-target="_blank"{% else %}div{% endif %} class="slider__slide {{ inner_block_id }}"
-                {% if block.settings.delay > 0 %}data-delay="{{ block.settings.delay | times: 1000 }}"{% endif %}>
+            {%- if block.settings.link != blank -%}
+                <a href="{{ block.settings.link }}" data-target="_blank" class="slider__slide {{ inner_block_id }}"
+                   {% if block.settings.delay > 0 %}data-delay="{{ block.settings.delay | times: 1000 }}"{% endif %}>
+            {%- else -%}
+                <div class="slider__slide {{ inner_block_id }}"
+                     {% if block.settings.delay > 0 %}data-delay="{{ block.settings.delay | times: 1000 }}"{% endif %}>
+            {%- endif -%}
                 {% render 'promobox', block: block, block_id: inner_block_id, video_lazyload: video_lazyload, promobox_curtain_opacity: promobox_curtain_opacity, promobox_height_preset_1: promobox_height_preset_1, promobox_height_preset_2: promobox_height_preset_2, promobox_height_preset_3: promobox_height_preset_3, promobox_ultra_height_preset_1: promobox_ultra_height_preset_1, promobox_ultra_height_preset_3: promobox_ultra_height_preset_3, height: slider_height, min_height: slider_min_height, is_slider: true %}
-            </{% if block.settings.link != blank %}a{% else %}div{% endif %}>
+            {%- if block.settings.link != blank -%}
+                </a>
+            {%- else -%}
+                </div>
+            {%- endif -%}
             {%- assign slider_index = slider_index | plus: 1 -%}
         {%- endfor -%}
     </div>

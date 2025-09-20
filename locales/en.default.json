@@ -206,6 +206,13 @@
       "contact_confirmation": {
         "post_success": "Thanks for contacting us. We'll get back to you as soon as possible.",
         "button_success": "Continue shopping"
+      },
+      "confirm_transfer_data": {
+        "info": "Transfer your data to continue",
+        "name_single": "item",
+        "name_plural": "items",
+        "compare_title": "Compare Items",
+        "wishlist_title": "Wishlist Items"
       }
     },
     "notifications": {
@@ -767,5 +774,11 @@
     "order_details": {
       "marketing_checkbox_label": "Email me with monthly giveaways and offers (enable and use promo code 👉\"vip24access\"👈 for additional VIP discount)"
     }
+  },
+  "socialshopwave": {
+    "log_in": "Log In",
+    "logout": "Log Out",
+    "my_orders": "My Orders",
+    "sign_up": "Sign Up"
   }
 }

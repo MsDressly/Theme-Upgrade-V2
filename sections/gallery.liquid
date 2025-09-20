@@ -31,7 +31,7 @@
                 {%- for block in section.blocks -%}
                     {%- assign page_name_handle = block.settings.page_name | handleize -%}
                     {%- if page_name_handle == blank or page_name_handle == page.handle -%}
-                        <div class="d-flex flex-column flex-center h-100" data-thumb="{{ block.settings.image | img_url: 'medium', format: 'pjpg' }}">
+                        <div class="d-flex flex-column flex-center h-100" data-thumb="{{ block.settings.image | image_url: 'medium', format: 'pjpg' }}">
                             <div class="gallery__item-text w-100 pb-35 text-center">
                                 {%- if block.settings.text_line_01 != blank -%}
                                     <h3 class="h6 mb-0 font-italic">{{ block.settings.text_line_01 }}</h3>
@@ -40,7 +40,7 @@
                                     <h4 class="mb-0{% if block.settings.text_line_01 != blank %} mt-10{% endif %}">{{ block.settings.text_line_02 }}</h4>
                                 {%- endif -%}
                             </div>
-                            <img src="{{ block.settings.image | img_url: '1000x', format: 'pjpg' }}">
+                            <img src="{{ block.settings.image | image_url: '1000x', format: 'pjpg' }}" width="1000" height="600" loading="lazy">
                         </div>
                     {%- endif -%}
                 {%- endfor -%}

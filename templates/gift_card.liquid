@@ -23,7 +23,7 @@
       {%- endif -%}
     </div>
     <div class="giftcard__image mb-15 position-relative">
-      <img src="{{ 'gift-card.jpg' | asset_url }}" alt="Gift card illustration">
+      <img src="{{ 'gift-card.jpg' | asset_url }}" alt="Gift card illustration" width="500" height="300">
       <div class="giftcard__code d-flex flex-center position-absolute left-0 right-0 bottom-0 mx-20 mb-20 text-center">
         {%- assign code_size = gift_card.code | format_code | size -%}
         <span id="GiftCardDigits" class="font-weight-bold">{{ gift_card.code | format_code }}</span>

@@ -277,9 +277,9 @@
         --animation-notification-duration: 0.4s;
         --animation-footbar-product-duration: 0.4s;
 
-        --layout-preloader-cursor:{% if settings.layout_preloader_cursor != blank %}url('{{ settings.layout_preloader_cursor | img_url }}'),{% endif %} default;
+        --layout-preloader-cursor:{% if settings.layout_preloader_cursor != blank %}url('{{ settings.layout_preloader_cursor | image_url }}'),{% endif %} default;
         --layout-preloader-opacity: {{ settings.layout_preloader_opacity }};
-        --product-cursor:{% if settings.product_cursor != blank %}url('{{ settings.product_cursor | img_url }}'),{% endif %} pointer;
+        --product-cursor:{% if settings.product_cursor != blank %}url('{{ settings.product_cursor | image_url }}'),{% endif %} pointer;
         --product-gallery-cursor: url('{{ 'cursor-product-gallery.png' | asset_url }}'), pointer;
         --slider-bullets-h-opacity: 1;
         --slider-arrows-h-opacity: 1;

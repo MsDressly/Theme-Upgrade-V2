@@ -9,12 +9,12 @@ You can learn more about this (and learn how to cleanly revert these changes) at
 {%- if settings.social_share_image -%}
   {% capture og_image_tags %}{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
 {%- if disabled_by_yoast_seo -%}
-<meta property="og:image" content="http:{{ settings.social_share_image | default: page_image | img_url: '1200x1200' }}">
+<meta property="og:image" content="http:{{ settings.social_share_image | default: page_image | image_url: '1200x1200' }}">
 {%- comment -%} End Yoast auto-disable. {%- endcomment -%}
 {%- endif -%}{% endcapture %}
   {% capture og_image_secure_url_tags %}{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
 {%- if disabled_by_yoast_seo -%}
-<meta property="og:image:secure_url" content="https:{{ settings.social_share_image | default: page_image | img_url: '1200x1200' }}">
+<meta property="og:image:secure_url" content="https:{{ settings.social_share_image | default: page_image | image_url: '1200x1200' }}">
 {%- comment -%} End Yoast auto-disable. {%- endcomment -%}
 {%- endif -%}{% endcapture %}
 {%- endif -%}
@@ -25,12 +25,12 @@ You can learn more about this (and learn how to cleanly revert these changes) at
   {%- if product.media.size > 0 -%}
     {% capture og_image_tags %}{% for media in product.media limit:3 -%}{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
 {%- if disabled_by_yoast_seo -%}
-<meta property="og:image" content="http:{{ media | img_url: '1200x1200' }}">
+<meta property="og:image" content="http:{{ media | image_url: '1200x1200' }}">
 {%- comment -%} End Yoast auto-disable. {%- endcomment -%}
 {%- endif -%}{% endfor -%}{% endcapture -%}
     {% capture og_image_secure_url_tags %}{% for media in product.media limit:3 -%}{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
 {%- if disabled_by_yoast_seo -%}
-<meta property="og:image:secure_url" content="https:{{ media | img_url: '1200x1200' }}">
+<meta property="og:image:secure_url" content="https:{{ media | image_url: '1200x1200' }}">
 {%- comment -%} End Yoast auto-disable. {%- endcomment -%}
 {%- endif -%}{% endfor -%}{% endcapture -%}
   {%- endif -%}
@@ -41,12 +41,12 @@ You can learn more about this (and learn how to cleanly revert these changes) at
   {%- if article.image -%}
     {% capture og_image_tags %}{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
 {%- if disabled_by_yoast_seo -%}
-<meta property="og:image" content="http:{{ article.image | img_url: '1200x1200' }}">
+<meta property="og:image" content="http:{{ article.image | image_url: '1200x1200' }}">
 {%- comment -%} End Yoast auto-disable. {%- endcomment -%}
 {%- endif -%}{% endcapture %}
     {% capture og_image_secure_url_tags %}{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
 {%- if disabled_by_yoast_seo -%}
-<meta property="og:image:secure_url" content="https:{{ article.image | img_url: '1200x1200' }}">
+<meta property="og:image:secure_url" content="https:{{ article.image | image_url: '1200x1200' }}">
 {%- comment -%} End Yoast auto-disable. {%- endcomment -%}
 {%- endif -%}{% endcapture %}
   {%- endif -%}
@@ -56,12 +56,12 @@ You can learn more about this (and learn how to cleanly revert these changes) at
   {%- if collection.image -%}
     {% capture og_image_tags %}{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
 {%- if disabled_by_yoast_seo -%}
-<meta property="og:image" content="http:{{ collection.image | img_url: '1200x1200' }}">
+<meta property="og:image" content="http:{{ collection.image | image_url: '1200x1200' }}">
 {%- comment -%} End Yoast auto-disable. {%- endcomment -%}
 {%- endif -%}{% endcapture %}
     {% capture og_image_secure_url_tags %}{%- comment -%}Auto-disabled. Yoast plugin is taking care of Meta Tags output.{%- endcomment -%}
 {%- if disabled_by_yoast_seo -%}
-<meta property="og:image:secure_url" content="https:{{ collection.image | img_url: '1200x1200' }}">
+<meta property="og:image:secure_url" content="https:{{ collection.image | image_url: '1200x1200' }}">
 {%- comment -%} End Yoast auto-disable. {%- endcomment -%}
 {%- endif -%}{% endcapture %}
   {%- endif -%}
@@ -139,7 +139,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
       "@context": "https://schema.org",
       "@type": "Organization",
       "url": "{{canonical_url}}",
-      "logo": "{{settings.logo_image | img_url: 'master' }}"
+      "logo": "{{settings.logo_image | image_url: 'master' }}"
     }
 {%- comment -%}Yoast SEO schema control block: end.{%- endcomment -%}
 </script>

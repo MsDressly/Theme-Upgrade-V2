@@ -118,7 +118,11 @@
             <div class="container">
                 <div class="row py-{{ information_line_padding_v }}">
                     {%- for block in section.blocks -%}
-                        <{% if block.settings.url != blank %}a href="{{ block.settings.url }}"{% else %}div{% endif %} class="col-12 col-lg-{{ 12 | divided_by: section.blocks.size }}">
+                        {%- if block.settings.url != blank -%}
+                            <a href="{{ block.settings.url }}" class="col-12 col-lg-{{ 12 | divided_by: section.blocks.size }}">
+                        {%- else -%}
+                            <div class="col-12 col-lg-{{ 12 | divided_by: section.blocks.size }}">
+                        {%- endif -%}
                             {%- if section.settings.type == '1' -%}
                                 <div class="d-flex align-items-center justify-content-start justify-content-lg-start py-10">
                                     <i class="mr-15">{% render 'load-icon', name: block.settings.icon %}</i>
@@ -144,7 +148,11 @@
                                     </div>
                                 </div>
                             {%- endif -%}
-                        </{% if block.settings.url != blank %}a{% else %}div{% endif %}>
+                        {%- if block.settings.url != blank -%}
+                            </a>
+                        {%- else -%}
+                            </div>
+                        {%- endif -%}
                     {%- endfor -%}
                 </div>
             </div>

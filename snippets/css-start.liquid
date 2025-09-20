@@ -219,7 +219,7 @@
             padding-right: {{ button_padding_horizontal_d }}px;
         }
         .preloader--page {
-            cursor: {% if layout_preloader_cursor != blank %}url('{{ layout_preloader_cursor | img_url }}'),{% endif %} default !important;
+            cursor: {% if layout_preloader_cursor != blank %}url('{{ layout_preloader_cursor | image_url }}'),{% endif %} default !important;
         }
     }
     @media (max-width: 1024px) {

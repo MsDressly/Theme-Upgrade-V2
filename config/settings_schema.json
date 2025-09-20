@@ -893,7 +893,7 @@
         "type": "font_picker",
         "label": "t:settings_schema.typography.settings.font_base.label",
         "id": "font_base",
-        "default": "basic_commercial_n4"
+        "default": "assistant_n4"
       },
       {
         "type": "checkbox",
@@ -965,7 +965,7 @@
         "type": "font_picker",
         "label": "t:settings_schema.typography.settings.font_heading.label",
         "id": "font_heading",
-        "default": "basic_commercial_n4"
+        "default": "assistant_n4"
       },
       {
         "type": "select",
@@ -1076,7 +1076,7 @@
         "type": "font_picker",
         "label": "t:settings_schema.typography.settings.font_button.label",
         "id": "font_button",
-        "default": "basic_commercial_n4"
+        "default": "assistant_n4"
       },
       {
         "type": "range",
@@ -1106,7 +1106,7 @@
         "type": "font_picker",
         "label": "t:settings_schema.typography.settings.font_menu.label",
         "id": "font_menu",
-        "default": "basic_commercial_n4"
+        "default": "assistant_n4"
       },
       {
         "type": "range",
@@ -1168,7 +1168,7 @@
         "type": "font_picker",
         "label": "t:settings_schema.typography.settings.font_alternative.label",
         "id": "font_alternative",
-        "default": "basic_commercial_n4"
+        "default": "assistant_n4"
       },
       {
         "type": "select",

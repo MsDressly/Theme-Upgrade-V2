@@ -674,11 +674,11 @@
             <div class="popup-subscription__image lazyload absolute-stretch"
         {%- endif -%}
             {%- if settings.subscription_popup_image_format_pjpg -%}
-                data-master="{{ settings.subscription_popup_image | img_url: '1x1', format: 'pjpg' | replace: '_1x1.', image_size_placeholder }}"
-                data-bg="{{ settings.subscription_popup_image | img_url: subscription_image_size, format: 'pjpg' }}"
+                data-master="{{ settings.subscription_popup_image | image_url: '1x1', format: 'pjpg' | replace: '_1x1.', image_size_placeholder }}"
+                data-bg="{{ settings.subscription_popup_image | image_url: subscription_image_size, format: 'pjpg' }}"
             {%- else -%}
-                data-master="{{ settings.subscription_popup_image | img_url: '1x1' | replace: '_1x1.', image_size_placeholder }}"
-                data-bg="{{ settings.subscription_popup_image | img_url: subscription_image_size }}"
+                data-master="{{ settings.subscription_popup_image | image_url: '1x1' | replace: '_1x1.', image_size_placeholder }}"
+                data-bg="{{ settings.subscription_popup_image | image_url: subscription_image_size }}"
             {%- endif -%}
                 data-scale="3"
         >

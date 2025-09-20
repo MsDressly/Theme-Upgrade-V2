@@ -78,11 +78,11 @@
                                      data-value="{% render 'product-get-options-strip-symbols', value: value %}"
                                      {{ trigger_attr }}
                                     {%- if settings.product_format_pjpg -%}
-                                        data-master="{{ option_image | img_url: '1x1', format: 'pjpg' | replace: '_1x1.', image_size_placeholder }}"
-                                        data-bg="{{ option_image | img_url: '48x', format: 'pjpg' }}"
+                                        data-master="{{ option_image | image_url: '1x1', format: 'pjpg' | replace: '_1x1.', image_size_placeholder }}"
+                                        data-bg="{{ option_image | image_url: '48x', format: 'pjpg' }}"
                                     {% else -%}
-                                        data-master="{{ option_image | img_url: '1x1' | replace: '_1x1.', image_size_placeholder }}"
-                                        data-bg="{{ option_image | img_url: '48x' }}"
+                                        data-master="{{ option_image | image_url: '1x1' | replace: '_1x1.', image_size_placeholder }}"
+                                        data-bg="{{ option_image | image_url: '48x' }}"
                                     {% endif -%}
                                      data-scale="2"
                                     {%- if settings.tooltips_enable and product_option_enable_tooltips %}
@@ -122,11 +122,11 @@
                                      data-value="{% render 'product-get-options-strip-symbols', value: value %}"
                                      {{ trigger_attr }}
                                         {%- if settings.product_format_pjpg -%}
-                                            data-master="{{ option_image | img_url: '1x1', format: 'pjpg' | replace: '_1x1.', image_size_placeholder }}"
-                                            data-bg="{{ option_image | img_url: '92x', format: 'pjpg' }}"
+                                            data-master="{{ option_image | image_url: '1x1', format: 'pjpg' | replace: '_1x1.', image_size_placeholder }}"
+                                            data-bg="{{ option_image | image_url: '92x', format: 'pjpg' }}"
                                         {% else -%}
-                                            data-master="{{ option_image | img_url: '1x1' | replace: '_1x1.', image_size_placeholder }}"
-                                            data-bg="{{ option_image | img_url: '92x' }}"
+                                            data-master="{{ option_image | image_url: '1x1' | replace: '_1x1.', image_size_placeholder }}"
+                                            data-bg="{{ option_image | image_url: '92x' }}"
                                         {% endif -%}
                                      data-scale="2"
                                     {%- if settings.tooltips_enable and product_option_enable_tooltips %}

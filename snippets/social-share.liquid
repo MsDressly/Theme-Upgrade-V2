@@ -34,7 +34,7 @@
         {%- endif -%}
         {%- if settings.social_share_enable_pinterest -%}
             <div class="social-share__col {{ grid }} px-5 mb-10">
-                <a href="//pinterest.com/pin/create/button/?url={{ shop.url | append: share_permalink }}&amp;media={{ share_image | img_url: '1024x1024' }}&amp;description={{ share_title | url_param_escape }}" target="_blank" class="social-share__item social-share__item--pinterest position-relative d-block">
+                <a href="//pinterest.com/pin/create/button/?url={{ shop.url | append: share_permalink }}&amp;media={{ share_image | image_url: '1024x1024' }}&amp;description={{ share_title | url_param_escape }}" target="_blank" class="social-share__item social-share__item--pinterest position-relative d-block">
                     <div class="social-share__item_bg absolute-stretch"></div>
                     <div class="social-share__item_content position-relative d-flex flex-center">
                         <i>{% render 'icon-social-pinterest-2' %}</i>

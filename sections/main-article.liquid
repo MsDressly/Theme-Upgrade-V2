@@ -271,7 +271,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
   {% if article.image %}
     {% assign image_size = article.image.width | append: 'x' %}
     "image": [
-      {{ article | img_url: image_size | prepend: "https:" | json }}
+      {{ article | image_url: image_size | prepend: "https:" | json }}
     ],
   {% endif %}
   "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
@@ -287,7 +287,7 @@ You can learn more about this (and learn how to cleanly revert these changes) at
       "logo": {
         "@type": "ImageObject",
         "height": {{ settings.share_image.height | json }},
-        "url": {{ settings.share_image | img_url: image_size | prepend: "https:" | json }},
+        "url": {{ settings.share_image | image_url: image_size | prepend: "https:" | json }},
         "width": {{ settings.share_image.width | json }}
       },
     {% endif %}
